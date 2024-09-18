@@ -42,6 +42,7 @@ pyunormalize==16.0.0
 regex==2024.9.11
 requests==2.32.3
 rlp==4.0.1
+ruff==0.6.5
 six==1.16.0
 toolz==0.12.1
 types-requests==2.32.0.20240914
