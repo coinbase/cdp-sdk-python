@@ -1,0 +1,48 @@
+[project]
+name = "coinbase-cdp-sdk"
+version = "0.1.0"
+description = "CDP Python SDK"
+readme = "README.md"
+authors = [{name = "John Peterson", email = "john.peterson@coinbase.com"}]
+license = {file = "TODO"}
+keywords = ["coinbase", "sdk", "crypto", "cdp"]
+
+requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "TODO"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["coinbase*"]
+exclude = ["tests*"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "D", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["D100", "D104", "D107"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.isort]
+known-first-party = ["cdp"]
+
