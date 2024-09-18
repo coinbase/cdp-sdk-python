@@ -1,5 +1,22 @@
+.DS_Store
+
+.python-version
+
 **/__pycache__/
 
 .pytest_cache
 
 .ruff_cache
+
+venv/
+.venv/
+
+env/
+.env/
+.env.local/
+.env.test/
+
+*~
+\#*\#
+.\#*
+.projectile
