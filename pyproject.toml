@@ -1,5 +1,5 @@
 [project]
-name = "coinbase-cdp-sdk"
+name = "cdp-sdk"
 version = "0.1.0"
 description = "CDP Python SDK"
 readme = "README.md"
