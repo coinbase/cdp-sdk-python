@@ -7,7 +7,7 @@ from cdp.errors import InvalidConfigurationError
 
 
 class Cdp:
-    """The Cdp class is responsible for configuring and managing the Coinbase API client.
+    """The Cdp class is a singleton responsible for configuring and managing the Coinbase API client.
 
     Attributes:
         api_key_name (Optional[str]): The API key name.
@@ -20,6 +20,8 @@ class Cdp:
 
     """
 
+    _instance = None
+
     api_key_name = None
     private_key = None
     use_server_signer = False
@@ -28,8 +30,24 @@ class Cdp:
     max_network_retries = 3
     api_clients: ApiClients | None = None
 
-    def __init__(
-        self,
+    def __new__(cls):
+        """Create or return the singleton instance of the Cdp class.
+
+        This method overrides the default `__new__` behavior to implement the Singleton pattern.
+        It ensures that only one instance of the Cdp class exists throughout the application's lifecycle.
+        If an instance already exists, it returns the existing instance; otherwise, it creates a new one.
+
+        Returns:
+            Cdp: The singleton instance of the Cdp class.
+
+        """
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    @classmethod
+    def configure(
+        cls,
         api_key_name: str,
         private_key: str,
         use_server_signer: bool = False,
@@ -37,7 +55,7 @@ class Cdp:
         base_path: str = "https://api.cdp.coinbase.com/platform",
         max_network_retries: int = 3,
     ) -> None:
-        """Initialize the Cdp class.
+        """Configure the CDP SDK.
 
         Args:
             api_key_name (str): The API key name.
@@ -48,41 +66,33 @@ class Cdp:
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
 
         """
-        Cdp.api_key_name = api_key_name
-        Cdp.private_key = private_key
-        Cdp.use_server_signer = use_server_signer
-        Cdp.debugging = debugging
-        Cdp.base_path = base_path
-        Cdp.max_network_retries = max_network_retries
+        cls.api_key_name = api_key_name
+        cls.private_key = private_key
+        cls.use_server_signer = use_server_signer
+        cls.debugging = debugging
+        cls.base_path = base_path
+        cls.max_network_retries = max_network_retries
 
         cdp_client = CdpApiClient(api_key_name, private_key, base_path)
-        Cdp.api_clients = ApiClients(cdp_client)
+        cls.api_clients = ApiClients(cdp_client)
 
-    @staticmethod
-    def configure(
-        api_key_name: str,
-        private_key: str,
-        use_server_signer: bool = False,
-    ) -> None:
-        """Configure the CDP SDK.
-
-        Args:
-            api_key_name (str): The API key name.
-            private_key (str): The private key associated with the API key.
-            use_server_signer (bool): Whether to use the server signer. Defaults to False.
-
-        """
-        Cdp(api_key_name, private_key, use_server_signer)
-
-    @staticmethod
+    @classmethod
     def configure_from_json(
-        file_path: str = "~/Downloads/cdp_api_key.json", use_server_signer: bool = False
+        cls,
+        file_path: str = "~/Downloads/cdp_api_key.json",
+        use_server_signer: bool = False,
+        debugging: bool = False,
+        base_path: str = "https://api.cdp.coinbase.com/platform",
+        max_network_retries: int = 3,
     ) -> None:
         """Configure the CDP SDK from a JSON file.
 
         Args:
             file_path (str): The path to the JSON file. Defaults to "~/Downloads/cdp_api_key.json".
             use_server_signer (bool): Whether to use the server signer. Defaults to False.
+            debugging (bool): Whether debugging is enabled. Defaults to False.
+            base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
+            max_network_retries (int): The maximum number of network retries. Defaults to 3.
 
         Raises:
             InvalidConfigurationError: If the JSON file is missing the 'api_key_name' or 'private_key'.
@@ -97,4 +107,11 @@ class Cdp:
             if not private_key:
                 raise InvalidConfigurationError("Invalid JSON format: Missing 'private_key'")
 
-            Cdp(api_key_name, private_key, use_server_signer)
+            cls.configure(
+                api_key_name,
+                private_key,
+                use_server_signer,
+                debugging,
+                base_path,
+                max_network_retries,
+            )

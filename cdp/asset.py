@@ -1,7 +1,7 @@
 from decimal import Decimal
 
-from cdp.client.models.asset import Asset as AssetModel
 from cdp.cdp import Cdp
+from cdp.client.models.asset import Asset as AssetModel
 
 # TODO: Move to constants.py
 GWEI_DECIMALS = 9

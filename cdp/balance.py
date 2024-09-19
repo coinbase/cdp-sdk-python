@@ -1,7 +1,7 @@
 from decimal import Decimal
 
-from cdp.client.models.balance import Balance as BalanceModel
 from cdp.asset import Asset
+from cdp.client.models.balance import Balance as BalanceModel
 
 
 class Balance:

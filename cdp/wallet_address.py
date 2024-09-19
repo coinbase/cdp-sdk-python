@@ -4,13 +4,13 @@ from typing import TYPE_CHECKING, Union
 
 from eth_account.signers.local import LocalAccount
 
-from cdp.client.models.address import Address as AddressModel
-
 from cdp.address import Address
 from cdp.cdp import Cdp
+from cdp.client.models.address import Address as AddressModel
 from cdp.errors import InsufficientFundsError
 from cdp.trade import Trade
 from cdp.transfer import Transfer
+
 if TYPE_CHECKING:
     from cdp.wallet import Wallet
 

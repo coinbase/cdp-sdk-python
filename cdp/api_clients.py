@@ -1,3 +1,4 @@
+from cdp.cdp_api_client import CdpApiClient
 from cdp.client.api.addresses_api import AddressesApi
 from cdp.client.api.assets_api import AssetsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
@@ -5,7 +6,6 @@ from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transfers_api import TransfersApi
 from cdp.client.api.wallets_api import WalletsApi
-from cdp.cdp_api_client import CdpApiClient
 
 
 class ApiClients:

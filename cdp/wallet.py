@@ -13,6 +13,9 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 from eth_account import Account
 
+from cdp.address import Address
+from cdp.balance_map import BalanceMap
+from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import (
@@ -21,8 +24,6 @@ from cdp.client.models.create_wallet_request import (
 )
 from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
-from cdp.address import Address
-from cdp.cdp import Cdp
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
@@ -99,9 +100,12 @@ class Wallet:
         """
         return self._master is not None
 
-    @staticmethod
+    @classmethod
     def create(
-        network_id: str = "base-sepolia", interval_seconds: float = 0.2, timeout_seconds: float = 20
+        cls,
+        network_id: str = "base-sepolia",
+        interval_seconds: float = 0.2,
+        timeout_seconds: float = 20,
     ) -> "Wallet":
         """Create a new wallet.
 
@@ -127,7 +131,7 @@ class Wallet:
         wallet = Wallet(model)
 
         if Cdp.use_server_signer:
-            wallet._wait_for_signer(interval_seconds, timeout_seconds)
+            cls._wait_for_signer(interval_seconds, timeout_seconds)
 
         wallet.create_address()
 
@@ -263,7 +267,7 @@ class Wallet:
 
         return self.default_address.faucet(asset_id)
 
-    def balance(self, asset_id: str) -> Any:
+    def balance(self, asset_id: str) -> Decimal:
         """Get the balance of a specific asset for the default address.
 
         Args:
@@ -280,6 +284,21 @@ class Wallet:
             raise ValueError("Default address does not exist")
 
         return self.default_address.balance(asset_id)
+
+    def balances(self) -> BalanceMap:
+        """List balances of the address.
+
+        Returns:
+           BalanceMap: The balances of the address, keyed by asset ID. Ether balances are denominated in ETH.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.balances()
 
     def transfer(
         self,
@@ -307,7 +326,7 @@ class Wallet:
             raise ValueError("Default address does not exist")
 
         # Convert amount to Decimal
-        if isinstance(amount, (float, int, str)):
+        if isinstance(amount, float | int | str):
             amount = Decimal(amount)
 
         return self.default_address.transfer(amount, asset_id, destination, gasless)
@@ -415,7 +434,7 @@ class Wallet:
                 decrypted_seed = cipher.decrypt_and_verify(encrypted_seed, auth_tag)
                 seed = decrypted_seed.hex()
             except (ValueError, KeyError) as e:
-                raise ValueError(f"Unable to decrypt seed for wallet {self.id}: {e}")
+                raise ValueError(f"Unable to decrypt seed for wallet {self.id}") from e
 
         self._seed = seed
         self._master = self._set_master_node()

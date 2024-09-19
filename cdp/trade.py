@@ -2,11 +2,11 @@ import time
 from decimal import Decimal
 from numbers import Number
 
+from cdp.asset import Asset
+from cdp.cdp import Cdp
 from cdp.client.models.broadcast_trade_request import BroadcastTradeRequest
 from cdp.client.models.create_trade_request import CreateTradeRequest
 from cdp.client.models.trade import Trade as TradeModel
-from cdp.asset import Asset
-from cdp.cdp import Cdp
 from cdp.errors import TransactionNotSignedError
 from cdp.transaction import Transaction
 
