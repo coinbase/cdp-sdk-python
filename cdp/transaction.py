@@ -23,6 +23,12 @@ class Transaction:
 
         @classmethod
         def terminal_states(cls):
+            """Get the terminal states.
+
+            Returns:
+                List[str]: The terminal states.
+
+            """
             return [cls.COMPLETE, cls.FAILED]
 
         def __str__(self) -> str:

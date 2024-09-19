@@ -80,6 +80,15 @@ class Trade:
         return [Trade(model) for model in models.data]
 
     def broadcast(self) -> "Trade":
+        """Broadcast the trade.
+
+        Returns:
+            Trade: The broadcasted trade.
+
+        Raises:
+            TransactionNotSignedError: If the trade is not signed.
+
+        """
         if not all(self.transaction.signed, self.approve_transaction.signed):
             raise TransactionNotSignedError("Trade is not signed")
 

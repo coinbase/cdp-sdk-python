@@ -5,6 +5,8 @@ from cdp.client.exceptions import ApiException
 
 
 class APIError(Exception):
+    """A wrapper for API exceptions to provide more context."""
+
     def __init__(
         self,
         err: ApiException,
@@ -20,6 +22,18 @@ class APIError(Exception):
 
     @classmethod
     def from_error(cls, err: ApiException) -> "APIError":
+        """Create an APIError from an ApiException.
+
+        Args:
+            err (ApiException): The ApiException to create an APIError from.
+
+        Returns:
+            APIError: The APIError.
+
+        Raises:
+            ValueError: If the argument is not an ApiException.
+
+        """
         if not isinstance(err, ApiException):
             raise ValueError("argument must be an ApiException")
 
@@ -41,21 +55,51 @@ class APIError(Exception):
 
     @property
     def http_code(self) -> int:
+        """Get the HTTP status code.
+
+        Returns:
+            int: The HTTP status code.
+
+        """
         return self._http_code
 
     @property
     def api_code(self) -> str | None:
+        """Get the API error code.
+
+        Returns:
+            str | None: The API error code.
+
+        """
         return self._api_code
 
     @property
     def api_message(self) -> str | None:
+        """Get the API error message.
+
+        Returns:
+            str | None: The API error message.
+
+        """
         return self._api_message
 
     @property
     def handled(self) -> bool:
+        """Get whether the error is handled.
+
+        Returns:
+            bool: True if the error is handled, False otherwise.
+
+        """
         return self._handled
 
     def __str__(self) -> str:
+        """Get a string representation of the APIError.
+
+        Returns:
+            str: The string representation of the APIError.
+
+        """
         if self.handled:
             return f"APIError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message})"
         else:
@@ -66,6 +110,12 @@ class InvalidConfigurationError(Exception):
     """Exception raised for errors in the configuration of the Coinbase SDK."""
 
     def __init__(self, message: str = "Invalid configuration provided") -> None:
+        """Initialize the InvalidConfigurationError.
+
+        Args:
+            message (str): The error message.
+
+        """
         self.message = message
         super().__init__(self.message)
 
@@ -74,6 +124,12 @@ class InvalidAPIKeyFormatError(Exception):
     """Exception raised for errors in the format of the API key."""
 
     def __init__(self, message: str = "Invalid API key format") -> None:
+        """Initialize the InvalidAPIKeyFormatError.
+
+        Args:
+            message (str): The error message.
+
+        """
         self.message = message
         super().__init__(self.message)
 
@@ -90,7 +146,8 @@ class InsufficientFundsError(Exception):
             msg (str): The error message prefix.
 
         """
-        super().__init__(f"{msg}: have {exact}, need {expected}.")
+        self.message = f"{msg}: have {exact}, need {expected}."
+        super().__init__(self.message)
 
 
 class AlreadySignedError(Exception):
@@ -103,7 +160,8 @@ class AlreadySignedError(Exception):
             msg (str): The error message.
 
         """
-        super().__init__(msg)
+        self.message = msg
+        super().__init__(self.message)
 
 
 class TransactionNotSignedError(Exception):
@@ -116,7 +174,8 @@ class TransactionNotSignedError(Exception):
             msg (str): The error message.
 
         """
-        super().__init__(msg)
+        self.message = msg
+        super().__init__(self.message)
 
 
 class AddressCannotSignError(Exception):
@@ -131,7 +190,8 @@ class AddressCannotSignError(Exception):
             msg (str): The error message.
 
         """
-        super().__init__(msg)
+        self.message = msg
+        super().__init__(self.message)
 
 
 class UnimplementedError(APIError):

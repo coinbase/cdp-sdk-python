@@ -376,7 +376,7 @@ class Wallet:
             ValueError: If the wallet does not have a seed loaded.
 
         """
-        if self._master is None or self._seed == None:
+        if self._master is None or self._seed is None:
             raise ValueError("Wallet does not have seed loaded")
 
         key = self._encryption_key()
