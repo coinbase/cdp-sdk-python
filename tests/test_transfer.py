@@ -17,7 +17,7 @@ from cdp.transfer import Transfer
 
 @pytest.fixture
 def asset_model_factory():
-    """Factory for creating AssetModel fixtures."""
+    """Create and return a factory for creating AssetModel fixtures."""
 
     def _create_asset_model(network_id="base-sepolia", asset_id="usdc", decimals=6):
         return AssetModel(network_id=network_id, asset_id=asset_id, decimals=decimals)
@@ -27,7 +27,7 @@ def asset_model_factory():
 
 @pytest.fixture
 def asset_factory(asset_model_factory):
-    """Factory for creating Asset fixtures."""
+    """Create and return a factory for creating Asset fixtures."""
 
     def _create_asset(network_id="base-sepolia", asset_id="usdc", decimals=6):
         asset_model = asset_model_factory(network_id, asset_id, decimals)
@@ -38,7 +38,7 @@ def asset_factory(asset_model_factory):
 
 @pytest.fixture
 def sponsored_send_model_factory():
-    """Factory for creating SponsoredSendModel fixtures."""
+    """Create and return a factory for creating SponsoredSendModel fixtures."""
 
     def _create_sponsored_send_model(status="complete"):
         status = "submitted" if status == "broadcast" else status
@@ -60,7 +60,7 @@ def sponsored_send_model_factory():
 
 @pytest.fixture
 def transaction_model_factory():
-    """Factory for creating TransactionModel fixtures."""
+    """Create and return a factory for creating TransactionModel fixtures."""
 
     def _create_transaction_model(status="complete"):
         return TransactionModel(
@@ -85,7 +85,7 @@ def transaction_model_factory():
 def transfer_model_factory(
     asset_model_factory, sponsored_send_model_factory, transaction_model_factory
 ):
-    """Factory for creating TransferModel fixtures."""
+    """Create and return a factory for creating TransferModel fixtures."""
 
     def _create_transfer_model(gasless=True, status="complete", asset_id="usdc"):
         asset_model = asset_model_factory(asset_id=asset_id)
@@ -115,7 +115,7 @@ def transfer_model_factory(
 
 @pytest.fixture
 def transfer_factory(transfer_model_factory):
-    """Factory for creating Transfer fixtures."""
+    """Create and return a factory for creating Transfer fixtures."""
 
     def _create_transfer(gasless=True, status="complete", asset_id="usdc"):
         transfer_model = transfer_model_factory(gasless, status, asset_id)
@@ -150,7 +150,7 @@ def test_transfer_properties(transfer_factory, gasless):
     assert transfer.transaction_hash == "0xtransactionhash"
     assert transfer.status.value == "complete"
     assert isinstance(transfer.asset, Asset)
-    assert transfer.terminal_state == True
+    assert transfer.terminal_state is True
     if gasless:
         assert isinstance(transfer.sponsored_send, SponsoredSend)
     else:

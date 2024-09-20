@@ -8,7 +8,7 @@ from cdp.errors import (
     ERROR_CODE_TO_ERROR_CLASS,
     AddressCannotSignError,
     AlreadySignedError,
-    APIError,
+    ApiError,
     InsufficientFundsError,
     InvalidAPIKeyFormatError,
     InvalidConfigurationError,
@@ -19,7 +19,7 @@ from cdp.errors import (
 def test_api_error_init():
     """Test API error initialization."""
     err = ApiException(400, "Bad Request")
-    api_error = APIError(err, code="test_code", message="Test message")
+    api_error = ApiError(err, code="test_code", message="Test message")
 
     assert api_error.http_code == 400
     assert api_error.api_code == "test_code"
@@ -31,7 +31,7 @@ def test_api_error_from_error_with_valid_json():
     """Test API error from error with valid JSON."""
     err = ApiException(400, "Bad Request")
     err.body = json.dumps({"code": "invalid_wallet_id", "message": "Invalid wallet ID"})
-    api_error = APIError.from_error(err)
+    api_error = ApiError.from_error(err)
 
     assert isinstance(api_error, ERROR_CODE_TO_ERROR_CLASS["invalid_wallet_id"])
     assert api_error.api_code == "invalid_wallet_id"
@@ -42,9 +42,9 @@ def test_api_error_from_error_with_invalid_json():
     """Test API error from error with invalid JSON."""
     err = ApiException(400, "Bad Request")
     err.body = "Invalid JSON"
-    api_error = APIError.from_error(err)
+    api_error = ApiError.from_error(err)
 
-    assert isinstance(api_error, APIError)
+    assert isinstance(api_error, ApiError)
     assert api_error.api_code is None
     assert api_error.api_message is None
 
@@ -53,9 +53,9 @@ def test_api_error_from_error_with_unknown_code():
     """Test API error from error with unknown code."""
     err = ApiException(400, "Bad Request")
     err.body = json.dumps({"code": "unknown_code", "message": "Unknown error"})
-    api_error = APIError.from_error(err)
+    api_error = ApiError.from_error(err)
 
-    assert isinstance(api_error, APIError)
+    assert isinstance(api_error, ApiError)
     assert api_error.api_code == "unknown_code"
     assert api_error.api_message == "Unknown error"
     assert api_error.handled is False
@@ -64,9 +64,9 @@ def test_api_error_from_error_with_unknown_code():
 def test_api_error_str_representation():
     """Test API error string representation."""
     err = ApiException(400, "Bad Request")
-    api_error = APIError(err, code="test_code", message="Test message")
+    api_error = ApiError(err, code="test_code", message="Test message")
 
-    assert str(api_error) == "APIError(http_code=400, api_code=test_code, api_message=Test message)"
+    assert str(api_error) == "ApiError(http_code=400, api_code=test_code, api_message=Test message)"
 
 
 def test_invalid_configuration_error():

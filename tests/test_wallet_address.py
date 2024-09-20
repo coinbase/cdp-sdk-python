@@ -297,7 +297,9 @@ def test_transfers(mock_transfer, wallet_address):
 
     assert len(list(transfers)) == 2
     assert all(isinstance(t, Transfer) for t in transfers)
-    mock_transfer.list.assert_called_once_with(wallet_id=wallet_address.wallet_id, address_id=wallet_address.address_id)
+    mock_transfer.list.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id, address_id=wallet_address.address_id
+    )
 
 
 @patch("cdp.wallet_address.Transfer")
@@ -318,7 +320,9 @@ def test_trades(mock_trade, wallet_address):
 
     assert len(list(trades)) == 2
     assert all(isinstance(t, Trade) for t in trades)
-    mock_trade.list.assert_called_once_with(wallet_id=wallet_address.wallet_id, address_id=wallet_address.address_id)
+    mock_trade.list.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id, address_id=wallet_address.address_id
+    )
 
 
 @patch("cdp.wallet_address.Trade")

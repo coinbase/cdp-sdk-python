@@ -6,7 +6,7 @@ from cdp.transaction import Transaction
 
 @pytest.fixture
 def transaction_model():
-    """Fixture for a transaction model."""
+    """Create and return a fixture for a TransactionModel."""
     return TransactionModel(
         network_id="base-sepolia",
         transaction_hash="0xtransactionhash",
@@ -23,7 +23,7 @@ def transaction_model():
 
 @pytest.fixture
 def unsigned_transaction_model():
-    """Fixture for an unsigned transaction model."""
+    """Create and return a fixture for an unsigned TransactionModel."""
     return TransactionModel(
         network_id="base-sepolia",
         from_address_id="0xfromaddressid",
@@ -35,13 +35,13 @@ def unsigned_transaction_model():
 
 @pytest.fixture
 def transaction(transaction_model):
-    """Fixture for a transaction."""
+    """Create and return a fixture for a Transaction."""
     return Transaction(transaction_model)
 
 
 @pytest.fixture
 def unsigned_transaction(unsigned_transaction_model):
-    """Fixture for an unsigned transaction."""
+    """Create and return a fixture for an unsigned Transaction."""
     return Transaction(unsigned_transaction_model)
 
 
@@ -135,7 +135,7 @@ def test_signature(transaction):
 def test_signature_not_signed(unsigned_transaction):
     """Test signature not signed."""
     with pytest.raises(ValueError, match="Transaction is not signed"):
-        signature = unsigned_transaction.signature
+        unsigned_transaction.signature  # noqa: B018
 
 
 def test_str_representation(transaction):

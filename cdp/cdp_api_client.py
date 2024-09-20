@@ -10,10 +10,10 @@ from cdp import __version__
 from cdp.client import rest
 from cdp.client.api_client import ApiClient
 from cdp.client.api_response import ApiResponse
-from cdp.client.api_response import T as ApiResponseT
+from cdp.client.api_response import T as ApiResponseT  # noqa: N811
 from cdp.client.configuration import Configuration
 from cdp.client.exceptions import ApiException
-from cdp.errors import APIError, InvalidAPIKeyFormatError
+from cdp.errors import ApiError, InvalidAPIKeyFormatError
 
 
 class CdpApiClient(ApiClient):
@@ -75,10 +75,20 @@ class CdpApiClient(ApiClient):
         response_data: rest.RESTResponse,
         response_types_map: dict[str, ApiResponseT] | None = None,
     ) -> ApiResponse[ApiResponseT]:
+        """Deserialize the API response.
+
+        Args:
+            response_data: REST response data.
+            response_types_map: Map of response types.
+
+        Returns:
+            ApiResponse[ApiResponseT]
+
+        """
         try:
             return super().response_deserialize(response_data, response_types_map)
         except ApiException as e:
-            raise APIError.from_error(e)
+            raise ApiError.from_error(e) from None
 
     def _apply_headers(self, url: str, method: str, header_params: dict[str, str]) -> None:
         """Apply authentication to the configuration.

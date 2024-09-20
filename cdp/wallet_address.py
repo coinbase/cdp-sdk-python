@@ -66,7 +66,7 @@ class WalletAddress(Address):
             bool: Whether the address can sign.
 
         """
-        return True if self.key is not None else False
+        return self.key is not None
 
     def transfer(
         self,

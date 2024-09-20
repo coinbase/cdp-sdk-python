@@ -4,7 +4,7 @@ from decimal import Decimal
 from cdp.client.exceptions import ApiException
 
 
-class APIError(Exception):
+class ApiError(Exception):
     """A wrapper for API exceptions to provide more context."""
 
     def __init__(
@@ -21,14 +21,14 @@ class APIError(Exception):
         super().__init__(str(err))
 
     @classmethod
-    def from_error(cls, err: ApiException) -> "APIError":
-        """Create an APIError from an ApiException.
+    def from_error(cls, err: ApiException) -> "ApiError":
+        """Create an ApiError from an ApiException.
 
         Args:
-            err (ApiException): The ApiException to create an APIError from.
+            err (ApiException): The ApiException to create an ApiError from.
 
         Returns:
-            APIError: The APIError.
+            ApiError: The API Error.
 
         Raises:
             ValueError: If the argument is not an ApiException.
@@ -94,16 +94,16 @@ class APIError(Exception):
         return self._handled
 
     def __str__(self) -> str:
-        """Get a string representation of the APIError.
+        """Get a string representation of the ApiError.
 
         Returns:
-            str: The string representation of the APIError.
+            str: The string representation of the ApiError.
 
         """
         if self.handled:
-            return f"APIError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message})"
+            return f"ApiError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message})"
         else:
-            return f"APIError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message}, unhandled=True)"
+            return f"ApiError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message}, unhandled=True)"
 
 
 class InvalidConfigurationError(Exception):
@@ -194,145 +194,145 @@ class AddressCannotSignError(Exception):
         super().__init__(self.message)
 
 
-class UnimplementedError(APIError):
+class UnimplementedError(ApiError):
     """Exception raised for unimplemented features in the Coinbase SDK."""
 
     pass
 
 
-class UnauthorizedError(APIError):
+class UnauthorizedError(ApiError):
     """Exception raised for unauthorized access to Coinbase API endpoints."""
 
     pass
 
 
-class InternalError(APIError):
+class InternalError(ApiError):
     """Exception raised for internal server errors."""
 
     pass
 
 
-class NotFoundError(APIError):
+class NotFoundError(ApiError):
     """Exception raised when a requested resource is not found."""
 
     pass
 
 
-class InvalidWalletIDError(APIError):
+class InvalidWalletIDError(ApiError):
     """Exception raised for invalid wallet ID."""
 
     pass
 
 
-class InvalidAddressIDError(APIError):
+class InvalidAddressIDError(ApiError):
     """Exception raised for invalid address ID."""
 
     pass
 
 
-class InvalidWalletError(APIError):
+class InvalidWalletError(ApiError):
     """Exception raised for invalid wallet."""
 
     pass
 
 
-class InvalidAddressError(APIError):
+class InvalidAddressError(ApiError):
     """Exception raised for invalid address."""
 
     pass
 
 
-class InvalidAmountError(APIError):
+class InvalidAmountError(ApiError):
     """Exception raised for invalid amount."""
 
     pass
 
 
-class InvalidTransferIDError(APIError):
+class InvalidTransferIDError(ApiError):
     """Exception raised for invalid transfer ID."""
 
     pass
 
 
-class InvalidPageError(APIError):
+class InvalidPageError(ApiError):
     """Exception raised for invalid page token."""
 
     pass
 
 
-class InvalidLimitError(APIError):
+class InvalidLimitError(ApiError):
     """Exception raised for invalid page limit."""
 
     pass
 
 
-class AlreadyExistsError(APIError):
+class AlreadyExistsError(ApiError):
     """Exception raised when a resource already exists."""
 
     pass
 
 
-class MalformedRequestError(APIError):
+class MalformedRequestError(ApiError):
     """Exception raised for malformed requests."""
 
     pass
 
 
-class UnsupportedAssetError(APIError):
+class UnsupportedAssetError(ApiError):
     """Exception raised for unsupported assets."""
 
     pass
 
 
-class InvalidAssetIDError(APIError):
+class InvalidAssetIDError(ApiError):
     """Exception raised for invalid asset ID."""
 
     pass
 
 
-class InvalidDestinationError(APIError):
+class InvalidDestinationError(ApiError):
     """Exception raised for invalid destination."""
 
     pass
 
 
-class InvalidNetworkIDError(APIError):
+class InvalidNetworkIDError(ApiError):
     """Exception raised for invalid network ID."""
 
     pass
 
 
-class ResourceExhaustedError(APIError):
+class ResourceExhaustedError(ApiError):
     """Exception raised when a resource is exhausted."""
 
     pass
 
 
-class FaucetLimitReachedError(APIError):
+class FaucetLimitReachedError(ApiError):
     """Exception raised when the faucet limit is reached."""
 
     pass
 
 
-class InvalidSignedPayloadError(APIError):
+class InvalidSignedPayloadError(ApiError):
     """Exception raised for invalid signed payload."""
 
     pass
 
 
-class InvalidTransferStatusError(APIError):
+class InvalidTransferStatusError(ApiError):
     """Exception raised for invalid transfer status."""
 
     pass
 
 
-class NetworkFeatureUnsupportedError(APIError):
+class NetworkFeatureUnsupportedError(ApiError):
     """Exception raised when a network feature is unsupported."""
 
     pass
 
 
-ERROR_CODE_TO_ERROR_CLASS: dict[str, type[APIError]] = {
+ERROR_CODE_TO_ERROR_CLASS: dict[str, type[ApiError]] = {
     "unimplemented": UnimplementedError,
     "unauthorized": UnauthorizedError,
     "internal": InternalError,

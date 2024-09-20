@@ -5,6 +5,7 @@ import time
 from decimal import Decimal
 from numbers import Number
 from typing import Any, Union
+from collections.abc import Iterator
 
 import coincurve
 from bip_utils import Bip32Slip10Secp256k1
@@ -193,24 +194,29 @@ class Wallet:
 
         return Wallet(model, "")
 
-    @staticmethod
-    def list(limit: int = 100, page: str | None = None) -> list["Wallet"]:
+    @classmethod
+    def list(cls) -> Iterator["Wallet"]:
         """List wallets.
 
-        Args:
-            limit (int): The maximum number of wallets to retrieve. Defaults to 100.
-            page (Optional[str]): A cursor for pagination. Defaults to None.
-
         Returns:
-            List[Wallet]: A list of wallet objects.
+            Iterator[Wallet]: An iterator of wallet objects.
 
         Raises:
             Exception: If there's an error listing the wallets.
 
         """
-        response: WalletList = Cdp.api_clients.wallets.list_wallets(limit=limit, page=page)
+        while True:
+            page = None
 
-        return [Wallet(wallet_model) for wallet_model in response.data]
+            response: WalletList = Cdp.api_clients.wallets.list_wallets(limit=100, page=page)
+
+            for wallet_model in response.data:
+                yield cls(wallet_model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     def create_address(self) -> "WalletAddress":
         """Create a new address for the wallet.

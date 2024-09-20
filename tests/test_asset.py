@@ -9,13 +9,13 @@ from cdp.client.models.asset import Asset as AssetModel
 
 @pytest.fixture
 def asset_model():
-    """Fixture for asset model."""
+    """Create and return a fixture for asset model."""
     return AssetModel(network_id="ethereum-goerli", asset_id="eth", decimals=18)
 
 
 @pytest.fixture
 def asset(asset_model):
-    """Fixture for asset."""
+    """Create and return a fixture for asset."""
     return Asset.from_model(asset_model)
 
 

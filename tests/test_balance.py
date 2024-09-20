@@ -10,25 +10,25 @@ from cdp.client.models.balance import Balance as BalanceModel
 
 @pytest.fixture
 def asset_model():
-    """Fixture for asset model."""
+    """Create and return a fixture for an AssetModel."""
     return AssetModel(network_id="ethereum-goerli", asset_id="eth", decimals=18)
 
 
 @pytest.fixture
 def asset(asset_model):
-    """Fixture for asset."""
+    """Create and return a fixture for an Asset."""
     return Asset.from_model(asset_model)
 
 
 @pytest.fixture
 def balance_model(asset_model):
-    """Fixture for balance model."""
+    """Create and return a fixture for a BalanceModel."""
     return BalanceModel(amount="1000000000000000000", asset=asset_model)
 
 
 @pytest.fixture
 def balance(asset):
-    """Fixture for balance."""
+    """Create and return a fixture for a Balance."""
     return Balance(Decimal("1.5"), asset)
 
 

@@ -5,14 +5,16 @@ import pytest
 
 from cdp.address import Address
 from cdp.balance_map import BalanceMap
+from cdp.client.exceptions import ApiException
 from cdp.client.models.asset import Asset as AssetModel
 from cdp.client.models.balance import Balance as BalanceModel
+from cdp.errors import ApiError
 from cdp.faucet_transaction import FaucetTransaction
 
 
 @pytest.fixture
 def address():
-    """Fixture for an Address."""
+    """Create and return a fixture for an Address."""
     return Address(
         network_id="base-sepolia", address_id="0x1234567890123456789012345678901234567890"
     )
@@ -20,13 +22,13 @@ def address():
 
 @pytest.fixture
 def asset_model():
-    """Fixture for an AssetModel."""
+    """Create and return a fixture for an AssetModel."""
     return AssetModel(network_id="base-sepolia", asset_id="eth", decimals=18)
 
 
 @pytest.fixture
 def balance_model(asset_model):
-    """Fixture for a BalanceModel."""
+    """Create and return a fixture for a BalanceModel."""
     return BalanceModel(amount="1000000000000000000", asset=asset_model)
 
 
@@ -75,10 +77,11 @@ def test_address_faucet_with_asset_id(mock_api_clients, address):
 def test_address_faucet_api_error(mock_api_clients, address):
     """Test the faucet method of an Address raises an error when the API call fails."""
     mock_request_faucet = Mock()
-    mock_request_faucet.side_effect = Exception("API Error")
+    err = ApiException(500, "boom")
+    mock_request_faucet.side_effect = ApiError(err, code="boom", message="boom")
     mock_api_clients.external_addresses.request_external_faucet_funds = mock_request_faucet
 
-    with pytest.raises(Exception):
+    with pytest.raises(ApiError):
         address.faucet()
 
 
@@ -115,10 +118,11 @@ def test_address_balance_zero(mock_api_clients, address):
 def test_address_balance_api_error(mock_api_clients, address):
     """Test the balance method of an Address raises an error when the API call fails."""
     mock_get_balance = Mock()
-    mock_get_balance.side_effect = Exception("API Error")
+    err = ApiException(500, "boom")
+    mock_get_balance.side_effect = ApiError(err, code="boom", message="boom")
     mock_api_clients.external_addresses.get_external_address_balance = mock_get_balance
 
-    with pytest.raises(Exception):
+    with pytest.raises(ApiError):
         address.balance("eth")
 
 
@@ -144,10 +148,11 @@ def test_address_balances(mock_api_clients, address, balance_model):
 def test_address_balances_api_error(mock_api_clients, address):
     """Test the balances method of an Address raises an error when the API call fails."""
     mock_list_balances = Mock()
-    mock_list_balances.side_effect = Exception("API Error")
+    err = ApiException(500, "boom")
+    mock_list_balances.side_effect = ApiError(err, code="boom", message="boom")
     mock_api_clients.external_addresses.list_external_address_balances = mock_list_balances
 
-    with pytest.raises(Exception):
+    with pytest.raises(ApiError):
         address.balances()
 
 
