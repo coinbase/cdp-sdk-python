@@ -332,10 +332,10 @@ def test_transfer_str_representation(transfer_factory, gasless):
     """Test the string representation of a Transfer object."""
     transfer = transfer_factory(gasless=gasless)
     expected_str = (
-        f"Transfer{{transfer_id: '{transfer.transfer_id}', network_id: '{transfer.network_id}', "
-        f"from_address_id: '{transfer.from_address_id}', destination_address_id: '{transfer.destination_address_id}', "
-        f"asset_id: '{transfer.asset_id}', amount: '{transfer.amount}', transaction_link: '{transfer.transaction_link}', "
-        f"status: '{transfer.status}'}}"
+        f"Transfer: (transfer_id: {transfer.transfer_id}, network_id: {transfer.network_id}, "
+        f"from_address_id: {transfer.from_address_id}, destination_address_id: {transfer.destination_address_id}, "
+        f"asset_id: {transfer.asset_id}, amount: {transfer.amount}, transaction_link: {transfer.transaction_link}, "
+        f"status: {transfer.status})"
     )
     assert str(transfer) == expected_str
 

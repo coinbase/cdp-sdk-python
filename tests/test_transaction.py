@@ -140,11 +140,11 @@ def test_signature_not_signed(unsigned_transaction):
 
 def test_str_representation(transaction):
     """Test string representation."""
-    expected_str = "Transaction{transaction_hash: '0xtransactionhash', status: 'complete'}"
+    expected_str = "Transaction: (transaction_hash: 0xtransactionhash, status: complete)"
     assert str(transaction) == expected_str
 
 
 def test_repr(transaction):
     """Test repr."""
-    expected_repr = "Transaction{transaction_hash: '0xtransactionhash', status: 'complete'}"
+    expected_repr = "Transaction: (transaction_hash: 0xtransactionhash, status: complete)"
     assert repr(transaction) == expected_repr

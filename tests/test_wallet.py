@@ -19,6 +19,7 @@ from cdp.wallet_address import WalletAddress
 @pytest.fixture
 def address_model_factory():
     """Create and return a factory for AddressModel fixtures."""
+
     def _create_address_model(
         network_id="base-sepolia",
         address_id="0x1234567890123456789012345678901234567890",
@@ -40,6 +41,7 @@ def address_model_factory():
 @pytest.fixture
 def wallet_model_factory(address_model_factory):
     """Create and return a factory for WalletModel fixtures."""
+
     def _create_wallet_model(
         id="test-wallet-id",
         network_id="base-sepolia",
@@ -72,6 +74,7 @@ def wallet_model_factory(address_model_factory):
 @pytest.fixture
 def master_key_factory():
     """Create and return a factory for master key fixtures."""
+
     def _create_master_key(seed=b"\x00" * 64):
         return Bip32Slip10Secp256k1.FromSeed(seed)
 
@@ -81,6 +84,7 @@ def master_key_factory():
 @pytest.fixture
 def wallet_factory(wallet_model_factory):
     """Create and return a factory for Wallet fixtures."""
+
     def _create_wallet(seed=None, **kwargs):
         model = wallet_model_factory(**kwargs)
         return Wallet(model, seed)
@@ -91,6 +95,7 @@ def wallet_factory(wallet_model_factory):
 @pytest.fixture
 def wallet_address_factory(address_model_factory):
     """Create and return a factory for WalletAddress fixtures."""
+
     def _create_wallet_address(key=None, **kwargs):
         model = address_model_factory(**kwargs)
         return WalletAddress(model, key)
@@ -441,4 +446,3 @@ def test_wallet_fetch(mock_api_clients, wallet_factory):
     assert isinstance(fetched_wallet, Wallet)
     assert fetched_wallet.id == "fetched-wallet-id"
     mock_get_wallet.assert_called_once_with("fetched-wallet-id")
-

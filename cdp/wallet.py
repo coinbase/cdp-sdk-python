@@ -2,10 +2,10 @@ import hashlib
 import json
 import os
 import time
+from collections.abc import Iterator
 from decimal import Decimal
 from numbers import Number
 from typing import Any, Union
-from collections.abc import Iterator
 
 import coincurve
 from bip_utils import Bip32Slip10Secp256k1
