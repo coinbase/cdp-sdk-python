@@ -28,11 +28,7 @@ If you need to upgrade your Python version, you can download and install the lat
 ## Installation
 
 ```bash
-git clone git@github.com:coinbase/cdp-sdk-python.git
-
-cd cdp-sdk-python
-
-make install-deps
+pip install cdp-sdk
 ```
 
 ### Starting a Python REPL
