@@ -172,7 +172,7 @@ class Transaction:
 
     def __str__(self) -> str:
         """Get a string representation of the Transaction."""
-        return f"Transaction{{transaction_hash: '{self.transaction_hash}', status: '{self.status.value}'}}"
+        return f"Transaction: (transaction_hash: {self.transaction_hash}, status: {self.status.value})"
 
     def __repr__(self) -> str:
         """Get a string representation of the Transaction."""

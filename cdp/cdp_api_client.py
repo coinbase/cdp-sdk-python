@@ -6,6 +6,7 @@ import jwt
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 
+from cdp import __version__
 from cdp.client import rest
 from cdp.client.api_client import ApiClient
 from cdp.client.api_response import ApiResponse
@@ -46,16 +47,21 @@ class CdpApiClient(ApiClient):
         post_params=None,
         _request_timeout=None,
     ) -> rest.RESTResponse:
-        """Makes the HTTP request (synchronous)
-        :param method: Method to call.
-        :param url: Path to method endpoint.
-        :param header_params: Header parameters to be
+        """Make the HTTP request (synchronous).
+
+        Args:
+            method: Method to call.
+            url: Path to method endpoint.
+            header_params: Header parameters to be
             placed in the request header.
-        :param body: Request body.
-        :param post_params dict: Request post form parameters,
-            for `application/x-www-form-urlencoded`, `multipart/form-data`.
-        :param _request_timeout: timeout setting for this request.
-        :return: RESTResponse
+            body: Request body.
+            post_params (dict): Request post form parameters,
+                for `application/x-www-form-urlencoded`, `multipart/form-data`.
+            _request_timeout: timeout setting for this request.
+
+        Returns:
+            RESTResponse
+
         """
         if header_params is None:
             header_params = {}
@@ -80,6 +86,7 @@ class CdpApiClient(ApiClient):
         Args:
             url (str): The URL to authenticate.
             method (str): The HTTP method to use.
+            header_params (dict[str, str]): The header parameters.
 
         Returns:
             None
@@ -157,7 +164,7 @@ class CdpApiClient(ApiClient):
 
         """
         data = {
-            "sdk_version": "0.0.1",  # TODO: get version from package
+            "sdk_version": __version__,
             "sdk_language": "python",
         }
         return ",".join(f"{key}={value}" for key, value in data.items())

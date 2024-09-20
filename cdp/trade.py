@@ -1,4 +1,5 @@
 import time
+from collections.abc import Iterator
 from decimal import Decimal
 from numbers import Number
 
@@ -60,8 +61,8 @@ class Trade:
 
         return Trade(model)
 
-    @staticmethod
-    def list(wallet_id: str, address_id: str) -> list["Trade"]:
+    @classmethod
+    def list(cls, wallet_id: str, address_id: str) -> Iterator["Trade"]:
         """List all trades for an address.
 
         Args:
@@ -69,15 +70,22 @@ class Trade:
             address_id (str): The ID of the address to list trades for.
 
         Returns:
-            List[Trade]: The list of trades.
+            Iterator[Trade]: An iterator of trade objects.
 
         """
-        models = Cdp.api_clients.trades.list_trades(
-            wallet_id=wallet_id,
-            address_id=address_id,
-            limit=100,
-        )
-        return [Trade(model) for model in models.data]
+        page = None
+        while True:
+            response = Cdp.api_clients.trades.list_trades(
+                wallet_id=wallet_id, address_id=address_id, limit=100, page=page
+            )
+
+            for trade_model in response.data:
+                yield cls(trade_model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     def broadcast(self) -> "Trade":
         """Broadcast the trade.
@@ -89,7 +97,7 @@ class Trade:
             TransactionNotSignedError: If the trade is not signed.
 
         """
-        if not all(self.transaction.signed, self.approve_transaction.signed):
+        if not all([self.transaction.signed, self.approve_transaction.signed]):
             raise TransactionNotSignedError("Trade is not signed")
 
         broadcast_trade_request = BroadcastTradeRequest(
@@ -98,7 +106,10 @@ class Trade:
         )
 
         model = Cdp.api_clients.trades.broadcast_trade(
-            self.wallet_id, self.address_id, self.trade_id, broadcast_trade_request
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            trade_id=self.trade_id,
+            broadcast_trade_request=broadcast_trade_request,
         )
 
         self._model = model

@@ -8,7 +8,7 @@ from cdp.transaction import Transaction
 def transaction_model():
     """Fixture for a transaction model."""
     return TransactionModel(
-        network_id="ethereum-goerli",
+        network_id="base-sepolia",
         transaction_hash="0xtransactionhash",
         from_address_id="0xfromaddressid",
         to_address_id="0xtoaddressid",
@@ -25,7 +25,7 @@ def transaction_model():
 def unsigned_transaction_model():
     """Fixture for an unsigned transaction model."""
     return TransactionModel(
-        network_id="ethereum-goerli",
+        network_id="base-sepolia",
         from_address_id="0xfromaddressid",
         to_address_id="0xtoaddressid",
         unsigned_payload="0xunsignedpayload",

@@ -14,12 +14,12 @@ Homepage = "TODO"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["coinbase*"]
+include = ["cdp*"]
 exclude = ["tests*"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-ra -q"
+addopts = "-ra -q --cov=cdp --cov-report=term-missing"
 testpaths = [
     "tests",
 ]
@@ -46,3 +46,5 @@ line-ending = "auto"
 [tool.ruff.isort]
 known-first-party = ["cdp"]
 
+[tool.coverage.run]
+omit = ["cdp/client/*"]

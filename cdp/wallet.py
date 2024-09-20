@@ -91,6 +91,7 @@ class Wallet:
 
         return self._addresses
 
+    @property
     def can_sign(self) -> bool:
         """Check if the wallet can sign transactions.
 
@@ -128,10 +129,10 @@ class Wallet:
         )
 
         model = Cdp.api_clients.wallets.create_wallet(create_wallet_request)
-        wallet = Wallet(model)
+        wallet = cls(model)
 
         if Cdp.use_server_signer:
-            cls._wait_for_signer(interval_seconds, timeout_seconds)
+            wallet._wait_for_signer(interval_seconds, timeout_seconds)
 
         wallet.create_address()
 
@@ -227,7 +228,7 @@ class Wallet:
         index = None
 
         create_address_request = CreateAddressRequest()
-        if self.can_sign():
+        if self.can_sign:
             index = len(self._addresses)
             derived_key = self._derive_key(index)
             public_key_hex = derived_key.PublicKey().RawCompressed().ToHex()
@@ -498,7 +499,7 @@ class Wallet:
             ValueError: If the derived key does not match the wallet.
 
         """
-        if not self.can_sign():
+        if not self.can_sign:
             return WalletAddress(model)
 
         key = self._derive_key(index)
@@ -603,7 +604,7 @@ class Wallet:
             str: A string representation of the Wallet.
 
         """
-        return f"Wallet: (id: {self.id}, network_id: {self.network_id}), server_signer_status: {self.server_signer_status}"
+        return f"Wallet: (id: {self.id}, network_id: {self.network_id}), default_address: {self.default_address}, server_signer_status: {self.server_signer_status})"
 
     def __repr__(self) -> str:
         """Return a string representation of the Wallet object.

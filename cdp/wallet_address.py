@@ -1,3 +1,4 @@
+from collections.abc import Iterator
 from decimal import Decimal
 from numbers import Number
 from typing import TYPE_CHECKING, Union
@@ -56,6 +57,16 @@ class WalletAddress(Address):
             raise ValueError("Private key is already set")
 
         self._key = key
+
+    @property
+    def can_sign(self) -> bool:
+        """Get whether the address can sign.
+
+        Returns:
+            bool: Whether the address can sign.
+
+        """
+        return True if self.key is not None else False
 
     def transfer(
         self,
@@ -133,35 +144,23 @@ class WalletAddress(Address):
 
         return trade
 
-    def transfers(self, limit: int = 100, page: str | None = None) -> list[Transfer]:
+    def transfers(self) -> Iterator[Transfer]:
         """List transfers for this wallet address.
 
-        Args:
-            limit (int): Maximum number of transfers to retrieve.
-            page (Optional[str]): Pagination cursor.
-
         Returns:
-            List[Transfer]: List of transfer objects.
+            Iterator[Transfer]: Iterator of transfer objects.
 
         """
-        return Transfer.list(
-            wallet_id=self.wallet_id, address_id=self.address_id, limit=limit, page=page
-        )
+        return Transfer.list(wallet_id=self.wallet_id, address_id=self.address_id)
 
-    def trades(self, limit: int = 100, page: str | None = None) -> list[Trade]:
+    def trades(self) -> Iterator[Trade]:
         """List trades for this wallet address.
 
-        Args:
-            limit (int): Maximum number of trades to retrieve.
-            page (Optional[str]): Pagination cursor.
-
         Returns:
-            List[Trade]: List of trade objects.
+            Iterator[Trade]: Iterator of trade objects.
 
         """
-        return Trade.list(
-            wallet_id=self.wallet_id, address_id=self.address_id, limit=limit, page=page
-        )
+        return Trade.list(wallet_id=self.wallet_id, address_id=self.address_id)
 
     def _ensure_sufficient_balance(self, amount: Decimal, asset_id: str) -> None:
         """Ensure the wallet address has sufficient balance.

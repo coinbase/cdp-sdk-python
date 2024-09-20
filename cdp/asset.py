@@ -27,8 +27,8 @@ class Asset:
         self._contract_address = contract_address
         self._decimals = decimals
 
-    @staticmethod
-    def from_model(model: AssetModel, asset_id: str | None = None) -> "Asset":
+    @classmethod
+    def from_model(cls, model: AssetModel, asset_id: str | None = None) -> "Asset":
         """Create an Asset instance from a model.
 
         Args:
@@ -50,15 +50,15 @@ class Asset:
                 case _:
                     raise ValueError(f"Unsupported asset ID: {asset_id}")
 
-        return Asset(
+        return cls(
             network_id=model.network_id,
             asset_id=model.asset_id,
             contract_address=model.contract_address,
             decimals=decimals,
         )
 
-    @staticmethod
-    def fetch(network_id: str, asset_id: str) -> "Asset":
+    @classmethod
+    def fetch(cls, network_id: str, asset_id: str) -> "Asset":
         """Fetch an asset from the API.
 
         Args:
@@ -69,13 +69,13 @@ class Asset:
             Asset: The fetched Asset instance.
 
         """
-        primary_denomination_asset_id = Asset.primary_denomination(asset_id)
+        primary_denomination_asset_id = cls.primary_denomination(asset_id)
 
         model = Cdp.api_clients.assets.get_asset(
             network_id=network_id, asset_id=primary_denomination_asset_id
         )
 
-        return Asset.from_model(model, asset_id=asset_id)
+        return cls.from_model(model, asset_id=asset_id)
 
     @staticmethod
     def primary_denomination(asset_id: str) -> str:

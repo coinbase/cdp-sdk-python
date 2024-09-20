@@ -149,9 +149,9 @@ class SponsoredSend:
 
         """
         return (
-            f"SponsoredSend(status={self.status.value}, "
-            f"transaction_hash={self.transaction_hash}, "
-            f"transaction_link={self.transaction_link})"
+            f"SponsoredSend: (status: {self.status.value}, "
+            f"transaction_hash: {self.transaction_hash}, "
+            f"transaction_link: {self.transaction_link})"
         )
 
     def __repr__(self) -> str:

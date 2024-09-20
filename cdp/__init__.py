@@ -1,3 +1,4 @@
+from cdp.__version__ import __version__
 from cdp.address import Address
 from cdp.asset import Asset
 from cdp.balance import Balance
@@ -11,6 +12,7 @@ from cdp.transfer import Transfer
 from cdp.wallet import Wallet
 
 __all__ = [
+    "__version__",
     "Cdp",
     "Wallet",
     "Asset",

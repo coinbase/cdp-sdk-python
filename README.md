@@ -63,7 +63,7 @@ Another way to initialize the SDK is by sourcing the API key from the JSON file 
 downloaded from the CDP portal.
 
 ```python
-Cdp.configure_from_json("~/Downloads/cdp_api_key.json"")
+Cdp.configure_from_json("~/Downloads/cdp_api_key.json")
 
 print("CDP SDK has been successfully configured from JSON file.")
 ```
@@ -146,7 +146,7 @@ address.transfers()
 See [Trades](https://docs.cdp.coinbase.com/wallets/docs/trades) for more information.
 
 ```python
-wallet = Wallet.create(network="base-mainnet")
+wallet = Wallet.create("base-mainnet")
 
 print(f"Wallet successfully created: {wallet}")
 print(f"Send `base-mainnet` ETH to wallets default address: {wallet.default_address.address_id}")

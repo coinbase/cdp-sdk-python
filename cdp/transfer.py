@@ -1,4 +1,5 @@
 import time
+from collections.abc import Iterator
 from decimal import Decimal
 
 from eth_account.signers.local import LocalAccount
@@ -140,8 +141,9 @@ class Transfer:
         if model.sponsored_send is not None:
             self._sponsored_send = SponsoredSend(model.sponsored_send)
 
-    @staticmethod
+    @classmethod
     def create(
+        cls,
         address_id: str,
         amount: Decimal,
         asset_id: str,
@@ -190,32 +192,36 @@ class Transfer:
             create_transfer_request=create_transfer_request,
         )
 
-        return Transfer(model)
+        return cls(model)
 
-    @staticmethod
-    def list(
-        wallet_id: str, address_id: str, limit: int = 100, page: str | None = None
-    ) -> list["Transfer"]:
+    @classmethod
+    def list(cls, wallet_id: str, address_id: str) -> Iterator["Transfer"]:
         """List transfers.
 
         Args:
             wallet_id (str): The wallet ID.
             address_id (str): The address ID.
-            limit (int): The maximum number of transfers to retrieve. Defaults to 100.
-            page (Optional[str]): A cursor for pagination. Defaults to None.
 
         Returns:
-            List[Transfer]: A list of transfer objects.
+            Iterator[Transfer]: An iterator of transfer objects.
 
         Raises:
             Exception: If there's an error listing the transfers.
 
         """
-        response: TransferList = Cdp.api_clients.transfers.list_transfers(
-            wallet_id=wallet_id, address_id=address_id, limit=limit, page=page
-        )
+        page = None
+        while True:
+            response: TransferList = Cdp.api_clients.transfers.list_transfers(
+                wallet_id=wallet_id, address_id=address_id, limit=100, page=page
+            )
 
-        return [Transfer(transfer_model) for transfer_model in response.data]
+            for transfer_model in response.data:
+                yield cls(transfer_model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     def sign(self, key: LocalAccount) -> "Transfer":
         """Sign the Transfer with the given key.
@@ -255,7 +261,10 @@ class Transfer:
         )
 
         model = Cdp.api_clients.transfers.broadcast_transfer(
-            self.wallet_id, self.from_address_id, self.transfer_id, broadcast_transfer_request
+            wallet_id=self.wallet_id,
+            address_id=self.from_address_id,
+            transfer_id=self.transfer_id,
+            broadcast_transfer_request=broadcast_transfer_request,
         )
 
         self._model = model
@@ -305,10 +314,10 @@ class Transfer:
     def __str__(self) -> str:
         """Get a string representation of the Transfer."""
         return (
-            f"Transfer{{transfer_id: '{self.transfer_id}', network_id: '{self.network_id}', "
-            f"from_address_id: '{self.from_address_id}', destination_address_id: '{self.destination_address_id}', "
-            f"asset_id: '{self.asset_id}', amount: '{self.amount}', transaction_link: '{self.transaction_link}', "
-            f"status: '{self.status}'}}"
+            f"Transfer: (transfer_id: {self.transfer_id}, network_id: {self.network_id}, "
+            f"from_address_id: {self.from_address_id}, destination_address_id: {self.destination_address_id}, "
+            f"asset_id: {self.asset_id}, amount: {self.amount}, transaction_link: {self.transaction_link}, "
+            f"status: {self.status})"
         )
 
     def __repr__(self) -> str:
