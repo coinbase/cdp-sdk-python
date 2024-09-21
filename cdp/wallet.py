@@ -610,7 +610,7 @@ class Wallet:
             str: A string representation of the Wallet.
 
         """
-        return f"Wallet: (id: {self.id}, network_id: {self.network_id}), server_signer_status: {self.server_signer_status})"
+        return f"Wallet: (id: {self.id}, network_id: {self.network_id}, server_signer_status: {self.server_signer_status})"
 
     def __repr__(self) -> str:
         """Return a string representation of the Wallet object.
