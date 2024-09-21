@@ -138,7 +138,9 @@ class WalletAddress(Address):
             return trade
 
         trade.transaction.sign(self.key)
-        trade.approve_transaction.sign(self.key)
+
+        if trade.approve_transaction is not None:
+            trade.approve_transaction.sign(self.key)
 
         trade.broadcast()
 

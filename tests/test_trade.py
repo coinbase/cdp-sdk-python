@@ -227,7 +227,7 @@ def test_wait_for_trade(mock_time, mock_sleep, mock_api_clients, trade_factory):
     assert result.transaction.status.value == "complete"
     mock_get_trade.assert_called_with(
         wallet_id=pending_trade.wallet_id,
-        network_id=pending_trade.network_id,
+        address_id=pending_trade.address_id,
         trade_id=pending_trade.trade_id,
     )
     assert mock_get_trade.call_count == 2

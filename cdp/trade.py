@@ -97,13 +97,20 @@ class Trade:
             TransactionNotSignedError: If the trade is not signed.
 
         """
-        if not all([self.transaction.signed, self.approve_transaction.signed]):
+        if not self.transaction.signed:
+            raise TransactionNotSignedError("Trade is not signed")
+
+        if self.approve_transaction and not self.approve_transaction.signed:
             raise TransactionNotSignedError("Trade is not signed")
 
         broadcast_trade_request = BroadcastTradeRequest(
             signed_payload=self.transaction.signature,
-            approve_transaction_signed_payload=self.approve_transaction.signature,
         )
+
+        if self.approve_transaction is not None:
+            broadcast_trade_request.approve_transaction_signed_payload = (
+                self.approve_transaction.signature
+            )
 
         model = Cdp.api_clients.trades.broadcast_trade(
             wallet_id=self.wallet_id,
@@ -237,7 +244,7 @@ class Trade:
     def reload(self) -> None:
         """Reload the trade."""
         model = Cdp.api_clients.trades.get_trade(
-            wallet_id=self.wallet_id, network_id=self.network_id, trade_id=self.trade_id
+            wallet_id=self.wallet_id, address_id=self.address_id, trade_id=self.trade_id
         )
         self._model = model
         self._update_transactions(model)

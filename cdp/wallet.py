@@ -211,7 +211,7 @@ class Wallet:
             response: WalletList = Cdp.api_clients.wallets.list_wallets(limit=100, page=page)
 
             for wallet_model in response.data:
-                yield cls(wallet_model)
+                yield cls(wallet_model, "")
 
             if not response.has_more:
                 break
@@ -610,7 +610,7 @@ class Wallet:
             str: A string representation of the Wallet.
 
         """
-        return f"Wallet: (id: {self.id}, network_id: {self.network_id}), default_address: {self.default_address}, server_signer_status: {self.server_signer_status})"
+        return f"Wallet: (id: {self.id}, network_id: {self.network_id}), server_signer_status: {self.server_signer_status})"
 
     def __repr__(self) -> str:
         """Return a string representation of the Wallet object.
