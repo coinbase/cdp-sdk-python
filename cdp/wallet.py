@@ -473,8 +473,9 @@ class Wallet:
         """
         seeds_in_file = {}
 
-        with open(file_path) as f:
-            seeds_in_file = json.load(f)
+        if os.path.exists(file_path):
+            with open(file_path) as f:
+                seeds_in_file = json.load(f)
 
         return seeds_in_file
 
