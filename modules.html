@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>cdp &#8212; CDP SDK 0.0.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=e3a6060d"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cdp package" href="cdp.html" />
+    <link rel="prev" title="CDP SDK documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="cdp">
+<h1>cdp<a class="headerlink" href="#cdp" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cdp.html">cdp package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.client.html">cdp.client package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#module-cdp.client.api_client">cdp.client.api_client module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#module-cdp.client.api_response">cdp.client.api_response module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#module-cdp.client.configuration">cdp.client.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#module-cdp.client.exceptions">cdp.client.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#module-cdp.client.rest">cdp.client.rest module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.html#module-cdp.client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.address">cdp.address module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.address.Address"><code class="docutils literal notranslate"><span class="pre">Address</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.address_id"><code class="docutils literal notranslate"><span class="pre">Address.address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.balance"><code class="docutils literal notranslate"><span class="pre">Address.balance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.balances"><code class="docutils literal notranslate"><span class="pre">Address.balances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.can_sign"><code class="docutils literal notranslate"><span class="pre">Address.can_sign</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.faucet"><code class="docutils literal notranslate"><span class="pre">Address.faucet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.network_id"><code class="docutils literal notranslate"><span class="pre">Address.network_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.api_clients">cdp.api_clients module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients"><code class="docutils literal notranslate"><span class="pre">ApiClients</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._cdp_client"><code class="docutils literal notranslate"><span class="pre">ApiClients._cdp_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._wallets"><code class="docutils literal notranslate"><span class="pre">ApiClients._wallets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._addresses"><code class="docutils literal notranslate"><span class="pre">ApiClients._addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._external_addresses"><code class="docutils literal notranslate"><span class="pre">ApiClients._external_addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._transfers"><code class="docutils literal notranslate"><span class="pre">ApiClients._transfers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._networks"><code class="docutils literal notranslate"><span class="pre">ApiClients._networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._assets"><code class="docutils literal notranslate"><span class="pre">ApiClients._assets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients._trades"><code class="docutils literal notranslate"><span class="pre">ApiClients._trades</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.addresses"><code class="docutils literal notranslate"><span class="pre">ApiClients.addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.assets"><code class="docutils literal notranslate"><span class="pre">ApiClients.assets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.external_addresses"><code class="docutils literal notranslate"><span class="pre">ApiClients.external_addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.networks"><code class="docutils literal notranslate"><span class="pre">ApiClients.networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.trades"><code class="docutils literal notranslate"><span class="pre">ApiClients.trades</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.transfers"><code class="docutils literal notranslate"><span class="pre">ApiClients.transfers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.wallets"><code class="docutils literal notranslate"><span class="pre">ApiClients.wallets</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.asset">cdp.asset module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.asset.Asset"><code class="docutils literal notranslate"><span class="pre">Asset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.asset_id"><code class="docutils literal notranslate"><span class="pre">Asset.asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.contract_address"><code class="docutils literal notranslate"><span class="pre">Asset.contract_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.decimals"><code class="docutils literal notranslate"><span class="pre">Asset.decimals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.fetch"><code class="docutils literal notranslate"><span class="pre">Asset.fetch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.from_atomic_amount"><code class="docutils literal notranslate"><span class="pre">Asset.from_atomic_amount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.from_model"><code class="docutils literal notranslate"><span class="pre">Asset.from_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.network_id"><code class="docutils literal notranslate"><span class="pre">Asset.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.primary_denomination"><code class="docutils literal notranslate"><span class="pre">Asset.primary_denomination()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.asset.Asset.to_atomic_amount"><code class="docutils literal notranslate"><span class="pre">Asset.to_atomic_amount()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.balance">cdp.balance module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.balance.Balance"><code class="docutils literal notranslate"><span class="pre">Balance</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.balance.Balance.amount"><code class="docutils literal notranslate"><span class="pre">Balance.amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.balance.Balance.asset"><code class="docutils literal notranslate"><span class="pre">Balance.asset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.balance.Balance.asset_id"><code class="docutils literal notranslate"><span class="pre">Balance.asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.balance.Balance.from_model"><code class="docutils literal notranslate"><span class="pre">Balance.from_model()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.balance_map">cdp.balance_map module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.balance_map.BalanceMap"><code class="docutils literal notranslate"><span class="pre">BalanceMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.balance_map.BalanceMap.add"><code class="docutils literal notranslate"><span class="pre">BalanceMap.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.balance_map.BalanceMap.from_models"><code class="docutils literal notranslate"><span class="pre">BalanceMap.from_models()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.cdp">cdp.cdp module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp"><code class="docutils literal notranslate"><span class="pre">Cdp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.api_key_name"><code class="docutils literal notranslate"><span class="pre">Cdp.api_key_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.private_key"><code class="docutils literal notranslate"><span class="pre">Cdp.private_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.use_server_signer"><code class="docutils literal notranslate"><span class="pre">Cdp.use_server_signer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.debugging"><code class="docutils literal notranslate"><span class="pre">Cdp.debugging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.base_path"><code class="docutils literal notranslate"><span class="pre">Cdp.base_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.max_network_retries"><code class="docutils literal notranslate"><span class="pre">Cdp.max_network_retries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.api_clients"><code class="docutils literal notranslate"><span class="pre">Cdp.api_clients</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id0"><code class="docutils literal notranslate"><span class="pre">Cdp.api_clients</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id1"><code class="docutils literal notranslate"><span class="pre">Cdp.api_key_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id2"><code class="docutils literal notranslate"><span class="pre">Cdp.base_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.configure"><code class="docutils literal notranslate"><span class="pre">Cdp.configure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp.Cdp.configure_from_json"><code class="docutils literal notranslate"><span class="pre">Cdp.configure_from_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id3"><code class="docutils literal notranslate"><span class="pre">Cdp.debugging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id4"><code class="docutils literal notranslate"><span class="pre">Cdp.max_network_retries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id5"><code class="docutils literal notranslate"><span class="pre">Cdp.private_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id6"><code class="docutils literal notranslate"><span class="pre">Cdp.use_server_signer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.cdp_api_client">cdp.cdp_api_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.cdp_api_client.CdpApiClient"><code class="docutils literal notranslate"><span class="pre">CdpApiClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp_api_client.CdpApiClient.call_api"><code class="docutils literal notranslate"><span class="pre">CdpApiClient.call_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.cdp_api_client.CdpApiClient.response_deserialize"><code class="docutils literal notranslate"><span class="pre">CdpApiClient.response_deserialize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.errors">cdp.errors module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.AddressCannotSignError"><code class="docutils literal notranslate"><span class="pre">AddressCannotSignError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.AlreadyExistsError"><code class="docutils literal notranslate"><span class="pre">AlreadyExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.AlreadySignedError"><code class="docutils literal notranslate"><span class="pre">AlreadySignedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.ApiError"><code class="docutils literal notranslate"><span class="pre">ApiError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.errors.ApiError.api_code"><code class="docutils literal notranslate"><span class="pre">ApiError.api_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.errors.ApiError.api_message"><code class="docutils literal notranslate"><span class="pre">ApiError.api_message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.errors.ApiError.from_error"><code class="docutils literal notranslate"><span class="pre">ApiError.from_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.errors.ApiError.handled"><code class="docutils literal notranslate"><span class="pre">ApiError.handled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.errors.ApiError.http_code"><code class="docutils literal notranslate"><span class="pre">ApiError.http_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.FaucetLimitReachedError"><code class="docutils literal notranslate"><span class="pre">FaucetLimitReachedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InsufficientFundsError"><code class="docutils literal notranslate"><span class="pre">InsufficientFundsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InternalError"><code class="docutils literal notranslate"><span class="pre">InternalError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidAPIKeyFormatError"><code class="docutils literal notranslate"><span class="pre">InvalidAPIKeyFormatError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidAddressError"><code class="docutils literal notranslate"><span class="pre">InvalidAddressError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidAddressIDError"><code class="docutils literal notranslate"><span class="pre">InvalidAddressIDError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidAmountError"><code class="docutils literal notranslate"><span class="pre">InvalidAmountError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidAssetIDError"><code class="docutils literal notranslate"><span class="pre">InvalidAssetIDError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidConfigurationError"><code class="docutils literal notranslate"><span class="pre">InvalidConfigurationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidDestinationError"><code class="docutils literal notranslate"><span class="pre">InvalidDestinationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidLimitError"><code class="docutils literal notranslate"><span class="pre">InvalidLimitError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidNetworkIDError"><code class="docutils literal notranslate"><span class="pre">InvalidNetworkIDError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidPageError"><code class="docutils literal notranslate"><span class="pre">InvalidPageError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidSignedPayloadError"><code class="docutils literal notranslate"><span class="pre">InvalidSignedPayloadError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidTransferIDError"><code class="docutils literal notranslate"><span class="pre">InvalidTransferIDError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidTransferStatusError"><code class="docutils literal notranslate"><span class="pre">InvalidTransferStatusError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidWalletError"><code class="docutils literal notranslate"><span class="pre">InvalidWalletError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.InvalidWalletIDError"><code class="docutils literal notranslate"><span class="pre">InvalidWalletIDError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.MalformedRequestError"><code class="docutils literal notranslate"><span class="pre">MalformedRequestError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.NetworkFeatureUnsupportedError"><code class="docutils literal notranslate"><span class="pre">NetworkFeatureUnsupportedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.NotFoundError"><code class="docutils literal notranslate"><span class="pre">NotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.ResourceExhaustedError"><code class="docutils literal notranslate"><span class="pre">ResourceExhaustedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.TransactionNotSignedError"><code class="docutils literal notranslate"><span class="pre">TransactionNotSignedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.UnauthorizedError"><code class="docutils literal notranslate"><span class="pre">UnauthorizedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.UnimplementedError"><code class="docutils literal notranslate"><span class="pre">UnimplementedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.errors.UnsupportedAssetError"><code class="docutils literal notranslate"><span class="pre">UnsupportedAssetError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.faucet_transaction">cdp.faucet_transaction module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.faucet_transaction.FaucetTransaction"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.faucet_transaction.FaucetTransaction.transaction_hash"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.faucet_transaction.FaucetTransaction.transaction_link"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction.transaction_link</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.sponsored_send">cdp.sponsored_send module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend"><code class="docutils literal notranslate"><span class="pre">SponsoredSend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.Status"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.Status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.sign"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.signature"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.signed"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.status"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.terminal_state"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.terminal_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.transaction_hash"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.transaction_link"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.transaction_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.sponsored_send.SponsoredSend.typed_data_hash"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.typed_data_hash</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.trade">cdp.trade module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.trade.Trade"><code class="docutils literal notranslate"><span class="pre">Trade</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.address_id"><code class="docutils literal notranslate"><span class="pre">Trade.address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.approve_transaction"><code class="docutils literal notranslate"><span class="pre">Trade.approve_transaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.broadcast"><code class="docutils literal notranslate"><span class="pre">Trade.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.create"><code class="docutils literal notranslate"><span class="pre">Trade.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.from_amount"><code class="docutils literal notranslate"><span class="pre">Trade.from_amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.from_asset_id"><code class="docutils literal notranslate"><span class="pre">Trade.from_asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.list"><code class="docutils literal notranslate"><span class="pre">Trade.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.network_id"><code class="docutils literal notranslate"><span class="pre">Trade.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.reload"><code class="docutils literal notranslate"><span class="pre">Trade.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.to_amount"><code class="docutils literal notranslate"><span class="pre">Trade.to_amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.to_asset_id"><code class="docutils literal notranslate"><span class="pre">Trade.to_asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.trade_id"><code class="docutils literal notranslate"><span class="pre">Trade.trade_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.transaction"><code class="docutils literal notranslate"><span class="pre">Trade.transaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.wait"><code class="docutils literal notranslate"><span class="pre">Trade.wait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.trade.Trade.wallet_id"><code class="docutils literal notranslate"><span class="pre">Trade.wallet_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.transaction">cdp.transaction module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction"><code class="docutils literal notranslate"><span class="pre">Transaction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.Status"><code class="docutils literal notranslate"><span class="pre">Transaction.Status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.block_hash"><code class="docutils literal notranslate"><span class="pre">Transaction.block_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.block_height"><code class="docutils literal notranslate"><span class="pre">Transaction.block_height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.content"><code class="docutils literal notranslate"><span class="pre">Transaction.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.from_address_id"><code class="docutils literal notranslate"><span class="pre">Transaction.from_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.raw"><code class="docutils literal notranslate"><span class="pre">Transaction.raw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.sign"><code class="docutils literal notranslate"><span class="pre">Transaction.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.signature"><code class="docutils literal notranslate"><span class="pre">Transaction.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.signed"><code class="docutils literal notranslate"><span class="pre">Transaction.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.signed_payload"><code class="docutils literal notranslate"><span class="pre">Transaction.signed_payload</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.status"><code class="docutils literal notranslate"><span class="pre">Transaction.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.terminal_state"><code class="docutils literal notranslate"><span class="pre">Transaction.terminal_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.to_address_id"><code class="docutils literal notranslate"><span class="pre">Transaction.to_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.transaction_hash"><code class="docutils literal notranslate"><span class="pre">Transaction.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.transaction_link"><code class="docutils literal notranslate"><span class="pre">Transaction.transaction_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transaction.Transaction.unsigned_payload"><code class="docutils literal notranslate"><span class="pre">Transaction.unsigned_payload</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.transfer">cdp.transfer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer"><code class="docutils literal notranslate"><span class="pre">Transfer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.amount"><code class="docutils literal notranslate"><span class="pre">Transfer.amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.asset"><code class="docutils literal notranslate"><span class="pre">Transfer.asset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.asset_id"><code class="docutils literal notranslate"><span class="pre">Transfer.asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.broadcast"><code class="docutils literal notranslate"><span class="pre">Transfer.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.create"><code class="docutils literal notranslate"><span class="pre">Transfer.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.destination_address_id"><code class="docutils literal notranslate"><span class="pre">Transfer.destination_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.from_address_id"><code class="docutils literal notranslate"><span class="pre">Transfer.from_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.list"><code class="docutils literal notranslate"><span class="pre">Transfer.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.network_id"><code class="docutils literal notranslate"><span class="pre">Transfer.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.reload"><code class="docutils literal notranslate"><span class="pre">Transfer.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.send_tx_delegate"><code class="docutils literal notranslate"><span class="pre">Transfer.send_tx_delegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.sign"><code class="docutils literal notranslate"><span class="pre">Transfer.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.sponsored_send"><code class="docutils literal notranslate"><span class="pre">Transfer.sponsored_send</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.status"><code class="docutils literal notranslate"><span class="pre">Transfer.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.terminal_state"><code class="docutils literal notranslate"><span class="pre">Transfer.terminal_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.transaction"><code class="docutils literal notranslate"><span class="pre">Transfer.transaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.transaction_hash"><code class="docutils literal notranslate"><span class="pre">Transfer.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.transaction_link"><code class="docutils literal notranslate"><span class="pre">Transfer.transaction_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.transfer_id"><code class="docutils literal notranslate"><span class="pre">Transfer.transfer_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.wait"><code class="docutils literal notranslate"><span class="pre">Transfer.wait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.transfer.Transfer.wallet_id"><code class="docutils literal notranslate"><span class="pre">Transfer.wallet_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.wallet">cdp.wallet module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet"><code class="docutils literal notranslate"><span class="pre">Wallet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.MAX_ADDRESSES"><code class="docutils literal notranslate"><span class="pre">Wallet.MAX_ADDRESSES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.addresses"><code class="docutils literal notranslate"><span class="pre">Wallet.addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.balance"><code class="docutils literal notranslate"><span class="pre">Wallet.balance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.balances"><code class="docutils literal notranslate"><span class="pre">Wallet.balances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.can_sign"><code class="docutils literal notranslate"><span class="pre">Wallet.can_sign</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.create"><code class="docutils literal notranslate"><span class="pre">Wallet.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.create_address"><code class="docutils literal notranslate"><span class="pre">Wallet.create_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.default_address"><code class="docutils literal notranslate"><span class="pre">Wallet.default_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.faucet"><code class="docutils literal notranslate"><span class="pre">Wallet.faucet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.fetch"><code class="docutils literal notranslate"><span class="pre">Wallet.fetch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.id"><code class="docutils literal notranslate"><span class="pre">Wallet.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.list"><code class="docutils literal notranslate"><span class="pre">Wallet.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.load_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.load_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.network_id"><code class="docutils literal notranslate"><span class="pre">Wallet.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.reload"><code class="docutils literal notranslate"><span class="pre">Wallet.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.save_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.save_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.server_signer_status"><code class="docutils literal notranslate"><span class="pre">Wallet.server_signer_status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.trade"><code class="docutils literal notranslate"><span class="pre">Wallet.trade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.transfer"><code class="docutils literal notranslate"><span class="pre">Wallet.transfer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.wallet_address">cdp.wallet_address module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress"><code class="docutils literal notranslate"><span class="pre">WalletAddress</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.can_sign"><code class="docutils literal notranslate"><span class="pre">WalletAddress.can_sign</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.key"><code class="docutils literal notranslate"><span class="pre">WalletAddress.key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.trade"><code class="docutils literal notranslate"><span class="pre">WalletAddress.trade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.trades"><code class="docutils literal notranslate"><span class="pre">WalletAddress.trades()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.transfer"><code class="docutils literal notranslate"><span class="pre">WalletAddress.transfer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.transfers"><code class="docutils literal notranslate"><span class="pre">WalletAddress.transfers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_address.WalletAddress.wallet_id"><code class="docutils literal notranslate"><span class="pre">WalletAddress.wallet_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Address"><code class="docutils literal notranslate"><span class="pre">Address</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.address_id"><code class="docutils literal notranslate"><span class="pre">Address.address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.balance"><code class="docutils literal notranslate"><span class="pre">Address.balance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.balances"><code class="docutils literal notranslate"><span class="pre">Address.balances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.can_sign"><code class="docutils literal notranslate"><span class="pre">Address.can_sign</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.faucet"><code class="docutils literal notranslate"><span class="pre">Address.faucet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.network_id"><code class="docutils literal notranslate"><span class="pre">Address.network_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Asset"><code class="docutils literal notranslate"><span class="pre">Asset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.asset_id"><code class="docutils literal notranslate"><span class="pre">Asset.asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.contract_address"><code class="docutils literal notranslate"><span class="pre">Asset.contract_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.decimals"><code class="docutils literal notranslate"><span class="pre">Asset.decimals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.fetch"><code class="docutils literal notranslate"><span class="pre">Asset.fetch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.from_atomic_amount"><code class="docutils literal notranslate"><span class="pre">Asset.from_atomic_amount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.from_model"><code class="docutils literal notranslate"><span class="pre">Asset.from_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.network_id"><code class="docutils literal notranslate"><span class="pre">Asset.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.primary_denomination"><code class="docutils literal notranslate"><span class="pre">Asset.primary_denomination()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Asset.to_atomic_amount"><code class="docutils literal notranslate"><span class="pre">Asset.to_atomic_amount()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Balance"><code class="docutils literal notranslate"><span class="pre">Balance</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Balance.amount"><code class="docutils literal notranslate"><span class="pre">Balance.amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Balance.asset"><code class="docutils literal notranslate"><span class="pre">Balance.asset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Balance.asset_id"><code class="docutils literal notranslate"><span class="pre">Balance.asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Balance.from_model"><code class="docutils literal notranslate"><span class="pre">Balance.from_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.BalanceMap"><code class="docutils literal notranslate"><span class="pre">BalanceMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.BalanceMap.add"><code class="docutils literal notranslate"><span class="pre">BalanceMap.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.BalanceMap.from_models"><code class="docutils literal notranslate"><span class="pre">BalanceMap.from_models()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Cdp"><code class="docutils literal notranslate"><span class="pre">Cdp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.api_key_name"><code class="docutils literal notranslate"><span class="pre">Cdp.api_key_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.private_key"><code class="docutils literal notranslate"><span class="pre">Cdp.private_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.use_server_signer"><code class="docutils literal notranslate"><span class="pre">Cdp.use_server_signer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.debugging"><code class="docutils literal notranslate"><span class="pre">Cdp.debugging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.base_path"><code class="docutils literal notranslate"><span class="pre">Cdp.base_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.max_network_retries"><code class="docutils literal notranslate"><span class="pre">Cdp.max_network_retries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.api_clients"><code class="docutils literal notranslate"><span class="pre">Cdp.api_clients</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id7"><code class="docutils literal notranslate"><span class="pre">Cdp.api_clients</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id8"><code class="docutils literal notranslate"><span class="pre">Cdp.api_key_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id9"><code class="docutils literal notranslate"><span class="pre">Cdp.base_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.configure"><code class="docutils literal notranslate"><span class="pre">Cdp.configure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Cdp.configure_from_json"><code class="docutils literal notranslate"><span class="pre">Cdp.configure_from_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id10"><code class="docutils literal notranslate"><span class="pre">Cdp.debugging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id11"><code class="docutils literal notranslate"><span class="pre">Cdp.max_network_retries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id12"><code class="docutils literal notranslate"><span class="pre">Cdp.private_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#id13"><code class="docutils literal notranslate"><span class="pre">Cdp.use_server_signer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.FaucetTransaction"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.FaucetTransaction.transaction_hash"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.FaucetTransaction.transaction_link"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction.transaction_link</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.SponsoredSend"><code class="docutils literal notranslate"><span class="pre">SponsoredSend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.Status"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.Status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.sign"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.signature"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.signed"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.status"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.terminal_state"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.terminal_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.transaction_hash"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.transaction_link"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.transaction_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SponsoredSend.typed_data_hash"><code class="docutils literal notranslate"><span class="pre">SponsoredSend.typed_data_hash</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Trade"><code class="docutils literal notranslate"><span class="pre">Trade</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.address_id"><code class="docutils literal notranslate"><span class="pre">Trade.address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.approve_transaction"><code class="docutils literal notranslate"><span class="pre">Trade.approve_transaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.broadcast"><code class="docutils literal notranslate"><span class="pre">Trade.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.create"><code class="docutils literal notranslate"><span class="pre">Trade.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.from_amount"><code class="docutils literal notranslate"><span class="pre">Trade.from_amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.from_asset_id"><code class="docutils literal notranslate"><span class="pre">Trade.from_asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.list"><code class="docutils literal notranslate"><span class="pre">Trade.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.network_id"><code class="docutils literal notranslate"><span class="pre">Trade.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.reload"><code class="docutils literal notranslate"><span class="pre">Trade.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.to_amount"><code class="docutils literal notranslate"><span class="pre">Trade.to_amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.to_asset_id"><code class="docutils literal notranslate"><span class="pre">Trade.to_asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.trade_id"><code class="docutils literal notranslate"><span class="pre">Trade.trade_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.transaction"><code class="docutils literal notranslate"><span class="pre">Trade.transaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.wait"><code class="docutils literal notranslate"><span class="pre">Trade.wait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Trade.wallet_id"><code class="docutils literal notranslate"><span class="pre">Trade.wallet_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Transaction"><code class="docutils literal notranslate"><span class="pre">Transaction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.Status"><code class="docutils literal notranslate"><span class="pre">Transaction.Status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.block_hash"><code class="docutils literal notranslate"><span class="pre">Transaction.block_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.block_height"><code class="docutils literal notranslate"><span class="pre">Transaction.block_height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.content"><code class="docutils literal notranslate"><span class="pre">Transaction.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.from_address_id"><code class="docutils literal notranslate"><span class="pre">Transaction.from_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.raw"><code class="docutils literal notranslate"><span class="pre">Transaction.raw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.sign"><code class="docutils literal notranslate"><span class="pre">Transaction.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.signature"><code class="docutils literal notranslate"><span class="pre">Transaction.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.signed"><code class="docutils literal notranslate"><span class="pre">Transaction.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.signed_payload"><code class="docutils literal notranslate"><span class="pre">Transaction.signed_payload</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.status"><code class="docutils literal notranslate"><span class="pre">Transaction.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.terminal_state"><code class="docutils literal notranslate"><span class="pre">Transaction.terminal_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.to_address_id"><code class="docutils literal notranslate"><span class="pre">Transaction.to_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.transaction_hash"><code class="docutils literal notranslate"><span class="pre">Transaction.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.transaction_link"><code class="docutils literal notranslate"><span class="pre">Transaction.transaction_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transaction.unsigned_payload"><code class="docutils literal notranslate"><span class="pre">Transaction.unsigned_payload</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Transfer"><code class="docutils literal notranslate"><span class="pre">Transfer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.amount"><code class="docutils literal notranslate"><span class="pre">Transfer.amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.asset"><code class="docutils literal notranslate"><span class="pre">Transfer.asset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.asset_id"><code class="docutils literal notranslate"><span class="pre">Transfer.asset_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.broadcast"><code class="docutils literal notranslate"><span class="pre">Transfer.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.create"><code class="docutils literal notranslate"><span class="pre">Transfer.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.destination_address_id"><code class="docutils literal notranslate"><span class="pre">Transfer.destination_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.from_address_id"><code class="docutils literal notranslate"><span class="pre">Transfer.from_address_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.list"><code class="docutils literal notranslate"><span class="pre">Transfer.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.network_id"><code class="docutils literal notranslate"><span class="pre">Transfer.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.reload"><code class="docutils literal notranslate"><span class="pre">Transfer.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.send_tx_delegate"><code class="docutils literal notranslate"><span class="pre">Transfer.send_tx_delegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.sign"><code class="docutils literal notranslate"><span class="pre">Transfer.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.sponsored_send"><code class="docutils literal notranslate"><span class="pre">Transfer.sponsored_send</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.status"><code class="docutils literal notranslate"><span class="pre">Transfer.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.terminal_state"><code class="docutils literal notranslate"><span class="pre">Transfer.terminal_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.transaction"><code class="docutils literal notranslate"><span class="pre">Transfer.transaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.transaction_hash"><code class="docutils literal notranslate"><span class="pre">Transfer.transaction_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.transaction_link"><code class="docutils literal notranslate"><span class="pre">Transfer.transaction_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.transfer_id"><code class="docutils literal notranslate"><span class="pre">Transfer.transfer_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.wait"><code class="docutils literal notranslate"><span class="pre">Transfer.wait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Transfer.wallet_id"><code class="docutils literal notranslate"><span class="pre">Transfer.wallet_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.Wallet"><code class="docutils literal notranslate"><span class="pre">Wallet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.MAX_ADDRESSES"><code class="docutils literal notranslate"><span class="pre">Wallet.MAX_ADDRESSES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.addresses"><code class="docutils literal notranslate"><span class="pre">Wallet.addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.balance"><code class="docutils literal notranslate"><span class="pre">Wallet.balance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.balances"><code class="docutils literal notranslate"><span class="pre">Wallet.balances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.can_sign"><code class="docutils literal notranslate"><span class="pre">Wallet.can_sign</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.create"><code class="docutils literal notranslate"><span class="pre">Wallet.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.create_address"><code class="docutils literal notranslate"><span class="pre">Wallet.create_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.default_address"><code class="docutils literal notranslate"><span class="pre">Wallet.default_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.faucet"><code class="docutils literal notranslate"><span class="pre">Wallet.faucet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.fetch"><code class="docutils literal notranslate"><span class="pre">Wallet.fetch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.id"><code class="docutils literal notranslate"><span class="pre">Wallet.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.list"><code class="docutils literal notranslate"><span class="pre">Wallet.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.load_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.load_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.network_id"><code class="docutils literal notranslate"><span class="pre">Wallet.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.reload"><code class="docutils literal notranslate"><span class="pre">Wallet.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.save_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.save_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.server_signer_status"><code class="docutils literal notranslate"><span class="pre">Wallet.server_signer_status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.trade"><code class="docutils literal notranslate"><span class="pre">Wallet.trade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.transfer"><code class="docutils literal notranslate"><span class="pre">Wallet.transfer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CDP SDK</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">cdp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html">cdp package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">CDP SDK documentation</a></li>
+      <li>Next: <a href="cdp.html" title="next chapter">cdp package</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
