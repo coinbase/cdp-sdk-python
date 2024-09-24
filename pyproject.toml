@@ -103,7 +103,7 @@ Homepage = "https://docs.cdp.coinbase.com/cdp-sdk/docs/welcome"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["cdp*"]
-exclude = ["tests*"]
+exclude = ["tests*", "docs*"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -120,7 +120,7 @@ ignore_missing_imports = true
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-exclude = ["./cdp/client/**", "./build/**", "./dist/**"]
+exclude = ["./cdp/client/**", "./build/**", "./dist/**", "./docs/**"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "D", "UP", "B", "C4", "SIM", "RUF"]

@@ -1,0 +1,36 @@
+name: Publish Docs to Github Pages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install .[dev]
+
+    - name: Build Sphinx Documentation
+      run: |
+        cd docs
+        make html
+
+    - name: Deploy to Github Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/_build/html
+        keep_files: false
+        
+      

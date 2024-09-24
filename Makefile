@@ -25,3 +25,7 @@ repl:
 .PHONY: install-deps
 install-deps:
 	pip install .[dev]
+
+.PHONY: docs
+docs:
+	sphinx-apidoc -o docs/ ./cdp/
