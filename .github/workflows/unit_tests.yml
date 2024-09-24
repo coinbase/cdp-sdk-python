@@ -1,0 +1,26 @@
+name: Run Unit Tests
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.11', '3.12']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install .[dev]
+
+    - name: Run Unit Tests
+      run: make test
