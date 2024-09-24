@@ -10,6 +10,8 @@
 
 .ruff_cache
 
+**/_build/
+
 venv/
 .venv/
 
@@ -22,3 +24,4 @@ env/
 \#*\#
 .\#*
 .projectile
+
