@@ -1,6 +1,6 @@
 [project]
 name = "cdp-sdk"
-version = "0.0.1"
+version = "0.0.2"
 description = "CDP Python SDK"
 readme = "README.md"
 authors = [{name = "John Peterson", email = "john.peterson@coinbase.com"}]
@@ -91,6 +91,11 @@ dev = [
     "pluggy==1.5.0",
     "parso==0.7.1",
     "lsprotocol==2023.0.1",
+    "sphinx==8.0.2",
+    "sphinx-autobuild==2024.9.19",
+    "sphinxcontrib-napoleon==0.7",
+    "sphinx-autodoc-typehints==2.4.4",
+    "myst-parser==4.0.0",
 ]
 
 [build-system]
