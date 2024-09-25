@@ -228,6 +228,16 @@ class Trade:
         return Decimal(self._model.to_amount) / Decimal(10) ** self._model.to_asset.decimals
 
     @property
+    def status(self) -> str:
+        """Get the status.
+
+        Returns:
+            str: The status.
+
+        """
+        return self.transaction.status
+
+    @property
     def transaction(self) -> Transaction:
         """Get the trade transaction."""
         if self._transaction is None:

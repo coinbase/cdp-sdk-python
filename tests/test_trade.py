@@ -193,7 +193,7 @@ def test_broadcast_trade(mock_api_clients, trade_factory):
         broadcast_trade_request=ANY,
     )
     assert isinstance(response, Trade)
-    assert response.transaction.status.value == "broadcast"
+    assert response.status.value == "broadcast"
     broadcast_trade_request = mock_broadcast.call_args[1]["broadcast_trade_request"]
     assert broadcast_trade_request.signed_payload == trade.transaction.signature
     assert (
@@ -224,7 +224,7 @@ def test_wait_for_trade(mock_time, mock_sleep, mock_api_clients, trade_factory):
 
     result = pending_trade.wait(interval_seconds=0.2, timeout_seconds=1)
 
-    assert result.transaction.status.value == "complete"
+    assert result.status.value == "complete"
     mock_get_trade.assert_called_with(
         wallet_id=pending_trade.wallet_id,
         address_id=pending_trade.address_id,
