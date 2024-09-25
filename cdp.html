@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>cdp package &#8212; CDP SDK 0.0.2 documentation</title>
+    <title>cdp package &#8212; CDP SDK 0.0.3 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    <script src="_static/documentation_options.js?v=e3a6060d"></script>
+    <script src="_static/documentation_options.js?v=47de8214"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -1751,6 +1751,20 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="cdp.trade.Trade.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.trade.Trade.status" title="Link to this definition">¶</a></dt>
+<dd><p>Get the status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The status.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="cdp.trade.Trade.to_amount">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#cdp.trade.Trade.to_amount" title="Link to this definition">¶</a></dt>
 <dd><p>Get the to amount.</p>
@@ -2385,6 +2399,23 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.export_data">
+<span class="sig-name descname"><span class="pre">export_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.export_data" title="Link to this definition">¶</a></dt>
+<dd><p>Export the wallet’s data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The wallet’s data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.wallet_data.WalletData" title="cdp.wallet_data.WalletData">WalletData</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the wallet does not have a seed loaded.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.faucet">
 <span class="sig-name descname"><span class="pre">faucet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asset_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.faucet" title="Link to this definition">¶</a></dt>
 <dd><p>Request faucet funds.</p>
@@ -2406,7 +2437,7 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.fetch">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.fetch" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.fetch" title="Link to this definition">¶</a></dt>
 <dd><p>Fetch a wallet by its ID.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2434,6 +2465,26 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.import_data">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">import_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.import_data" title="Link to this definition">¶</a></dt>
+<dd><p>Import a wallet from previously exported wallet data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference internal" href="#cdp.wallet_data.WalletData" title="cdp.wallet_data.WalletData"><em>WalletData</em></a>) – The wallet data to import.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The imported wallet.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.wallet.Wallet" title="cdp.wallet.Wallet">Wallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an error getting the wallet.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2688,6 +2739,75 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 <dt class="sig sig-object py" id="cdp.wallet_address.WalletAddress.wallet_id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.wallet_address.WalletAddress.wallet_id" title="Link to this definition">¶</a></dt>
 <dd><p>Get the wallet ID.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.wallet_data">
+<span id="cdp-wallet-data-module"></span><h2>cdp.wallet_data module<a class="headerlink" href="#module-cdp.wallet_data" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.wallet_data.</span></span><span class="sig-name descname"><span class="pre">WalletData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing wallet data required to recreate a wallet.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData.from_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Create a WalletData class instance from the given dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The data to create the WalletData object from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The wallet data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.wallet_data.WalletData" title="cdp.wallet_data.WalletData">WalletData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.seed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.wallet_data.WalletData.seed" title="Link to this definition">¶</a></dt>
+<dd><p>Get the seed of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The seed of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the wallet data to a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The dictionary representation of the wallet data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.wallet_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.wallet_data.WalletData.wallet_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ID of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -3567,6 +3687,20 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="cdp.Trade.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.Trade.status" title="Link to this definition">¶</a></dt>
+<dd><p>Get the status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The status.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="cdp.Trade.to_amount">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#cdp.Trade.to_amount" title="Link to this definition">¶</a></dt>
 <dd><p>Get the to amount.</p>
@@ -4192,6 +4326,23 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.export_data">
+<span class="sig-name descname"><span class="pre">export_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.export_data" title="Link to this definition">¶</a></dt>
+<dd><p>Export the wallet’s data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The wallet’s data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.WalletData" title="cdp.WalletData">WalletData</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the wallet does not have a seed loaded.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.Wallet.faucet">
 <span class="sig-name descname"><span class="pre">faucet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asset_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.faucet" title="Link to this definition">¶</a></dt>
 <dd><p>Request faucet funds.</p>
@@ -4213,7 +4364,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Wallet.fetch">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.fetch" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.fetch" title="Link to this definition">¶</a></dt>
 <dd><p>Fetch a wallet by its ID.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4241,6 +4392,26 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.import_data">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">import_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.import_data" title="Link to this definition">¶</a></dt>
+<dd><p>Import a wallet from previously exported wallet data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference internal" href="#cdp.WalletData" title="cdp.WalletData"><em>WalletData</em></a>) – The wallet data to import.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The imported wallet.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.Wallet" title="cdp.Wallet">Wallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an error getting the wallet.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4386,6 +4557,72 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.WalletData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">WalletData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing wallet data required to recreate a wallet.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.WalletData.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData.from_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Create a WalletData class instance from the given dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The data to create the WalletData object from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The wallet data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.WalletData" title="cdp.WalletData">WalletData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.WalletData.seed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.WalletData.seed" title="Link to this definition">¶</a></dt>
+<dd><p>Get the seed of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The seed of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.WalletData.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the wallet data to a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The dictionary representation of the wallet data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.WalletData.wallet_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.WalletData.wallet_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ID of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
