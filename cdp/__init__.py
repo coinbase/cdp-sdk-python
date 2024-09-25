@@ -10,11 +10,13 @@ from cdp.trade import Trade
 from cdp.transaction import Transaction
 from cdp.transfer import Transfer
 from cdp.wallet import Wallet
+from cdp.wallet_data import WalletData
 
 __all__ = [
     "__version__",
     "Cdp",
     "Wallet",
+    "WalletData",
     "Asset",
     "Transfer",
     "Address",

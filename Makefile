@@ -28,4 +28,4 @@ install-deps:
 
 .PHONY: docs
 docs:
-	sphinx-apidoc -o docs/ ./cdp/
+	sphinx-apidoc -f -o docs/ ./cdp/

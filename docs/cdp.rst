@@ -132,6 +132,14 @@ cdp.wallet\_address module
    :undoc-members:
    :show-inheritance:
 
+cdp.wallet\_data module
+-----------------------
+
+.. automodule:: cdp.wallet_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
