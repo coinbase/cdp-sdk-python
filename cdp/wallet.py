@@ -28,6 +28,7 @@ from cdp.client.models.wallet_list import WalletList
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
+from cdp.wallet_data import WalletData
 
 
 class Wallet:
@@ -176,8 +177,8 @@ class Wallet:
         self._model = model
         return
 
-    @staticmethod
-    def fetch(wallet_id: str) -> "Wallet":
+    @classmethod
+    def fetch(cls, wallet_id: str) -> "Wallet":
         """Fetch a wallet by its ID.
 
         Args:
@@ -192,7 +193,7 @@ class Wallet:
         """
         model = Cdp.api_clients.wallets.get_wallet(wallet_id)
 
-        return Wallet(model, "")
+        return cls(model, "")
 
     @classmethod
     def list(cls) -> Iterator["Wallet"]:
@@ -217,6 +218,31 @@ class Wallet:
                 break
 
             page = response.next_page
+
+    @classmethod
+    def import_data(cls, data: WalletData) -> "Wallet":
+        """Import a wallet from previously exported wallet data.
+
+        Args:
+            data (WalletData): The wallet data to import.
+
+        Returns:
+            Wallet: The imported wallet.
+
+        Raises:
+            Exception: If there's an error getting the wallet.
+
+        """
+        if not isinstance(data, WalletData):
+            raise ValueError("Data must be a WalletData instance")
+
+        model = Cdp.api_clients.wallets.get_wallet(data.wallet_id)
+
+        wallet = cls(model, data.seed)
+
+        wallet._set_addresses()
+
+        return wallet
 
     def create_address(self) -> "WalletAddress":
         """Create a new address for the wallet.
@@ -371,6 +397,21 @@ class Wallet:
             if self._model.default_address is not None
             else None
         )
+
+    def export_data(self) -> WalletData:
+        """Export the wallet's data.
+
+        Returns:
+            WalletData: The wallet's data.
+
+        Raises:
+            ValueError: If the wallet does not have a seed loaded.
+
+        """
+        if self._master is None or self._seed is None:
+            raise ValueError("Wallet does not have seed loaded")
+
+        return WalletData(self.id, self._seed)
 
     def save_seed(self, file_path: str, encrypt: bool | None = False) -> None:
         """Save the wallet seed to a file.
