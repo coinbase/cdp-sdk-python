@@ -10,6 +10,7 @@ one asset into another.
 ## Documentation
 
 - [CDP API Documentation](https://docs.cdp.coinbase.com/platform-apis/docs/welcome)
+- [CDP SDK Python Documentation](https://coinbase.github.io/cdp-sdk-python/)
 
 ## Requirements
 
@@ -21,9 +22,11 @@ Before using the SDK, ensure that you have the correct version of Python install
 
 ```bash
 python --version
+pip --version
 ```
 
 If you need to upgrade your Python version, you can download and install the latest version of Python from the [official Python website](https://www.python.org/downloads/).
+For `pip`, refer to the [official pip documentation](https://pip.pypa.io/en/stable/installation/) for installation instructions.
 
 ## Installation
 
