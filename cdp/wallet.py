@@ -606,7 +606,7 @@ class Wallet:
 
         """
         return next(
-            (address for address in self._addresses if address.address_id == address_id),
+            (address for address in self.addresses if address.address_id == address_id),
             None,
         )
 

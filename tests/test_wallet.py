@@ -48,7 +48,7 @@ def wallet_model_factory(address_model_factory):
         network_id="base-sepolia",
         default_address=None,
         feature_set=None,
-        server_signer_status="active_seed",
+        server_signer_status="active_seed"
     ):
         if default_address is None:
             default_address = address_model_factory()
