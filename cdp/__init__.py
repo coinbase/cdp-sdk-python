@@ -11,6 +11,7 @@ from cdp.trade import Trade
 from cdp.transaction import Transaction
 from cdp.transfer import Transfer
 from cdp.wallet import Wallet
+from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
 
 __all__ = [
@@ -18,6 +19,7 @@ __all__ = [
     "Cdp",
     "ContractInvocation",
     "Wallet",
+    "WalletAddress",
     "WalletData",
     "Asset",
     "Transfer",
