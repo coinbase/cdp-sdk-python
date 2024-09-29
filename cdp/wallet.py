@@ -1,3 +1,4 @@
+import builtins
 import hashlib
 import json
 import os
@@ -25,6 +26,7 @@ from cdp.client.models.create_wallet_request import (
 )
 from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
+from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
@@ -383,6 +385,41 @@ class Wallet:
             raise ValueError("Default address does not exist")
 
         return self.default_address.trade(amount, from_asset_id, to_asset_id)
+
+    def invoke_contract(
+        self,
+        contract_address: str,
+        method: str,
+        abi: builtins.list[dict] | None = None,
+        args: dict | None = None,
+        amount: Number | Decimal | str | None = None,
+        asset_id: str | None = None,
+    ) -> ContractInvocation:
+        """Invoke a method on the specified contract address, with the given ABI and arguments.
+
+        Args:
+            contract_address (str): The address of the contract to invoke.
+            method (str): The name of the method to call on the contract.
+            abi (Optional[list[dict]]): The ABI of the contract, if provided.
+            args (Optional[dict]): The arguments to pass to the method.
+            amount (Optional[Union[Number, Decimal, str]]): The amount to send with the invocation, if applicable.
+            asset_id (Optional[str]): The asset ID associated with the amount, if applicable.
+
+        Returns:
+            ContractInvocation: The contract invocation object.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        invocation = self.default_address.invoke_contract(
+            contract_address, method, abi, args, amount, asset_id
+        )
+
+        return invocation
 
     @property
     def default_address(self) -> WalletAddress | None:

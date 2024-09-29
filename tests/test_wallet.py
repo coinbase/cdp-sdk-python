@@ -10,6 +10,7 @@ from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import CreateWalletRequest, CreateWalletRequestWallet
 from cdp.client.models.feature_set import FeatureSet
 from cdp.client.models.wallet import Wallet as WalletModel
+from cdp.contract_invocation import ContractInvocation
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 from cdp.wallet import Wallet
@@ -417,6 +418,60 @@ def test_wallet_transfer_no_default_address(wallet_factory):
         with pytest.raises(ValueError, match="Default address does not exist"):
             wallet.transfer(
                 amount=Decimal("1.0"), asset_id="eth", destination="0xdestination", gasless=False
+            )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_invoke_contract_with_server_signer(wallet_factory):
+    """Test the invoke_contract method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_contract_invocation_instance = Mock(spec=ContractInvocation)
+    mock_default_address.invoke_contract.return_value = mock_contract_invocation_instance
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        contract_invocation = wallet.invoke_contract(
+            contract_address="0xcontractaddress",
+            method="testMethod",
+            abi=[{"abi": "data"}],
+            args={"arg1": "value1"},
+            amount=Decimal("1"),
+            asset_id="wei",
+        )
+
+        assert isinstance(contract_invocation, ContractInvocation)
+        mock_default_address.invoke_contract.assert_called_once_with(
+            "0xcontractaddress",
+            "testMethod",
+            [{"abi": "data"}],
+            {"arg1": "value1"},
+            Decimal("1"),
+            "wei",
+        )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_contract_invocation_no_default_address(wallet_factory):
+    """Test the invoke_contract method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.invoke_contract(
+                contract_address="0xcontractaddress",
+                method="testMethod",
+                abi=[{"abi": "data"}],
+                args={"arg1": "value1"},
+                amount=Decimal("1"),
+                asset_id="wei",
             )
 
 

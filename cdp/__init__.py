@@ -4,6 +4,7 @@ from cdp.asset import Asset
 from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
+from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.sponsored_send import SponsoredSend
 from cdp.trade import Trade
@@ -15,6 +16,7 @@ from cdp.wallet_data import WalletData
 __all__ = [
     "__version__",
     "Cdp",
+    "ContractInvocation",
     "Wallet",
     "WalletData",
     "Asset",

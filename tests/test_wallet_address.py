@@ -7,6 +7,7 @@ from eth_account.signers.local import LocalAccount
 from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.asset import Asset as AssetModel
 from cdp.client.models.balance import Balance as BalanceModel
+from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.trade import Trade
 from cdp.transfer import Transfer
@@ -332,6 +333,178 @@ def test_trades_api_error(mock_trade, wallet_address):
 
     with pytest.raises(Exception, match="API Error"):
         wallet_address.trades()
+
+
+@patch("cdp.wallet_address.ContractInvocation")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_invoke_contract_with_server_signer(
+    mock_api_clients, mock_contract_invocation, wallet_address, balance_model
+):
+    """Test the invoke_contract method with a server signer."""
+    mock_contract_invocation_instance = Mock(spec=ContractInvocation)
+    mock_contract_invocation.create.return_value = mock_contract_invocation_instance
+
+    mock_get_balance = Mock()
+    mock_get_balance.return_value = balance_model
+    mock_api_clients.external_addresses.get_external_address_balance = mock_get_balance
+
+    contract_invocation = wallet_address.invoke_contract(
+        contract_address="0xcontractaddress",
+        method="testMethod",
+        abi=[{"abi": "data"}],
+        args={"arg1": "value1"},
+        amount=Decimal("1"),
+        asset_id="wei",
+    )
+
+    assert isinstance(contract_invocation, ContractInvocation)
+    mock_get_balance.assert_called_once_with(
+        network_id=wallet_address.network_id, address_id=wallet_address.address_id, asset_id="eth"
+    )
+    mock_contract_invocation.create.assert_called_once_with(
+        address_id=wallet_address.address_id,
+        wallet_id=wallet_address.wallet_id,
+        network_id=wallet_address.network_id,
+        contract_address="0xcontractaddress",
+        method="testMethod",
+        abi=[{"abi": "data"}],
+        args={"arg1": "value1"},
+        amount=Decimal("1"),
+        asset_id="wei",
+    )
+    mock_contract_invocation_instance.sign.assert_not_called()
+    mock_contract_invocation_instance.broadcast.assert_not_called()
+
+
+@patch("cdp.wallet_address.ContractInvocation")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_invoke_contract(
+    mock_api_clients, mock_contract_invocation, wallet_address_with_key, balance_model
+):
+    """Test the invoke_contract method."""
+    mock_contract_invocation_instance = Mock(spec=ContractInvocation)
+    mock_contract_invocation.create.return_value = mock_contract_invocation_instance
+
+    mock_get_balance = Mock()
+    mock_get_balance.return_value = balance_model
+    mock_api_clients.external_addresses.get_external_address_balance = mock_get_balance
+
+    contract_invocation = wallet_address_with_key.invoke_contract(
+        contract_address="0xcontractaddress",
+        method="testMethod",
+        abi=[{"abi": "data"}],
+        args={"arg1": "value1"},
+        amount=Decimal("1"),
+        asset_id="wei",
+    )
+
+    assert isinstance(contract_invocation, ContractInvocation)
+    mock_get_balance.assert_called_once_with(
+        network_id=wallet_address_with_key.network_id,
+        address_id=wallet_address_with_key.address_id,
+        asset_id="eth",
+    )
+    mock_contract_invocation.create.assert_called_once_with(
+        address_id=wallet_address_with_key.address_id,
+        wallet_id=wallet_address_with_key.wallet_id,
+        network_id=wallet_address_with_key.network_id,
+        contract_address="0xcontractaddress",
+        method="testMethod",
+        abi=[{"abi": "data"}],
+        args={"arg1": "value1"},
+        amount=Decimal("1"),
+        asset_id="wei",
+    )
+    mock_contract_invocation_instance.sign.assert_called_once_with(wallet_address_with_key.key)
+    mock_contract_invocation_instance.broadcast.assert_called_once()
+
+
+@patch("cdp.wallet_address.ContractInvocation")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_invoke_contract_api_error(
+    mock_api_clients, mock_contract_invocation, wallet_address_with_key, balance_model
+):
+    """Test the invoke_contract method raises an error when the create API call fails."""
+    mock_contract_invocation.create.side_effect = Exception("API Error")
+
+    mock_get_balance = Mock()
+    mock_get_balance.return_value = balance_model
+    mock_api_clients.external_addresses.get_external_address_balance = mock_get_balance
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.invoke_contract(
+            contract_address="0xcontractaddress",
+            method="testMethod",
+            abi=[{"abi": "data"}],
+            args={"arg1": "value1"},
+            amount=Decimal("1"),
+            asset_id="wei",
+        )
+
+    mock_get_balance.assert_called_once_with(
+        network_id=wallet_address_with_key.network_id,
+        address_id=wallet_address_with_key.address_id,
+        asset_id="eth",
+    )
+    mock_contract_invocation.create.assert_called_once_with(
+        address_id=wallet_address_with_key.address_id,
+        wallet_id=wallet_address_with_key.wallet_id,
+        network_id=wallet_address_with_key.network_id,
+        contract_address="0xcontractaddress",
+        method="testMethod",
+        abi=[{"abi": "data"}],
+        args={"arg1": "value1"},
+        amount=Decimal("1"),
+        asset_id="wei",
+    )
+
+
+@patch("cdp.wallet_address.ContractInvocation")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_invoke_contract_broadcast_api_error(
+    mock_api_clients, mock_contract_invocation, wallet_address_with_key, balance_model
+):
+    """Test the invoke_contract method raises an error when the broadcast API call fails."""
+    mock_contract_invocation_instance = Mock(spec=ContractInvocation)
+    mock_contract_invocation.create.return_value = mock_contract_invocation_instance
+    mock_contract_invocation_instance.broadcast.side_effect = Exception("API Error")
+
+    mock_get_balance = Mock()
+    mock_get_balance.return_value = balance_model
+    mock_api_clients.external_addresses.get_external_address_balance = mock_get_balance
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.invoke_contract(
+            contract_address="0xcontractaddress",
+            method="testMethod",
+            abi=[{"abi": "data"}],
+            args={"arg1": "value1"},
+            amount=Decimal("1"),
+            asset_id="wei",
+        )
+
+    mock_get_balance.assert_called_once_with(
+        network_id=wallet_address_with_key.network_id,
+        address_id=wallet_address_with_key.address_id,
+        asset_id="eth",
+    )
+    mock_contract_invocation.create.assert_called_once_with(
+        address_id=wallet_address_with_key.address_id,
+        wallet_id=wallet_address_with_key.wallet_id,
+        network_id=wallet_address_with_key.network_id,
+        contract_address="0xcontractaddress",
+        method="testMethod",
+        abi=[{"abi": "data"}],
+        args={"arg1": "value1"},
+        amount=Decimal("1"),
+        asset_id="wei",
+    )
+    mock_contract_invocation_instance.sign.assert_called_once_with(wallet_address_with_key.key)
+    mock_contract_invocation_instance.broadcast.assert_called_once()
 
 
 @patch("cdp.Cdp.api_clients")
