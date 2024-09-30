@@ -239,6 +239,7 @@ class WalletAddress(Address):
         smart_contract = SmartContract.create(
             wallet_id=self.wallet_id,
             address_id=self.address_id,
+            type=SmartContract.Type.ERC20,
             options=SmartContract.TokenOptions(name=name, symbol=symbol, total_supply=total_supply),
         )
 
@@ -265,6 +266,7 @@ class WalletAddress(Address):
         smart_contract = SmartContract.create(
             wallet_id=self.wallet_id,
             address_id=self.address_id,
+            type=SmartContract.Type.ERC721,
             options=SmartContract.NFTOptions(name=name, symbol=symbol, base_uri=base_uri),
         )
 
@@ -289,6 +291,7 @@ class WalletAddress(Address):
         smart_contract = SmartContract.create(
             wallet_id=self.wallet_id,
             address_id=self.address_id,
+            type=SmartContract.Type.ERC1155,
             options=SmartContract.MultiTokenOptions(uri=uri),
         )
 

@@ -1,6 +1,7 @@
 import json
 import time
 from typing import Any
+from enum import Enum
 
 from eth_account.signers.local import LocalAccount
 
@@ -8,14 +9,13 @@ from cdp.cdp import Cdp
 from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.smart_contract import SmartContract as SmartContractModel
-from cdp.client.models.smart_contract_type import SmartContractType as SmartContractTypeModel
 from cdp.transaction import Transaction
 
 
 class SmartContract:
     """A representation of a SmartContract on the blockchain."""
 
-    class Type:
+    class Type(Enum):
         """Enumeration of SmartContract types."""
 
         ERC20 = "ERC20"
@@ -29,28 +29,6 @@ class SmartContract:
         def __repr__(self) -> str:
             """Return a string representation of the Type."""
             return str(self)
-
-    class TokenOptions:
-        """Options for ERC20 token contracts."""
-
-        def __init__(self, name: str, symbol: str, total_supply: int | str):
-            self.name = name
-            self.symbol = symbol
-            self.total_supply = total_supply
-
-    class NFTOptions:
-        """Options for ERC721 NFT contracts."""
-
-        def __init__(self, name: str, symbol: str, base_uri: str):
-            self.name = name
-            self.symbol = symbol
-            self.base_uri = base_uri
-
-    class MultiTokenOptions:
-        """Options for ERC1155 multi-token contracts."""
-
-        def __init__(self, uri: str):
-            self.uri = uri
 
     def __init__(self, model: SmartContractModel) -> None:
         """Initialize the SmartContract class.
@@ -118,47 +96,30 @@ class SmartContract:
         return self._model.deployer_address
 
     @property
-    def type(self) -> str:
+    def type(self) -> Type:
         """Get the type of the smart contract.
 
         Returns:
-            str: The smart contract type.
+            Type: The smart contract type.
 
         Raises:
             ValueError: If the smart contract type is unknown.
 
         """
-        if self._model.type == SmartContractTypeModel.ERC20.value:
-            return self.Type.ERC20
-        elif self._model.type == SmartContractTypeModel.ERC721.value:
-            return self.Type.ERC721
-        elif self._model.type == SmartContractTypeModel.ERC1155.value:
-            return self.Type.ERC1155
-        else:
+        try:
+            return self.Type(self._model.type)
+        except ValueError:
             raise ValueError(f"Unknown smart contract type: {self._model.type}")
 
     @property
-    def options(self) -> TokenOptions | NFTOptions | MultiTokenOptions:
+    def options(self) -> dict[str, Any]:
         """Get the options of the smart contract.
 
         Returns:
-            Union[TokenOptions, NFTOptions, MultiTokenOptions]: The smart contract options.
+            dict[str, Any]: The smart contract options.
 
         """
-        if self.type == self.Type.ERC20:
-            return self.TokenOptions(
-                name=self._model.options.name,
-                symbol=self._model.options.symbol,
-                total_supply=self._model.options.total_supply,
-            )
-        elif self.type == self.Type.ERC721:
-            return self.NFTOptions(
-                name=self._model.options.name,
-                symbol=self._model.options.symbol,
-                base_uri=self._model.options.base_uri,
-            )
-        else:
-            return self.MultiTokenOptions(uri=self._model.options.uri)
+        return self._model.options.__dict__
 
     @property
     def abi(self) -> dict[str, Any]:
@@ -240,11 +201,11 @@ class SmartContract:
             smart_contract_id=self.smart_contract_id,
         )
         self._model = model
-        self._transaction = None
+        self._update_transaction(model)
         return self
 
     def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 10) -> "SmartContract":
-        """Wait until the smart contract deployment is confirmed on the network or fails on chain.
+        """Wait until the smart contract deployment is confirmed on the network or fails onchain.
 
         Args:
             interval_seconds (float): The interval to check the status of the smart contract deployment.
@@ -273,26 +234,20 @@ class SmartContract:
         cls,
         wallet_id: str,
         address_id: str,
-        options: TokenOptions | NFTOptions | MultiTokenOptions,
+        type: Type,
+        options: dict[str, Any],
     ) -> "SmartContract":
         """Create a new SmartContract object.
 
         Args:
             wallet_id (str): The ID of the wallet that will deploy the smart contract.
             address_id (str): The ID of the address that will deploy the smart contract.
-            options (Union[TokenOptions, NFTOptions, MultiTokenOptions]): The options of the smart contract.
+            type (Type): The type of the smart contract (ERC20, ERC721, or ERC1155).
+            options (dict[str, Any]): The options of the smart contract.
 
         """
-        if isinstance(options, cls.TokenOptions):
-            type = "erc20"
-        elif isinstance(options, cls.NFTOptions):
-            type = "erc721"
-        elif isinstance(options, cls.MultiTokenOptions):
-            type = "erc1155"
-        else:
-            raise ValueError("Invalid options type provided")
         smart_contract_request = CreateSmartContractRequest(
-            type=type,
+            type=type.value,
             options=options,
         )
 
