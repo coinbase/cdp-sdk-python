@@ -17,24 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
-from cdp.client.models.staking_reward_format import StakingRewardFormat
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FetchStakingRewardsRequest(BaseModel):
+class CreateWalletWebhookRequest(BaseModel):
     """
-    FetchStakingRewardsRequest
+    CreateWalletWebhookRequest
     """ # noqa: E501
-    network_id: StrictStr = Field(description="The ID of the blockchain network")
-    asset_id: StrictStr = Field(description="The ID of the asset for which the staking rewards are being fetched")
-    address_ids: List[StrictStr] = Field(description="The onchain addresses for which the staking rewards are being fetched")
-    start_time: datetime = Field(description="The start time of this reward period")
-    end_time: datetime = Field(description="The end time of this reward period")
-    format: StakingRewardFormat
-    __properties: ClassVar[List[str]] = ["network_id", "asset_id", "address_ids", "start_time", "end_time", "format"]
+    notification_uri: StrictStr = Field(description="The URL to which the notifications will be sent.")
+    signature_header: Optional[StrictStr] = Field(default=None, description="The custom header to be used for x-webhook-signature header on callbacks, so developers can verify the requests are coming from Coinbase.")
+    __properties: ClassVar[List[str]] = ["notification_uri", "signature_header"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -54,7 +48,7 @@ class FetchStakingRewardsRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FetchStakingRewardsRequest from a JSON string"""
+        """Create an instance of CreateWalletWebhookRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,7 +73,7 @@ class FetchStakingRewardsRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FetchStakingRewardsRequest from a dict"""
+        """Create an instance of CreateWalletWebhookRequest from a dict"""
         if obj is None:
             return None
 
@@ -87,12 +81,8 @@ class FetchStakingRewardsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "network_id": obj.get("network_id"),
-            "asset_id": obj.get("asset_id"),
-            "address_ids": obj.get("address_ids"),
-            "start_time": obj.get("start_time"),
-            "end_time": obj.get("end_time"),
-            "format": obj.get("format") if obj.get("format") is not None else StakingRewardFormat.USD
+            "notification_uri": obj.get("notification_uri"),
+            "signature_header": obj.get("signature_header")
         })
         return _obj
 
