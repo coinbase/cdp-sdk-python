@@ -34,7 +34,7 @@ class SmartContract:
             """Return a string representation of the Type."""
             return str(self)
 
-    class TokenContractOptions(dict[str, Any]):
+    class TokenContractOptions(dict):
         """Options for token contracts (ERC20)."""
 
         def __init__(self, name: str, symbol: str, total_supply: str):
@@ -48,7 +48,7 @@ class SmartContract:
             """
             super().__init__(name=name, symbol=symbol, total_supply=total_supply)
 
-    class NFTContractOptions(dict[str, Any]):
+    class NFTContractOptions(dict):
         """Options for NFT contracts (ERC721)."""
 
         def __init__(self, name: str, symbol: str, base_uri: str):
@@ -62,7 +62,7 @@ class SmartContract:
             """
             super().__init__(name=name, symbol=symbol, base_uri=base_uri)
 
-    class MultiTokenContractOptions(dict[str, Any]):
+    class MultiTokenContractOptions(dict):
         """Options for multi-token contracts (ERC1155)."""
 
         def __init__(self, uri: str):
@@ -150,10 +150,7 @@ class SmartContract:
             ValueError: If the smart contract type is unknown.
 
         """
-        try:
-            return self.Type(self._model.type)
-        except ValueError as err:
-            raise ValueError(f"Unknown smart contract type: {self._model.type}") from err
+        return self.Type(self._model.type)
 
     @property
     def options(self) -> dict[str, Any]:
