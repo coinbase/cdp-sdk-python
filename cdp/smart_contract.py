@@ -153,14 +153,28 @@ class SmartContract:
         return self.Type(self._model.type)
 
     @property
-    def options(self) -> dict[str, Any]:
+    def options(self) -> TokenContractOptions | NFTContractOptions | MultiTokenContractOptions:
         """Get the options of the smart contract.
 
         Returns:
-            The smart contract options.
+            The smart contract options as a higher-level options class.
+
+        Raises:
+            ValueError: If the smart contract type is unknown or if options are not set.
 
         """
-        return self._model.options.__dict__
+        if self._model.options is None or self._model.options.actual_instance is None:
+            raise ValueError("Smart contract options are not set")
+
+        options_dict = self._model.options.actual_instance.__dict__
+        if self.type == self.Type.ERC20:
+            return self.TokenContractOptions(**options_dict)
+        elif self.type == self.Type.ERC721:
+            return self.NFTContractOptions(**options_dict)
+        elif self.type == self.Type.ERC1155:
+            return self.MultiTokenContractOptions(**options_dict)
+        else:
+            raise ValueError(f"Unknown smart contract type: {self.type}")
 
     @property
     def abi(self) -> dict[str, Any]:
@@ -325,9 +339,12 @@ class SmartContract:
     def __str__(self) -> str:
         """Return a string representation of the smart contract."""
         return (
-            f"SmartContract: (smart_contract_id: {self.smart_contract_id}, network_id: {self.network_id}, "
-            f"contract_address: {self.contract_address}, deployer_address: {self.deployer_address}, "
-            f"type: {self.type})"
+            f"SmartContract: (smart_contract_id: {self.smart_contract_id}, "
+            f"wallet_id: {self.wallet_id}, network_id: {self.network_id}, "
+            f"contract_address: {self.contract_address}, type: {self.type}, "
+            f"transaction_hash: {self.transaction.transaction_hash if self.transaction else None}, "
+            f"transaction_link: {self.transaction.transaction_link if self.transaction else None}, "
+            f"status: {self.transaction.status if self.transaction else None})"
         )
 
     def __repr__(self) -> str:
