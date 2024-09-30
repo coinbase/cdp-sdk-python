@@ -10,7 +10,6 @@ from cdp.client.models.create_smart_contract_request import CreateSmartContractR
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.smart_contract import SmartContract as SmartContractModel
 from cdp.client.models.smart_contract_type import SmartContractType as SmartContractTypeModel
-from cdp.errors import TimeoutError
 from cdp.transaction import Transaction
 
 
