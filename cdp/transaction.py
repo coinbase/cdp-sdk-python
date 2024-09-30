@@ -125,12 +125,16 @@ class Transaction:
                 "maxPriorityFeePerGas": int(parsed_payload["maxPriorityFeePerGas"], 16),
                 "maxFeePerGas": int(parsed_payload["maxFeePerGas"], 16),
                 "gas": int(parsed_payload["gas"], 16),
-                "to": Web3.to_bytes(hexstr=parsed_payload["to"]),
                 "value": int(parsed_payload["value"], 16),
                 "data": parsed_payload.get("input", ""),
                 "type": "0x2",  # EIP-1559 transaction type
             }
 
+            # Handle the 'to' field separately
+            if parsed_payload["to"]:
+                transaction_dict["to"] = Web3.to_bytes(hexstr=parsed_payload["to"])
+            else:
+                transaction_dict["to"] = b""  # Empty bytes for contract deployment
             self._raw = DynamicFeeTransaction(transaction_dict)
 
         return self._raw
