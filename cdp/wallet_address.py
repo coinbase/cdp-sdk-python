@@ -170,7 +170,7 @@ class WalletAddress(Address):
             ContractInvocation: The contract invocation object.
 
         """
-        normalied_amount = Decimal(amount) if amount else Decimal("0")
+        normalized_amount = Decimal(amount) if amount else Decimal("0")
 
         if amount and asset_id:
             self._ensure_sufficient_balance(amount, asset_id)
@@ -183,7 +183,7 @@ class WalletAddress(Address):
             method=method,
             abi=abi,
             args=args,
-            amount=normalied_amount,
+            amount=normalized_amount,
             asset_id=asset_id,
         )
 
