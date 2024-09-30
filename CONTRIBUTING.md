@@ -42,6 +42,7 @@ To autocorrect all lint errors, run:
 make lint-fix
 ```
 
+### Testing
 To run all tests, run:
 
 ```bash
