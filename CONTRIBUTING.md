@@ -56,6 +56,7 @@ To detect all lint errors, run:
 make lint
 ```
 
+<<<<<<< HEAD
 ### Testing
 
 Install the `pytest` and `pytest-cov` packages to run tests:
@@ -65,6 +66,8 @@ pip install pytest pytest-cov
 ```
 
 >>>>>>> cf3f5f1 (WIP)
+=======
+>>>>>>> 257ddef (Initial comments)
 To run all tests, run:
 
 ```bash
@@ -73,6 +76,7 @@ make test
 
 ### Generating Documentation
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 To build and view the documentation locally, run:
 
@@ -87,6 +91,9 @@ make docs
 ```
 
 To view the documentation, run:
+=======
+To build and view the documentation, run:
+>>>>>>> 257ddef (Initial comments)
 
 ```bash
 make local-docs
