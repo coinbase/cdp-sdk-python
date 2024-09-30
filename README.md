@@ -50,7 +50,7 @@ To start, [create a CDP API key](https://portal.cdp.coinbase.com/access/api). Th
 from cdp import *
 
 api_key_name = "Copy your API key name here."
-# Ensure that you are using double-quotes here.
+
 api_key_private_key = "Copy your API key's private key here."
 
 Cdp.configure(api_key_name, api_key_private_key)
@@ -80,6 +80,8 @@ Now create a wallet. Wallets are created with a single default address.
 ```python
 # Create a wallet with one address by default.
 wallet1 = Wallet.create()
+
+print(f"Wallet successfully created: {wallet1}")
 ```
 
 Wallets come with a single default address, accessible via `default_address`:
@@ -130,6 +132,11 @@ wallet3 = Wallet.create()
 
 print(f"Wallet successfully created: {wallet3}")
 
+# Fund the wallet with USDC with a faucet transaction.
+usdc_faucet_tx = wallet1.faucet("usdc")
+
+print(f"Faucet transaction successfully completed: {usdc_faucet_tx}")
+
 transfer = wallet1.transfer(0.00001, "usdc", wallet3, gasless=True).wait()
 ```
 
@@ -137,7 +144,7 @@ transfer = wallet1.transfer(0.00001, "usdc", wallet3, gasless=True).wait()
 
 ```python
 # Return list of all transfers. This will paginate and fetch all transfers for the address.
-address.transfers()
+list(address.transfers())
 ```
 
 ## Trading Funds
@@ -159,6 +166,6 @@ print(f"Trade successfully completed: {trade}")
 
 ```python
 # Return list of all trades. This will paginate and fetch all trades for the address.
-address.trades()
+list(address.trades())
 ```
 
