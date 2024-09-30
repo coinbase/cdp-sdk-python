@@ -1,6 +1,5 @@
 import json
 import time
-from decimal import Decimal
 from typing import Any
 
 from eth_account.signers.local import LocalAccount
@@ -129,11 +128,11 @@ class SmartContract:
             ValueError: If the smart contract type is unknown.
 
         """
-        if self._model.type == SmartContractTypeModel.ERC20:
+        if self._model.type == SmartContractTypeModel.ERC20.value:
             return self.Type.ERC20
-        elif self._model.type == SmartContractTypeModel.ERC721:
+        elif self._model.type == SmartContractTypeModel.ERC721.value:
             return self.Type.ERC721
-        elif self._model.type == SmartContractTypeModel.ERC1155:
+        elif self._model.type == SmartContractTypeModel.ERC1155.value:
             return self.Type.ERC1155
         else:
             raise ValueError(f"Unknown smart contract type: {self._model.type}")
@@ -259,7 +258,7 @@ class SmartContract:
 
         """
         start_time = time.time()
-        while not self.transaction.terminal_state:
+        while self.transaction is not None and not self.transaction.terminal_state:
             self.reload()
 
             if time.time() - start_time > timeout_seconds:
@@ -281,7 +280,6 @@ class SmartContract:
         Args:
             wallet_id (str): The ID of the wallet that will deploy the smart contract.
             address_id (str): The ID of the address that will deploy the smart contract.
-            type (str): The type of the smart contract.
             options (Union[TokenOptions, NFTOptions, MultiTokenOptions]): The options of the smart contract.
 
         """
