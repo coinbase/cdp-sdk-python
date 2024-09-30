@@ -33,7 +33,7 @@ class SmartContract:
     class TokenOptions:
         """Options for ERC20 token contracts."""
 
-        def __init__(self, name: str, symbol: str, total_supply: int | Decimal | str):
+        def __init__(self, name: str, symbol: str, total_supply: int | str):
             self.name = name
             self.symbol = symbol
             self.total_supply = total_supply
