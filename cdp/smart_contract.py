@@ -22,9 +22,9 @@ class SmartContract:
     class Type(Enum):
         """Enumeration of SmartContract types."""
 
-        ERC20 = "ERC20"
-        ERC721 = "ERC721"
-        ERC1155 = "ERC1155"
+        ERC20 = "erc20"
+        ERC721 = "erc721"
+        ERC1155 = "erc1155"
 
         def __str__(self) -> str:
             """Return a string representation of the Type."""
@@ -34,30 +34,17 @@ class SmartContract:
             """Return a string representation of the Type."""
             return str(self)
 
-    class ContractOptions:
-        """Base class for contract options."""
-
-        def __init__(self, name: str, symbol: str):
-            """Initialize the ContractOptions.
-
-            Args:
-                name: The name of the contract.
-                symbol: The symbol of the contract.
-
-            """
-            self.name = name
-            self.symbol = symbol
-
     class TokenContractOptions(dict[str, Any]):
         """Options for token contracts (ERC20)."""
 
-        def __init__(self, name: str, symbol: str, total_supply: int):
+        def __init__(self, name: str, symbol: str, total_supply: str):
             """Initialize the TokenContractOptions.
 
             Args:
                 name: The name of the token.
                 symbol: The symbol of the token.
                 total_supply: The total supply of the token.
+
             """
             super().__init__(name=name, symbol=symbol, total_supply=total_supply)
 
@@ -71,6 +58,7 @@ class SmartContract:
                 name: The name of the NFT collection.
                 symbol: The symbol of the NFT collection.
                 base_uri: The base URI for the NFT metadata.
+
             """
             super().__init__(name=name, symbol=symbol, base_uri=base_uri)
 
@@ -82,6 +70,7 @@ class SmartContract:
 
             Args:
                 uri: The URI for all token metadata.
+
             """
             super().__init__(uri=uri)
 
@@ -187,11 +176,11 @@ class SmartContract:
         return json.loads(self._model.abi)
 
     @property
-    def transaction(self) -> Transaction:
-        """Get the transaction associated with the smart contract deployment.
+    def transaction(self) -> Transaction | None:
+        """Get the transaction associated with the contract invocation.
 
         Returns:
-            The transaction.
+            Transaction: The transaction.
 
         """
         if self._transaction is None and self._model.transaction is not None:
@@ -305,6 +294,7 @@ class SmartContract:
 
         Raises:
             ValueError: If the options type is unsupported.
+
         """
         if isinstance(options, cls.TokenContractOptions):
             openapi_options = TokenContractOptions(**options)
@@ -317,7 +307,7 @@ class SmartContract:
 
         smart_contract_options = SmartContractOptions(actual_instance=openapi_options)
 
-        smart_contract_request = CreateSmartContractRequest(
+        create_smart_contract_request = CreateSmartContractRequest(
             type=type.value,
             options=smart_contract_options,
         )
@@ -325,7 +315,7 @@ class SmartContract:
         model = Cdp.api_clients.smart_contracts.create_smart_contract(
             wallet_id=wallet_id,
             address_id=address_id,
-            smart_contract_request=smart_contract_request,
+            create_smart_contract_request=create_smart_contract_request,
         )
 
         return cls(model)

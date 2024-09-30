@@ -222,9 +222,7 @@ class WalletAddress(Address):
             signature=signature,
         )
 
-    def deploy_token(
-        self, name: str, symbol: str, total_supply: int | float | Decimal | str
-    ) -> SmartContract:
+    def deploy_token(self, name: str, symbol: str, total_supply: str) -> SmartContract:
         """Deploy a token smart contract.
 
         Args:
@@ -240,7 +238,9 @@ class WalletAddress(Address):
             wallet_id=self.wallet_id,
             address_id=self.address_id,
             type=SmartContract.Type.ERC20,
-            options=SmartContract.TokenOptions(name=name, symbol=symbol, total_supply=total_supply),
+            options=SmartContract.TokenContractOptions(
+                name=name, symbol=symbol, total_supply=total_supply
+            ),
         )
 
         if Cdp.use_server_signer:
@@ -267,7 +267,7 @@ class WalletAddress(Address):
             wallet_id=self.wallet_id,
             address_id=self.address_id,
             type=SmartContract.Type.ERC721,
-            options=SmartContract.NFTOptions(name=name, symbol=symbol, base_uri=base_uri),
+            options=SmartContract.NFTContractOptions(name=name, symbol=symbol, base_uri=base_uri),
         )
 
         if Cdp.use_server_signer:
@@ -292,7 +292,7 @@ class WalletAddress(Address):
             wallet_id=self.wallet_id,
             address_id=self.address_id,
             type=SmartContract.Type.ERC1155,
-            options=SmartContract.MultiTokenOptions(uri=uri),
+            options=SmartContract.MultiTokenContractOptions(uri=uri),
         )
 
         if Cdp.use_server_signer:
