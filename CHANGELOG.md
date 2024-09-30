@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Contract invocation support.
+
 ## [0.0.3] - 2024-09-25
 
 ### Added

@@ -8,6 +8,7 @@ from eth_account.signers.local import LocalAccount
 from cdp.address import Address
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
+from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.trade import Trade
 from cdp.transfer import Transfer
@@ -145,6 +146,55 @@ class WalletAddress(Address):
         trade.broadcast()
 
         return trade
+
+    def invoke_contract(
+        self,
+        contract_address: str,
+        method: str,
+        abi: list[dict] | None = None,
+        args: dict | None = None,
+        amount: Number | Decimal | str | None = None,
+        asset_id: str | None = None,
+    ) -> ContractInvocation:
+        """Invoke a method on the specified contract address, with the given ABI and arguments.
+
+        Args:
+            contract_address (str): The address of the contract to invoke.
+            method (str): The name of the method to call on the contract.
+            abi (Optional[list[dict]]): The ABI of the contract, if provided.
+            args (Optional[dict]): The arguments to pass to the method.
+            amount (Optional[Union[Number, Decimal, str]]): The amount to send with the invocation, if applicable.
+            asset_id (Optional[str]): The asset ID associated with the amount, if applicable.
+
+        Returns:
+            ContractInvocation: The contract invocation object.
+
+        """
+        normalized_amount = Decimal(amount) if amount else Decimal("0")
+
+        if amount and asset_id:
+            self._ensure_sufficient_balance(amount, asset_id)
+
+        invocation = ContractInvocation.create(
+            address_id=self.address_id,
+            wallet_id=self.wallet_id,
+            network_id=self.network_id,
+            contract_address=contract_address,
+            method=method,
+            abi=abi,
+            args=args,
+            amount=normalized_amount,
+            asset_id=asset_id,
+        )
+
+        if Cdp.use_server_signer:
+            return invocation
+
+        invocation.sign(self.key)
+
+        invocation.broadcast()
+
+        return invocation
 
     def transfers(self) -> Iterator[Transfer]:
         """List transfers for this wallet address.

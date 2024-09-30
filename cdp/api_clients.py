@@ -1,6 +1,7 @@
 from cdp.cdp_api_client import CdpApiClient
 from cdp.client.api.addresses_api import AddressesApi
 from cdp.client.api.assets_api import AssetsApi
+from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.trades_api import TradesApi
@@ -23,6 +24,7 @@ class ApiClients:
         _networks (Optional[NetworksApi]): The NetworksApi client instance.
         _assets (Optional[AssetsApi]): The AssetsApi client instance.
         _trades (Optional[TradesApi]): The TradesApi client instance.
+        _contract_invocations (Optional[ContractInvocationsApi]): The ContractInvocationsApi client instance.
 
     """
 
@@ -41,6 +43,7 @@ class ApiClients:
         self._networks: NetworksApi | None = None
         self._assets: AssetsApi | None = None
         self._trades: TradesApi | None = None
+        self._contract_invocations: ContractInvocationsApi | None = None
 
     @property
     def wallets(self) -> WalletsApi:
@@ -146,3 +149,18 @@ class ApiClients:
         if self._trades is None:
             self._trades = TradesApi(api_client=self._cdp_client)
         return self._trades
+
+    @property
+    def contract_invocations(self) -> ContractInvocationsApi:
+        """Get the ContractInvocationsApi client instance.
+
+        Returns:
+            ContractInvocationsApi: The ContractInvocationsApi client instance.
+
+        Note:
+            This property lazily initializes the ContractInvocationsApi client on first access.
+
+        """
+        if self._contract_invocations is None:
+            self._contract_invocations = ContractInvocationsApi(api_client=self._cdp_client)
+        return self._contract_invocations
