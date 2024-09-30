@@ -1,17 +1,15 @@
 import json
 import time
 from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 from eth_account.signers.local import LocalAccount
 
-from cdp.asset import Asset
 from cdp.cdp import Cdp
 from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.smart_contract import SmartContract as SmartContractModel
 from cdp.client.models.smart_contract_type import SmartContractType as SmartContractTypeModel
-from cdp.contract_invocation import ContractInvocation
 from cdp.errors import TimeoutError
 from cdp.transaction import Transaction
 
@@ -37,7 +35,7 @@ class SmartContract:
     class TokenOptions:
         """Options for ERC20 token contracts."""
 
-        def __init__(self, name: str, symbol: str, total_supply: Union[int, Decimal, str]):
+        def __init__(self, name: str, symbol: str, total_supply: int | Decimal | str):
             self.name = name
             self.symbol = symbol
             self.total_supply = total_supply
@@ -64,6 +62,7 @@ class SmartContract:
 
         Raises:
             ValueError: If the smart contract model is empty.
+
         """
         if not model:
             raise ValueError("SmartContract model cannot be empty")
@@ -76,6 +75,7 @@ class SmartContract:
 
         Returns:
             str: The smart contract ID.
+
         """
         return self._model.smart_contract_id
 
@@ -85,6 +85,7 @@ class SmartContract:
 
         Returns:
             str: The network ID.
+
         """
         return self._model.network_id
 
@@ -94,6 +95,7 @@ class SmartContract:
 
         Returns:
             str: The wallet ID.
+
         """
         return self._model.wallet_id
 
@@ -103,6 +105,7 @@ class SmartContract:
 
         Returns:
             str: The contract address.
+
         """
         return self._model.contract_address
 
@@ -112,6 +115,7 @@ class SmartContract:
 
         Returns:
             str: The deployer address.
+
         """
         return self._model.deployer_address
 
@@ -124,6 +128,7 @@ class SmartContract:
 
         Raises:
             ValueError: If the smart contract type is unknown.
+
         """
         if self._model.type == SmartContractTypeModel.ERC20:
             return self.Type.ERC20
@@ -135,11 +140,12 @@ class SmartContract:
             raise ValueError(f"Unknown smart contract type: {self._model.type}")
 
     @property
-    def options(self) -> Union[TokenOptions, NFTOptions, MultiTokenOptions]:
+    def options(self) -> TokenOptions | NFTOptions | MultiTokenOptions:
         """Get the options of the smart contract.
 
         Returns:
             Union[TokenOptions, NFTOptions, MultiTokenOptions]: The smart contract options.
+
         """
         if self.type == self.Type.ERC20:
             return self.TokenOptions(
@@ -157,11 +163,12 @@ class SmartContract:
             return self.MultiTokenOptions(uri=self._model.options.uri)
 
     @property
-    def abi(self) -> Dict[str, Any]:
+    def abi(self) -> dict[str, Any]:
         """Get the ABI of the smart contract.
 
         Returns:
             Dict[str, Any]: The ABI as a JSON object.
+
         """
         return json.loads(self._model.abi)
 
@@ -171,6 +178,7 @@ class SmartContract:
 
         Returns:
             Transaction: The transaction.
+
         """
         if self._transaction is None and self._model.transaction is not None:
             self._update_transaction(self._model)
@@ -187,6 +195,7 @@ class SmartContract:
 
         Raises:
             ValueError: If the key is not a LocalAccount.
+
         """
         if not isinstance(key, LocalAccount):
             raise ValueError("key must be a LocalAccount")
@@ -202,6 +211,7 @@ class SmartContract:
 
         Raises:
             ValueError: If the smart contract deployment is not signed.
+
         """
         if not self.transaction.signed:
             raise ValueError("Cannot broadcast unsigned SmartContract deployment")
@@ -224,6 +234,7 @@ class SmartContract:
 
         Returns:
             SmartContract: The updated SmartContract object.
+
         """
         model = Cdp.api_clients.smart_contracts.get_smart_contract(
             wallet_id=self.wallet_id,
@@ -246,6 +257,7 @@ class SmartContract:
 
         Raises:
             TimeoutError: If the smart contract deployment times out.
+
         """
         start_time = time.time()
         while not self.transaction.terminal_state:
@@ -263,7 +275,7 @@ class SmartContract:
         cls,
         wallet_id: str,
         address_id: str,
-        options: Union[TokenOptions, NFTOptions, MultiTokenOptions],
+        options: TokenOptions | NFTOptions | MultiTokenOptions,
     ) -> "SmartContract":
         """Create a new SmartContract object.
 
@@ -272,8 +284,8 @@ class SmartContract:
             address_id (str): The ID of the address that will deploy the smart contract.
             type (str): The type of the smart contract.
             options (Union[TokenOptions, NFTOptions, MultiTokenOptions]): The options of the smart contract.
-        """
 
+        """
         if isinstance(options, cls.TokenOptions):
             type = "erc20"
         elif isinstance(options, cls.NFTOptions):

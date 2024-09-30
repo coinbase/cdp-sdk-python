@@ -223,7 +223,7 @@ class WalletAddress(Address):
         )
 
     def deploy_token(
-        self, name: str, symbol: str, total_supply: Union[int, float, Decimal, str]
+        self, name: str, symbol: str, total_supply: int | float | Decimal | str
     ) -> SmartContract:
         """Deploy a token smart contract.
 

@@ -20,6 +20,7 @@ To install all dependencies, run:
 make install-deps
 ```
 
+<<<<<<< HEAD
 ### Formatting
 
 To format the code, run:
@@ -36,13 +37,34 @@ To detect all lint errors, run:
 make lint
 ```
 
+=======
+### Linting
+
+>>>>>>> cf3f5f1 (WIP)
 To autocorrect all lint errors, run:
 
 ```bash
 make lint-fix
 ```
 
+<<<<<<< HEAD
 ### Testing
+=======
+To detect all lint errors, run:
+
+```bash
+make lint
+```
+
+### Testing
+
+Install the `pytest` and `pytest-cov` packages to run tests:
+
+```bash
+pip install pytest pytest-cov
+```
+
+>>>>>>> cf3f5f1 (WIP)
 To run all tests, run:
 
 ```bash
@@ -51,8 +73,22 @@ make test
 
 ### Generating Documentation
 
+<<<<<<< HEAD
 To build and view the documentation locally, run:
 
 ```bash
 make local-docs
 ```
+=======
+To generate documentation from the Python docstrings, run:
+
+```bash
+make docs
+```
+
+To view the documentation, run:
+
+```bash
+make local-docs
+```
+>>>>>>> cf3f5f1 (WIP)
