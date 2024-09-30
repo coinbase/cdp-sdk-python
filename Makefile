@@ -29,3 +29,7 @@ install-deps:
 .PHONY: docs
 docs:
 	sphinx-apidoc -f -o docs/ ./cdp/
+
+.PHONY: local-docs
+local-docs: docs
+	cd docs && make html && open ./_build/html/index.html
