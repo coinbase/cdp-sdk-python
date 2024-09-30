@@ -6,6 +6,7 @@ from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.payload_signature import PayloadSignature
 from cdp.sponsored_send import SponsoredSend
 from cdp.trade import Trade
 from cdp.transaction import Transaction
@@ -30,4 +31,5 @@ __all__ = [
     "FaucetTransaction",
     "Trade",
     "SponsoredSend",
+    "PayloadSignature",
 ]

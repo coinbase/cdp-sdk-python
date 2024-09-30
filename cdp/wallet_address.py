@@ -4,12 +4,14 @@ from numbers import Number
 from typing import TYPE_CHECKING, Union
 
 from eth_account.signers.local import LocalAccount
+from eth_utils import to_bytes, to_hex
 
 from cdp.address import Address
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
+from cdp.payload_signature import PayloadSignature
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 
@@ -195,6 +197,29 @@ class WalletAddress(Address):
         invocation.broadcast()
 
         return invocation
+
+    def sign_payload(self, unsigned_payload: str) -> PayloadSignature:
+        """Sign the given unsigned payload.
+
+        Args:
+            unsigned_payload (str): The unsigned payload.
+
+        Returns:
+            PayloadSignature: The payload signature object.
+
+        """
+        signature = None
+
+        if not Cdp.use_server_signer:
+            signed_message = self.key.unsafe_sign_hash(to_bytes(hexstr=unsigned_payload))
+            signature = to_hex(signed_message.signature)
+
+        return PayloadSignature.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            unsigned_payload=unsigned_payload,
+            signature=signature,
+        )
 
     def transfers(self) -> Iterator[Transfer]:
         """List transfers for this wallet address.

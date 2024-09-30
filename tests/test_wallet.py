@@ -11,6 +11,7 @@ from cdp.client.models.create_wallet_request import CreateWalletRequest, CreateW
 from cdp.client.models.feature_set import FeatureSet
 from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.contract_invocation import ContractInvocation
+from cdp.payload_signature import PayloadSignature
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 from cdp.wallet import Wallet
@@ -48,7 +49,7 @@ def wallet_model_factory(address_model_factory):
         network_id="base-sepolia",
         default_address=None,
         feature_set=None,
-        server_signer_status="active_seed"
+        server_signer_status="active_seed",
     ):
         if default_address is None:
             default_address = address_model_factory()
@@ -473,6 +474,39 @@ def test_wallet_contract_invocation_no_default_address(wallet_factory):
                 amount=Decimal("1"),
                 asset_id="wei",
             )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_sign_payload_with_server_signer(wallet_factory):
+    """Test the sign_payload method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_payload_signature_instance = Mock(spec=PayloadSignature)
+    mock_default_address.sign_payload.return_value = mock_payload_signature_instance
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        payload_signature = wallet.sign_payload(unsigned_payload="0xunsignedpayload")
+
+        assert isinstance(payload_signature, PayloadSignature)
+        mock_default_address.sign_payload.assert_called_once_with("0xunsignedpayload")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_sign_payload_no_default_address(wallet_factory):
+    """Test the sign_payload method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.sign_payload(unsigned_payload="0xunsignedpayload")
 
 
 @patch("cdp.Cdp.api_clients")
