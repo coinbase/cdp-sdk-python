@@ -20,18 +20,26 @@ To install all dependencies, run:
 make install-deps
 ```
 
-### Linting
+### Formatting
 
-To autocorrect all lint errors, run:
+To format the code, run:
 
 ```bash
-make lint-fix
+make format
 ```
+
+### Linting
 
 To detect all lint errors, run:
 
 ```bash
 make lint
+```
+
+To autocorrect all lint errors, run:
+
+```bash
+make lint-fix
 ```
 
 To run all tests, run:
