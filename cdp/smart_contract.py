@@ -177,7 +177,7 @@ class SmartContract:
 
     @property
     def transaction(self) -> Transaction | None:
-        """Get the transaction associated with the contract invocation.
+        """Get the transaction associated with the smart contract deployment.
 
         Returns:
             Transaction: The transaction.
