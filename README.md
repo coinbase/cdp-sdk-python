@@ -169,3 +169,6 @@ print(f"Trade successfully completed: {trade}")
 list(address.trades())
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
