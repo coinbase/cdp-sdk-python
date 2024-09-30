@@ -28,6 +28,7 @@ from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
 from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.payload_signature import PayloadSignature
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
@@ -420,6 +421,22 @@ class Wallet:
         )
 
         return invocation
+
+    def sign_payload(self, unsigned_payload: str) -> PayloadSignature:
+        """Sign the given unsigned payload.
+
+        Args:
+            unsigned_payload (str): The unsigned payload.
+
+        Returns:
+            PayloadSignature: The payload signature object.
+
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.sign_payload(unsigned_payload)
 
     @property
     def default_address(self) -> WalletAddress | None:

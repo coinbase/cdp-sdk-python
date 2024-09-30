@@ -5,6 +5,7 @@
 ### Added
 
 - Contract invocation support.
+- Arbitrary message signing support.
 
 ### Fixed
 

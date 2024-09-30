@@ -2,13 +2,18 @@ from decimal import Decimal
 from unittest.mock import Mock, patch
 
 import pytest
+from eth_account.datastructures import SignedMessage
+from eth_account.messages import encode_defunct
 from eth_account.signers.local import LocalAccount
+from eth_utils import to_bytes
+from web3 import Web3
 
 from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.asset import Asset as AssetModel
 from cdp.client.models.balance import Balance as BalanceModel
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
+from cdp.payload_signature import PayloadSignature
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 from cdp.wallet_address import WalletAddress
@@ -505,6 +510,84 @@ def test_invoke_contract_broadcast_api_error(
     )
     mock_contract_invocation_instance.sign.assert_called_once_with(wallet_address_with_key.key)
     mock_contract_invocation_instance.broadcast.assert_called_once()
+
+
+@patch("cdp.wallet_address.PayloadSignature")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_sign_payload_with_server_signer(mock_api_clients, mock_payload_signature, wallet_address):
+    """Test the sign_payload method with a server signer."""
+    mock_payload_signature_instance = Mock(spec=PayloadSignature)
+    mock_payload_signature.create.return_value = mock_payload_signature_instance
+
+    payload_signature = wallet_address.sign_payload(unsigned_payload="0xunsignedpayload")
+
+    assert isinstance(payload_signature, PayloadSignature)
+    mock_payload_signature.create.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        unsigned_payload="0xunsignedpayload",
+        signature=None,
+    )
+
+
+@patch("cdp.wallet_address.to_hex", Mock(return_value="0xsignature"))
+@patch("cdp.wallet_address.PayloadSignature")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_sign_payload(mock_api_clients, mock_payload_signature, wallet_address_with_key):
+    """Test the sign_payload method."""
+    mock_payload_signature_instance = Mock(spec=PayloadSignature)
+    mock_payload_signature.create.return_value = mock_payload_signature_instance
+
+    mock_signature = Mock(spec=SignedMessage)
+    mock_signature.signature = "0xsignature"
+    wallet_address_with_key.key.unsafe_sign_hash.return_value = mock_signature
+
+    message_encoded = encode_defunct(text="eip-191 message")
+    unsigned_payload = Web3.keccak(message_encoded.body).hex()
+
+    payload_signature = wallet_address_with_key.sign_payload(unsigned_payload=unsigned_payload)
+
+    assert isinstance(payload_signature, PayloadSignature)
+    mock_payload_signature.create.assert_called_once_with(
+        wallet_id=wallet_address_with_key.wallet_id,
+        address_id=wallet_address_with_key.address_id,
+        unsigned_payload=unsigned_payload,
+        signature="0xsignature",
+    )
+    wallet_address_with_key.key.unsafe_sign_hash.assert_called_once_with(
+        to_bytes(hexstr=unsigned_payload)
+    )
+
+
+@patch("cdp.wallet_address.to_hex", Mock(return_value="0xsignature"))
+@patch("cdp.wallet_address.PayloadSignature")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_sign_payload_api_error(mock_api_clients, mock_payload_signature, wallet_address_with_key):
+    """Test the sign_payload method."""
+    mock_signature = Mock(spec=SignedMessage)
+    mock_signature.signature = "0xsignature"
+    wallet_address_with_key.key.unsafe_sign_hash.return_value = mock_signature
+
+    message_encoded = encode_defunct(text="eip-191 message")
+    unsigned_payload = Web3.keccak(message_encoded.body).hex()
+
+    mock_payload_signature.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.sign_payload(unsigned_payload=unsigned_payload)
+
+    mock_payload_signature.create.assert_called_once_with(
+        wallet_id=wallet_address_with_key.wallet_id,
+        address_id=wallet_address_with_key.address_id,
+        unsigned_payload=unsigned_payload,
+        signature="0xsignature",
+    )
+    wallet_address_with_key.key.unsafe_sign_hash.assert_called_once_with(
+        to_bytes(hexstr=unsigned_payload)
+    )
 
 
 @patch("cdp.Cdp.api_clients")
