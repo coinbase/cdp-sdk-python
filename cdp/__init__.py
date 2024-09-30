@@ -32,4 +32,5 @@ __all__ = [
     "Trade",
     "SponsoredSend",
     "PayloadSignature",
+    "SmartContract",
 ]

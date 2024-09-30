@@ -48,7 +48,7 @@ class SmartContract:
             self.name = name
             self.symbol = symbol
 
-    class TokenContractOptions(ContractOptions):
+    class TokenContractOptions(dict[str, Any]):
         """Options for token contracts (ERC20)."""
 
         def __init__(self, name: str, symbol: str, total_supply: int):
@@ -58,12 +58,10 @@ class SmartContract:
                 name: The name of the token.
                 symbol: The symbol of the token.
                 total_supply: The total supply of the token.
-
             """
-            super().__init__(name, symbol)
-            self.total_supply = total_supply
+            super().__init__(name=name, symbol=symbol, total_supply=total_supply)
 
-    class NFTContractOptions(ContractOptions):
+    class NFTContractOptions(dict[str, Any]):
         """Options for NFT contracts (ERC721)."""
 
         def __init__(self, name: str, symbol: str, base_uri: str):
@@ -73,25 +71,19 @@ class SmartContract:
                 name: The name of the NFT collection.
                 symbol: The symbol of the NFT collection.
                 base_uri: The base URI for the NFT metadata.
-
             """
-            super().__init__(name, symbol)
-            self.base_uri = base_uri
+            super().__init__(name=name, symbol=symbol, base_uri=base_uri)
 
-    class MultiTokenContractOptions(ContractOptions):
+    class MultiTokenContractOptions(dict[str, Any]):
         """Options for multi-token contracts (ERC1155)."""
 
-        def __init__(self, name: str, symbol: str, uri: str):
+        def __init__(self, uri: str):
             """Initialize the MultiTokenContractOptions.
 
             Args:
-                name: The name of the multi-token collection.
-                symbol: The symbol of the multi-token collection.
                 uri: The URI for all token metadata.
-
             """
-            super().__init__(name, symbol)
-            self.uri = uri
+            super().__init__(uri=uri)
 
     def __init__(self, model: SmartContractModel) -> None:
         """Initialize the SmartContract class.
@@ -313,14 +305,13 @@ class SmartContract:
 
         Raises:
             ValueError: If the options type is unsupported.
-
         """
         if isinstance(options, cls.TokenContractOptions):
-            openapi_options = TokenContractOptions(**options.__dict__)
+            openapi_options = TokenContractOptions(**options)
         elif isinstance(options, cls.NFTContractOptions):
-            openapi_options = NFTContractOptions(**options.__dict__)
+            openapi_options = NFTContractOptions(**options)
         elif isinstance(options, cls.MultiTokenContractOptions):
-            openapi_options = MultiTokenContractOptions(**options.__dict__)
+            openapi_options = MultiTokenContractOptions(**options)
         else:
             raise ValueError(f"Unsupported options type: {type(options)}")
 
