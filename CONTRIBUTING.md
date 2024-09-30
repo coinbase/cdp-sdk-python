@@ -42,7 +42,7 @@ make test
 
 ### Generating Documentation
 
-To build and view the documentation, run:
+To build and view the documentation locally, run:
 
 ```bash
 make local-docs
