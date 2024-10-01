@@ -3,88 +3,8 @@ from unittest.mock import ANY, Mock, call, patch
 
 import pytest
 
-from cdp.asset import Asset
-from cdp.client.models.asset import Asset as AssetModel
-from cdp.client.models.contract_invocation import ContractInvocation as ContractInvocationModel
-from cdp.client.models.transaction import Transaction as TransactionModel
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import TransactionNotSignedError
-
-
-@pytest.fixture
-def asset_model_factory():
-    """Create and return a factory for creating AssetModel fixtures."""
-
-    def _create_asset_model(network_id="base-sepolia", asset_id="usdc", decimals=6):
-        return AssetModel(network_id=network_id, asset_id=asset_id, decimals=decimals)
-
-    return _create_asset_model
-
-
-@pytest.fixture
-def asset_factory(asset_model_factory):
-    """Create and return a factory for creating Asset fixtures."""
-
-    def _create_asset(network_id="base-sepolia", asset_id="usdc", decimals=6):
-        asset_model = asset_model_factory(network_id, asset_id, decimals)
-        return Asset.from_model(asset_model)
-
-    return _create_asset
-
-
-@pytest.fixture
-def transaction_model_factory():
-    """Create and return a factory for creating TransactionModel fixtures."""
-
-    def _create_transaction_model(status="complete"):
-        return TransactionModel(
-            network_id="base-sepolia",
-            transaction_hash="0xtransactionhash",
-            from_address_id="0xaddressid",
-            to_address_id="0xdestination",
-            unsigned_payload="0xunsignedpayload",
-            signed_payload="0xsignedpayload"
-            if status in ["signed", "broadcast", "complete"]
-            else None,
-            status=status,
-            transaction_link="https://sepolia.basescan.org/tx/0xtransactionlink"
-            if status == "complete"
-            else None,
-        )
-
-    return _create_transaction_model
-
-
-@pytest.fixture
-def contract_invocation_model_factory(transaction_model_factory):
-    """Create and return a factory for creating ContractInvocationModel fixtures."""
-
-    def _create_contract_invocation_model(status="complete"):
-        return ContractInvocationModel(
-            network_id="base-sepolia",
-            wallet_id="test-wallet-id",
-            address_id="0xaddressid",
-            contract_invocation_id="test-invocation-id",
-            contract_address="0xcontractaddress",
-            method="testMethod",
-            args='{"arg1": "value1"}',
-            abi='{"abi": "data"}',
-            amount="1",
-            transaction=transaction_model_factory(status),
-        )
-
-    return _create_contract_invocation_model
-
-
-@pytest.fixture
-def contract_invocation_factory(contract_invocation_model_factory):
-    """Create and return a factory for creating ContractInvocation fixtures."""
-
-    def _create_contract_invocation(status="complete"):
-        contract_invocation_model = contract_invocation_model_factory(status)
-        return ContractInvocation(contract_invocation_model)
-
-    return _create_contract_invocation
 
 
 def test_contract_invocation_initialization(contract_invocation_factory):
