@@ -12,6 +12,7 @@ from cdp.client.models.address import Address as AddressModel
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.payload_signature import PayloadSignature
+from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 
@@ -220,6 +221,89 @@ class WalletAddress(Address):
             unsigned_payload=unsigned_payload,
             signature=signature,
         )
+
+    def deploy_token(
+        self, name: str, symbol: str, total_supply: Number | Decimal | str
+    ) -> SmartContract:
+        """Deploy a token smart contract.
+
+        Args:
+            name (str): The name of the token.
+            symbol (str): The symbol of the token.
+            total_supply (Union[Number, Decimal, str]): The total supply of the token.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.ERC20,
+            options=SmartContract.TokenContractOptions(
+                name=name, symbol=symbol, total_supply=str(total_supply)
+            ),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
+
+    def deploy_nft(self, name: str, symbol: str, base_uri: str) -> SmartContract:
+        """Deploy an NFT smart contract.
+
+        Args:
+            name (str): The name of the NFT.
+            symbol (str): The symbol of the NFT.
+            base_uri (str): The base URI for the NFT.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.ERC721,
+            options=SmartContract.NFTContractOptions(name=name, symbol=symbol, base_uri=base_uri),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
+
+    def deploy_multi_token(self, uri: str) -> SmartContract:
+        """Deploy a multi-token smart contract.
+
+        Args:
+            uri (str): The URI for the multi-token contract.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.ERC1155,
+            options=SmartContract.MultiTokenContractOptions(uri=uri),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
 
     def transfers(self) -> Iterator[Transfer]:
         """List transfers for this wallet address.

@@ -12,9 +12,11 @@ from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.stake_api import StakeApi
 from cdp.client.api.trades_api import TradesApi
+from cdp.client.api.transaction_history_api import TransactionHistoryApi
 from cdp.client.api.transfers_api import TransfersApi
 from cdp.client.api.users_api import UsersApi
 from cdp.client.api.validators_api import ValidatorsApi
 from cdp.client.api.wallet_stake_api import WalletStakeApi
 from cdp.client.api.wallets_api import WalletsApi
 from cdp.client.api.webhooks_api import WebhooksApi
+
