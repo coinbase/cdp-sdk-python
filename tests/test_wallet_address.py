@@ -8,11 +8,6 @@ from eth_account.signers.local import LocalAccount
 from eth_utils import to_bytes
 from web3 import Web3
 
-from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
-from cdp.client.models.multi_token_contract_options import MultiTokenContractOptions
-from cdp.client.models.nft_contract_options import NFTContractOptions
-from cdp.client.models.smart_contract_options import SmartContractOptions
-from cdp.client.models.token_contract_options import TokenContractOptions
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.payload_signature import PayloadSignature
@@ -691,239 +686,167 @@ def test_repr(wallet_address_factory):
     assert repr(wallet_address) == expected_repr
 
 
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_token_total_supply_string(mock_api_clients, wallet_address_factory):
-    """Test the deploy_token method of a WalletAddress with a string total_supply."""
-    wallet_address = wallet_address_factory()
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_wallet_address_deploy_token(mock_smart_contract, wallet_address_factory):
+    """Test the deploy_token method of a WalletAddress."""
+    wallet_address = wallet_address_factory(key=True)
 
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
 
     smart_contract = wallet_address.deploy_token(
         name="TestToken", symbol="TT", total_supply="1000000"
     )
 
     assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+    mock_smart_contract.create.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc20",
-            options=SmartContractOptions(
-                actual_instance=TokenContractOptions(
-                    name="TestToken", symbol="TT", total_supply="1000000"
-                )
-            ),
+        type=mock_smart_contract.Type.ERC20,
+        options=mock_smart_contract.TokenContractOptions(
+            name="TestToken", symbol="TT", total_supply="1000000"
         ),
     )
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
 
 
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_token_total_supply_number(mock_api_clients, wallet_address_factory):
-    """Test the deploy_token method of a WalletAddress with a number total_supply."""
-    wallet_address = wallet_address_factory()
-
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
-
-    smart_contract = wallet_address.deploy_token(
-        name="TestToken", symbol="TT", total_supply=1000000
-    )
-
-    assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
-        wallet_id=wallet_address.wallet_id,
-        address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc20",
-            options=SmartContractOptions(
-                actual_instance=TokenContractOptions(
-                    name="TestToken", symbol="TT", total_supply="1000000"
-                )
-            ),
-        ),
-    )
-
-
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_token_total_supply_decimal(mock_api_clients, wallet_address_factory):
-    """Test the deploy_token method of a WalletAddress with a Decimal total_supply."""
-    wallet_address = wallet_address_factory()
-
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
-
-    smart_contract = wallet_address.deploy_token(
-        name="TestToken", symbol="TT", total_supply=Decimal("1000000.5")
-    )
-
-    assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
-        wallet_id=wallet_address.wallet_id,
-        address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc20",
-            options=SmartContractOptions(
-                actual_instance=TokenContractOptions(
-                    name="TestToken", symbol="TT", total_supply="1000000.5"
-                )
-            ),
-        ),
-    )
-
-
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_nft(mock_api_clients, wallet_address_factory):
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_wallet_address_deploy_nft(mock_smart_contract, wallet_address_factory):
     """Test the deploy_nft method of a WalletAddress."""
-    wallet_address = wallet_address_factory()
+    wallet_address = wallet_address_factory(key=True)
 
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
 
     smart_contract = wallet_address.deploy_nft(
         name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
     )
 
     assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+    mock_smart_contract.create.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc721",
-            options=SmartContractOptions(
-                actual_instance=NFTContractOptions(
-                    name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
-                )
-            ),
+        type=mock_smart_contract.Type.ERC721,
+        options=mock_smart_contract.NFTContractOptions(
+            name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
         ),
     )
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
 
 
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_multi_token(mock_api_clients, wallet_address_factory):
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_wallet_address_deploy_multi_token(mock_smart_contract, wallet_address_factory):
     """Test the deploy_multi_token method of a WalletAddress."""
-    wallet_address = wallet_address_factory()
+    wallet_address = wallet_address_factory(key=True)
 
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
 
     smart_contract = wallet_address.deploy_multi_token(
         uri="https://example.com/multi-token/{id}.json"
     )
 
     assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+    mock_smart_contract.create.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc1155",
-            options=SmartContractOptions(
-                actual_instance=MultiTokenContractOptions(
-                    uri="https://example.com/multi-token/{id}.json"
-                )
-            ),
+        type=mock_smart_contract.Type.ERC1155,
+        options=mock_smart_contract.MultiTokenContractOptions(
+            uri="https://example.com/multi-token/{id}.json"
         ),
     )
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
 
 
-@patch("cdp.Cdp.api_clients")
+@patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_token_with_server_signer(mock_api_clients, wallet_address_factory):
+def test_wallet_address_deploy_token_with_server_signer(
+    mock_smart_contract, wallet_address_factory
+):
     """Test the deploy_token method of a WalletAddress with server signer."""
     wallet_address = wallet_address_factory()
 
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
 
     smart_contract = wallet_address.deploy_token(
         name="TestToken", symbol="TT", total_supply="1000000"
     )
 
     assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+    mock_smart_contract.create.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc20",
-            options=SmartContractOptions(
-                actual_instance=TokenContractOptions(
-                    name="TestToken", symbol="TT", total_supply="1000000"
-                )
-            ),
+        type=mock_smart_contract.Type.ERC20,
+        options=mock_smart_contract.TokenContractOptions(
+            name="TestToken", symbol="TT", total_supply="1000000"
         ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
-    mock_smart_contract.sign.assert_not_called()
-    mock_smart_contract.broadcast.assert_not_called()
+    mock_smart_contract_instance.sign.assert_not_called()
+    mock_smart_contract_instance.broadcast.assert_not_called()
 
 
-@patch("cdp.Cdp.api_clients")
+@patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_nft_with_server_signer(mock_api_clients, wallet_address_factory):
+def test_wallet_address_deploy_nft_with_server_signer(mock_smart_contract, wallet_address_factory):
     """Test the deploy_nft method of a WalletAddress with server signer."""
     wallet_address = wallet_address_factory()
 
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
 
     smart_contract = wallet_address.deploy_nft(
         name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
     )
 
     assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+    mock_smart_contract.create.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc721",
-            options=SmartContractOptions(
-                actual_instance=NFTContractOptions(
-                    name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
-                )
-            ),
+        type=mock_smart_contract.Type.ERC721,
+        options=mock_smart_contract.NFTContractOptions(
+            name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
         ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
-    mock_smart_contract.sign.assert_not_called()
-    mock_smart_contract.broadcast.assert_not_called()
+    mock_smart_contract_instance.sign.assert_not_called()
+    mock_smart_contract_instance.broadcast.assert_not_called()
 
 
-@patch("cdp.Cdp.api_clients")
+@patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", True)
 def test_wallet_address_deploy_multi_token_with_server_signer(
-    mock_api_clients, wallet_address_factory
+    mock_smart_contract, wallet_address_factory
 ):
     """Test the deploy_multi_token method of a WalletAddress with server signer."""
     wallet_address = wallet_address_factory()
 
-    mock_smart_contract = Mock(spec=SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
 
     smart_contract = wallet_address.deploy_multi_token(
         uri="https://example.com/multi-token/{id}.json"
     )
 
     assert isinstance(smart_contract, SmartContract)
-    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+    mock_smart_contract.create.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=CreateSmartContractRequest(
-            type="erc1155",
-            options=SmartContractOptions(
-                actual_instance=MultiTokenContractOptions(
-                    uri="https://example.com/multi-token/{id}.json"
-                )
-            ),
+        type=mock_smart_contract.Type.ERC1155,
+        options=mock_smart_contract.MultiTokenContractOptions(
+            uri="https://example.com/multi-token/{id}.json"
         ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
-    mock_smart_contract.sign.assert_not_called()
-    mock_smart_contract.broadcast.assert_not_called()
+    mock_smart_contract_instance.sign.assert_not_called()
+    mock_smart_contract_instance.broadcast.assert_not_called()
 
 
 @patch("cdp.wallet_address.SmartContract")
