@@ -252,7 +252,7 @@ class SmartContract:
         """
         model = Cdp.api_clients.smart_contracts.get_smart_contract(
             wallet_id=self.wallet_id,
-            deployer_address=self.deployer_address,
+            address_id=self.deployer_address,
             smart_contract_id=self.smart_contract_id,
         )
         self._model = model
