@@ -229,7 +229,7 @@ def test_transfer_broadcast_api_error(
         address_id=wallet_address_with_key.address_id,
         asset_id="eth",
     )
-    mock_transfer.createassert_called_once_with(
+    mock_transfer.create.assert_called_once_with(
         address_id=wallet_address_with_key.address_id,
         amount=Decimal("1.0"),
         asset_id="eth",
@@ -514,9 +514,8 @@ def test_invoke_contract_broadcast_api_error(
 
 
 @patch("cdp.wallet_address.PayloadSignature")
-@patch("cdp.Cdp.api_clients")
 @patch("cdp.Cdp.use_server_signer", True)
-def test_sign_payload_with_server_signer(mock_api_clients, mock_payload_signature, wallet_address):
+def test_sign_payload_with_server_signer(mock_payload_signature, wallet_address):
     """Test the sign_payload method with a server signer."""
     mock_payload_signature_instance = Mock(spec=PayloadSignature)
     mock_payload_signature.create.return_value = mock_payload_signature_instance
@@ -534,9 +533,8 @@ def test_sign_payload_with_server_signer(mock_api_clients, mock_payload_signatur
 
 @patch("cdp.wallet_address.to_hex", Mock(return_value="0xsignature"))
 @patch("cdp.wallet_address.PayloadSignature")
-@patch("cdp.Cdp.api_clients")
 @patch("cdp.Cdp.use_server_signer", False)
-def test_sign_payload(mock_api_clients, mock_payload_signature, wallet_address_with_key):
+def test_sign_payload(mock_payload_signature, wallet_address_with_key):
     """Test the sign_payload method."""
     mock_payload_signature_instance = Mock(spec=PayloadSignature)
     mock_payload_signature.create.return_value = mock_payload_signature_instance
@@ -564,9 +562,8 @@ def test_sign_payload(mock_api_clients, mock_payload_signature, wallet_address_w
 
 @patch("cdp.wallet_address.to_hex", Mock(return_value="0xsignature"))
 @patch("cdp.wallet_address.PayloadSignature")
-@patch("cdp.Cdp.api_clients")
 @patch("cdp.Cdp.use_server_signer", False)
-def test_sign_payload_api_error(mock_api_clients, mock_payload_signature, wallet_address_with_key):
+def test_sign_payload_api_error(mock_payload_signature, wallet_address_with_key):
     """Test the sign_payload method."""
     mock_signature = Mock(spec=SignedMessage)
     mock_signature.signature = "0xsignature"
@@ -756,9 +753,7 @@ def test_wallet_address_deploy_multi_token_with_server_signer(mock_api_clients, 
 
 
 @patch("cdp.wallet_address.SmartContract")
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", False)
-def test_deploy_token_api_error(mock_api_clients, mock_smart_contract, wallet_address_with_key):
+def test_deploy_token_api_error(mock_smart_contract, wallet_address_with_key):
     """Test the deploy_token method raises an error when the create API call fails."""
     mock_smart_contract.create.side_effect = Exception("API Error")
 
@@ -769,11 +764,7 @@ def test_deploy_token_api_error(mock_api_clients, mock_smart_contract, wallet_ad
 
 
 @patch("cdp.wallet_address.SmartContract")
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", False)
-def test_deploy_token_broadcast_api_error(
-    mock_api_clients, mock_smart_contract, wallet_address_with_key
-):
+def test_deploy_token_broadcast_api_error(mock_smart_contract, wallet_address_with_key):
     """Test the deploy_token method raises an error when the broadcast API call fails."""
     mock_smart_contract_instance = Mock(spec=SmartContract)
     mock_smart_contract.create.return_value = mock_smart_contract_instance
@@ -788,9 +779,7 @@ def test_deploy_token_broadcast_api_error(
 
 
 @patch("cdp.wallet_address.SmartContract")
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", False)
-def test_deploy_nft_api_error(mock_api_clients, mock_smart_contract, wallet_address_with_key):
+def test_deploy_nft_api_error(mock_smart_contract, wallet_address_with_key):
     """Test the deploy_nft method raises an error when the create API call fails."""
     mock_smart_contract.create.side_effect = Exception("API Error")
 
@@ -803,11 +792,7 @@ def test_deploy_nft_api_error(mock_api_clients, mock_smart_contract, wallet_addr
 
 
 @patch("cdp.wallet_address.SmartContract")
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", False)
-def test_deploy_nft_broadcast_api_error(
-    mock_api_clients, mock_smart_contract, wallet_address_with_key
-):
+def test_deploy_nft_broadcast_api_error(mock_smart_contract, wallet_address_with_key):
     """Test the deploy_nft method raises an error when the broadcast API call fails."""
     mock_smart_contract_instance = Mock(spec=SmartContract)
     mock_smart_contract.create.return_value = mock_smart_contract_instance
@@ -824,11 +809,7 @@ def test_deploy_nft_broadcast_api_error(
 
 
 @patch("cdp.wallet_address.SmartContract")
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", False)
-def test_deploy_multi_token_api_error(
-    mock_api_clients, mock_smart_contract, wallet_address_with_key
-):
+def test_deploy_multi_token_api_error(mock_smart_contract, wallet_address_with_key):
     """Test the deploy_multi_token method raises an error when the create API call fails."""
     mock_smart_contract.create.side_effect = Exception("API Error")
 
@@ -839,11 +820,7 @@ def test_deploy_multi_token_api_error(
 
 
 @patch("cdp.wallet_address.SmartContract")
-@patch("cdp.Cdp.api_clients")
-@patch("cdp.Cdp.use_server_signer", False)
-def test_deploy_multi_token_broadcast_api_error(
-    mock_api_clients, mock_smart_contract, wallet_address_with_key
-):
+def test_deploy_multi_token_broadcast_api_error(mock_smart_contract, wallet_address_with_key):
     """Test the deploy_multi_token method raises an error when the broadcast API call fails."""
     mock_smart_contract_instance = Mock(spec=SmartContract)
     mock_smart_contract.create.return_value = mock_smart_contract_instance
