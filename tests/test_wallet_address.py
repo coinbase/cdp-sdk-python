@@ -688,8 +688,8 @@ def test_repr(wallet_address_factory):
 
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", False)
-def test_wallet_address_deploy_token(mock_smart_contract, wallet_address_factory):
-    """Test the deploy_token method of a WalletAddress."""
+def test_wallet_address_deploy_token_total_supply_string(mock_smart_contract, wallet_address_factory):
+    """Test the deploy_token method of a WalletAddress with a string total_supply."""
     wallet_address = wallet_address_factory(key=True)
 
     mock_smart_contract_instance = Mock(spec=SmartContract)
@@ -711,6 +711,55 @@ def test_wallet_address_deploy_token(mock_smart_contract, wallet_address_factory
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
     mock_smart_contract_instance.broadcast.assert_called_once()
 
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_wallet_address_deploy_token_total_supply_number(mock_smart_contract, wallet_address_factory):
+    """Test the deploy_token method of a WalletAddress with a number total_supply."""
+    wallet_address = wallet_address_factory(key=True)
+
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+
+    smart_contract = wallet_address.deploy_token(
+        name="TestToken", symbol="TT", total_supply=1000000
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_smart_contract.create.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        type=mock_smart_contract.Type.ERC20,
+        options=mock_smart_contract.TokenContractOptions(
+            name="TestToken", symbol="TT", total_supply="1000000"
+        ),
+    )
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_wallet_address_deploy_token_total_supply_decimal(mock_smart_contract, wallet_address_factory):
+    """Test the deploy_token method of a WalletAddress with a Decimal total_supply."""
+    wallet_address = wallet_address_factory(key=True)
+
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+
+    smart_contract = wallet_address.deploy_token(
+        name="TestToken", symbol="TT", total_supply=Decimal("1000000.5")
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_smart_contract.create.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        type=mock_smart_contract.Type.ERC20,
+        options=mock_smart_contract.TokenContractOptions(
+            name="TestToken", symbol="TT", total_supply="1000000.5"
+        ),
+    )
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
 
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", False)
