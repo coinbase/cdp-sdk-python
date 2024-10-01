@@ -212,6 +212,14 @@ cdp.client.models.create\_wallet\_request\_wallet module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.create\_wallet\_webhook\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_wallet_webhook_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.create\_webhook\_request module
 -------------------------------------------------
 
@@ -344,6 +352,14 @@ cdp.client.models.historical\_balance module
 --------------------------------------------
 
 .. automodule:: cdp.client.models.historical_balance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.multi\_token\_contract\_options module
+--------------------------------------------------------
+
+.. automodule:: cdp.client.models.multi_token_contract_options
    :members:
    :undoc-members:
    :show-inheritance:

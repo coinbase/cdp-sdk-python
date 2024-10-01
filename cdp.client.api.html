@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>cdp.client.api package &#8212; CDP SDK 0.0.3 documentation</title>
+    <title>cdp.client.api package &#8212; CDP SDK 0.0.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    <script src="_static/documentation_options.js?v=47de8214"></script>
+    <script src="_static/documentation_options.js?v=8c5712d9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -1995,117 +1995,6 @@ in the spec for a single request.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cdp.client.api.external_addresses_api.ExternalAddressesApi.list_address_transactions">
-<span class="sig-name descname"><span class="pre">list_address_transactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.external_addresses_api.ExternalAddressesApi.list_address_transactions" title="Link to this definition">¶</a></dt>
-<dd><p>List transactions for an address.</p>
-<p>List all transactions that interact with the address.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network (required)</p></li>
-<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the transactions for. (required)</p></li>
-<li><p><strong>limit</strong> (<em>int</em>) – A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.</p></li>
-<li><p><strong>page</strong> (<em>str</em>) – A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.</p></li>
-<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
-number provided, it will be total request
-timeout. It can also be a pair (tuple) of
-(connection, read) timeouts.</p></li>
-<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
-request; this effectively ignores the
-authentication in the spec for a single request.</p></li>
-<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
-<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
-request; this effectively ignores the headers
-in the spec for a single request.</p></li>
-<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
-request; this effectively ignores the host_index
-in the spec for a single request.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_transaction_list.AddressTransactionList" title="cdp.client.models.address_transaction_list.AddressTransactionList"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressTransactionList</span></code></a></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the result object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cdp.client.api.external_addresses_api.ExternalAddressesApi.list_address_transactions_with_http_info">
-<span class="sig-name descname"><span class="pre">list_address_transactions_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.external_addresses_api.ExternalAddressesApi.list_address_transactions_with_http_info" title="Link to this definition">¶</a></dt>
-<dd><p>List transactions for an address.</p>
-<p>List all transactions that interact with the address.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network (required)</p></li>
-<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the transactions for. (required)</p></li>
-<li><p><strong>limit</strong> (<em>int</em>) – A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.</p></li>
-<li><p><strong>page</strong> (<em>str</em>) – A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.</p></li>
-<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
-number provided, it will be total request
-timeout. It can also be a pair (tuple) of
-(connection, read) timeouts.</p></li>
-<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
-request; this effectively ignores the
-authentication in the spec for a single request.</p></li>
-<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
-<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
-request; this effectively ignores the headers
-in the spec for a single request.</p></li>
-<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
-request; this effectively ignores the host_index
-in the spec for a single request.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[AddressTransactionList]</span></code></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the result object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cdp.client.api.external_addresses_api.ExternalAddressesApi.list_address_transactions_without_preload_content">
-<span class="sig-name descname"><span class="pre">list_address_transactions_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.external_addresses_api.ExternalAddressesApi.list_address_transactions_without_preload_content" title="Link to this definition">¶</a></dt>
-<dd><p>List transactions for an address.</p>
-<p>List all transactions that interact with the address.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network (required)</p></li>
-<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the transactions for. (required)</p></li>
-<li><p><strong>limit</strong> (<em>int</em>) – A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.</p></li>
-<li><p><strong>page</strong> (<em>str</em>) – A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.</p></li>
-<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
-number provided, it will be total request
-timeout. It can also be a pair (tuple) of
-(connection, read) timeouts.</p></li>
-<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
-request; this effectively ignores the
-authentication in the spec for a single request.</p></li>
-<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
-<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
-request; this effectively ignores the headers
-in the spec for a single request.</p></li>
-<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
-request; this effectively ignores the host_index
-in the spec for a single request.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPResponse</span></code></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the result object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.external_addresses_api.ExternalAddressesApi.list_external_address_balances">
 <span class="sig-name descname"><span class="pre">list_external_address_balances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.external_addresses_api.ExternalAddressesApi.list_external_address_balances" title="Link to this definition">¶</a></dt>
 <dd><p>Get the balances of an external address</p>
@@ -2664,7 +2553,7 @@ in the spec for a single request.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.server_signers_api.ServerSignersApi.list_server_signer_events">
 <span class="sig-name descname"><span class="pre">list_server_signer_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_signer_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.server_signers_api.ServerSignersApi.list_server_signer_events" title="Link to this definition">¶</a></dt>
-<dd><p>List events for a server signer</p>
+<dd><p>(Deprecated) List events for a server signer</p>
 <p>List events for a server signer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2700,7 +2589,7 @@ in the spec for a single request.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.server_signers_api.ServerSignersApi.list_server_signer_events_with_http_info">
 <span class="sig-name descname"><span class="pre">list_server_signer_events_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_signer_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.server_signers_api.ServerSignersApi.list_server_signer_events_with_http_info" title="Link to this definition">¶</a></dt>
-<dd><p>List events for a server signer</p>
+<dd><p>(Deprecated) List events for a server signer</p>
 <p>List events for a server signer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2736,7 +2625,7 @@ in the spec for a single request.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.server_signers_api.ServerSignersApi.list_server_signer_events_without_preload_content">
 <span class="sig-name descname"><span class="pre">list_server_signer_events_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_signer_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.server_signers_api.ServerSignersApi.list_server_signer_events_without_preload_content" title="Link to this definition">¶</a></dt>
-<dd><p>List events for a server signer</p>
+<dd><p>(Deprecated) List events for a server signer</p>
 <p>List events for a server signer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4548,6 +4437,134 @@ in the spec for a single request.</p></li>
 </dd></dl>
 
 </section>
+<section id="module-cdp.client.api.transaction_history_api">
+<span id="cdp-client-api-transaction-history-api-module"></span><h2>cdp.client.api.transaction_history_api module<a class="headerlink" href="#module-cdp.client.api.transaction_history_api" title="Link to this heading">¶</a></h2>
+<p>Coinbase Platform API</p>
+<p>This is the OpenAPI 3.0 specification for the Coinbase Platform APIs, used in conjunction with the Coinbase Platform SDKs.</p>
+<p>The version of the OpenAPI document: 0.0.1-alpha
+Generated by OpenAPI Generator (<a class="reference external" href="https://openapi-generator.tech">https://openapi-generator.tech</a>)</p>
+<p>Do not edit the class manually.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.client.api.transaction_history_api.TransactionHistoryApi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.client.api.transaction_history_api.</span></span><span class="sig-name descname"><span class="pre">TransactionHistoryApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.transaction_history_api.TransactionHistoryApi" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>NOTE: This class is auto generated by OpenAPI Generator
+Ref: <a class="reference external" href="https://openapi-generator.tech">https://openapi-generator.tech</a></p>
+<p>Do not edit the class manually.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.transaction_history_api.TransactionHistoryApi.list_address_transactions">
+<span class="sig-name descname"><span class="pre">list_address_transactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.transaction_history_api.TransactionHistoryApi.list_address_transactions" title="Link to this definition">¶</a></dt>
+<dd><p>List transactions for an address.</p>
+<p>List all transactions that interact with the address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network (required)</p></li>
+<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the transactions for. (required)</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.</p></li>
+<li><p><strong>page</strong> (<em>str</em>) – A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_transaction_list.AddressTransactionList" title="cdp.client.models.address_transaction_list.AddressTransactionList"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressTransactionList</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.transaction_history_api.TransactionHistoryApi.list_address_transactions_with_http_info">
+<span class="sig-name descname"><span class="pre">list_address_transactions_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.transaction_history_api.TransactionHistoryApi.list_address_transactions_with_http_info" title="Link to this definition">¶</a></dt>
+<dd><p>List transactions for an address.</p>
+<p>List all transactions that interact with the address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network (required)</p></li>
+<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the transactions for. (required)</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.</p></li>
+<li><p><strong>page</strong> (<em>str</em>) – A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[AddressTransactionList]</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.transaction_history_api.TransactionHistoryApi.list_address_transactions_without_preload_content">
+<span class="sig-name descname"><span class="pre">list_address_transactions_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.transaction_history_api.TransactionHistoryApi.list_address_transactions_without_preload_content" title="Link to this definition">¶</a></dt>
+<dd><p>List transactions for an address.</p>
+<p>List all transactions that interact with the address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network (required)</p></li>
+<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the transactions for. (required)</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.</p></li>
+<li><p><strong>page</strong> (<em>str</em>) – A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPResponse</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cdp.client.api.transfers_api">
 <span id="cdp-client-api-transfers-api-module"></span><h2>cdp.client.api.transfers_api module<a class="headerlink" href="#module-cdp.client.api.transfers_api" title="Link to this heading">¶</a></h2>
 <p>Coinbase Platform API</p>
@@ -6249,6 +6266,111 @@ Generated by OpenAPI Generator (<a class="reference external" href="https://open
 <p>NOTE: This class is auto generated by OpenAPI Generator
 Ref: <a class="reference external" href="https://openapi-generator.tech">https://openapi-generator.tech</a></p>
 <p>Do not edit the class manually.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.webhooks_api.WebhooksApi.create_wallet_webhook">
+<span class="sig-name descname"><span class="pre">create_wallet_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_wallet_webhook_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.webhooks_api.WebhooksApi.create_wallet_webhook" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new webhook scoped to a wallet</p>
+<p>Create a new webhook scoped to a wallet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_id</strong> (<em>str</em>) – The ID of the wallet to create the webhook for. (required)</p></li>
+<li><p><strong>create_wallet_webhook_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.create_wallet_webhook_request.CreateWalletWebhookRequest" title="cdp.client.models.create_wallet_webhook_request.CreateWalletWebhookRequest"><em>CreateWalletWebhookRequest</em></a>)</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook.Webhook" title="cdp.client.models.webhook.Webhook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Webhook</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.webhooks_api.WebhooksApi.create_wallet_webhook_with_http_info">
+<span class="sig-name descname"><span class="pre">create_wallet_webhook_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_wallet_webhook_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.webhooks_api.WebhooksApi.create_wallet_webhook_with_http_info" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new webhook scoped to a wallet</p>
+<p>Create a new webhook scoped to a wallet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_id</strong> (<em>str</em>) – The ID of the wallet to create the webhook for. (required)</p></li>
+<li><p><strong>create_wallet_webhook_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.create_wallet_webhook_request.CreateWalletWebhookRequest" title="cdp.client.models.create_wallet_webhook_request.CreateWalletWebhookRequest"><em>CreateWalletWebhookRequest</em></a>)</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[Webhook]</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.webhooks_api.WebhooksApi.create_wallet_webhook_without_preload_content">
+<span class="sig-name descname"><span class="pre">create_wallet_webhook_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_wallet_webhook_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.webhooks_api.WebhooksApi.create_wallet_webhook_without_preload_content" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new webhook scoped to a wallet</p>
+<p>Create a new webhook scoped to a wallet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_id</strong> (<em>str</em>) – The ID of the wallet to create the webhook for. (required)</p></li>
+<li><p><strong>create_wallet_webhook_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.create_wallet_webhook_request.CreateWalletWebhookRequest" title="cdp.client.models.create_wallet_webhook_request.CreateWalletWebhookRequest"><em>CreateWalletWebhookRequest</em></a>)</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPResponse</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.webhooks_api.WebhooksApi.create_webhook">
 <span class="sig-name descname"><span class="pre">create_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_webhook_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.webhooks_api.WebhooksApi.create_webhook" title="Link to this definition">¶</a></dt>
