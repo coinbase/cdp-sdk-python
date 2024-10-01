@@ -157,7 +157,7 @@ def test_reload_smart_contract(mock_api_clients, smart_contract_factory):
 
     mock_get_contract.assert_called_once_with(
         wallet_id=smart_contract.wallet_id,
-        deployer_address=smart_contract.deployer_address,
+        address_id=smart_contract.deployer_address,
         smart_contract_id=smart_contract.smart_contract_id,
     )
     assert smart_contract.transaction.status.value == "complete"
@@ -181,7 +181,7 @@ def test_wait_for_smart_contract(mock_time, mock_sleep, mock_api_clients, smart_
     assert result.transaction.status.value == "complete"
     mock_get_contract.assert_called_with(
         wallet_id=pending_contract.wallet_id,
-        deployer_address=pending_contract.deployer_address,
+        address_id=pending_contract.deployer_address,
         smart_contract_id=pending_contract.smart_contract_id,
     )
     assert mock_get_contract.call_count == 2
