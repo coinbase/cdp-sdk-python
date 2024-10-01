@@ -7,6 +7,7 @@
 - Contract invocation support.
 - Arbitrary message signing support.
 - Deploy ERC20, ERC721, and ERC1155 smart contracts.
+- Hashing utilities for EIP-191 / EIP-712 data messages.
 
 ### Fixed
 
