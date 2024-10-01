@@ -228,7 +228,7 @@ class WalletAddress(Address):
         Args:
             name (str): The name of the token.
             symbol (str): The symbol of the token.
-            total_supply (Union[int, float, Decimal, str]): The total supply of the token.
+            total_supply (str): The total supply of the token as a string.
 
         Returns:
             SmartContract: The deployed smart contract.

@@ -11,6 +11,11 @@ from web3 import Web3
 from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.asset import Asset as AssetModel
 from cdp.client.models.balance import Balance as BalanceModel
+from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
+from cdp.client.models.multi_token_contract_options import MultiTokenContractOptions
+from cdp.client.models.nft_contract_options import NFTContractOptions
+from cdp.client.models.smart_contract_options import SmartContractOptions
+from cdp.client.models.token_contract_options import TokenContractOptions
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.payload_signature import PayloadSignature
@@ -701,7 +706,14 @@ def test_wallet_address_deploy_token_with_server_signer(mock_api_clients, wallet
     mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=ANY,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc20",
+            options=SmartContractOptions(
+                actual_instance=TokenContractOptions(
+                    name="TestToken", symbol="TT", total_supply="1000000"
+                )
+            ),
+        ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
     mock_smart_contract.sign.assert_not_called()
@@ -723,7 +735,14 @@ def test_wallet_address_deploy_nft_with_server_signer(mock_api_clients, wallet_a
     mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=ANY,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc721",
+            options=SmartContractOptions(
+                actual_instance=NFTContractOptions(
+                    name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+                )
+            ),
+        ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
     mock_smart_contract.sign.assert_not_called()
@@ -745,7 +764,14 @@ def test_wallet_address_deploy_multi_token_with_server_signer(mock_api_clients, 
     mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=ANY,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc1155",
+            options=SmartContractOptions(
+                actual_instance=MultiTokenContractOptions(
+                    uri="https://example.com/multi-token/{id}.json"
+                )
+            ),
+        ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
     mock_smart_contract.sign.assert_not_called()
