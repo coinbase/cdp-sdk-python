@@ -615,7 +615,6 @@ def test_wallet_deploy_token_no_default_address(wallet_factory):
             wallet.deploy_token(name="TestToken", symbol="TT", total_supply="1000000")
 
 
-# Add similar tests for deploy_nft and deploy_multi_token with no default address
 @patch("cdp.Cdp.use_server_signer", True)
 def test_wallet_deploy_nft_no_default_address(wallet_factory):
     """Test the deploy_nft method of a Wallet with no default address."""

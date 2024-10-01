@@ -130,7 +130,7 @@ class Transaction:
                 "type": "0x2",  # EIP-1559 transaction type
             }
 
-            # Handle the 'to' field separately
+            # Handle 'to' field separately since smart contract deployments have an empty 'to' field
             if parsed_payload["to"]:
                 transaction_dict["to"] = Web3.to_bytes(hexstr=parsed_payload["to"])
             else:

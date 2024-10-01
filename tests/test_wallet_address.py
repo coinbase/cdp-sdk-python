@@ -753,3 +753,105 @@ def test_wallet_address_deploy_multi_token_with_server_signer(mock_api_clients, 
     # Verify that sign and broadcast methods are not called when using server signer
     mock_smart_contract.sign.assert_not_called()
     mock_smart_contract.broadcast.assert_not_called()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_deploy_token_api_error(mock_api_clients, mock_smart_contract, wallet_address_with_key):
+    """Test the deploy_token method raises an error when the create API call fails."""
+    mock_smart_contract.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_token(name="TestToken", symbol="TT", total_supply="1000000")
+
+    mock_smart_contract.create.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_deploy_token_broadcast_api_error(
+    mock_api_clients, mock_smart_contract, wallet_address_with_key
+):
+    """Test the deploy_token method raises an error when the broadcast API call fails."""
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+    mock_smart_contract_instance.broadcast.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_token(name="TestToken", symbol="TT", total_supply="1000000")
+
+    mock_smart_contract.create.assert_called_once()
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_deploy_nft_api_error(mock_api_clients, mock_smart_contract, wallet_address_with_key):
+    """Test the deploy_nft method raises an error when the create API call fails."""
+    mock_smart_contract.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_nft(
+            name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+        )
+
+    mock_smart_contract.create.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_deploy_nft_broadcast_api_error(
+    mock_api_clients, mock_smart_contract, wallet_address_with_key
+):
+    """Test the deploy_nft method raises an error when the broadcast API call fails."""
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+    mock_smart_contract_instance.broadcast.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_nft(
+            name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+        )
+
+    mock_smart_contract.create.assert_called_once()
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_deploy_multi_token_api_error(
+    mock_api_clients, mock_smart_contract, wallet_address_with_key
+):
+    """Test the deploy_multi_token method raises an error when the create API call fails."""
+    mock_smart_contract.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+    mock_smart_contract.create.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_deploy_multi_token_broadcast_api_error(
+    mock_api_clients, mock_smart_contract, wallet_address_with_key
+):
+    """Test the deploy_multi_token method raises an error when the broadcast API call fails."""
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+    mock_smart_contract_instance.broadcast.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+    mock_smart_contract.create.assert_called_once()
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
