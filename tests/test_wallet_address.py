@@ -636,8 +636,8 @@ def test_repr(wallet_address):
 
 @patch("cdp.Cdp.api_clients")
 @patch("cdp.Cdp.use_server_signer", True)
-def test_wallet_address_deploy_token(mock_api_clients, wallet_address):
-    """Test the deploy_token method of a WalletAddress."""
+def test_wallet_address_deploy_token_total_supply_string(mock_api_clients, wallet_address):
+    """Test the deploy_token method of a WalletAddress with a string total_supply."""
     mock_smart_contract = Mock(spec=SmartContract)
     mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
 
@@ -654,6 +654,58 @@ def test_wallet_address_deploy_token(mock_api_clients, wallet_address):
             options=SmartContractOptions(
                 actual_instance=TokenContractOptions(
                     name="TestToken", symbol="TT", total_supply="1000000"
+                )
+            ),
+        ),
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_token_total_supply_number(mock_api_clients, wallet_address):
+    """Test the deploy_token method of a WalletAddress with a number total_supply."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_token(
+        name="TestToken", symbol="TT", total_supply=1000000
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc20",
+            options=SmartContractOptions(
+                actual_instance=TokenContractOptions(
+                    name="TestToken", symbol="TT", total_supply="1000000"
+                )
+            ),
+        ),
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_token_total_supply_decimal(mock_api_clients, wallet_address):
+    """Test the deploy_token method of a WalletAddress with a Decimal total_supply."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_token(
+        name="TestToken", symbol="TT", total_supply=Decimal("1000000.5")
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc20",
+            options=SmartContractOptions(
+                actual_instance=TokenContractOptions(
+                    name="TestToken", symbol="TT", total_supply="1000000.5"
                 )
             ),
         ),

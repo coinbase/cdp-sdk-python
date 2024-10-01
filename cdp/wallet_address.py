@@ -222,13 +222,15 @@ class WalletAddress(Address):
             signature=signature,
         )
 
-    def deploy_token(self, name: str, symbol: str, total_supply: str) -> SmartContract:
+    def deploy_token(
+        self, name: str, symbol: str, total_supply: Number | Decimal | str
+    ) -> SmartContract:
         """Deploy a token smart contract.
 
         Args:
             name (str): The name of the token.
             symbol (str): The symbol of the token.
-            total_supply (str): The total supply of the token as a string.
+            total_supply (Union[Number, Decimal, str]): The total supply of the token.
 
         Returns:
             SmartContract: The deployed smart contract.
@@ -239,7 +241,7 @@ class WalletAddress(Address):
             address_id=self.address_id,
             type=SmartContract.Type.ERC20,
             options=SmartContract.TokenContractOptions(
-                name=name, symbol=symbol, total_supply=total_supply
+                name=name, symbol=symbol, total_supply=str(total_supply)
             ),
         )
 
