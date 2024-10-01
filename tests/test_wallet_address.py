@@ -1,5 +1,5 @@
 from decimal import Decimal
-from unittest.mock import Mock, patch
+from unittest.mock import ANY, Mock, patch
 
 import pytest
 from eth_account.datastructures import SignedMessage
@@ -14,6 +14,7 @@ from cdp.client.models.balance import Balance as BalanceModel
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.payload_signature import PayloadSignature
+from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 from cdp.wallet_address import WalletAddress
@@ -629,3 +630,126 @@ def test_repr(wallet_address):
     """Test the repr representation of a WalletAddress."""
     expected_repr = "WalletAddress: (address_id: 0x1234567890123456789012345678901234567890, wallet_id: test-wallet-id-1, network_id: base-sepolia)"
     assert repr(wallet_address) == expected_repr
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_token(mock_api_clients, wallet_address):
+    """Test the deploy_token method of a WalletAddress."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_token(
+        name="TestToken", symbol="TT", total_supply="1000000"
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_nft(mock_api_clients, wallet_address):
+    """Test the deploy_nft method of a WalletAddress."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_nft(
+        name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_multi_token(mock_api_clients, wallet_address):
+    """Test the deploy_multi_token method of a WalletAddress."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_multi_token(
+        uri="https://example.com/multi-token/{id}.json"
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_token_with_server_signer(mock_api_clients, wallet_address):
+    """Test the deploy_token method of a WalletAddress with server signer."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_token(
+        name="TestToken", symbol="TT", total_supply="1000000"
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=ANY,
+    )
+    # Verify that sign and broadcast methods are not called when using server signer
+    mock_smart_contract.sign.assert_not_called()
+    mock_smart_contract.broadcast.assert_not_called()
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_nft_with_server_signer(mock_api_clients, wallet_address):
+    """Test the deploy_nft method of a WalletAddress with server signer."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_nft(
+        name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=ANY,
+    )
+    # Verify that sign and broadcast methods are not called when using server signer
+    mock_smart_contract.sign.assert_not_called()
+    mock_smart_contract.broadcast.assert_not_called()
+
+
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_address_deploy_multi_token_with_server_signer(mock_api_clients, wallet_address):
+    """Test the deploy_multi_token method of a WalletAddress with server signer."""
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.return_value = mock_smart_contract
+
+    smart_contract = wallet_address.deploy_multi_token(
+        uri="https://example.com/multi-token/{id}.json"
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        create_smart_contract_request=ANY,
+    )
+    # Verify that sign and broadcast methods are not called when using server signer
+    mock_smart_contract.sign.assert_not_called()
+    mock_smart_contract.broadcast.assert_not_called()
