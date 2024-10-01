@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.0.4] - 2024-10-1
+
 ### Added
 
 - Contract invocation support.
