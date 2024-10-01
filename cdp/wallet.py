@@ -718,13 +718,15 @@ class Wallet:
         """
         return str(self)
 
-    def deploy_token(self, name: str, symbol: str, total_supply: str) -> SmartContract:
+    def deploy_token(
+        self, name: str, symbol: str, total_supply: Number | Decimal | str
+    ) -> SmartContract:
         """Deploy a token smart contract.
 
         Args:
             name (str): The name of the token.
             symbol (str): The symbol of the token.
-            total_supply (str): The total supply of the token.
+            total_supply (Union[Number, Decimal, str]): The total supply of the token.
 
         Returns:
             SmartContract: The deployed smart contract.
@@ -736,7 +738,7 @@ class Wallet:
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
-        return self.default_address.deploy_token(name, symbol, total_supply)
+        return self.default_address.deploy_token(name, symbol, str(total_supply))
 
     def deploy_nft(self, name: str, symbol: str, base_uri: str) -> SmartContract:
         """Deploy an NFT smart contract.
