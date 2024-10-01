@@ -649,7 +649,14 @@ def test_wallet_address_deploy_token(mock_api_clients, wallet_address):
     mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=ANY,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc20",
+            options=SmartContractOptions(
+                actual_instance=TokenContractOptions(
+                    name="TestToken", symbol="TT", total_supply="1000000"
+                )
+            ),
+        ),
     )
 
 
@@ -668,7 +675,14 @@ def test_wallet_address_deploy_nft(mock_api_clients, wallet_address):
     mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=ANY,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc721",
+            options=SmartContractOptions(
+                actual_instance=NFTContractOptions(
+                    name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+                )
+            ),
+        ),
     )
 
 
@@ -687,7 +701,14 @@ def test_wallet_address_deploy_multi_token(mock_api_clients, wallet_address):
     mock_api_clients.smart_contracts.create_smart_contract.assert_called_once_with(
         wallet_id=wallet_address.wallet_id,
         address_id=wallet_address.address_id,
-        create_smart_contract_request=ANY,
+        create_smart_contract_request=CreateSmartContractRequest(
+            type="erc1155",
+            options=SmartContractOptions(
+                actual_instance=MultiTokenContractOptions(
+                    uri="https://example.com/multi-token/{id}.json"
+                )
+            ),
+        ),
     )
 
 
