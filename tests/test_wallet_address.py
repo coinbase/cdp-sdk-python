@@ -1,5 +1,5 @@
 from decimal import Decimal
-from unittest.mock import ANY, Mock, patch
+from unittest.mock import Mock, patch
 
 import pytest
 from eth_account.datastructures import SignedMessage
