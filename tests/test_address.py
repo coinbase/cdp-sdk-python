@@ -208,8 +208,11 @@ def test_address_balances_api_error(mock_api_clients, address_factory):
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_historical_balances(mock_api_clients, address, historical_balance_model):
+def test_address_historical_balances(mock_api_clients, address_factory, historical_balance_model_factory):
     """Test the historical_balances method of an Address."""
+    address = address_factory()
+    historical_balance_model = historical_balance_model_factory()
+
     mock_list_historical_balances = Mock()
     mock_list_historical_balances.return_value = Mock(data=[historical_balance_model], has_more=False)
     mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
@@ -219,8 +222,8 @@ def test_address_historical_balances(mock_api_clients, address, historical_balan
     assert len(list(historical_balances)) == 1
     assert all(isinstance(h, HistoricalBalance) for h in historical_balances)
     mock_list_historical_balances.assert_called_once_with(
-        network_id="base-sepolia",
-        address_id="0x1234567890123456789012345678901234567890",
+        network_id=address.network_id,
+        address_id=address.address_id,
         asset_id="eth",
         limit=100,
         page=None
@@ -228,8 +231,10 @@ def test_address_historical_balances(mock_api_clients, address, historical_balan
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_historical_balances_error(mock_api_clients, address):
+def test_address_historical_balances_error(mock_api_clients, address_factory):
     """Test the historical_balances method of an Address raises an error when the API call fails."""
+    address = address_factory()
+
     mock_list_historical_balances = Mock()
     err = ApiException(500, "boom")
     mock_list_historical_balances.side_effect = ApiError(err, code="boom", message="boom")
@@ -241,8 +246,11 @@ def test_address_historical_balances_error(mock_api_clients, address):
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_transactions(mock_api_clients, address, onchain_transaction_model):
+def test_address_transactions(mock_api_clients, address_factory, transaction_model_factory):
     """Test the list transactions method of an Address."""
+    address = address_factory()
+    onchain_transaction_model = transaction_model_factory()
+
     mock_list_transactions = Mock()
     mock_list_transactions.return_value = Mock(data=[onchain_transaction_model], has_more=False)
     mock_api_clients.transaction_history.list_address_transactions = mock_list_transactions
@@ -252,16 +260,18 @@ def test_address_transactions(mock_api_clients, address, onchain_transaction_mod
     assert len(list(transactions)) == 1
     assert all(isinstance(t, Transaction) for t in transactions)
     mock_list_transactions.assert_called_once_with(
-        network_id="base-sepolia",
-        address_id="0x1234567890123456789012345678901234567890",
+        network_id=address.network_id,
+        address_id=address.address_id,
         limit=1,
         page=None
     )
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_transactions_error(mock_api_clients, address):
+def test_address_transactions_error(mock_api_clients, address_factory):
     """Test the list transactions method of an Address raises an error when the API call fails."""
+    address = address_factory()
+
     mock_list_transactions = Mock()
     err = ApiException(500, "boom")
     mock_list_transactions.side_effect = ApiError(err, code="boom", message="boom")

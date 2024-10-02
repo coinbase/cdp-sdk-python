@@ -1,6 +1,9 @@
+from collections.abc import Iterator
 from decimal import Decimal
 
 from cdp.asset import Asset
+from cdp.cdp import Cdp
+from cdp.client.models.address_historical_balance_list import AddressHistoricalBalanceList
 from cdp.client.models.historical_balance import HistoricalBalance as HistoricalBalanceModel
 
 
@@ -42,6 +45,40 @@ class HistoricalBalance:
             block_height=model.block_height,
             block_hash=model.block_hash
         )
+
+    @classmethod
+    def list(cls, network_id: str, address_id: str, asset_id: str) -> Iterator["HistoricalBalance"]:
+        """List historical balances of an address of an asset.
+
+        Args:
+            network_id (str): The ID of the network to list historical balance for.
+            address_id (str): The ID of the address to list historical balance for.
+            asset_id(str): The asset ID to list historical balance.
+
+        Returns:
+            Iterator[Transaction]: An iterator of HistoricalBalance objects.
+
+        Raises:
+            Exception: If there's an error listing the historical_balances.
+
+        """
+        page = None
+        while True:
+            response: AddressHistoricalBalanceList = Cdp.api_clients.balance_history.list_address_historical_balance(
+                network_id=network_id,
+                address_id=address_id,
+                asset_id=Asset.primary_denomination(asset_id),
+                limit=100,
+                page=page,
+            )
+
+            for model in response.data:
+                yield HistoricalBalance.from_model(model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     @property
     def amount(self) -> Decimal:

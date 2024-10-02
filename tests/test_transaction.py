@@ -1,3 +1,5 @@
+from unittest.mock import Mock, patch
+
 import pytest
 
 from cdp.client.models.transaction import Transaction as TransactionModel
@@ -142,3 +144,19 @@ def test_repr(transaction_factory):
 
     expected_repr = "Transaction: (transaction_hash: 0xtransactionhash, status: complete)"
     assert repr(transaction) == expected_repr
+
+
+@patch("cdp.Cdp.api_clients")
+def test_list_transactions(mock_api_clients, transaction_model_factory):
+    """Test the listing of transactions."""
+    mock_list_transactions = Mock()
+    mock_list_transactions.return_value = Mock(data=[transaction_model_factory()], has_more=False)
+    mock_api_clients.transaction_history.list_address_transactions = mock_list_transactions
+
+    transactions = Transaction.list(network_id="test-network-id", address_id="0xaddressid")
+
+    assert len(list(transactions)) == 1
+    assert all(isinstance(t, Transaction) for t in transactions)
+    mock_list_transactions.assert_called_once_with(
+        network_id="test-network-id", address_id="0xaddressid", limit=1, page=None
+    )

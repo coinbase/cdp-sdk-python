@@ -1,11 +1,14 @@
 import json
+from collections.abc import Iterator
 from enum import Enum
 
 from eth_account.signers.local import LocalAccount
 from eth_account.typed_transactions import DynamicFeeTransaction
 from web3 import Web3
 
+from cdp.cdp import Cdp
 from cdp.client.models import Transaction as TransactionModel
+from cdp.client.models.address_transaction_list import AddressTransactionList
 
 
 class Transaction:
@@ -51,6 +54,38 @@ class Transaction:
         self._model = model
         self._raw: DynamicFeeTransaction | None = None
         self._signature: str | None = model.signed_payload
+
+    @classmethod
+    def list(cls, network_id: str, address_id: str) -> Iterator["Transaction"]:
+        """List transactions of the address.
+
+        Args:
+            network_id (str): The ID of the network to list transaction for.
+            address_id (str): The ID of the address to list transaction for.
+
+        Returns:
+            Iterator[Transaction]: An iterator of Transaction objects.
+
+        Raises:
+            Exception: If there's an error listing the transactions.
+
+        """
+        page = None
+        while True:
+            response: AddressTransactionList = Cdp.api_clients.transaction_history.list_address_transactions(
+                network_id=network_id,
+                address_id=address_id,
+                limit=1,
+                page=page,
+            )
+
+            for model in response.data:
+                yield cls(model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     @property
     def unsigned_payload(self) -> str:
