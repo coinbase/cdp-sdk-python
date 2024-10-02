@@ -1,6 +1,6 @@
 [project]
 name = "cdp-sdk"
-version = "0.0.3"
+version = "0.0.4"
 description = "CDP Python SDK"
 readme = "README.md"
 authors = [{name = "John Peterson", email = "john.peterson@coinbase.com"}]

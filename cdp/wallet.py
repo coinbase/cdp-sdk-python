@@ -28,6 +28,8 @@ from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
 from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.payload_signature import PayloadSignature
+from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
@@ -421,6 +423,22 @@ class Wallet:
 
         return invocation
 
+    def sign_payload(self, unsigned_payload: str) -> PayloadSignature:
+        """Sign the given unsigned payload.
+
+        Args:
+            unsigned_payload (str): The unsigned payload.
+
+        Returns:
+            PayloadSignature: The payload signature object.
+
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.sign_payload(unsigned_payload)
+
     @property
     def default_address(self) -> WalletAddress | None:
         """Get the default address of the wallet.
@@ -699,3 +717,63 @@ class Wallet:
 
         """
         return str(self)
+
+    def deploy_token(
+        self, name: str, symbol: str, total_supply: Number | Decimal | str
+    ) -> SmartContract:
+        """Deploy a token smart contract.
+
+        Args:
+            name (str): The name of the token.
+            symbol (str): The symbol of the token.
+            total_supply (Union[Number, Decimal, str]): The total supply of the token.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_token(name, symbol, str(total_supply))
+
+    def deploy_nft(self, name: str, symbol: str, base_uri: str) -> SmartContract:
+        """Deploy an NFT smart contract.
+
+        Args:
+            name (str): The name of the NFT.
+            symbol (str): The symbol of the NFT.
+            base_uri (str): The base URI for the NFT.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_nft(name, symbol, base_uri)
+
+    def deploy_multi_token(self, uri: str) -> SmartContract:
+        """Deploy a multi-token smart contract.
+
+        Args:
+            uri (str): The URI for the multi-token contract.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_multi_token(uri)

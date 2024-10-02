@@ -5,6 +5,7 @@ from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
 from cdp.client.api.balance_history_api import BalanceHistoryApi
 from cdp.client.api.networks_api import NetworksApi
+from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transfers_api import TransfersApi
 from cdp.client.api.wallets_api import WalletsApi
@@ -45,6 +46,7 @@ class ApiClients:
         self._assets: AssetsApi | None = None
         self._trades: TradesApi | None = None
         self._contract_invocations: ContractInvocationsApi | None = None
+        self._smart_contracts: SmartContractsApi | None = None
 
     @property
     def wallets(self) -> WalletsApi:
@@ -167,6 +169,7 @@ class ApiClients:
         return self._contract_invocations
 
     @property
+<<<<<<< HEAD
     def historical_balances(self) -> BalanceHistoryApi:
         """Get the BalanceHistoryApi client instance.
 
@@ -180,3 +183,18 @@ class ApiClients:
         if self._transfers is None:
             self._transfers = BalanceHistoryApi(api_client=self._cdp_client)
         return self._transfers
+=======
+    def smart_contracts(self) -> SmartContractsApi:
+        """Get the SmartContractsApi client instance.
+
+        Returns:
+            SmartContractsApi: The SmartContractsApi client instance.
+
+        Note:
+            This property lazily initializes the SmartContractsApi client on first access.
+
+        """
+        if self._smart_contracts is None:
+            self._smart_contracts = SmartContractsApi(api_client=self._cdp_client)
+        return self._smart_contracts
+>>>>>>> 59ec96e8240ba17d884c727ed664d7b0981c0844

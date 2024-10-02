@@ -5,103 +5,15 @@ import pytest
 from bip_utils import Bip32Slip10Secp256k1
 from eth_account import Account
 
-from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import CreateWalletRequest, CreateWalletRequestWallet
-from cdp.client.models.feature_set import FeatureSet
-from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.contract_invocation import ContractInvocation
+from cdp.payload_signature import PayloadSignature
+from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 from cdp.wallet import Wallet
 from cdp.wallet_address import WalletAddress
-
-
-@pytest.fixture
-def address_model_factory():
-    """Create and return a factory for AddressModel fixtures."""
-
-    def _create_address_model(
-        network_id="base-sepolia",
-        address_id="0x1234567890123456789012345678901234567890",
-        wallet_id="test-wallet-id",
-        public_key="0xpublickey",
-        index=0,
-    ):
-        return AddressModel(
-            network_id=network_id,
-            address_id=address_id,
-            wallet_id=wallet_id,
-            public_key=public_key,
-            index=index,
-        )
-
-    return _create_address_model
-
-
-@pytest.fixture
-def wallet_model_factory(address_model_factory):
-    """Create and return a factory for WalletModel fixtures."""
-
-    def _create_wallet_model(
-        id="test-wallet-id",
-        network_id="base-sepolia",
-        default_address=None,
-        feature_set=None,
-        server_signer_status="active_seed"
-    ):
-        if default_address is None:
-            default_address = address_model_factory()
-        if feature_set is None:
-            feature_set = FeatureSet(
-                faucet=True,
-                server_signer=True,
-                transfer=True,
-                trade=True,
-                stake=True,
-                gasless_send=True,
-            )
-        return WalletModel(
-            id=id,
-            network_id=network_id,
-            default_address=default_address,
-            feature_set=feature_set,
-            server_signer_status=server_signer_status,
-        )
-
-    return _create_wallet_model
-
-
-@pytest.fixture
-def master_key_factory():
-    """Create and return a factory for master key fixtures."""
-
-    def _create_master_key(seed=b"\x00" * 64):
-        return Bip32Slip10Secp256k1.FromSeed(seed)
-
-    return _create_master_key
-
-
-@pytest.fixture
-def wallet_factory(wallet_model_factory):
-    """Create and return a factory for Wallet fixtures."""
-
-    def _create_wallet(seed=None, **kwargs):
-        model = wallet_model_factory(**kwargs)
-        return Wallet(model, seed)
-
-    return _create_wallet
-
-
-@pytest.fixture
-def wallet_address_factory(address_model_factory):
-    """Create and return a factory for WalletAddress fixtures."""
-
-    def _create_wallet_address(key=None, **kwargs):
-        model = address_model_factory(**kwargs)
-        return WalletAddress(model, key)
-
-    return _create_wallet_address
 
 
 @patch("cdp.Cdp.use_server_signer", False)
@@ -475,6 +387,39 @@ def test_wallet_contract_invocation_no_default_address(wallet_factory):
             )
 
 
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_sign_payload_with_server_signer(wallet_factory):
+    """Test the sign_payload method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_payload_signature_instance = Mock(spec=PayloadSignature)
+    mock_default_address.sign_payload.return_value = mock_payload_signature_instance
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        payload_signature = wallet.sign_payload(unsigned_payload="0xunsignedpayload")
+
+        assert isinstance(payload_signature, PayloadSignature)
+        mock_default_address.sign_payload.assert_called_once_with("0xunsignedpayload")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_sign_payload_no_default_address(wallet_factory):
+    """Test the sign_payload method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.sign_payload(unsigned_payload="0xunsignedpayload")
+
+
 @patch("cdp.Cdp.api_clients")
 def test_wallet_reload(mock_api_clients, wallet_factory):
     """Test the reload method of a Wallet."""
@@ -501,3 +446,171 @@ def test_wallet_fetch(mock_api_clients, wallet_factory):
     assert isinstance(fetched_wallet, Wallet)
     assert fetched_wallet.id == "fetched-wallet-id"
     mock_get_wallet.assert_called_once_with("fetched-wallet-id")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_token(wallet_factory):
+    """Test the deploy_token method of a Wallet."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_token.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_token(name="TestToken", symbol="TT", total_supply="1000000")
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_token.assert_called_once_with("TestToken", "TT", "1000000")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_nft(wallet_factory):
+    """Test the deploy_nft method of a Wallet."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_nft.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_nft(
+            name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+        )
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_nft.assert_called_once_with(
+            "TestNFT", "TNFT", "https://example.com/nft/"
+        )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_multi_token(wallet_factory):
+    """Test the deploy_multi_token method of a Wallet."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_multi_token.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_multi_token.assert_called_once_with(
+            "https://example.com/multi-token/{id}.json"
+        )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_token_no_default_address(wallet_factory):
+    """Test the deploy_token method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.deploy_token(name="TestToken", symbol="TT", total_supply="1000000")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_nft_no_default_address(wallet_factory):
+    """Test the deploy_nft method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.deploy_nft(name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_multi_token_no_default_address(wallet_factory):
+    """Test the deploy_multi_token method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_token_with_server_signer(wallet_factory):
+    """Test the deploy_token method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_token.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_token(name="TestToken", symbol="TT", total_supply="1000000")
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_token.assert_called_once_with("TestToken", "TT", "1000000")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_nft_with_server_signer(wallet_factory):
+    """Test the deploy_nft method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_nft.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_nft(
+            name="TestNFT", symbol="TNFT", base_uri="https://example.com/nft/"
+        )
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_nft.assert_called_once_with(
+            "TestNFT", "TNFT", "https://example.com/nft/"
+        )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_multi_token_with_server_signer(wallet_factory):
+    """Test the deploy_multi_token method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_multi_token.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_multi_token.assert_called_once_with(
+            "https://example.com/multi-token/{id}.json"
+        )
