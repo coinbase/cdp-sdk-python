@@ -1,4 +1,3 @@
-from collections.abc import Iterator
 from decimal import Decimal
 from unittest.mock import Mock, patch
 
@@ -220,10 +219,10 @@ def test_address_historical_balances(mock_api_clients, address, historical_balan
     assert len(list(historical_balances)) == 1
     assert all(isinstance(h, HistoricalBalance) for h in historical_balances)
     mock_list_historical_balances.assert_called_once_with(
-        network_id="base-sepolia", 
+        network_id="base-sepolia",
         address_id="0x1234567890123456789012345678901234567890",
-        asset_id="eth", 
-        limit=100, 
+        asset_id="eth",
+        limit=100,
         page=None
     )
 
@@ -253,9 +252,9 @@ def test_address_transactions(mock_api_clients, address, onchain_transaction_mod
     assert len(list(transactions)) == 1
     assert all(isinstance(t, Transaction) for t in transactions)
     mock_list_transactions.assert_called_once_with(
-        network_id="base-sepolia", 
+        network_id="base-sepolia",
         address_id="0x1234567890123456789012345678901234567890",
-        limit=1, 
+        limit=1,
         page=None
     )
 

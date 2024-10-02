@@ -13,7 +13,8 @@ class HistoricalBalance:
         Args:
             amount (Decimal): The amount.
             asset (Asset): The asset.
-            asset_id (Optional[str]): The asset ID.
+            block_height (str): the block height where the balance is in.
+            block_hash (str): the block hash where the balance is in.
 
         """
         self._amount = amount
@@ -71,7 +72,7 @@ class HistoricalBalance:
 
         """
         return self._block_height
-    
+
     @property
     def block_hash(self) -> str:
         """Get the block hash.

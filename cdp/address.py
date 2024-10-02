@@ -102,7 +102,7 @@ class Address:
         )
 
         return BalanceMap.from_models(response.data)
-    
+
     def historical_balances(self, asset_id) -> Iterator["HistoricalBalance"]:
         """List historical balances.
 
@@ -119,7 +119,7 @@ class Address:
                 network_id=self.network_id,
                 address_id=self.address_id,
                 asset_id=Asset.primary_denomination(asset_id),
-                limit=100, 
+                limit=100,
                 page=page,
             )
 
@@ -146,7 +146,7 @@ class Address:
             response: AddressTransactionList = Cdp.api_clients.transaction_history.list_address_transactions(
                 network_id=self.network_id,
                 address_id=self.address_id,
-                limit=1, 
+                limit=1,
                 page=page,
             )
 
