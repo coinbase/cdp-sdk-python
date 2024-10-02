@@ -25,7 +25,7 @@ class HistoricalBalance:
         self._block_height = block_height
         self._block_hash = block_hash
 
-    @staticmethod
+    @classmethod
     def from_model(model: HistoricalBalanceModel) -> "HistoricalBalance":
         """Create a Balance instance from a model.
 
