@@ -26,7 +26,7 @@ class HistoricalBalance:
         self._block_hash = block_hash
 
     @classmethod
-    def from_model(model: HistoricalBalanceModel) -> "HistoricalBalance":
+    def from_model(cls, model: HistoricalBalanceModel) -> "HistoricalBalance":
         """Create a Balance instance from a model.
 
         Args:
