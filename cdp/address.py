@@ -1,10 +1,15 @@
+from collections.abc import Iterator
 from decimal import Decimal
 
 from cdp.asset import Asset
 from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
+from cdp.client.models.address_historical_balance_list import AddressHistoricalBalanceList
+from cdp.client.models.address_transaction_list import AddressTransactionList
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.historical_balance import HistoricalBalance
+from cdp.transaction import Transaction
 
 
 class Address:
@@ -97,6 +102,61 @@ class Address:
         )
 
         return BalanceMap.from_models(response.data)
+    
+    def historical_balances(self, asset_id) -> Iterator["HistoricalBalance"]:
+        """List historical balances.
+
+        Returns:
+            Iterator[HistoricalBalance]: An iterator of HistoricalBalance objects.
+
+        Raises:
+            Exception: If there's an error listing the historical balances.
+
+        """
+        page = None
+        while True:
+            response: AddressHistoricalBalanceList = Cdp.api_clients.historical_balances.list_address_historical_balance(
+                network_id=self.network_id,
+                address_id=self.address_id,
+                asset_id=Asset.primary_denomination(asset_id),
+                limit=100, 
+                page=page,
+            )
+
+            for model in response.data:
+                yield HistoricalBalance.from_model(model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
+
+    def transactions(self) -> Iterator["Transaction"]:
+        """List transactions of the address.
+
+        Returns:
+            Iterator[Transaction]: An iterator of Transaction objects.
+
+        Raises:
+            Exception: If there's an error listing the transactions.
+
+        """
+        page = None
+        while True:
+            response: AddressTransactionList = Cdp.api_clients.external_addresses.list_address_transactions(
+                network_id=self.network_id,
+                address_id=self.address_id,
+                limit=10, 
+                page=page,
+            )
+
+            for model in response.data:
+                yield Transaction(model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     def __str__(self) -> str:
         """Return a string representation of the Address."""

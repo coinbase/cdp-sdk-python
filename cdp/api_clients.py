@@ -3,6 +3,7 @@ from cdp.client.api.addresses_api import AddressesApi
 from cdp.client.api.assets_api import AssetsApi
 from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
+from cdp.client.api.balance_history_api import BalanceHistoryApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transfers_api import TransfersApi
@@ -164,3 +165,18 @@ class ApiClients:
         if self._contract_invocations is None:
             self._contract_invocations = ContractInvocationsApi(api_client=self._cdp_client)
         return self._contract_invocations
+
+    @property
+    def historical_balances(self) -> BalanceHistoryApi:
+        """Get the BalanceHistoryApi client instance.
+
+        Returns:
+            BalanceHistoryApi: The BalanceHistoryApi client instance.
+
+        Note:
+            This property lazily initializes the BalanceHistoryApi client on first access.
+
+        """
+        if self._transfers is None:
+            self._transfers = BalanceHistoryApi(api_client=self._cdp_client)
+        return self._transfers
