@@ -115,7 +115,7 @@ class Address:
         """
         page = None
         while True:
-            response: AddressHistoricalBalanceList = Cdp.api_clients.historical_balances.list_address_historical_balance(
+            response: AddressHistoricalBalanceList = Cdp.api_clients.balance_history.list_address_historical_balance(
                 network_id=self.network_id,
                 address_id=self.address_id,
                 asset_id=Asset.primary_denomination(asset_id),
@@ -143,10 +143,10 @@ class Address:
         """
         page = None
         while True:
-            response: AddressTransactionList = Cdp.api_clients.external_addresses.list_address_transactions(
+            response: AddressTransactionList = Cdp.api_clients.transaction_history.list_address_transactions(
                 network_id=self.network_id,
                 address_id=self.address_id,
-                limit=10, 
+                limit=1, 
                 page=page,
             )
 

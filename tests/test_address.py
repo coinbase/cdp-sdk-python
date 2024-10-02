@@ -213,7 +213,7 @@ def test_address_historical_balances(mock_api_clients, address, historical_balan
     """Test the historical_balances method of an Address."""
     mock_list_historical_balances = Mock()
     mock_list_historical_balances.return_value = Mock(data=[historical_balance_model], has_more=False)
-    mock_api_clients.historical_balances.list_address_historical_balance = mock_list_historical_balances
+    mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
 
     historical_balances = address.historical_balances("eth")
 
@@ -234,7 +234,7 @@ def test_address_historical_balances_error(mock_api_clients, address):
     mock_list_historical_balances = Mock()
     err = ApiException(500, "boom")
     mock_list_historical_balances.side_effect = ApiError(err, code="boom", message="boom")
-    mock_api_clients.historical_balances.list_address_historical_balance = mock_list_historical_balances
+    mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
 
     with pytest.raises(ApiError):
         historical_balances = address.historical_balances("eth")
@@ -246,7 +246,7 @@ def test_address_transactions(mock_api_clients, address, onchain_transaction_mod
     """Test the list transactions method of an Address."""
     mock_list_transactions = Mock()
     mock_list_transactions.return_value = Mock(data=[onchain_transaction_model], has_more=False)
-    mock_api_clients.external_addresses.list_address_transactions = mock_list_transactions
+    mock_api_clients.transaction_history.list_address_transactions = mock_list_transactions
 
     transactions = address.transactions()
 
@@ -255,7 +255,7 @@ def test_address_transactions(mock_api_clients, address, onchain_transaction_mod
     mock_list_transactions.assert_called_once_with(
         network_id="base-sepolia", 
         address_id="0x1234567890123456789012345678901234567890",
-        limit=10, 
+        limit=1, 
         page=None
     )
 
@@ -266,7 +266,7 @@ def test_address_transactions_error(mock_api_clients, address):
     mock_list_transactions = Mock()
     err = ApiException(500, "boom")
     mock_list_transactions.side_effect = ApiError(err, code="boom", message="boom")
-    mock_api_clients.external_addresses.list_address_transactions = mock_list_transactions
+    mock_api_clients.transaction_history.list_address_transactions = mock_list_transactions
 
     with pytest.raises(ApiError):
         transactions = address.transactions()
