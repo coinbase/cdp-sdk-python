@@ -6,8 +6,6 @@ import pytest
 from cdp.address import Address
 from cdp.balance_map import BalanceMap
 from cdp.client.exceptions import ApiException
-from cdp.client.models.asset import Asset as AssetModel
-from cdp.client.models.balance import Balance as BalanceModel
 from cdp.errors import ApiError
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.historical_balance import HistoricalBalance
