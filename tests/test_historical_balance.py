@@ -1,7 +1,11 @@
 from decimal import Decimal
 from unittest.mock import Mock, patch
 
+import pytest
+
 from cdp.asset import Asset
+from cdp.client.exceptions import ApiException
+from cdp.errors import ApiError
 from cdp.historical_balance import HistoricalBalance
 
 
@@ -67,3 +71,16 @@ def test_list_historical_balances(mock_api_clients, historical_balance_model_fac
         limit=100,
         page=None
     )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_list_historical_balances_error(mock_api_clients):
+    """Test the historical_balances method getting api error."""
+    mock_list_historical_balances = Mock()
+    err = ApiException(500, "boom")
+    mock_list_historical_balances.side_effect = ApiError(err, code="boom", message="boom")
+    mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
+
+    with pytest.raises(ApiError):
+        historical_balances = HistoricalBalance.list(network_id="test-network-id", address_id="0xaddressid", asset_id="eth")
+        next(historical_balances)

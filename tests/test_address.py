@@ -8,8 +8,6 @@ from cdp.balance_map import BalanceMap
 from cdp.client.exceptions import ApiException
 from cdp.client.models.asset import Asset as AssetModel
 from cdp.client.models.balance import Balance as BalanceModel
-from cdp.client.models.historical_balance import HistoricalBalance as HistoricalBalanceModel
-from cdp.client.models.transaction import Transaction as TransactionModel
 from cdp.errors import ApiError
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.historical_balance import HistoricalBalance
@@ -34,30 +32,6 @@ def asset_model():
 def balance_model(asset_model):
     """Create and return a fixture for a BalanceModel."""
     return BalanceModel(amount="1000000000000000000", asset=asset_model)
-
-
-@pytest.fixture
-def historical_balance_model(asset_model):
-    """Create and return a fixture for a BalanceModel."""
-    return HistoricalBalanceModel(
-        amount="1000000000000000000", asset=asset_model, block_height="12345", block_hash="block_hash")
-
-
-@pytest.fixture
-def onchain_transaction_model():
-    """Create and return a fixture for a TransactionModel."""
-    return TransactionModel(
-        network_id="base-sepolia",
-        transaction_hash="0xtransactionhash",
-        from_address_id="0xfromaddressid",
-        to_address_id="0xtoaddressid",
-        unsigned_payload="0xunsignedpayload",
-        signed_payload="0xsignedpayload",
-        status="complete",
-        block_hash="0xblockhash",
-        block_height="123456",
-        transaction_link="https://basescan.org/tx/0xtransactionlink",
-    )
 
 
 def test_address_initialization(address_factory):

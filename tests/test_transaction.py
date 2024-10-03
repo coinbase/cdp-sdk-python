@@ -2,7 +2,9 @@ from unittest.mock import Mock, patch
 
 import pytest
 
+from cdp.client.exceptions import ApiException
 from cdp.client.models.transaction import Transaction as TransactionModel
+from cdp.errors import ApiError
 from cdp.transaction import Transaction
 
 
@@ -160,3 +162,16 @@ def test_list_transactions(mock_api_clients, transaction_model_factory):
     mock_list_transactions.assert_called_once_with(
         network_id="test-network-id", address_id="0xaddressid", limit=1, page=None
     )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_list_transactions_error(mock_api_clients):
+    """Test the listing of transactions getting api error."""
+    mock_list_transactions = Mock()
+    err = ApiException(500, "boom")
+    mock_list_transactions.side_effect = ApiError(err, code="boom", message="boom")
+    mock_api_clients.transaction_history.list_address_transactions = mock_list_transactions
+
+    with pytest.raises(ApiError):
+        transactions = Transaction.list(network_id="test-network-id", address_id="0xaddressid")
+        next(transactions)

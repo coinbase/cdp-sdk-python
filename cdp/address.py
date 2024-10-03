@@ -101,7 +101,7 @@ class Address:
 
         return BalanceMap.from_models(response.data)
 
-    def historical_balances(self, asset_id) -> Iterator["HistoricalBalance"]:
+    def historical_balances(self, asset_id) -> Iterator[HistoricalBalance]:
         """List historical balances.
 
         Args:
@@ -116,7 +116,7 @@ class Address:
         """
         return HistoricalBalance.list(network_id=self.network_id, address_id=self.address_id, asset_id=asset_id)
 
-    def transactions(self) -> Iterator["Transaction"]:
+    def transactions(self) -> Iterator[Transaction]:
         """List transactions of the address.
 
         Returns:

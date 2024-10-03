@@ -39,7 +39,7 @@ class HistoricalBalance:
         """
         asset = Asset.from_model(model.asset)
 
-        return HistoricalBalance(
+        return cls(
             amount=asset.from_atomic_amount(model.amount),
             asset=asset,
             block_height=model.block_height,
@@ -73,7 +73,7 @@ class HistoricalBalance:
             )
 
             for model in response.data:
-                yield HistoricalBalance.from_model(model)
+                yield cls.from_model(model)
 
             if not response.has_more:
                 break
