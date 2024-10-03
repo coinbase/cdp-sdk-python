@@ -1,11 +1,13 @@
 from cdp.cdp_api_client import CdpApiClient
 from cdp.client.api.addresses_api import AddressesApi
 from cdp.client.api.assets_api import AssetsApi
+from cdp.client.api.balance_history_api import BalanceHistoryApi
 from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.trades_api import TradesApi
+from cdp.client.api.transaction_history_api import TransactionHistoryApi
 from cdp.client.api.transfers_api import TransfersApi
 from cdp.client.api.wallets_api import WalletsApi
 
@@ -46,6 +48,8 @@ class ApiClients:
         self._trades: TradesApi | None = None
         self._contract_invocations: ContractInvocationsApi | None = None
         self._smart_contracts: SmartContractsApi | None = None
+        self._balance_history: BalanceHistoryApi | None = None
+        self._transaction_history: TransactionHistoryApi | None = None
 
     @property
     def wallets(self) -> WalletsApi:
@@ -168,6 +172,21 @@ class ApiClients:
         return self._contract_invocations
 
     @property
+    def balance_history(self) -> BalanceHistoryApi:
+        """Get the BalanceHistoryApi client instance.
+
+        Returns:
+            BalanceHistoryApi: The BalanceHistoryApi client instance.
+
+        Note:
+            This property lazily initializes the BalanceHistoryApi client on first access.
+
+        """
+        if self._balance_history is None:
+            self._balance_history = BalanceHistoryApi(api_client=self._cdp_client)
+        return self._balance_history
+
+    @property
     def smart_contracts(self) -> SmartContractsApi:
         """Get the SmartContractsApi client instance.
 
@@ -181,3 +200,18 @@ class ApiClients:
         if self._smart_contracts is None:
             self._smart_contracts = SmartContractsApi(api_client=self._cdp_client)
         return self._smart_contracts
+
+    @property
+    def transaction_history(self) -> TransactionHistoryApi:
+        """Get the TransactionHistoryApi client instance.
+
+        Returns:
+            TransactionHistoryApi: The TransactionHistoryApi client instance.
+
+        Note:
+            This property lazily initializes the TransactionHistoryApi client on first access.
+
+        """
+        if self._transaction_history is None:
+            self._transaction_history = TransactionHistoryApi(api_client=self._cdp_client)
+        return self._transaction_history
