@@ -14,26 +14,6 @@ from cdp.historical_balance import HistoricalBalance
 from cdp.transaction import Transaction
 
 
-@pytest.fixture
-def address():
-    """Create and return a fixture for an Address."""
-    return Address(
-        network_id="base-sepolia", address_id="0x1234567890123456789012345678901234567890"
-    )
-
-
-@pytest.fixture
-def asset_model():
-    """Create and return a fixture for an AssetModel."""
-    return AssetModel(network_id="base-sepolia", asset_id="eth", decimals=18)
-
-
-@pytest.fixture
-def balance_model(asset_model):
-    """Create and return a fixture for a BalanceModel."""
-    return BalanceModel(amount="1000000000000000000", asset=asset_model)
-
-
 def test_address_initialization(address_factory):
     """Test the initialization of an Address."""
     address = address_factory()
