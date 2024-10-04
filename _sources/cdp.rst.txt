@@ -100,6 +100,14 @@ cdp.hash\_utils module
    :undoc-members:
    :show-inheritance:
 
+cdp.historical\_balance module
+------------------------------
+
+.. automodule:: cdp.historical_balance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.payload\_signature module
 -----------------------------
 
