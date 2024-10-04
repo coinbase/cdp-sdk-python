@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.0.5] - 2024-10-3
+
 ### Added
 
 - Support list historical balances and list transactions function for address.
