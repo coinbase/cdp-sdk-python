@@ -57,19 +57,19 @@ def test_historical_balance_repr(historical_balance_factory):
 def test_list_historical_balances(mock_api_clients, historical_balance_model_factory):
     """Test the historical_balances method."""
     mock_list_historical_balances = Mock()
-    mock_list_historical_balances.return_value = Mock(data=[historical_balance_model_factory()], has_more=False)
+    mock_list_historical_balances.return_value = Mock(
+        data=[historical_balance_model_factory()], has_more=False
+    )
     mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
 
-    historical_balances = HistoricalBalance.list(network_id="test-network-id", address_id="0xaddressid", asset_id="eth")
+    historical_balances = HistoricalBalance.list(
+        network_id="test-network-id", address_id="0xaddressid", asset_id="eth"
+    )
 
     assert len(list(historical_balances)) == 1
     assert all(isinstance(h, HistoricalBalance) for h in historical_balances)
     mock_list_historical_balances.assert_called_once_with(
-        network_id="test-network-id",
-        address_id="0xaddressid",
-        asset_id="eth",
-        limit=100,
-        page=None
+        network_id="test-network-id", address_id="0xaddressid", asset_id="eth", limit=100, page=None
     )
 
 
@@ -82,5 +82,7 @@ def test_list_historical_balances_error(mock_api_clients):
     mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
 
     with pytest.raises(ApiError):
-        historical_balances = HistoricalBalance.list(network_id="test-network-id", address_id="0xaddressid", asset_id="eth")
+        historical_balances = HistoricalBalance.list(
+            network_id="test-network-id", address_id="0xaddressid", asset_id="eth"
+        )
         next(historical_balances)

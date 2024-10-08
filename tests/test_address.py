@@ -160,13 +160,17 @@ def test_address_balances_api_error(mock_api_clients, address_factory):
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_historical_balances(mock_api_clients, address_factory, historical_balance_model_factory):
+def test_address_historical_balances(
+    mock_api_clients, address_factory, historical_balance_model_factory
+):
     """Test the historical_balances method of an Address."""
     address = address_factory()
     historical_balance_model = historical_balance_model_factory()
 
     mock_list_historical_balances = Mock()
-    mock_list_historical_balances.return_value = Mock(data=[historical_balance_model], has_more=False)
+    mock_list_historical_balances.return_value = Mock(
+        data=[historical_balance_model], has_more=False
+    )
     mock_api_clients.balance_history.list_address_historical_balance = mock_list_historical_balances
 
     historical_balances = address.historical_balances("eth")
@@ -178,7 +182,7 @@ def test_address_historical_balances(mock_api_clients, address_factory, historic
         address_id=address.address_id,
         asset_id="eth",
         limit=100,
-        page=None
+        page=None,
     )
 
 
@@ -212,10 +216,7 @@ def test_address_transactions(mock_api_clients, address_factory, transaction_mod
     assert len(list(transactions)) == 1
     assert all(isinstance(t, Transaction) for t in transactions)
     mock_list_transactions.assert_called_once_with(
-        network_id=address.network_id,
-        address_id=address.address_id,
-        limit=1,
-        page=None
+        network_id=address.network_id, address_id=address.address_id, limit=1, page=None
     )
 
 

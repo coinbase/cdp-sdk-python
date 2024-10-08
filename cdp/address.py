@@ -114,7 +114,9 @@ class Address:
             Exception: If there's an error listing the historical balances.
 
         """
-        return HistoricalBalance.list(network_id=self.network_id, address_id=self.address_id, asset_id=asset_id)
+        return HistoricalBalance.list(
+            network_id=self.network_id, address_id=self.address_id, asset_id=asset_id
+        )
 
     def transactions(self) -> Iterator[Transaction]:
         """List transactions of the address.
