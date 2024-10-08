@@ -43,7 +43,7 @@ class HistoricalBalance:
             amount=asset.from_atomic_amount(model.amount),
             asset=asset,
             block_height=model.block_height,
-            block_hash=model.block_hash
+            block_hash=model.block_hash,
         )
 
     @classmethod
@@ -64,12 +64,14 @@ class HistoricalBalance:
         """
         page = None
         while True:
-            response: AddressHistoricalBalanceList = Cdp.api_clients.balance_history.list_address_historical_balance(
-                network_id=network_id,
-                address_id=address_id,
-                asset_id=Asset.primary_denomination(asset_id),
-                limit=100,
-                page=page,
+            response: AddressHistoricalBalanceList = (
+                Cdp.api_clients.balance_history.list_address_historical_balance(
+                    network_id=network_id,
+                    address_id=address_id,
+                    asset_id=Asset.primary_denomination(asset_id),
+                    limit=100,
+                    page=page,
+                )
             )
 
             for model in response.data:

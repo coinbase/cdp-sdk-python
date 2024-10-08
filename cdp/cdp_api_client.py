@@ -24,6 +24,7 @@ class CdpApiClient(ApiClient):
         api_key: str,
         private_key: str,
         host: str = "https://api.cdp.coinbase.com/platform",
+        debugging: bool = False,
     ):
         """Initialize the CDP API Client.
 
@@ -31,12 +32,44 @@ class CdpApiClient(ApiClient):
             api_key (str): The API key for authentication.
             private_key (str): The private key for authentication.
             host (str, optional): The base URL for the API. Defaults to "https://api.cdp.coinbase.com/platform".
+            debugging (bool): Whether debugging is enabled.
 
         """
         configuration = Configuration(host=host)
         super().__init__(configuration)
-        self.api_key = api_key
-        self.private_key = private_key
+        self._api_key = api_key
+        self._private_key = private_key
+        self._debugging = debugging
+
+    @property
+    def api_key(self) -> str:
+        """The API key for authentication.
+
+        Returns:
+            str: The API key.
+
+        """
+        return self._api_key
+
+    @property
+    def private_key(self) -> str:
+        """The private key for authentication.
+
+        Returns:
+            str: The private key.
+
+        """
+        return self._private_key
+
+    @property
+    def debugging(self) -> str:
+        """Whether debugging is enabled.
+
+        Returns:
+            bool: Whether debugging is enabled.
+
+        """
+        return self._debugging
 
     def call_api(
         self,
@@ -63,6 +96,9 @@ class CdpApiClient(ApiClient):
             RESTResponse
 
         """
+        if self.debugging is True:
+            print(f"CDP API REQUEST: {method} {url}")
+
         if header_params is None:
             header_params = {}
 
@@ -85,6 +121,9 @@ class CdpApiClient(ApiClient):
             ApiResponse[ApiResponseT]
 
         """
+        if self.debugging is True:
+            print(f"CDP API RESPONSE: Status: {response_data.status}, Data: {response_data.data}")
+
         try:
             return super().response_deserialize(response_data, response_types_map)
         except ApiException as e:

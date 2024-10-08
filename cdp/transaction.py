@@ -72,11 +72,13 @@ class Transaction:
         """
         page = None
         while True:
-            response: AddressTransactionList = Cdp.api_clients.transaction_history.list_address_transactions(
-                network_id=network_id,
-                address_id=address_id,
-                limit=1,
-                page=page,
+            response: AddressTransactionList = (
+                Cdp.api_clients.transaction_history.list_address_transactions(
+                    network_id=network_id,
+                    address_id=address_id,
+                    limit=1,
+                    page=page,
+                )
             )
 
             for model in response.data:

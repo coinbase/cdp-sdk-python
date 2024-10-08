@@ -73,7 +73,7 @@ class Cdp:
         cls.base_path = base_path
         cls.max_network_retries = max_network_retries
 
-        cdp_client = CdpApiClient(api_key_name, private_key, base_path)
+        cdp_client = CdpApiClient(api_key_name, private_key, base_path, debugging)
         cls.api_clients = ApiClients(cdp_client)
 
     @classmethod

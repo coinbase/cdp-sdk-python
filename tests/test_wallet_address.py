@@ -688,7 +688,9 @@ def test_repr(wallet_address_factory):
 
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", False)
-def test_wallet_address_deploy_token_total_supply_string(mock_smart_contract, wallet_address_factory):
+def test_wallet_address_deploy_token_total_supply_string(
+    mock_smart_contract, wallet_address_factory
+):
     """Test the deploy_token method of a WalletAddress with a string total_supply."""
     wallet_address = wallet_address_factory(key=True)
 
@@ -711,9 +713,12 @@ def test_wallet_address_deploy_token_total_supply_string(mock_smart_contract, wa
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
     mock_smart_contract_instance.broadcast.assert_called_once()
 
+
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", False)
-def test_wallet_address_deploy_token_total_supply_number(mock_smart_contract, wallet_address_factory):
+def test_wallet_address_deploy_token_total_supply_number(
+    mock_smart_contract, wallet_address_factory
+):
     """Test the deploy_token method of a WalletAddress with a number total_supply."""
     wallet_address = wallet_address_factory(key=True)
 
@@ -736,9 +741,12 @@ def test_wallet_address_deploy_token_total_supply_number(mock_smart_contract, wa
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
     mock_smart_contract_instance.broadcast.assert_called_once()
 
+
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", False)
-def test_wallet_address_deploy_token_total_supply_decimal(mock_smart_contract, wallet_address_factory):
+def test_wallet_address_deploy_token_total_supply_decimal(
+    mock_smart_contract, wallet_address_factory
+):
     """Test the deploy_token method of a WalletAddress with a Decimal total_supply."""
     wallet_address = wallet_address_factory(key=True)
 
@@ -760,6 +768,7 @@ def test_wallet_address_deploy_token_total_supply_decimal(mock_smart_contract, w
     )
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
     mock_smart_contract_instance.broadcast.assert_called_once()
+
 
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", False)
