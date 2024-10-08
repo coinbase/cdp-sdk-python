@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 import jwt
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
+from urllib3.util import Retry
 
 from cdp import __version__
 from cdp.client import rest
@@ -25,6 +26,7 @@ class CdpApiClient(ApiClient):
         private_key: str,
         host: str = "https://api.cdp.coinbase.com/platform",
         debugging: bool = False,
+        max_network_retries: int = 3,
     ):
         """Initialize the CDP API Client.
 
@@ -33,9 +35,11 @@ class CdpApiClient(ApiClient):
             private_key (str): The private key for authentication.
             host (str, optional): The base URL for the API. Defaults to "https://api.cdp.coinbase.com/platform".
             debugging (bool): Whether debugging is enabled.
+            max_network_retries (int): The maximum number of network retries. Defaults to 3.
 
         """
-        configuration = Configuration(host=host)
+        retry_strategy = self._get_retry_strategy(max_network_retries)
+        configuration = Configuration(host=host, retries=retry_strategy)
         super().__init__(configuration)
         self._api_key = api_key
         self._private_key = private_key
@@ -158,7 +162,7 @@ class CdpApiClient(ApiClient):
             method (str): The HTTP method to use.
 
         Returns:
-            The JWT for the given API endpoint URL.
+            str: The JWT for the given API endpoint URL.
 
         """
         try:
@@ -194,22 +198,20 @@ class CdpApiClient(ApiClient):
             print(f"Error during JWT signing: {e!s}")
             raise InvalidAPIKeyFormatError("Could not sign the JWT") from e
 
-    @staticmethod
-    def _nonce() -> str:
+    def _nonce(self) -> str:
         """Generate a random nonce for the JWT.
 
         Returns:
-            The nonce.
+            str: The nonce.
 
         """
         return "".join(random.choices("0123456789", k=16))
 
-    @staticmethod
-    def _get_correlation_data() -> str:
+    def _get_correlation_data(self) -> str:
         """Return encoded correlation data including the SDK version and language.
 
         Returns:
-            The correlation data.
+            str: The correlation data.
 
         """
         data = {
@@ -217,3 +219,20 @@ class CdpApiClient(ApiClient):
             "sdk_language": "python",
         }
         return ",".join(f"{key}={value}" for key, value in data.items())
+
+    def _get_retry_strategy(self, max_network_retries: int) -> Retry:
+        """Return the retry strategy for the CDP API Client.
+
+        Args:
+            max_network_retries (int): The maximum number of network retries.
+
+        Returns:
+            Retry: The retry strategy.
+
+        """
+        return Retry(
+            total=max_network_retries,  # Number of total retries
+            status_forcelist=[500, 502, 503, 504],  # Retry on HTTP status code 500
+            allowed_methods=["GET"],  # Retry only on GET requests
+            backoff_factor=1,  # Exponential backoff factor
+        )
