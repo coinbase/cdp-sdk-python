@@ -98,6 +98,7 @@ from cdp.client.models.network import Network
 from cdp.client.models.network_identifier import NetworkIdentifier
 from cdp.client.models.payload_signature import PayloadSignature
 from cdp.client.models.payload_signature_list import PayloadSignatureList
+from cdp.client.models.read_contract_request import ReadContractRequest
 from cdp.client.models.seed_creation_event import SeedCreationEvent
 from cdp.client.models.seed_creation_event_result import SeedCreationEventResult
 from cdp.client.models.server_signer import ServerSigner
@@ -112,6 +113,7 @@ from cdp.client.models.smart_contract import SmartContract
 from cdp.client.models.smart_contract_list import SmartContractList
 from cdp.client.models.smart_contract_options import SmartContractOptions
 from cdp.client.models.smart_contract_type import SmartContractType
+from cdp.client.models.solidity_value import SolidityValue
 from cdp.client.models.sponsored_send import SponsoredSend
 from cdp.client.models.staking_balance import StakingBalance
 from cdp.client.models.staking_context import StakingContext
