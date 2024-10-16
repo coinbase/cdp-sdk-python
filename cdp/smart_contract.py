@@ -402,15 +402,15 @@ class SmartContract:
         elif type_ == "array":
             return [SmartContract._convert_solidity_value(v) for v in values] if values else []
         elif type_ == "tuple":
-            return (
-                {
-                    v.name: SmartContract._convert_solidity_value(v)
-                    for v in values
-                    if hasattr(v, "name")
-                }
-                if values
-                else {}
-            )
+            if values:
+                result = {}
+                for v in values:
+                    if not hasattr(v, "name"):
+                        raise ValueError("Error: Tuple value without a name")
+                    result[v.name] = SmartContract._convert_solidity_value(v)
+                return result
+            else:
+                return {}
         else:
             raise ValueError(f"Unsupported Solidity type: {type_}")
 
