@@ -333,8 +333,9 @@ class SmartContract:
 
         return cls(model)
 
-    @staticmethod
+    @classmethod
     def read(
+        cls,
         network_id: str,
         contract_address: str,
         method: str,
@@ -370,10 +371,10 @@ class SmartContract:
             contract_address=contract_address,
             read_contract_request=read_contract_request,
         )
-        return SmartContract._convert_solidity_value(model)
+        return cls._convert_solidity_value(model)
 
-    @staticmethod
-    def _convert_solidity_value(solidity_value: SolidityValue) -> Any:
+    @classmethod
+    def _convert_solidity_value(cls, solidity_value: SolidityValue) -> Any:
         type_ = solidity_value.type
         value = getattr(solidity_value, "value", None)
         values = getattr(solidity_value, "values", None)

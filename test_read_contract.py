@@ -63,6 +63,20 @@ ABI = [
     },
     {
         "type": "function",
+        "name": "pureBytes12",
+        "inputs": [],
+        "outputs": [{"name": "", "type": "bytes12", "internalType": "bytes12"}],
+        "stateMutability": "pure",
+    },
+    {
+        "inputs": [],
+        "stateMutability": "pure",
+        "type": "function",
+        "name": "pureBytes",
+        "outputs": [{"internalType": "bytes", "name": "", "type": "bytes"}],
+    },
+    {
+        "type": "function",
         "name": "pureNestedStruct",
         "inputs": [],
         "outputs": [
@@ -154,6 +168,24 @@ async def main():
         ABI,
     )
     print("pureArray:", array)
+
+    # Test pureBytes12
+    pure_bytes12 = SmartContract.read(
+        NETWORK_ID,
+        CONTRACT_ADDRESS,
+        "pureBytes12",
+        ABI,
+    )
+    print("pureBytes12:", pure_bytes12)
+
+    # Test pureBytes
+    pure_bytes = SmartContract.read(
+        NETWORK_ID,
+        CONTRACT_ADDRESS,
+        "pureBytes",
+        ABI,
+    )
+    print("pureBytes:", pure_bytes)
 
     # Test pureNestedStruct
     nested_struct = SmartContract.read(
