@@ -92,6 +92,14 @@ cdp.client.api.trades\_api module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.api.transaction\_history\_api module
+-----------------------------------------------
+
+.. automodule:: cdp.client.api.transaction_history_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.api.transfers\_api module
 ------------------------------------
 

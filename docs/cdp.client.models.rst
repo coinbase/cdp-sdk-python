@@ -212,6 +212,14 @@ cdp.client.models.create\_wallet\_request\_wallet module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.create\_wallet\_webhook\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_wallet_webhook_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.create\_webhook\_request module
 -------------------------------------------------
 
@@ -348,6 +356,14 @@ cdp.client.models.historical\_balance module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.multi\_token\_contract\_options module
+--------------------------------------------------------
+
+.. automodule:: cdp.client.models.multi_token_contract_options
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.network module
 --------------------------------
 
@@ -384,6 +400,14 @@ cdp.client.models.payload\_signature\_list module
 -------------------------------------------------
 
 .. automodule:: cdp.client.models.payload_signature_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.read\_contract\_request module
+------------------------------------------------
+
+.. automodule:: cdp.client.models.read_contract_request
    :members:
    :undoc-members:
    :show-inheritance:
@@ -496,6 +520,14 @@ cdp.client.models.smart\_contract\_type module
 ----------------------------------------------
 
 .. automodule:: cdp.client.models.smart_contract_type
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.solidity\_value module
+----------------------------------------
+
+.. automodule:: cdp.client.models.solidity_value
    :members:
    :undoc-members:
    :show-inheritance:
