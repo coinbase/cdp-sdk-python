@@ -2203,3 +2203,178 @@ def test_read_pure_tuple(mock_api_clients):
         contract_address="0x1234567890123456789012345678901234567890",
         read_contract_request=ANY,
     )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_tuple_mixed_types(mock_api_clients):
+    """Test reading a tuple with mixed types from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="tuple",
+        values=[
+            SolidityValue(type="uint256", value="1", name="a"),
+            SolidityValue(
+                type="address", value="0x1234567890123456789012345678901234567890", name="b"
+            ),
+            SolidityValue(type="bool", value="true", name="c"),
+        ],
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureTupleMixedTypes",
+        abi=all_read_types_abi,
+    )
+
+    assert result == {"a": 1, "b": "0x1234567890123456789012345678901234567890", "c": True}
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_function_type_as_bytes(mock_api_clients):
+    """Test reading a function type as bytes."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes", value="0x12341234123412341234123400000000"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="returnFunction",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x12341234123412341234123400000000"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_nested_struct(mock_api_clients):
+    """Test reading a nested struct from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="tuple",
+        values=[
+            SolidityValue(type="uint256", value="42", name="a"),
+            SolidityValue(
+                type="tuple",
+                name="nestedFields",
+                values=[
+                    SolidityValue(
+                        type="tuple",
+                        name="nestedArray",
+                        values=[
+                            SolidityValue(
+                                type="array",
+                                name="a",
+                                values=[
+                                    SolidityValue(type="uint256", value="1"),
+                                    SolidityValue(type="uint256", value="2"),
+                                    SolidityValue(type="uint256", value="3"),
+                                ],
+                            ),
+                        ],
+                    ),
+                    SolidityValue(type="uint256", value="123", name="a"),
+                ],
+            ),
+        ],
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureNestedStruct",
+        abi=all_read_types_abi,
+    )
+
+    assert result == {
+        "a": 42,
+        "nestedFields": {
+            "nestedArray": {
+                "a": [1, 2, 3],
+            },
+            "a": 123,
+        },
+    }
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_string_without_abi(mock_api_clients):
+    """Test reading a string value from a pure function without an ABI."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="string", value="Hello, World!")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureString",
+    )
+
+    assert result == "Hello, World!"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bool_without_abi(mock_api_clients):
+    """Test reading a boolean value from a pure function without an ABI."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bool", value="true")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBool",
+    )
+
+    assert result is True
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int8_without_abi(mock_api_clients):
+    """Test reading an int8 value from a pure function without an ABI."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int8", value="42")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt8",
+    )
+
+    assert result == 42
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
