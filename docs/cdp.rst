@@ -92,6 +92,38 @@ cdp.faucet\_transaction module
    :undoc-members:
    :show-inheritance:
 
+cdp.hash\_utils module
+----------------------
+
+.. automodule:: cdp.hash_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.historical\_balance module
+------------------------------
+
+.. automodule:: cdp.historical_balance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.payload\_signature module
+-----------------------------
+
+.. automodule:: cdp.payload_signature
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.smart\_contract module
+--------------------------
+
+.. automodule:: cdp.smart_contract
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.sponsored\_send module
 --------------------------
 
