@@ -42,6 +42,7 @@ def smart_contract_factory(smart_contract_model_factory):
 
 @pytest.fixture
 def all_read_types_abi():
+    """Return the ABI containing read functions for all types for testing."""
     return [
         {
             "type": "function",
