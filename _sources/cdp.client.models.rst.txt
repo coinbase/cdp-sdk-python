@@ -404,6 +404,14 @@ cdp.client.models.payload\_signature\_list module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.read\_contract\_request module
+------------------------------------------------
+
+.. automodule:: cdp.client.models.read_contract_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.seed\_creation\_event module
 ----------------------------------------------
 
@@ -512,6 +520,14 @@ cdp.client.models.smart\_contract\_type module
 ----------------------------------------------
 
 .. automodule:: cdp.client.models.smart_contract_type
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.solidity\_value module
+----------------------------------------
+
+.. automodule:: cdp.client.models.solidity_value
    :members:
    :undoc-members:
    :show-inheritance:
