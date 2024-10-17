@@ -8,6 +8,7 @@ from cdp.client.api.contract_events_api import ContractEventsApi
 from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
 from cdp.client.api.networks_api import NetworksApi
+from cdp.client.api.onchain_identity_api import OnchainIdentityApi
 from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.stake_api import StakeApi
