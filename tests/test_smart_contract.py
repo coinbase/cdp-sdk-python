@@ -2,6 +2,7 @@ from unittest.mock import ANY, Mock, call, patch
 
 import pytest
 
+from cdp.client.models.solidity_value import SolidityValue
 from cdp.smart_contract import SmartContract
 
 
@@ -174,3 +175,2031 @@ def test_smart_contract_repr(smart_contract_factory):
     """Test the representation of a SmartContract object."""
     smart_contract = smart_contract_factory()
     assert repr(smart_contract) == str(smart_contract)
+
+
+all_read_types_abi = [
+    {
+        "type": "function",
+        "name": "exampleFunction",
+        "inputs": [
+            {
+                "name": "z",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureAddress",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureArray",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]",
+                "internalType": "uint256[]",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBool",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureFunctionSelector",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes4",
+                "internalType": "bytes4",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureInt128",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int128",
+                "internalType": "int128",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureInt16",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int16",
+                "internalType": "int16",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureInt256",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int256",
+                "internalType": "int256",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureInt32",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int32",
+                "internalType": "int32",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureInt64",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int64",
+                "internalType": "int64",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureInt8",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int8",
+                "internalType": "int8",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureNestedStruct",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct TestAllReadTypes.ExampleStruct",
+                "components": [
+                    {
+                        "name": "a",
+                        "type": "uint256",
+                        "internalType": "uint256",
+                    },
+                    {
+                        "name": "nestedFields",
+                        "type": "tuple",
+                        "internalType": "struct TestAllReadTypes.NestedData",
+                        "components": [
+                            {
+                                "name": "nestedArray",
+                                "type": "tuple",
+                                "internalType": "struct TestAllReadTypes.ArrayData",
+                                "components": [
+                                    {
+                                        "name": "a",
+                                        "type": "uint256[]",
+                                        "internalType": "uint256[]",
+                                    },
+                                ],
+                            },
+                            {
+                                "name": "a",
+                                "type": "uint256",
+                                "internalType": "uint256",
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureString",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "string",
+                "internalType": "string",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureTuple",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureTupleMixedTypes",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address",
+            },
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureUint128",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint128",
+                "internalType": "uint128",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureUint16",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint16",
+                "internalType": "uint16",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureUint256",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureUint32",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint32",
+                "internalType": "uint32",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureUint64",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint64",
+                "internalType": "uint64",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureUint8",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint8",
+                "internalType": "uint8",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "returnFunction",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "function",
+                "internalType": "function (uint256) external returns (bool)",
+            },
+        ],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "viewUint",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+        ],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "x",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256",
+            },
+        ],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes",
+                "internalType": "bytes",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes1",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes1",
+                "internalType": "bytes1",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes2",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes2",
+                "internalType": "bytes2",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes3",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes3",
+                "internalType": "bytes3",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes4",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes4",
+                "internalType": "bytes4",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes5",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes5",
+                "internalType": "bytes5",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes6",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes6",
+                "internalType": "bytes6",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes7",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes7",
+                "internalType": "bytes7",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes8",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes8",
+                "internalType": "bytes8",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes9",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes9",
+                "internalType": "bytes9",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes10",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes10",
+                "internalType": "bytes10",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes11",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes11",
+                "internalType": "bytes11",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes12",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes12",
+                "internalType": "bytes12",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes13",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes13",
+                "internalType": "bytes13",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes14",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes14",
+                "internalType": "bytes14",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes15",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes15",
+                "internalType": "bytes15",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes16",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes16",
+                "internalType": "bytes16",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes17",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes17",
+                "internalType": "bytes17",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes18",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes18",
+                "internalType": "bytes18",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes19",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes19",
+                "internalType": "bytes19",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes20",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes20",
+                "internalType": "bytes20",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes21",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes21",
+                "internalType": "bytes21",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes22",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes22",
+                "internalType": "bytes22",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes23",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes23",
+                "internalType": "bytes23",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes24",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes24",
+                "internalType": "bytes24",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes25",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes25",
+                "internalType": "bytes25",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes26",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes26",
+                "internalType": "bytes26",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes27",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes27",
+                "internalType": "bytes27",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes28",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes28",
+                "internalType": "bytes28",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes29",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes29",
+                "internalType": "bytes29",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes30",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes30",
+                "internalType": "bytes30",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes31",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes31",
+                "internalType": "bytes31",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+    {
+        "type": "function",
+        "name": "pureBytes32",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32",
+            },
+        ],
+        "stateMutability": "pure",
+    },
+]
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_string(mock_api_clients):
+    """Test reading a string value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="string", value="Hello, World!")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureString",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "Hello, World!"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes1(mock_api_clients):
+    """Test reading a bytes1 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes1", value="0x01")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes1",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x01"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes2(mock_api_clients):
+    """Test reading a bytes2 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes2", value="0x0102")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes2",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes3(mock_api_clients):
+    """Test reading a bytes3 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes3", value="0x010203")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes3",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x010203"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes4(mock_api_clients):
+    """Test reading a bytes4 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes4", value="0x01020304")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes4",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x01020304"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes5(mock_api_clients):
+    """Test reading a bytes5 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes5", value="0x0102030405")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes5",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes6(mock_api_clients):
+    """Test reading a bytes6 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes6", value="0x010203040506")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes6",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x010203040506"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes7(mock_api_clients):
+    """Test reading a bytes7 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes7", value="0x01020304050607")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes7",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x01020304050607"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes8(mock_api_clients):
+    """Test reading a bytes8 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes8", value="0x0102030405060708")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes8",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes9(mock_api_clients):
+    """Test reading a bytes9 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes9", value="0x010203040506070809")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes9",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x010203040506070809"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes10(mock_api_clients):
+    """Test reading a bytes10 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bytes10", value="0x01020304050607080910")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes10",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x01020304050607080910"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes11(mock_api_clients):
+    """Test reading a bytes11 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes11", value="0x0102030405060708091011"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes11",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708091011"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes12(mock_api_clients):
+    """Test reading a bytes12 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes12", value="0x010203040506070809101112"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes12",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x010203040506070809101112"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes13(mock_api_clients):
+    """Test reading a bytes13 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes13", value="0x01020304050607080910111213"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes13",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x01020304050607080910111213"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes14(mock_api_clients):
+    """Test reading a bytes14 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes14", value="0x0102030405060708091011121314"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes14",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708091011121314"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes15(mock_api_clients):
+    """Test reading a bytes15 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes15", value="0x010203040506070809101112131415"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes15",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x010203040506070809101112131415"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes16(mock_api_clients):
+    """Test reading a bytes16 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes16", value="0x0102030405060708090a0b0c0d0e0f10"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes16",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f10"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes32(mock_api_clients):
+    """Test reading a bytes32 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes32", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes32",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes17(mock_api_clients):
+    """Test reading a bytes17 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes17", value="0x0102030405060708090a0b0c0d0e0f1011"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes17",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f1011"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes18(mock_api_clients):
+    """Test reading a bytes18 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes18", value="0x0102030405060708090a0b0c0d0e0f101112"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes18",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes19(mock_api_clients):
+    """Test reading a bytes19 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes19", value="0x0102030405060708090a0b0c0d0e0f10111213"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes19",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f10111213"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes20(mock_api_clients):
+    """Test reading a bytes20 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes20", value="0x0102030405060708090a0b0c0d0e0f1011121314"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes20",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f1011121314"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes21(mock_api_clients):
+    """Test reading a bytes21 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes21", value="0x0102030405060708090a0b0c0d0e0f10111213141516"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes21",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f10111213141516"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes22(mock_api_clients):
+    """Test reading a bytes22 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes22", value="0x0102030405060708090a0b0c0d0e0f10111213141516171819"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes22",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f10111213141516171819"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes23(mock_api_clients):
+    """Test reading a bytes23 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes23", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes23",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes24(mock_api_clients):
+    """Test reading a bytes24 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes24",
+        value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes24",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes25(mock_api_clients):
+    """Test reading a bytes25 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes25",
+        value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes25",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes26(mock_api_clients):
+    """Test reading a bytes26 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes26",
+        value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes26",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes27(mock_api_clients):
+    """Test reading a bytes27 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes27",
+        value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes27",
+        abi=all_read_types_abi,
+    )
+
+    assert (
+        result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627"
+    )
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes28(mock_api_clients):
+    """Test reading a bytes28 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes28", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes28",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes29(mock_api_clients):
+    """Test reading a bytes29 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes29", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes29",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes30(mock_api_clients):
+    """Test reading a bytes30 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes30", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes30",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes31(mock_api_clients):
+    """Test reading a bytes31 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes31", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes31",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes32(mock_api_clients):
+    """Test reading a bytes32 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes32", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes32",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bytes(mock_api_clients):
+    """Test reading a bytes value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes",
+        value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526272829",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBytes",
+        abi=all_read_types_abi,
+    )
+
+    assert (
+        result
+        == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526272829"
+    )
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_uint8(mock_api_clients):
+    """Test reading a uint8 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="uint8", value="123")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint8",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 123
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_uint16(mock_api_clients):
+    """Test reading a uint16 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="uint16", value="12345")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint16",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 12345
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_uint32(mock_api_clients):
+    """Test reading a uint32 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="uint32", value="4294967295")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint32",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 4294967295
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_uint64(mock_api_clients):
+    """Test reading a uint64 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="uint64", value="18446744073709551615")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint64",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 18446744073709551615
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_uint128(mock_api_clients):
+    """Test reading a uint128 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="uint128", value="340282366920938463463374607431768211455"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint128",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 340282366920938463463374607431768211455
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_uint256(mock_api_clients):
+    """Test reading a uint256 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="uint256",
+        value="115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint256",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 115792089237316195423570985008687907853269984665640564039457584007913129639935
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int8(mock_api_clients):
+    """Test reading an int8 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int8", value="-128")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt8",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -128
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int16(mock_api_clients):
+    """Test reading an int16 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int16", value="-32768")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt16",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -32768
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int32(mock_api_clients):
+    """Test reading an int32 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int32", value="-2147483648")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt32",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -2147483648
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int64(mock_api_clients):
+    """Test reading an int64 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int64", value="-9223372036854775808")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt64",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -9223372036854775808
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int128(mock_api_clients):
+    """Test reading an int128 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="int128", value="-170141183460469231731687303715884105728"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt128",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -170141183460469231731687303715884105728
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int256(mock_api_clients):
+    """Test reading an int256 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="int256",
+        value="-57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt256",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -57896044618658097711785492504343953926634992332820282019728792003956564819968
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_address(mock_api_clients):
+    """Test reading an address value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="address", value="0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureAddress",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_bool(mock_api_clients):
+    """Test reading a boolean value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="bool", value="true")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureBool",
+        abi=all_read_types_abi,
+    )
+
+    assert result is True
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_array(mock_api_clients):
+    """Test reading an array value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="array",
+        values=[
+            SolidityValue(type="uint256", value="1"),
+            SolidityValue(type="uint256", value="2"),
+            SolidityValue(type="uint256", value="3"),
+            SolidityValue(type="uint256", value="4"),
+            SolidityValue(type="uint256", value="5"),
+        ],
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureArray",
+        abi=all_read_types_abi,
+    )
+
+    assert result == [1, 2, 3, 4, 5]  # Note: In Python, we use regular integers, not BigInt
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_return_function(mock_api_clients):
+    """Test reading a function type as bytes from a view function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="bytes", value="0x12341234123412341234123400000000"
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="returnFunction",
+        abi=all_read_types_abi,
+    )
+
+    assert result == "0x12341234123412341234123400000000"
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_tuple(mock_api_clients):
+    """Test reading a tuple value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="tuple",
+        values=[
+            SolidityValue(type="uint256", value="1", name="a"),
+            SolidityValue(type="uint256", value="2", name="b"),
+        ],
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureTuple",
+        abi=all_read_types_abi,
+    )
+
+    assert result == {"a": 1, "b": 2}  # In Python, we use regular integers, not BigInt
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
