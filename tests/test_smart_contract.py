@@ -1361,30 +1361,6 @@ def test_read_pure_bytes16(mock_api_clients):
 
 
 @patch("cdp.Cdp.api_clients")
-def test_read_pure_bytes32(mock_api_clients):
-    """Test reading a bytes32 value from a pure function."""
-    mock_read_contract = Mock()
-    mock_read_contract.return_value = SolidityValue(
-        type="bytes32", value="0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
-    )
-    mock_api_clients.smart_contracts.read_contract = mock_read_contract
-
-    result = SmartContract.read(
-        network_id="1",
-        contract_address="0x1234567890123456789012345678901234567890",
-        method="pureBytes32",
-        abi=all_read_types_abi,
-    )
-
-    assert result == "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
-    mock_read_contract.assert_called_once_with(
-        network_id="1",
-        contract_address="0x1234567890123456789012345678901234567890",
-        read_contract_request=ANY,
-    )
-
-
-@patch("cdp.Cdp.api_clients")
 def test_read_pure_bytes17(mock_api_clients):
     """Test reading a bytes17 value from a pure function."""
     mock_read_contract = Mock()
