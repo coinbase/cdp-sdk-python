@@ -10,8 +10,10 @@ from cdp.client.models.create_smart_contract_request import CreateSmartContractR
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.multi_token_contract_options import MultiTokenContractOptions
 from cdp.client.models.nft_contract_options import NFTContractOptions
+from cdp.client.models.read_contract_request import ReadContractRequest
 from cdp.client.models.smart_contract import SmartContract as SmartContractModel
 from cdp.client.models.smart_contract_options import SmartContractOptions
+from cdp.client.models.solidity_value import SolidityValue
 from cdp.client.models.token_contract_options import TokenContractOptions
 from cdp.transaction import Transaction
 
@@ -330,6 +332,88 @@ class SmartContract:
         )
 
         return cls(model)
+
+    @classmethod
+    def read(
+        cls,
+        network_id: str,
+        contract_address: str,
+        method: str,
+        abi: list[dict] | None = None,
+        args: dict | None = None,
+    ) -> "SmartContract":
+        """Read data from a smart contract.
+
+        Args:
+            network_id: The ID of the network.
+            contract_address: The address of the smart contract.
+            method: The method to call on the smart contract.
+            abi: The ABI of the smart contract.
+            args: The arguments to pass to the method.
+
+        Returns:
+            The data read from the smart contract.
+
+        """
+        abi_json = None
+
+        if abi:
+            abi_json = json.dumps(abi, separators=(",", ":"))
+
+        read_contract_request = ReadContractRequest(
+            method=method,
+            abi=abi_json,
+            args=json.dumps(args or {}, separators=(",", ":")),
+        )
+
+        model = Cdp.api_clients.smart_contracts.read_contract(
+            network_id=network_id,
+            contract_address=contract_address,
+            read_contract_request=read_contract_request,
+        )
+        return cls._convert_solidity_value(model)
+
+    @classmethod
+    def _convert_solidity_value(cls, solidity_value: SolidityValue) -> Any:
+        type_ = solidity_value.type
+        value = getattr(solidity_value, "value", None)
+        values = getattr(solidity_value, "values", None)
+
+        if type_ in [
+            "uint8",
+            "uint16",
+            "uint32",
+            "uint64",
+            "uint128",
+            "uint256",
+            "int8",
+            "int16",
+            "int32",
+            "int64",
+            "int128",
+            "int256",
+        ]:
+            return int(value) if value is not None else None
+        elif type_ == "address":
+            return value
+        elif type_ == "bool":
+            return value == "true" if isinstance(value, str) else bool(value)
+        elif type_ == "string" or type_.startswith("bytes"):
+            return value
+        elif type_ == "array":
+            return [SmartContract._convert_solidity_value(v) for v in values] if values else []
+        elif type_ == "tuple":
+            if values:
+                result = {}
+                for v in values:
+                    if not hasattr(v, "name"):
+                        raise ValueError("Error: Tuple value without a name")
+                    result[v.name] = SmartContract._convert_solidity_value(v)
+                return result
+            else:
+                return {}
+        else:
+            raise ValueError(f"Unsupported Solidity type: {type_}")
 
     def _update_transaction(self, model: SmartContractModel) -> None:
         """Update the transaction with the new model."""

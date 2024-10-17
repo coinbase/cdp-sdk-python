@@ -19,19 +19,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from cdp.client.models.webhook_event_filter import WebhookEventFilter
-from cdp.client.models.webhook_event_type_filter import WebhookEventTypeFilter
 from typing import Optional, Set
 from typing_extensions import Self
 
-class UpdateWebhookRequest(BaseModel):
+class ReadContractRequest(BaseModel):
     """
-    UpdateWebhookRequest
+    ReadContractRequest
     """ # noqa: E501
-    event_type_filter: Optional[WebhookEventTypeFilter] = None
-    event_filters: Optional[List[WebhookEventFilter]] = Field(default=None, description="Webhook will monitor all events that matches any one of the event filters.")
-    notification_uri: Optional[StrictStr] = Field(default=None, description="The Webhook uri that updates to")
-    __properties: ClassVar[List[str]] = ["event_type_filter", "event_filters", "notification_uri"]
+    method: StrictStr = Field(description="The name of the contract method to call")
+    args: StrictStr = Field(description="The JSON-encoded arguments to pass to the contract method. The keys should be the argument names and the values should be the argument values.")
+    abi: Optional[StrictStr] = Field(default=None, description="The JSON-encoded ABI of the contract method (optional, will use cached ABI if not provided)")
+    __properties: ClassVar[List[str]] = ["method", "args", "abi"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +49,7 @@ class UpdateWebhookRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdateWebhookRequest from a JSON string"""
+        """Create an instance of ReadContractRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,21 +70,11 @@ class UpdateWebhookRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of event_type_filter
-        if self.event_type_filter:
-            _dict['event_type_filter'] = self.event_type_filter.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in event_filters (list)
-        _items = []
-        if self.event_filters:
-            for _item_event_filters in self.event_filters:
-                if _item_event_filters:
-                    _items.append(_item_event_filters.to_dict())
-            _dict['event_filters'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateWebhookRequest from a dict"""
+        """Create an instance of ReadContractRequest from a dict"""
         if obj is None:
             return None
 
@@ -94,9 +82,9 @@ class UpdateWebhookRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "event_type_filter": WebhookEventTypeFilter.from_dict(obj["event_type_filter"]) if obj.get("event_type_filter") is not None else None,
-            "event_filters": [WebhookEventFilter.from_dict(_item) for _item in obj["event_filters"]] if obj.get("event_filters") is not None else None,
-            "notification_uri": obj.get("notification_uri")
+            "method": obj.get("method"),
+            "args": obj.get("args"),
+            "abi": obj.get("abi")
         })
         return _obj
 

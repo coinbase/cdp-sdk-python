@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [0.0.6] - 2024-10-17
+
+### Added
+
+- Support for read_contract to read from smart contracts
+
 ## [0.0.5] - 2024-10-3
 
 ### Added
