@@ -7,8 +7,6 @@ from cdp.client.models.webhook_list import WebhookList
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.cdp import Cdp
 
-from typing import List
-
 
 class Webhook:
     """A class representing a webhook."""
@@ -82,7 +80,7 @@ class Webhook:
         return self._model.event_type_filter
 
     @property
-    def event_filters(self) -> List[WebhookEventFilter]:
+    def event_filters(self) -> list[WebhookEventFilter]:
         """Get the event filters of the webhook.
 
         Returns:
@@ -97,7 +95,7 @@ class Webhook:
             notification_uri: str,
             event_type: WebhookEventType,
             event_type_filter: WebhookEventTypeFilter,
-            event_filters: List[WebhookEventFilter],
+            event_filters: list[WebhookEventFilter],
             network_id: str = "base-sepolia",
     ) -> "Webhook":
         """Create a new webhook.
