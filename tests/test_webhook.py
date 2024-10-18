@@ -1,5 +1,4 @@
-from unittest.mock import Mock, patch
-import pytest
+from unittest.mock import patch
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
 from cdp.client.models.webhook import WebhookEventType, WebhookEventTypeFilter, WebhookEventFilter
@@ -9,8 +8,6 @@ from cdp.webhook import Webhook, WebhookModel
 @patch("cdp.Cdp.api_clients")
 def test_webhook_creation(mock_api_clients, webhook_factory):
     """Test Webhook creation method."""
-
-    # Mock the API response for webhook creation
     mock_api_clients.webhooks.create_webhook.return_value = webhook_factory()
 
     # Define input parameters for the webhook creation
@@ -57,8 +54,6 @@ def test_webhook_delete(mock_api_clients):
 @patch("cdp.Cdp.api_clients")
 def test_webhook_update(mock_api_clients, webhook_factory):
     """Test Webhook update method."""
-
-    # Create a mock WebhookModel for the Webhook instance
     webhook_model = webhook_factory()
 
     # Create a Webhook instance

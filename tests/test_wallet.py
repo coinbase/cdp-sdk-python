@@ -620,8 +620,6 @@ def test_wallet_deploy_multi_token_with_server_signer(wallet_factory):
 @patch("cdp.Cdp.api_clients")
 def test_create_webhook(mock_api_clients, wallet_factory, webhook_factory):
     """Test Wallet create_webhook method."""
-
-    # Setup the mock response for create_wallet_webhook
     mock_api_clients.webhooks.create_wallet_webhook.return_value = webhook_factory()
 
     # Create a wallet instance using the factory
