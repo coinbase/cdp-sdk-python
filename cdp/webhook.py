@@ -1,17 +1,17 @@
-from cdp.client.models.webhook import Webhook as WebhookModel
-from cdp.client.models.webhook import WebhookEventType
-from cdp.client.models.webhook import WebhookEventTypeFilter
-from cdp.client.models.webhook import WebhookEventFilter
 from collections.abc import Iterator
-from cdp.client.models.webhook_list import WebhookList
-from cdp.client.models.create_webhook_request import CreateWebhookRequest
+
 from cdp.cdp import Cdp
+from cdp.client.models.create_webhook_request import CreateWebhookRequest
+from cdp.client.models.update_webhook_request import UpdateWebhookRequest
+from cdp.client.models.webhook import Webhook as WebhookModel
+from cdp.client.models.webhook import WebhookEventFilter, WebhookEventType, WebhookEventTypeFilter
+from cdp.client.models.webhook_list import WebhookList
 
 
 class Webhook:
     """A class representing a webhook."""
 
-    def __init__(self, model: WebhookModel, seed: str | None = None) -> None:
+    def __init__(self, model: WebhookModel) -> None:
         """Initialize the Webhook class.
 
         Args:
@@ -94,8 +94,8 @@ class Webhook:
             cls,
             notification_uri: str,
             event_type: WebhookEventType,
-            event_type_filter: WebhookEventTypeFilter = None,
-            event_filters: list[WebhookEventFilter] = None,
+            event_type_filter: WebhookEventTypeFilter | None = None,
+            event_filters: list[WebhookEventFilter] | None = None,
             network_id: str = "base-sepolia",
     ) -> "Webhook":
         """Create a new webhook.
@@ -109,9 +109,6 @@ class Webhook:
 
         Returns:
             Webhook: The created webhook object.
-
-        Raises:
-            Exception: If there's an error creating the webhook.
 
         """
         create_webhook_request = CreateWebhookRequest(
@@ -134,9 +131,6 @@ class Webhook:
         Returns:
             Iterator[Webhook]: An iterator of webhook objects.
 
-        Raises:
-            Exception: If there's an error listing webhooks.
-
         """
         while True:
             page = None
@@ -158,9 +152,41 @@ class Webhook:
         Args:
             webhook_id (str): The ID of the webhook to delete.
 
-        Raises:
-            Exception: If there's an error deleting the webhook.
-
         """
         Cdp.api_clients.webhooks.delete_webhook(webhook_id)
 
+    def update(
+        self,
+        notification_uri: str | None = None,
+        event_type_filter: WebhookEventTypeFilter | None = None
+    ) -> "Webhook":
+        """Updates the webhook with a new notification URI, and/or a new list of addresses to monitor.
+
+        Args:
+            notification_uri (str): The new URI for webhook notifications.
+            event_type_filter (WebhookEventTypeFilter): The new eventTypeFilter that contains a new list (replacement) of addresses to monitor for the webhook.
+
+        Returns:
+            Webhook: The updated webhook object.
+
+        """
+        # Fallback to current properties if no new values are provided
+        final_notification_uri = notification_uri or self.notification_uri
+        final_event_type_filter = event_type_filter or self.event_type_filter
+
+        update_webhook_request = UpdateWebhookRequest(
+            event_type_filter=final_event_type_filter,
+            event_filters=self.event_filters,
+            notification_uri=final_notification_uri,
+        )
+
+        # Update the webhook via the API client
+        result = Cdp.api_clients.webhooks.update_webhook(
+            self.id,
+            update_webhook_request,
+        )
+
+        # Update the internal model with the API response
+        self._model = result
+
+        return result
