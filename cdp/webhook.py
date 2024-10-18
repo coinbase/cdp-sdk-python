@@ -160,7 +160,7 @@ class Webhook:
         notification_uri: str | None = None,
         event_type_filter: WebhookEventTypeFilter | None = None
     ) -> "Webhook":
-        """Updates the webhook with a new notification URI, and/or a new list of addresses to monitor.
+        """Update the webhook with a new notification URI, and/or a new list of addresses to monitor.
 
         Args:
             notification_uri (str): The new URI for webhook notifications.

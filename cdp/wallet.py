@@ -18,6 +18,7 @@ from eth_account import Account
 from cdp.address import Address
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
+from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import (
@@ -33,6 +34,7 @@ from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
+from cdp.webhook import Webhook
 
 
 class Wallet:
@@ -285,6 +287,24 @@ class Wallet:
         self._addresses.append(wallet_address)
 
         return wallet_address
+
+    def create_webhook(self, notification_uri: str) -> "Webhook":
+        """Create a new webhook for the wallet.
+
+        Returns:
+            Webhook: The created webhook object.
+
+        Raises:
+            Exception: If there's an error creating the webhook.
+
+        """
+
+        create_wallet_webhook_request = CreateWalletWebhookRequest(notification_uri = notification_uri)
+        model = Cdp.api_clients.webhooks.create_wallet_webhook(
+            wallet_id=self.id, create_wallet_webhook_request=create_wallet_webhook_request
+        )
+
+        return Webhook(model)
 
     def faucet(self, asset_id: str | None = None) -> FaucetTransaction:
         """Request faucet funds.
