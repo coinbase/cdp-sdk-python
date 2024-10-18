@@ -94,8 +94,8 @@ class Webhook:
             cls,
             notification_uri: str,
             event_type: WebhookEventType,
-            event_type_filter: WebhookEventTypeFilter,
-            event_filters: list[WebhookEventFilter],
+            event_type_filter: WebhookEventTypeFilter = None,
+            event_filters: list[WebhookEventFilter] = None,
             network_id: str = "base-sepolia",
     ) -> "Webhook":
         """Create a new webhook.
