@@ -62,6 +62,9 @@ from cdp.client.models.multi_token_contract_options import MultiTokenContractOpt
 from cdp.client.models.nft_contract_options import NFTContractOptions
 from cdp.client.models.network import Network
 from cdp.client.models.network_identifier import NetworkIdentifier
+from cdp.client.models.onchain_name import OnchainName
+from cdp.client.models.onchain_name_list import OnchainNameList
+from cdp.client.models.onchain_name_text_records_inner import OnchainNameTextRecordsInner
 from cdp.client.models.payload_signature import PayloadSignature
 from cdp.client.models.payload_signature_list import PayloadSignatureList
 from cdp.client.models.read_contract_request import ReadContractRequest

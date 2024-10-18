@@ -24,6 +24,7 @@ from cdp.client.api.contract_events_api import ContractEventsApi
 from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
 from cdp.client.api.networks_api import NetworksApi
+from cdp.client.api.onchain_identity_api import OnchainIdentityApi
 from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.stake_api import StakeApi
@@ -96,6 +97,9 @@ from cdp.client.models.multi_token_contract_options import MultiTokenContractOpt
 from cdp.client.models.nft_contract_options import NFTContractOptions
 from cdp.client.models.network import Network
 from cdp.client.models.network_identifier import NetworkIdentifier
+from cdp.client.models.onchain_name import OnchainName
+from cdp.client.models.onchain_name_list import OnchainNameList
+from cdp.client.models.onchain_name_text_records_inner import OnchainNameTextRecordsInner
 from cdp.client.models.payload_signature import PayloadSignature
 from cdp.client.models.payload_signature_list import PayloadSignatureList
 from cdp.client.models.read_contract_request import ReadContractRequest

@@ -16,6 +16,7 @@ from cdp.transfer import Transfer
 from cdp.wallet import Wallet
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
+from cdp.webhook import Webhook
 
 __all__ = [
     "__version__",
@@ -24,6 +25,7 @@ __all__ = [
     "Wallet",
     "WalletAddress",
     "WalletData",
+    "Webhook",
     "Asset",
     "Transfer",
     "Address",

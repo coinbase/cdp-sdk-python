@@ -10,6 +10,7 @@ from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transaction_history_api import TransactionHistoryApi
 from cdp.client.api.transfers_api import TransfersApi
 from cdp.client.api.wallets_api import WalletsApi
+from cdp.client.api.webhooks_api import WebhooksApi
 
 
 class ApiClients:
@@ -21,6 +22,7 @@ class ApiClients:
     Attributes:
         _cdp_client (CdpApiClient): The CDP API client used to initialize individual API clients.
         _wallets (Optional[WalletsApi]): The WalletsApi client instance.
+        _webhooks (Optional[WebhooksApi]): The WebhooksApi client instance.
         _addresses (Optional[AddressesApi]): The AddressesApi client instance.
         _external_addresses (Optional[ExternalAddressesApi]): The ExternalAddressesApi client instance.
         _transfers (Optional[TransfersApi]): The TransfersApi client instance.
@@ -40,6 +42,7 @@ class ApiClients:
         """
         self._cdp_client: CdpApiClient = cdp_client
         self._wallets: WalletsApi | None = None
+        self._webhooks: WebhooksApi | None = None
         self._addresses: AddressesApi | None = None
         self._external_addresses: ExternalAddressesApi | None = None
         self._transfers: TransfersApi | None = None
@@ -65,6 +68,21 @@ class ApiClients:
         if self._wallets is None:
             self._wallets = WalletsApi(api_client=self._cdp_client)
         return self._wallets
+
+    @property
+    def webhooks(self) -> WebhooksApi:
+        """Get the WebhooksApi client instance.
+
+        Returns:
+            WebhooksApi: The WebhooksApi client instance.
+
+        Note:
+            This property lazily initializes the WebhooksApi client on first access.
+
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhooksApi(api_client=self._cdp_client)
+        return self._webhooks
 
     @property
     def addresses(self) -> AddressesApi:
