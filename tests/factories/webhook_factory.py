@@ -1,10 +1,11 @@
 import pytest
-from cdp.webhook import Webhook, WebhookModel, WebhookEventType
+
+from cdp.webhook import Webhook, WebhookEventType, WebhookModel
+
 
 @pytest.fixture
 def webhook_factory():
     """Create and return a factory for Webhook fixtures."""
-
     def _create_webhook(
         webhook_id="webhook-123",
         network_id="base-sepolia",

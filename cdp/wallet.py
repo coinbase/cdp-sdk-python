@@ -18,13 +18,13 @@ from eth_account import Account
 from cdp.address import Address
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
-from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.client.models.address import Address as AddressModel
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import (
     CreateWalletRequest,
     CreateWalletRequestWallet,
 )
+from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
 from cdp.contract_invocation import ContractInvocation

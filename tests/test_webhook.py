@@ -1,7 +1,8 @@
 from unittest.mock import patch
+
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
-from cdp.client.models.webhook import WebhookEventType, WebhookEventTypeFilter, WebhookEventFilter
+from cdp.client.models.webhook import WebhookEventFilter, WebhookEventType, WebhookEventTypeFilter
 from cdp.webhook import Webhook, WebhookModel
 
 
@@ -43,7 +44,6 @@ def test_webhook_creation(mock_api_clients, webhook_factory):
 @patch("cdp.Cdp.api_clients")
 def test_webhook_delete(mock_api_clients):
     """Test Webhook delete method."""
-
     webhook_id = "webhook-123"
 
     Webhook.delete(webhook_id)
