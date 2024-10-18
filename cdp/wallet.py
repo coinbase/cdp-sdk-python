@@ -298,7 +298,6 @@ class Wallet:
             Exception: If there's an error creating the webhook.
 
         """
-
         create_wallet_webhook_request = CreateWalletWebhookRequest(notification_uri = notification_uri)
         model = Cdp.api_clients.webhooks.create_wallet_webhook(
             wallet_id=self.id, create_wallet_webhook_request=create_wallet_webhook_request
