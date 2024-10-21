@@ -291,8 +291,11 @@ class Wallet:
     def create_webhook(self, notification_uri: str) -> "Webhook":
         """Create a new webhook for the wallet.
 
+        Args:
+            notification_uri (str): The notification URI of the webhook.
+
         Returns:
-            Webhook: The created webhook object.
+            Webhook: The created webhook object. It can be used to monitor activities happening in the wallet. When they occur, webhook will make a request to the specified URI.
 
         Raises:
             Exception: If there's an error creating the webhook.

@@ -146,7 +146,7 @@ class Webhook:
             page = response.next_page
 
     @staticmethod
-    def delete(cls, webhook_id: str) -> None:
+    def delete(webhook_id: str) -> None:
         """Delete a webhook by its ID.
 
         Args:
@@ -189,4 +189,4 @@ class Webhook:
         # Update the internal model with the API response
         self._model = result
 
-        return result
+        return self

@@ -172,3 +172,30 @@ list(address.trades())
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+
+## Creating a Webhook
+A webhook is a way to provide other applications with real-time information from the blockchain. When an event occurs on a blockchain address, it can send a POST request to a URL you specify. You can create a webhook to receive notifications about events that occur in your wallet or crypto address, such as when a user makes a transfer.
+```python
+import cdp
+from cdp.client.models.webhook import WebhookEventType
+from cdp.client.models.webhook import WebhookEventTypeFilter
+from cdp.client.models.webhook import WebhookEventFilter
+
+wh1 = cdp.Webhook.create(
+    notification_uri='https://your-app.com/callback',
+    event_type=WebhookEventType.ERC20_TRANSFER,
+    event_filters=[WebhookEventFilter(from_address='0x71d4d7d5e9ce0f41e6a68bd3a9b43aa597dc0eb0')]
+)
+print(wh1)
+```
+
+## Creating a Webhook On A Wallet
+A webhook can be attached to an existing wallet to monitor events that occur on the wallet, i.e. all addresses associated with this wallet.
+```python
+import cdp
+
+wallet1 = cdp.Wallet.create()
+wh1 = wallet1.create_webhook("https://your-app.com/callback")
+print(wh1)
+```
