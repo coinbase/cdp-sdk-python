@@ -145,7 +145,7 @@ class Webhook:
 
             page = response.next_page
 
-    @classmethod
+    @staticmethod
     def delete(cls, webhook_id: str) -> None:
         """Delete a webhook by its ID.
 
