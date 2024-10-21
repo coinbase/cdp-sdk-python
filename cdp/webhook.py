@@ -104,7 +104,7 @@ class Webhook:
             notification_uri (str): The URI where notifications should be sent.
             event_type (WebhookEventType): The type of event that the webhook listens to.
             event_type_filter (WebhookEventTypeFilter): Filter specifically for wallet activity event type.
-            event_filters (List[WebhookEventTypeFilter]): Filters applied to the events that determine which specific address(es) trigger
+            event_filters (List[WebhookEventTypeFilter]): Filters applied to the events that determine which specific address(es) trigger.
             network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
 
         Returns:
