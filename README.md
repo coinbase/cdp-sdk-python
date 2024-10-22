@@ -195,7 +195,7 @@ A webhook can be attached to an existing wallet to monitor events that occur on 
 ```python
 import cdp
 
-wallet1 = cdp.Wallet.create()
+wallet1 = Wallet.create()
 wh1 = wallet1.create_webhook("https://your-app.com/callback")
 print(wh1)
 ```
