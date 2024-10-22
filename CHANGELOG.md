@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Include ERC20 and ERC721 token transfer information into transaction content.
+
 ## [0.0.6] - 2024-10-17
 
 ### Added
