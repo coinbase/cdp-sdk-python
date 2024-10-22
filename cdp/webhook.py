@@ -198,6 +198,4 @@ class Webhook:
             str: A string that represents the Webhook object.
 
         """
-        return (f"Webhook(id={self.id!r}, network_id={self.network_id!r}, "
-                f"notification_uri={self.notification_uri!r}, event_type={self.event_type!r}, "
-                f"event_type_filter={self.event_type_filter!r}, event_filters={self.event_filters!r})")
+        return str(self)
