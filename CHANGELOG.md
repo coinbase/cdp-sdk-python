@@ -4,6 +4,7 @@
 
 ### Added
 - Include ERC20 and ERC721 token transfer information into transaction content.
+- Support for webhook feature parity in the python SDK.
 
 ## [0.0.6] - 2024-10-17
 
