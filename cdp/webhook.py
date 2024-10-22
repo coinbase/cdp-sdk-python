@@ -20,15 +20,6 @@ class Webhook:
         """
         self._model = model
 
-    def __str__(self) -> str:
-        """Return a string representation of the Webhook object.
-
-        Returns:
-            str: A string representation of the Webhook.
-
-        """
-        return f"Webhook: (id: {self.id}, network_id: {self.network_id}, notification_uri: {self.notification_uri}, event_type: {self.event_type}, event_type_filter: {self.event_type_filter}, event_filters: {self.event_filters})"
-
     @property
     def id(self) -> str:
         """Get the ID of the webhook.
@@ -190,3 +181,23 @@ class Webhook:
         self._model = result
 
         return self
+
+    def __str__(self) -> str:
+        """Return a string representation of the Webhook object.
+
+        Returns:
+            str: A string representation of the Webhook.
+
+        """
+        return f"Webhook: (id: {self.id}, network_id: {self.network_id}, notification_uri: {self.notification_uri}, event_type: {self.event_type}, event_type_filter: {self.event_type_filter}, event_filters: {self.event_filters})"
+
+    def __repr__(self) -> str:
+        """Return a detailed string representation of the Webhook object.
+
+        Returns:
+            str: A string that represents the Webhook object.
+
+        """
+        return (f"Webhook(id={self.id!r}, network_id={self.network_id!r}, "
+                f"notification_uri={self.notification_uri!r}, event_type={self.event_type!r}, "
+                f"event_type_filter={self.event_type_filter!r}, event_filters={self.event_filters!r})")
