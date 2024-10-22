@@ -185,7 +185,7 @@ from cdp.client.models.webhook import WebhookEventFilter
 wh1 = cdp.Webhook.create(
     notification_uri="https://your-app.com/callback",
     event_type=WebhookEventType.ERC20_TRANSFER,
-    event_filters=[WebhookEventFilter(from_address='0x71d4d7d5e9ce0f41e6a68bd3a9b43aa597dc0eb0')]
+    event_filters=[WebhookEventFilter(from_address="0x71d4d7d5e9ce0f41e6a68bd3a9b43aa597dc0eb0")]
 )
 print(wh1)
 ```
