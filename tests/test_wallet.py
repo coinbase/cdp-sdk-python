@@ -7,6 +7,7 @@ from eth_account import Account
 
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import CreateWalletRequest, CreateWalletRequestWallet
+from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.contract_invocation import ContractInvocation
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
@@ -14,6 +15,7 @@ from cdp.trade import Trade
 from cdp.transfer import Transfer
 from cdp.wallet import Wallet
 from cdp.wallet_address import WalletAddress
+from cdp.webhook import Webhook
 
 
 @patch("cdp.Cdp.use_server_signer", False)
@@ -614,3 +616,32 @@ def test_wallet_deploy_multi_token_with_server_signer(wallet_factory):
         mock_default_address.deploy_multi_token.assert_called_once_with(
             "https://example.com/multi-token/{id}.json"
         )
+
+@patch("cdp.Cdp.api_clients")
+def test_create_webhook(mock_api_clients, wallet_factory, webhook_factory):
+    """Test Wallet create_webhook method."""
+    mock_api_clients.webhooks.create_wallet_webhook.return_value = webhook_factory()
+
+    # Create a wallet instance using the factory
+    wallet = wallet_factory()
+
+    # Define the notification URI to pass into the create_webhook method
+    notification_uri = "https://example.com/webhook"
+
+    # Call the create_webhook method
+    webhook = wallet.create_webhook(notification_uri)
+
+    # Create the expected request object
+    expected_request = CreateWalletWebhookRequest(notification_uri=notification_uri)
+
+    # Assert that the API client was called with the correct parameters
+    mock_api_clients.webhooks.create_wallet_webhook.assert_called_once_with(
+        wallet_id=wallet.id,
+        create_wallet_webhook_request=expected_request
+    )
+
+    # Assert that the returned webhook is an instance of Webhook
+    assert isinstance(webhook, Webhook)
+
+    # Additional assertions to check the returned webhook object
+    assert webhook.notification_uri == notification_uri

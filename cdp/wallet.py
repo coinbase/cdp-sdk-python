@@ -24,6 +24,7 @@ from cdp.client.models.create_wallet_request import (
     CreateWalletRequest,
     CreateWalletRequestWallet,
 )
+from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
 from cdp.contract_invocation import ContractInvocation
@@ -33,6 +34,7 @@ from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
+from cdp.webhook import Webhook
 
 
 class Wallet:
@@ -285,6 +287,26 @@ class Wallet:
         self._addresses.append(wallet_address)
 
         return wallet_address
+
+    def create_webhook(self, notification_uri: str) -> "Webhook":
+        """Create a new webhook for the wallet.
+
+        Args:
+            notification_uri (str): The notification URI of the webhook.
+
+        Returns:
+            Webhook: The created webhook object. It can be used to monitor activities happening in the wallet. When they occur, webhook will make a request to the specified URI.
+
+        Raises:
+            Exception: If there's an error creating the webhook.
+
+        """
+        create_wallet_webhook_request = CreateWalletWebhookRequest(notification_uri = notification_uri)
+        model = Cdp.api_clients.webhooks.create_wallet_webhook(
+            wallet_id=self.id, create_wallet_webhook_request=create_wallet_webhook_request
+        )
+
+        return Webhook(model)
 
     def faucet(self, asset_id: str | None = None) -> FaucetTransaction:
         """Request faucet funds.

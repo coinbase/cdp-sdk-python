@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.0.7] - 2024-10-25
+
+### Added
+
+- Include ERC20 and ERC721 token transfer information into transaction content.
+- Support for wallet and address webhooks to trigger based on onchain activities.
+
 ## [0.0.6] - 2024-10-17
 
 ### Added

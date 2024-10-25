@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from cdp.client.models.ethereum_token_transfer import EthereumTokenTransfer
 from cdp.client.models.ethereum_transaction_access_list import EthereumTransactionAccessList
 from cdp.client.models.ethereum_transaction_flattened_trace import EthereumTransactionFlattenedTrace
 from typing import Optional, Set
@@ -43,10 +44,11 @@ class EthereumTransaction(BaseModel):
     max_priority_fee_per_gas: Optional[StrictInt] = Field(default=None, description="The max priority fee per gas as defined in EIP-1559. https://eips.ethereum.org/EIPS/eip-1559 for more details.")
     priority_fee_per_gas: Optional[StrictInt] = Field(default=None, description="The confirmed priority fee per gas as defined in EIP-1559. https://eips.ethereum.org/EIPS/eip-1559 for more details.")
     transaction_access_list: Optional[EthereumTransactionAccessList] = None
+    token_transfers: Optional[List[EthereumTokenTransfer]] = None
     flattened_traces: Optional[List[EthereumTransactionFlattenedTrace]] = None
     block_timestamp: Optional[datetime] = Field(default=None, description="The timestamp of the block in which the event was emitted")
     mint: Optional[StrictStr] = Field(default=None, description="This is for handling optimism rollup specific EIP-2718 transaction type field.")
-    __properties: ClassVar[List[str]] = ["from", "gas", "gas_price", "hash", "input", "nonce", "to", "index", "value", "type", "max_fee_per_gas", "max_priority_fee_per_gas", "priority_fee_per_gas", "transaction_access_list", "flattened_traces", "block_timestamp", "mint"]
+    __properties: ClassVar[List[str]] = ["from", "gas", "gas_price", "hash", "input", "nonce", "to", "index", "value", "type", "max_fee_per_gas", "max_priority_fee_per_gas", "priority_fee_per_gas", "transaction_access_list", "token_transfers", "flattened_traces", "block_timestamp", "mint"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,6 +92,13 @@ class EthereumTransaction(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of transaction_access_list
         if self.transaction_access_list:
             _dict['transaction_access_list'] = self.transaction_access_list.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in token_transfers (list)
+        _items = []
+        if self.token_transfers:
+            for _item_token_transfers in self.token_transfers:
+                if _item_token_transfers:
+                    _items.append(_item_token_transfers.to_dict())
+            _dict['token_transfers'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in flattened_traces (list)
         _items = []
         if self.flattened_traces:
@@ -123,6 +132,7 @@ class EthereumTransaction(BaseModel):
             "max_priority_fee_per_gas": obj.get("max_priority_fee_per_gas"),
             "priority_fee_per_gas": obj.get("priority_fee_per_gas"),
             "transaction_access_list": EthereumTransactionAccessList.from_dict(obj["transaction_access_list"]) if obj.get("transaction_access_list") is not None else None,
+            "token_transfers": [EthereumTokenTransfer.from_dict(_item) for _item in obj["token_transfers"]] if obj.get("token_transfers") is not None else None,
             "flattened_traces": [EthereumTransactionFlattenedTrace.from_dict(_item) for _item in obj["flattened_traces"]] if obj.get("flattened_traces") is not None else None,
             "block_timestamp": obj.get("block_timestamp"),
             "mint": obj.get("mint")
