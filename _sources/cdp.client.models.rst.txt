@@ -260,6 +260,14 @@ cdp.client.models.error module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.ethereum\_token\_transfer module
+--------------------------------------------------
+
+.. automodule:: cdp.client.models.ethereum_token_transfer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.ethereum\_transaction module
 ----------------------------------------------
 
@@ -388,6 +396,30 @@ cdp.client.models.nft\_contract\_options module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.onchain\_name module
+--------------------------------------
+
+.. automodule:: cdp.client.models.onchain_name
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.onchain\_name\_list module
+--------------------------------------------
+
+.. automodule:: cdp.client.models.onchain_name_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.onchain\_name\_text\_records\_inner module
+------------------------------------------------------------
+
+.. automodule:: cdp.client.models.onchain_name_text_records_inner
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.payload\_signature module
 -------------------------------------------
 
@@ -408,6 +440,14 @@ cdp.client.models.read\_contract\_request module
 ------------------------------------------------
 
 .. automodule:: cdp.client.models.read_contract_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.read\_smart\_contract\_request module
+-------------------------------------------------------
+
+.. automodule:: cdp.client.models.read_smart_contract_request
    :members:
    :undoc-members:
    :show-inheritance:
@@ -608,6 +648,14 @@ cdp.client.models.token\_contract\_options module
 -------------------------------------------------
 
 .. automodule:: cdp.client.models.token_contract_options
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.token\_transfer\_type module
+----------------------------------------------
+
+.. automodule:: cdp.client.models.token_transfer_type
    :members:
    :undoc-members:
    :show-inheritance:

@@ -60,6 +60,14 @@ cdp.client.api.networks\_api module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.api.onchain\_identity\_api module
+--------------------------------------------
+
+.. automodule:: cdp.client.api.onchain_identity_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.api.server\_signers\_api module
 ------------------------------------------
 
