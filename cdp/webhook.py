@@ -82,12 +82,12 @@ class Webhook:
 
     @classmethod
     def create(
-            cls,
-            notification_uri: str,
-            event_type: WebhookEventType,
-            event_type_filter: WebhookEventTypeFilter | None = None,
-            event_filters: list[WebhookEventFilter] | None = None,
-            network_id: str = "base-sepolia",
+        cls,
+        notification_uri: str,
+        event_type: WebhookEventType,
+        event_type_filter: WebhookEventTypeFilter | None = None,
+        event_filters: list[WebhookEventFilter] | None = None,
+        network_id: str = "base-sepolia",
     ) -> "Webhook":
         """Create a new webhook.
 
@@ -103,11 +103,11 @@ class Webhook:
 
         """
         create_webhook_request = CreateWebhookRequest(
-                network_id=network_id,
-                event_type=event_type,
-                event_type_filter=event_type_filter,
-                event_filters=event_filters,
-                notification_uri=notification_uri,
+            network_id=network_id,
+            event_type=event_type,
+            event_type_filter=event_type_filter,
+            event_filters=event_filters,
+            notification_uri=notification_uri,
         )
 
         model = Cdp.api_clients.webhooks.create_webhook(create_webhook_request)
@@ -149,7 +149,7 @@ class Webhook:
     def update(
         self,
         notification_uri: str | None = None,
-        event_type_filter: WebhookEventTypeFilter | None = None
+        event_type_filter: WebhookEventTypeFilter | None = None,
     ) -> "Webhook":
         """Update the webhook with a new notification URI, and/or a new list of addresses to monitor.
 

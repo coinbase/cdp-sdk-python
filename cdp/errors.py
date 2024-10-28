@@ -12,11 +12,13 @@ class ApiError(Exception):
         err: ApiException,
         code: str | None = None,
         message: str | None = None,
+        correlation_id: str | None = None,
         unhandled: bool = False,
     ) -> None:
         self._http_code = err.status
         self._api_code = code
         self._api_message = message
+        self._correlation_id = correlation_id
         self._handled = bool(code and message and not unhandled)
         super().__init__(str(err))
 
@@ -47,11 +49,16 @@ class ApiError(Exception):
 
         message = body.get("message")
         code = body.get("code")
+        correlation_id = body.get("correlation_id")
 
         if code in ERROR_CODE_TO_ERROR_CLASS:
-            return ERROR_CODE_TO_ERROR_CLASS[code](err, code=code, message=message)
+            return ERROR_CODE_TO_ERROR_CLASS[code](
+                err, code=code, message=message, correlation_id=correlation_id
+            )
         else:
-            return cls(err, code=code, message=message, unhandled=True)
+            return cls(
+                err, code=code, message=message, correlation_id=correlation_id, unhandled=True
+            )
 
     @property
     def http_code(self) -> int:
@@ -84,6 +91,16 @@ class ApiError(Exception):
         return self._api_message
 
     @property
+    def correlation_id(self) -> str | None:
+        """Get the correlation ID.
+
+        Returns:
+            str | None: The correlation ID.
+
+        """
+        return self._correlation_id
+
+    @property
     def handled(self) -> bool:
         """Get whether the error is handled.
 
@@ -101,9 +118,9 @@ class ApiError(Exception):
 
         """
         if self.handled:
-            return f"ApiError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message})"
+            return f"ApiError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message}, correlation_id={self.correlation_id})"
         else:
-            return f"ApiError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message}, unhandled=True)"
+            return f"ApiError(http_code={self.http_code}, api_code={self.api_code}, api_message={self.api_message}, correlation_id={self.correlation_id}, unhandled={self.handled})"
 
 
 class InvalidConfigurationError(Exception):

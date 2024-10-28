@@ -617,6 +617,7 @@ def test_wallet_deploy_multi_token_with_server_signer(wallet_factory):
             "https://example.com/multi-token/{id}.json"
         )
 
+
 @patch("cdp.Cdp.api_clients")
 def test_create_webhook(mock_api_clients, wallet_factory, webhook_factory):
     """Test Wallet create_webhook method."""
@@ -636,8 +637,7 @@ def test_create_webhook(mock_api_clients, wallet_factory, webhook_factory):
 
     # Assert that the API client was called with the correct parameters
     mock_api_clients.webhooks.create_wallet_webhook.assert_called_once_with(
-        wallet_id=wallet.id,
-        create_wallet_webhook_request=expected_request
+        wallet_id=wallet.id, create_wallet_webhook_request=expected_request
     )
 
     # Assert that the returned webhook is an instance of Webhook
