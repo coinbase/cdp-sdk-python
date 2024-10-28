@@ -22,7 +22,7 @@ def test_webhook_creation(mock_api_clients, webhook_factory):
         event_type=event_type,
         event_type_filter=event_type_filter,
         event_filters=event_filters,
-        notification_uri=notification_uri
+        notification_uri=notification_uri,
     )
 
     webhook = Webhook.create(
@@ -30,7 +30,7 @@ def test_webhook_creation(mock_api_clients, webhook_factory):
         event_type=event_type,
         event_type_filter=event_type_filter,
         event_filters=event_filters,
-        network_id="base-sepolia"
+        network_id="base-sepolia",
     )
 
     mock_api_clients.webhooks.create_webhook.assert_called_once_with(expected_request)
@@ -66,18 +66,18 @@ def test_webhook_update(mock_api_clients, webhook_factory):
 
     # Mock the API response for update
     mock_api_clients.webhooks.update_webhook.return_value = WebhookModel(
-            id=webhook.id,
-            network_id=webhook.network_id,
-            notification_uri=new_notification_uri,
-            event_type=webhook.event_type,
-            event_type_filter=webhook.event_type_filter,
-            event_filters=webhook.event_filters
-        )
+        id=webhook.id,
+        network_id=webhook.network_id,
+        notification_uri=new_notification_uri,
+        event_type=webhook.event_type,
+        event_type_filter=webhook.event_type_filter,
+        event_filters=webhook.event_filters,
+    )
 
     expected_request = UpdateWebhookRequest(
         event_type_filter=webhook.event_type_filter,
         event_filters=webhook.event_filters,
-        notification_uri=new_notification_uri
+        notification_uri=new_notification_uri,
     )
 
     updated_webhook_model = webhook.update(
@@ -87,9 +87,7 @@ def test_webhook_update(mock_api_clients, webhook_factory):
     updated_webhook = Webhook(model=updated_webhook_model)
 
     # Verify that the API client was called with the correct arguments
-    mock_api_clients.webhooks.update_webhook.assert_called_once_with(
-        webhook.id, expected_request
-    )
+    mock_api_clients.webhooks.update_webhook.assert_called_once_with(webhook.id, expected_request)
 
     # Assert that the returned object is the updated webhook
     assert isinstance(updated_webhook, Webhook)

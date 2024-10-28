@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Include correlation ID in API Errors.
+
 ## [0.0.7] - 2024-10-25
 
 ### Added
