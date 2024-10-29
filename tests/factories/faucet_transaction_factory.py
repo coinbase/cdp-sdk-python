@@ -11,10 +11,16 @@ def faucet_transaction_model_factory(transaction_model_factory):
     def _create_faucet_tx_model(status="complete"):
         transaction_model = transaction_model_factory(status)
 
+        if transaction_model.transaction_hash is None:
+            raise ValueError("Faucet transaction must have a hash.")
+
+        if transaction_model.transaction_link is None:
+            raise ValueError("Faucet transaction must have a link.")
+
         return FaucetTransactionModel(
             transaction=transaction_model,
             transaction_hash=transaction_model.transaction_hash,
-            transaction_link=transaction_model.transaction_link
+            transaction_link=transaction_model.transaction_link,
         )
 
     return _create_faucet_tx_model

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Migrate faucet transactions to use `wait` syntax.
+
 ## [0.0.9] - 2024-10-29
 
 ### Fixed

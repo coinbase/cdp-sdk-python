@@ -29,36 +29,42 @@ def test_address_can_sign(address_factory):
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_faucet(mock_api_clients, address_factory):
+def test_address_faucet(mock_api_clients, address_factory, faucet_transaction_model_factory):
     """Test the faucet method of an Address."""
     address = address_factory()
 
     mock_request_faucet = Mock()
-    mock_request_faucet.return_value = Mock(spec=FaucetTransaction)
+    mock_request_faucet.return_value = faucet_transaction_model_factory()
     mock_api_clients.external_addresses.request_external_faucet_funds = mock_request_faucet
 
     faucet_tx = address.faucet()
 
     assert isinstance(faucet_tx, FaucetTransaction)
     mock_request_faucet.assert_called_once_with(
-        network_id=address.network_id, address_id=address.address_id, asset_id=None
+        network_id=address.network_id,
+        address_id=address.address_id,
+        asset_id=None,
+        skip_wait=True
     )
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_faucet_with_asset_id(mock_api_clients, address_factory):
+def test_address_faucet_with_asset_id(mock_api_clients, address_factory, faucet_transaction_model_factory):
     """Test the faucet method of an Address with an asset_id."""
     address = address_factory()
 
     mock_request_faucet = Mock()
-    mock_request_faucet.return_value = Mock(spec=FaucetTransaction)
+    mock_request_faucet.return_value = faucet_transaction_model_factory()
     mock_api_clients.external_addresses.request_external_faucet_funds = mock_request_faucet
 
     faucet_tx = address.faucet(asset_id="usdc")
 
     assert isinstance(faucet_tx, FaucetTransaction)
     mock_request_faucet.assert_called_once_with(
-        network_id=address.network_id, address_id=address.address_id, asset_id="usdc"
+        network_id=address.network_id,
+        address_id=address.address_id,
+        asset_id="usdc",
+        skip_wait=True
     )
 
 
