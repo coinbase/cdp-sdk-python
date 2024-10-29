@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [0.0.9] - 2024-10-29
+
+### Fixed
+
+- Fixed bug in gasless transfer that blocked sending the full asset balance.
+
 ## [0.0.8] - 2024-10-28
 
 ### Added
