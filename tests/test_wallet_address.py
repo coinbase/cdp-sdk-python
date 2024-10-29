@@ -1000,6 +1000,7 @@ def test_deploy_multi_token_broadcast_api_error(mock_smart_contract, wallet_addr
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
     mock_smart_contract_instance.broadcast.assert_called_once()
 
+
 @patch("cdp.Cdp.api_clients")
 def test_ensure_sufficient_balance_sufficient_full_amount(
     mock_api_clients, wallet_address_factory, balance_model_factory
