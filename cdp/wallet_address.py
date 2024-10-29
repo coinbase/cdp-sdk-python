@@ -336,7 +336,7 @@ class WalletAddress(Address):
         """
         current_balance = self.balance(asset_id)
 
-        if amount < current_balance:
+        if amount <= current_balance:
             return
 
         raise InsufficientFundsError(expected=amount, exact=current_balance)
