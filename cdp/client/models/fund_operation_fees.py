@@ -17,20 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List
-from cdp.client.models.transaction import Transaction
+from cdp.client.models.crypto_amount import CryptoAmount
+from cdp.client.models.fiat_amount import FiatAmount
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FaucetTransaction(BaseModel):
+class FundOperationFees(BaseModel):
     """
-    The faucet transaction
+    The fees for a fund operation.
     """ # noqa: E501
-    transaction_hash: StrictStr = Field(description="The transaction hash of the transaction the faucet created.")
-    transaction_link: StrictStr = Field(description="Link to the transaction on the blockchain explorer.")
-    transaction: Transaction
-    __properties: ClassVar[List[str]] = ["transaction_hash", "transaction_link", "transaction"]
+    buy_fee: FiatAmount
+    transfer_fee: CryptoAmount
+    __properties: ClassVar[List[str]] = ["buy_fee", "transfer_fee"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +50,7 @@ class FaucetTransaction(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a JSON string"""
+        """Create an instance of FundOperationFees from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,14 +71,17 @@ class FaucetTransaction(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of transaction
-        if self.transaction:
-            _dict['transaction'] = self.transaction.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of buy_fee
+        if self.buy_fee:
+            _dict['buy_fee'] = self.buy_fee.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of transfer_fee
+        if self.transfer_fee:
+            _dict['transfer_fee'] = self.transfer_fee.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a dict"""
+        """Create an instance of FundOperationFees from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +89,8 @@ class FaucetTransaction(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "transaction_hash": obj.get("transaction_hash"),
-            "transaction_link": obj.get("transaction_link"),
-            "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None
+            "buy_fee": FiatAmount.from_dict(obj["buy_fee"]) if obj.get("buy_fee") is not None else None,
+            "transfer_fee": CryptoAmount.from_dict(obj["transfer_fee"]) if obj.get("transfer_fee") is not None else None
         })
         return _obj
 

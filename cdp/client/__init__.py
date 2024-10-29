@@ -23,6 +23,7 @@ from cdp.client.api.balance_history_api import BalanceHistoryApi
 from cdp.client.api.contract_events_api import ContractEventsApi
 from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
+from cdp.client.api.fund_api import FundApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.onchain_identity_api import OnchainIdentityApi
 from cdp.client.api.server_signers_api import ServerSignersApi
@@ -67,6 +68,8 @@ from cdp.client.models.contract_invocation import ContractInvocation
 from cdp.client.models.contract_invocation_list import ContractInvocationList
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_contract_invocation_request import CreateContractInvocationRequest
+from cdp.client.models.create_fund_operation_request import CreateFundOperationRequest
+from cdp.client.models.create_fund_quote_request import CreateFundQuoteRequest
 from cdp.client.models.create_payload_signature_request import CreatePayloadSignatureRequest
 from cdp.client.models.create_server_signer_request import CreateServerSignerRequest
 from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
@@ -77,10 +80,12 @@ from cdp.client.models.create_wallet_request import CreateWalletRequest
 from cdp.client.models.create_wallet_request_wallet import CreateWalletRequestWallet
 from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
+from cdp.client.models.crypto_amount import CryptoAmount
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.erc20_transfer_event import ERC20TransferEvent
 from cdp.client.models.erc721_transfer_event import ERC721TransferEvent
 from cdp.client.models.error import Error
+from cdp.client.models.ethereum_token_transfer import EthereumTokenTransfer
 from cdp.client.models.ethereum_transaction import EthereumTransaction
 from cdp.client.models.ethereum_transaction_access import EthereumTransactionAccess
 from cdp.client.models.ethereum_transaction_access_list import EthereumTransactionAccessList
@@ -91,6 +96,11 @@ from cdp.client.models.feature_set import FeatureSet
 from cdp.client.models.fetch_historical_staking_balances200_response import FetchHistoricalStakingBalances200Response
 from cdp.client.models.fetch_staking_rewards200_response import FetchStakingRewards200Response
 from cdp.client.models.fetch_staking_rewards_request import FetchStakingRewardsRequest
+from cdp.client.models.fiat_amount import FiatAmount
+from cdp.client.models.fund_operation import FundOperation
+from cdp.client.models.fund_operation_fees import FundOperationFees
+from cdp.client.models.fund_operation_list import FundOperationList
+from cdp.client.models.fund_quote import FundQuote
 from cdp.client.models.get_staking_context_request import GetStakingContextRequest
 from cdp.client.models.historical_balance import HistoricalBalance
 from cdp.client.models.multi_token_contract_options import MultiTokenContractOptions
@@ -99,7 +109,6 @@ from cdp.client.models.network import Network
 from cdp.client.models.network_identifier import NetworkIdentifier
 from cdp.client.models.onchain_name import OnchainName
 from cdp.client.models.onchain_name_list import OnchainNameList
-from cdp.client.models.onchain_name_text_records_inner import OnchainNameTextRecordsInner
 from cdp.client.models.payload_signature import PayloadSignature
 from cdp.client.models.payload_signature_list import PayloadSignatureList
 from cdp.client.models.read_contract_request import ReadContractRequest
@@ -128,6 +137,7 @@ from cdp.client.models.staking_reward import StakingReward
 from cdp.client.models.staking_reward_format import StakingRewardFormat
 from cdp.client.models.staking_reward_usd_value import StakingRewardUSDValue
 from cdp.client.models.token_contract_options import TokenContractOptions
+from cdp.client.models.token_transfer_type import TokenTransferType
 from cdp.client.models.trade import Trade
 from cdp.client.models.trade_list import TradeList
 from cdp.client.models.transaction import Transaction

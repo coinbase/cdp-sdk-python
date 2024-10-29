@@ -18,19 +18,18 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
-from cdp.client.models.transaction import Transaction
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FaucetTransaction(BaseModel):
+class CreateFundOperationRequest(BaseModel):
     """
-    The faucet transaction
+    CreateFundOperationRequest
     """ # noqa: E501
-    transaction_hash: StrictStr = Field(description="The transaction hash of the transaction the faucet created.")
-    transaction_link: StrictStr = Field(description="Link to the transaction on the blockchain explorer.")
-    transaction: Transaction
-    __properties: ClassVar[List[str]] = ["transaction_hash", "transaction_link", "transaction"]
+    amount: StrictStr = Field(description="The amount of the asset to fund the address with in atomic units.")
+    asset_id: StrictStr = Field(description="The ID of the asset to fund the address with.")
+    fund_quote_id: Optional[StrictStr] = Field(default=None, description="The Optional ID of the fund quote to fund the address with. If omitted we will generate a quote and immediately execute it.")
+    __properties: ClassVar[List[str]] = ["amount", "asset_id", "fund_quote_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +49,7 @@ class FaucetTransaction(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a JSON string"""
+        """Create an instance of CreateFundOperationRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,14 +70,11 @@ class FaucetTransaction(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of transaction
-        if self.transaction:
-            _dict['transaction'] = self.transaction.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a dict"""
+        """Create an instance of CreateFundOperationRequest from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +82,9 @@ class FaucetTransaction(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "transaction_hash": obj.get("transaction_hash"),
-            "transaction_link": obj.get("transaction_link"),
-            "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None
+            "amount": obj.get("amount"),
+            "asset_id": obj.get("asset_id"),
+            "fund_quote_id": obj.get("fund_quote_id")
         })
         return _obj
 

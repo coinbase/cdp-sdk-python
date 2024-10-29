@@ -17,9 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from cdp.client.models.onchain_name_text_records_inner import OnchainNameTextRecordsInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,8 +34,10 @@ class OnchainName(BaseModel):
     domain: StrictStr = Field(description="The readable format for the name in complete form")
     avatar: Optional[StrictStr] = Field(default=None, description="The visual representation attached to this name")
     network_id: StrictStr = Field(description="The ID of the blockchain network")
-    text_records: Optional[List[OnchainNameTextRecordsInner]] = Field(default=None, description="The metadata attached to this name")
-    __properties: ClassVar[List[str]] = ["token_id", "owner_address", "manager_address", "primary_address", "domain", "avatar", "network_id", "text_records"]
+    expires_at: datetime = Field(description="The expiration date for this name's ownership")
+    text_records: Optional[Dict[str, StrictStr]] = Field(default=None, description="The metadata attached to this name")
+    is_primary: StrictBool = Field(description="Whether this name is the primary name for the owner (This is when the ETH coin address for this name is equal to the primary_address. More info here https://docs.ens.domains/ensip/19)")
+    __properties: ClassVar[List[str]] = ["token_id", "owner_address", "manager_address", "primary_address", "domain", "avatar", "network_id", "expires_at", "text_records", "is_primary"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,13 +78,6 @@ class OnchainName(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in text_records (list)
-        _items = []
-        if self.text_records:
-            for _item_text_records in self.text_records:
-                if _item_text_records:
-                    _items.append(_item_text_records.to_dict())
-            _dict['text_records'] = _items
         return _dict
 
     @classmethod
@@ -102,7 +97,9 @@ class OnchainName(BaseModel):
             "domain": obj.get("domain"),
             "avatar": obj.get("avatar"),
             "network_id": obj.get("network_id"),
-            "text_records": [OnchainNameTextRecordsInner.from_dict(_item) for _item in obj["text_records"]] if obj.get("text_records") is not None else None
+            "expires_at": obj.get("expires_at"),
+            "text_records": obj.get("text_records"),
+            "is_primary": obj.get("is_primary")
         })
         return _obj
 
