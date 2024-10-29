@@ -999,3 +999,23 @@ def test_deploy_multi_token_broadcast_api_error(mock_smart_contract, wallet_addr
     mock_smart_contract.create.assert_called_once()
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
     mock_smart_contract_instance.broadcast.assert_called_once()
+
+@patch("cdp.Cdp.api_clients")
+def test_ensure_sufficient_balance_sufficient_full_amount(
+    mock_api_clients, wallet_address_factory, balance_model_factory
+):
+    """Test the ensure_sufficient_balance method with sufficient full amount balance."""
+    wallet_address = wallet_address_factory()
+    balance_model = balance_model_factory(
+        amount="1500000000000000000", network_id="base-sepolia", asset_id="eth", decimals=18
+    )
+
+    mock_get_balance = Mock()
+    mock_get_balance.return_value = balance_model
+    mock_api_clients.external_addresses.get_external_address_balance = mock_get_balance
+
+    wallet_address._ensure_sufficient_balance(Decimal("1.5"), "eth")
+
+    mock_get_balance.assert_called_once_with(
+        network_id=wallet_address.network_id, address_id=wallet_address.address_id, asset_id="eth"
+    )
