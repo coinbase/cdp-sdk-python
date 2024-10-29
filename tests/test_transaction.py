@@ -16,6 +16,7 @@ def test_transaction_initialization(transaction_factory):
     assert isinstance(transaction._model, TransactionModel)
     assert transaction._raw is None
     assert transaction._signature == "0xsignedpayload"
+    assert transaction.network_id == "base-sepolia"
 
 
 def test_transaction_initialization_invalid_model():
