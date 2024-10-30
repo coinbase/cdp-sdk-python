@@ -20,7 +20,7 @@ def transaction_model_factory():
             else None,
             status=status,
             transaction_link="https://sepolia.basescan.org/tx/0xtransactionlink"
-            if status == "complete"
+            if status in ["broadcast", "complete"]
             else None,
             block_hash="0xblockhash" if status == "complete" else None,
             block_height="123456" if status == "complete" else None,

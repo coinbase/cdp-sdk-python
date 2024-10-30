@@ -19,18 +19,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
-from cdp.client.models.transaction import Transaction
+from cdp.client.models.asset import Asset
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FaucetTransaction(BaseModel):
+class CryptoAmount(BaseModel):
     """
-    The faucet transaction
+    An amount in cryptocurrency
     """ # noqa: E501
-    transaction_hash: StrictStr = Field(description="The transaction hash of the transaction the faucet created.")
-    transaction_link: StrictStr = Field(description="Link to the transaction on the blockchain explorer.")
-    transaction: Transaction
-    __properties: ClassVar[List[str]] = ["transaction_hash", "transaction_link", "transaction"]
+    amount: StrictStr = Field(description="The amount of the crypto in atomic units")
+    asset: Asset
+    __properties: ClassVar[List[str]] = ["amount", "asset"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +49,7 @@ class FaucetTransaction(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a JSON string"""
+        """Create an instance of CryptoAmount from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,14 +70,14 @@ class FaucetTransaction(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of transaction
-        if self.transaction:
-            _dict['transaction'] = self.transaction.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of asset
+        if self.asset:
+            _dict['asset'] = self.asset.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a dict"""
+        """Create an instance of CryptoAmount from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +85,8 @@ class FaucetTransaction(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "transaction_hash": obj.get("transaction_hash"),
-            "transaction_link": obj.get("transaction_link"),
-            "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None
+            "amount": obj.get("amount"),
+            "asset": Asset.from_dict(obj["asset"]) if obj.get("asset") is not None else None
         })
         return _obj
 

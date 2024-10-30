@@ -65,7 +65,10 @@ class Address:
 
         """
         model = Cdp.api_clients.external_addresses.request_external_faucet_funds(
-            network_id=self.network_id, address_id=self.address_id, asset_id=asset_id
+            network_id=self.network_id,
+            address_id=self.address_id,
+            asset_id=asset_id,
+            skip_wait=True
         )
 
         return FaucetTransaction(model)
