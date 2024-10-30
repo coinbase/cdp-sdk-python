@@ -74,7 +74,7 @@ class FaucetTransaction:
         """Get the faucet transaction status.
 
         Returns:
-            str: The facuet transaction status.
+            str: The faucet transaction status.
 
         """
         return self.transaction.status

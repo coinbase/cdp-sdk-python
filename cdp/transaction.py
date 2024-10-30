@@ -106,7 +106,7 @@ class Transaction:
 
     @property
     def network_id(self) -> str:
-        """Get the Network ID of the Transfer."""
+        """Get the Network ID of the Transaction."""
         return self._model.network_id
 
     @property
