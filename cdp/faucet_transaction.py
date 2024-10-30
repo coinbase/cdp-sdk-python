@@ -127,7 +127,7 @@ class FaucetTransaction:
 
     def __str__(self) -> str:
         """Return a string representation of the FaucetTransaction."""
-        return f"FaucetTransaction: (transaction_hash: {self.transaction_hash}, transaction_link: {self.transaction_link})"
+        return f"FaucetTransaction: (transaction_hash: {self.transaction_hash}, transaction_link: {self.transaction_link}, status: {self.status}, network_id: {self.network_id})"
 
     def __repr__(self) -> str:
         """Return a string representation of the FaucetTransaction."""
