@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [0.10.0] - 2024-10-31
+
+### Changed
+- Make faucet transactions async i.e. using `faucet_tx.wait()` to wait for the transaction to be confirmed.
+  - This will make the SDK more consistent and make faucet transactions more reliable.
+
 ## [0.0.9] - 2024-10-29
 
 ### Fixed

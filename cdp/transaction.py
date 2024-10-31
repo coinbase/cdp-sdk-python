@@ -105,6 +105,11 @@ class Transaction:
         return self._model.transaction_hash
 
     @property
+    def network_id(self) -> str:
+        """Get the Network ID of the Transaction."""
+        return self._model.network_id
+
+    @property
     def status(self) -> Status:
         """Get the status."""
         return self.Status(self._model.status)

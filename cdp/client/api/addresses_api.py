@@ -2391,7 +2391,7 @@ class AddressesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FaucetTransaction:
-        """Request faucet funds for onchain address.
+        """(Deprecated) Request faucet funds for onchain address.
 
         Request faucet funds to be sent to onchain address.
 
@@ -2422,6 +2422,7 @@ class AddressesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/wallets/{wallet_id}/addresses/{address_id}/faucet is deprecated.", DeprecationWarning)
 
         _param = self._request_faucet_funds_serialize(
             wallet_id=wallet_id,
@@ -2466,7 +2467,7 @@ class AddressesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FaucetTransaction]:
-        """Request faucet funds for onchain address.
+        """(Deprecated) Request faucet funds for onchain address.
 
         Request faucet funds to be sent to onchain address.
 
@@ -2497,6 +2498,7 @@ class AddressesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/wallets/{wallet_id}/addresses/{address_id}/faucet is deprecated.", DeprecationWarning)
 
         _param = self._request_faucet_funds_serialize(
             wallet_id=wallet_id,
@@ -2541,7 +2543,7 @@ class AddressesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Request faucet funds for onchain address.
+        """(Deprecated) Request faucet funds for onchain address.
 
         Request faucet funds to be sent to onchain address.
 
@@ -2572,6 +2574,7 @@ class AddressesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/wallets/{wallet_id}/addresses/{address_id}/faucet is deprecated.", DeprecationWarning)
 
         _param = self._request_faucet_funds_serialize(
             wallet_id=wallet_id,

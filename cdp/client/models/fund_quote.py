@@ -17,20 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
-from cdp.client.models.transaction import Transaction
+from cdp.client.models.crypto_amount import CryptoAmount
+from cdp.client.models.fiat_amount import FiatAmount
+from cdp.client.models.fund_operation_fees import FundOperationFees
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FaucetTransaction(BaseModel):
+class FundQuote(BaseModel):
     """
-    The faucet transaction
+    A quote for a fund operation
     """ # noqa: E501
-    transaction_hash: StrictStr = Field(description="The transaction hash of the transaction the faucet created.")
-    transaction_link: StrictStr = Field(description="Link to the transaction on the blockchain explorer.")
-    transaction: Transaction
-    __properties: ClassVar[List[str]] = ["transaction_hash", "transaction_link", "transaction"]
+    fund_quote_id: StrictStr = Field(description="The ID of the fund quote")
+    network_id: StrictStr = Field(description="The ID of the blockchain network")
+    wallet_id: StrictStr = Field(description="The ID of the wallet that will receive the crypto")
+    address_id: StrictStr = Field(description="The ID of the address that will receive the crypto")
+    crypto_amount: CryptoAmount
+    fiat_amount: FiatAmount
+    expires_at: datetime = Field(description="The time at which the quote expires")
+    fees: FundOperationFees
+    __properties: ClassVar[List[str]] = ["fund_quote_id", "network_id", "wallet_id", "address_id", "crypto_amount", "fiat_amount", "expires_at", "fees"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +58,7 @@ class FaucetTransaction(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a JSON string"""
+        """Create an instance of FundQuote from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,14 +79,20 @@ class FaucetTransaction(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of transaction
-        if self.transaction:
-            _dict['transaction'] = self.transaction.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of crypto_amount
+        if self.crypto_amount:
+            _dict['crypto_amount'] = self.crypto_amount.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of fiat_amount
+        if self.fiat_amount:
+            _dict['fiat_amount'] = self.fiat_amount.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of fees
+        if self.fees:
+            _dict['fees'] = self.fees.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FaucetTransaction from a dict"""
+        """Create an instance of FundQuote from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +100,14 @@ class FaucetTransaction(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "transaction_hash": obj.get("transaction_hash"),
-            "transaction_link": obj.get("transaction_link"),
-            "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None
+            "fund_quote_id": obj.get("fund_quote_id"),
+            "network_id": obj.get("network_id"),
+            "wallet_id": obj.get("wallet_id"),
+            "address_id": obj.get("address_id"),
+            "crypto_amount": CryptoAmount.from_dict(obj["crypto_amount"]) if obj.get("crypto_amount") is not None else None,
+            "fiat_amount": FiatAmount.from_dict(obj["fiat_amount"]) if obj.get("fiat_amount") is not None else None,
+            "expires_at": obj.get("expires_at"),
+            "fees": FundOperationFees.from_dict(obj["fees"]) if obj.get("fees") is not None else None
         })
         return _obj
 

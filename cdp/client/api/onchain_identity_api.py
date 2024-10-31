@@ -16,8 +16,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
-from typing import Optional
+from pydantic import Field, StrictInt, StrictStr, field_validator
+from typing import List, Optional
 from typing_extensions import Annotated
 from cdp.client.models.onchain_name_list import OnchainNameList
 
@@ -44,6 +44,7 @@ class OnchainIdentityApi:
         self,
         network_id: Annotated[StrictStr, Field(description="The ID of the blockchain network")],
         address_id: Annotated[StrictStr, Field(description="The ID of the address to fetch the identity for")],
+        roles: Annotated[Optional[List[StrictStr]], Field(description="A filter by role of the names related to this address (managed or owned)")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.")] = None,
         page: Annotated[Optional[Annotated[str, Field(strict=True, max_length=5000)]], Field(description="A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.")] = None,
         _request_timeout: Union[
@@ -67,6 +68,8 @@ class OnchainIdentityApi:
         :type network_id: str
         :param address_id: The ID of the address to fetch the identity for (required)
         :type address_id: str
+        :param roles: A filter by role of the names related to this address (managed or owned)
+        :type roles: List[str]
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         :type limit: int
         :param page: A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
@@ -96,6 +99,7 @@ class OnchainIdentityApi:
         _param = self._resolve_identity_by_address_serialize(
             network_id=network_id,
             address_id=address_id,
+            roles=roles,
             limit=limit,
             page=page,
             _request_auth=_request_auth,
@@ -123,6 +127,7 @@ class OnchainIdentityApi:
         self,
         network_id: Annotated[StrictStr, Field(description="The ID of the blockchain network")],
         address_id: Annotated[StrictStr, Field(description="The ID of the address to fetch the identity for")],
+        roles: Annotated[Optional[List[StrictStr]], Field(description="A filter by role of the names related to this address (managed or owned)")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.")] = None,
         page: Annotated[Optional[Annotated[str, Field(strict=True, max_length=5000)]], Field(description="A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.")] = None,
         _request_timeout: Union[
@@ -146,6 +151,8 @@ class OnchainIdentityApi:
         :type network_id: str
         :param address_id: The ID of the address to fetch the identity for (required)
         :type address_id: str
+        :param roles: A filter by role of the names related to this address (managed or owned)
+        :type roles: List[str]
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         :type limit: int
         :param page: A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
@@ -175,6 +182,7 @@ class OnchainIdentityApi:
         _param = self._resolve_identity_by_address_serialize(
             network_id=network_id,
             address_id=address_id,
+            roles=roles,
             limit=limit,
             page=page,
             _request_auth=_request_auth,
@@ -202,6 +210,7 @@ class OnchainIdentityApi:
         self,
         network_id: Annotated[StrictStr, Field(description="The ID of the blockchain network")],
         address_id: Annotated[StrictStr, Field(description="The ID of the address to fetch the identity for")],
+        roles: Annotated[Optional[List[StrictStr]], Field(description="A filter by role of the names related to this address (managed or owned)")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.")] = None,
         page: Annotated[Optional[Annotated[str, Field(strict=True, max_length=5000)]], Field(description="A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.")] = None,
         _request_timeout: Union[
@@ -225,6 +234,8 @@ class OnchainIdentityApi:
         :type network_id: str
         :param address_id: The ID of the address to fetch the identity for (required)
         :type address_id: str
+        :param roles: A filter by role of the names related to this address (managed or owned)
+        :type roles: List[str]
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         :type limit: int
         :param page: A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
@@ -254,6 +265,7 @@ class OnchainIdentityApi:
         _param = self._resolve_identity_by_address_serialize(
             network_id=network_id,
             address_id=address_id,
+            roles=roles,
             limit=limit,
             page=page,
             _request_auth=_request_auth,
@@ -276,6 +288,7 @@ class OnchainIdentityApi:
         self,
         network_id,
         address_id,
+        roles,
         limit,
         page,
         _request_auth,
@@ -287,6 +300,7 @@ class OnchainIdentityApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'roles': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -302,6 +316,10 @@ class OnchainIdentityApi:
         if address_id is not None:
             _path_params['address_id'] = address_id
         # process the query parameters
+        if roles is not None:
+            
+            _query_params.append(('roles', roles))
+            
         if limit is not None:
             
             _query_params.append(('limit', limit))
