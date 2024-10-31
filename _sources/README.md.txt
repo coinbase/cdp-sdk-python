@@ -100,6 +100,9 @@ testnet ETH. You are allowed one faucet claim per 24-hour window.
 # Fund the wallet with a faucet transaction.
 faucet_tx = wallet1.faucet()
 
+# Wait for the faucet transaction to complete.
+faucet_tx.wait()
+
 print(f"Faucet transaction successfully completed: {faucet_tx}")
 ```
 
@@ -134,6 +137,9 @@ print(f"Wallet successfully created: {wallet3}")
 
 # Fund the wallet with USDC with a faucet transaction.
 usdc_faucet_tx = wallet1.faucet("usdc")
+
+# Wait for the faucet transaction to complete.
+usdc_faucet_tx.wait()
 
 print(f"Faucet transaction successfully completed: {usdc_faucet_tx}")
 

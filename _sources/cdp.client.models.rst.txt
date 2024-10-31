@@ -148,6 +148,22 @@ cdp.client.models.create\_contract\_invocation\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.create\_fund\_operation\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_fund_operation_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.create\_fund\_quote\_request module
+-----------------------------------------------------
+
+.. automodule:: cdp.client.models.create_fund_quote_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.create\_payload\_signature\_request module
 ------------------------------------------------------------
 
@@ -224,6 +240,14 @@ cdp.client.models.create\_webhook\_request module
 -------------------------------------------------
 
 .. automodule:: cdp.client.models.create_webhook_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.crypto\_amount module
+---------------------------------------
+
+.. automodule:: cdp.client.models.crypto_amount
    :members:
    :undoc-members:
    :show-inheritance:
@@ -344,6 +368,46 @@ cdp.client.models.fetch\_staking\_rewards\_request module
 ---------------------------------------------------------
 
 .. automodule:: cdp.client.models.fetch_staking_rewards_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fiat\_amount module
+-------------------------------------
+
+.. automodule:: cdp.client.models.fiat_amount
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_operation module
+----------------------------------------
+
+.. automodule:: cdp.client.models.fund_operation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_operation\_fees module
+----------------------------------------------
+
+.. automodule:: cdp.client.models.fund_operation_fees
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_operation\_list module
+----------------------------------------------
+
+.. automodule:: cdp.client.models.fund_operation_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_quote module
+------------------------------------
+
+.. automodule:: cdp.client.models.fund_quote
    :members:
    :undoc-members:
    :show-inheritance:

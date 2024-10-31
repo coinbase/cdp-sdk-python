@@ -52,6 +52,14 @@ cdp.client.api.external\_addresses\_api module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.api.fund\_api module
+-------------------------------
+
+.. automodule:: cdp.client.api.fund_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.api.networks\_api module
 -----------------------------------
 
