@@ -11,6 +11,7 @@ def test_faucet_tx_initialization(faucet_transaction_factory):
 
     assert isinstance(faucet_transaction, FaucetTransaction)
     assert faucet_transaction.transaction_hash == "0xtransactionhash"
+    assert faucet_transaction.transaction_link == "https://sepolia.basescan.org/tx/0xtransactionlink"
     assert faucet_transaction.network_id == "base-sepolia"
     assert faucet_transaction.address_id == "0xdestination"
     assert faucet_transaction.status.value == "complete"
