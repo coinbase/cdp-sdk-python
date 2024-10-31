@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## [0.10.1] - 2024-10-31
+- Fix Faucet transaction_link to return the correct transaction link instead of transaction hash.
+
 ## [0.10.0] - 2024-10-31
 
 ### Changed

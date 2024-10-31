@@ -67,7 +67,7 @@ class FaucetTransaction:
             str: The transaction link.
 
         """
-        return self.transaction.transaction_hash
+        return self.transaction.transaction_link
 
     @property
     def status(self) -> str:
