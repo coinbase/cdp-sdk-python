@@ -182,6 +182,19 @@ def all_read_types_abi():
         },
         {
             "type": "function",
+            "name": "pureInt56",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int56",
+                    "internalType": "int56",
+                },
+            ],
+            "stateMutability": "pure",
+        },
+        {
+            "type": "function",
             "name": "pureInt64",
             "inputs": [],
             "outputs": [

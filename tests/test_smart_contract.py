@@ -1232,6 +1232,28 @@ def test_read_pure_int32(mock_api_clients, all_read_types_abi):
 
 
 @patch("cdp.Cdp.api_clients")
+def test_read_pure_int56(mock_api_clients, all_read_types_abi):
+    """Test reading an int56 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int56", value="-72057594037927936")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt56",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -72057594037927936
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
 def test_read_pure_int64(mock_api_clients, all_read_types_abi):
     """Test reading an int64 value from a pure function."""
     mock_read_contract = Mock()

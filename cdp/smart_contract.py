@@ -393,6 +393,7 @@ class SmartContract:
             "int16",
             "int24",
             "int32",
+            "int56",
             "int64",
             "int128",
             "int256",
