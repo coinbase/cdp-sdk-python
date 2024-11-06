@@ -29,7 +29,7 @@ class GetStakingContextRequest(BaseModel):
     network_id: StrictStr = Field(description="The ID of the blockchain network")
     asset_id: StrictStr = Field(description="The ID of the asset being staked")
     address_id: StrictStr = Field(description="The onchain address for which the staking context is being fetched")
-    options: Dict[str, StrictStr]
+    options: Dict[str, StrictStr] = Field(description="Additional options for getting the staking context. This typically includes network specific fields.")
     __properties: ClassVar[List[str]] = ["network_id", "asset_id", "address_id", "options"]
 
     model_config = ConfigDict(

@@ -29,7 +29,7 @@ class CreateStakingOperationRequest(BaseModel):
     network_id: StrictStr = Field(description="The ID of the blockchain network.")
     asset_id: StrictStr = Field(description="The ID of the asset being staked.")
     action: StrictStr = Field(description="The type of staking operation.")
-    options: Dict[str, StrictStr]
+    options: Dict[str, StrictStr] = Field(description="Additional options for the staking operation.")
     __properties: ClassVar[List[str]] = ["network_id", "asset_id", "action", "options"]
 
     model_config = ConfigDict(
