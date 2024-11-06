@@ -79,7 +79,9 @@ class FaucetTransaction:
         """
         return self.transaction.status
 
-    def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 20) -> "FaucetTransaction":
+    def wait(
+        self, interval_seconds: float = 0.2, timeout_seconds: float = 20
+    ) -> "FaucetTransaction":
         """Wait for the faucet transaction to complete.
 
         Args:
@@ -102,7 +104,6 @@ class FaucetTransaction:
 
         return self
 
-
     def reload(self) -> "FaucetTransaction":
         """Reload the faucet transaction.
 
@@ -111,9 +112,7 @@ class FaucetTransaction:
 
         """
         model = Cdp.api_clients.external_addresses.get_faucet_transaction(
-            self.network_id,
-            self.address_id,
-            self.transaction_hash
+            self.network_id, self.address_id, self.transaction_hash
         )
         self._model = model
 

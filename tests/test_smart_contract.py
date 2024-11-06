@@ -1094,6 +1094,31 @@ def test_read_pure_uint128(mock_api_clients, all_read_types_abi):
 
 
 @patch("cdp.Cdp.api_clients")
+def test_read_pure_uint160(mock_api_clients, all_read_types_abi):
+    """Test reading a uint160 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(
+        type="uint160",
+        value="115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    )
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureUint160",
+        abi=all_read_types_abi,
+    )
+
+    assert result == 115792089237316195423570985008687907853269984665640564039457584007913129639935
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
 def test_read_pure_uint256(mock_api_clients, all_read_types_abi):
     """Test reading a uint256 value from a pure function."""
     mock_read_contract = Mock()
@@ -1155,6 +1180,28 @@ def test_read_pure_int16(mock_api_clients, all_read_types_abi):
     )
 
     assert result == -32768
+    mock_read_contract.assert_called_once_with(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        read_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_read_pure_int24(mock_api_clients, all_read_types_abi):
+    """Test reading an int24 value from a pure function."""
+    mock_read_contract = Mock()
+    mock_read_contract.return_value = SolidityValue(type="int24", value="-8388608")
+    mock_api_clients.smart_contracts.read_contract = mock_read_contract
+
+    result = SmartContract.read(
+        network_id="1",
+        contract_address="0x1234567890123456789012345678901234567890",
+        method="pureInt24",
+        abi=all_read_types_abi,
+    )
+
+    assert result == -8388608
     mock_read_contract.assert_called_once_with(
         network_id="1",
         contract_address="0x1234567890123456789012345678901234567890",

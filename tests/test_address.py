@@ -41,15 +41,14 @@ def test_address_faucet(mock_api_clients, address_factory, faucet_transaction_mo
 
     assert isinstance(faucet_tx, FaucetTransaction)
     mock_request_faucet.assert_called_once_with(
-        network_id=address.network_id,
-        address_id=address.address_id,
-        asset_id=None,
-        skip_wait=True
+        network_id=address.network_id, address_id=address.address_id, asset_id=None, skip_wait=True
     )
 
 
 @patch("cdp.Cdp.api_clients")
-def test_address_faucet_with_asset_id(mock_api_clients, address_factory, faucet_transaction_model_factory):
+def test_address_faucet_with_asset_id(
+    mock_api_clients, address_factory, faucet_transaction_model_factory
+):
     """Test the faucet method of an Address with an asset_id."""
     address = address_factory()
 
@@ -64,7 +63,7 @@ def test_address_faucet_with_asset_id(mock_api_clients, address_factory, faucet_
         network_id=address.network_id,
         address_id=address.address_id,
         asset_id="usdc",
-        skip_wait=True
+        skip_wait=True,
     )
 
 
