@@ -1,3 +1,4 @@
-"""Specifies package level constants used throughotu the package."""
+"""Specifies package level constants used throughout the package."""
 
-SDK = "sdk"
+# SDK_DEFAULT_SOURCE (str): Denotes the default source for the Python SDK.
+SDK_DEFAULT_SOURCE = "sdk"

@@ -14,7 +14,7 @@ from cdp.client.api_response import ApiResponse
 from cdp.client.api_response import T as ApiResponseT  # noqa: N811
 from cdp.client.configuration import Configuration
 from cdp.client.exceptions import ApiException
-from cdp.constants import SDK
+from cdp.constants import SDK_DEFAULT_SOURCE
 from cdp.errors import ApiError, InvalidAPIKeyFormatError
 
 
@@ -28,7 +28,7 @@ class CdpApiClient(ApiClient):
         host: str = "https://api.cdp.coinbase.com/platform",
         debugging: bool = False,
         max_network_retries: int = 3,
-        source: str = SDK,
+        source: str = SDK_DEFAULT_SOURCE,
         source_version: str = __version__,
     ):
         """Initialize the CDP API Client.
