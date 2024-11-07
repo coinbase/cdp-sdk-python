@@ -52,10 +52,34 @@ cdp.client.api.external\_addresses\_api module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.api.fund\_api module
+-------------------------------
+
+.. automodule:: cdp.client.api.fund_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.api.mpc\_wallet\_stake\_api module
+---------------------------------------------
+
+.. automodule:: cdp.client.api.mpc_wallet_stake_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.api.networks\_api module
 -----------------------------------
 
 .. automodule:: cdp.client.api.networks_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.api.onchain\_identity\_api module
+--------------------------------------------
+
+.. automodule:: cdp.client.api.onchain_identity_api
    :members:
    :undoc-members:
    :show-inheritance:
