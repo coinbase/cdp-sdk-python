@@ -2,12 +2,22 @@
 
 ## Unreleased
 
+## [0.10.2] - 2024-11-06
+
+### Added
+
+- Support for reading int24, int56, and uint160 values from smart contracts.
+
 ## [0.10.1] - 2024-10-31
+
+### Fixed
+
 - Fix Faucet transaction_link to return the correct transaction link instead of transaction hash.
 
 ## [0.10.0] - 2024-10-31
 
 ### Changed
+
 - Make faucet transactions async i.e. using `faucet_tx.wait()` to wait for the transaction to be confirmed.
   - This will make the SDK more consistent and make faucet transactions more reliable.
 
