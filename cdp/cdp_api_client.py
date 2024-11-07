@@ -215,7 +215,7 @@ class CdpApiClient(ApiClient):
         return "".join(random.choices("0123456789", k=16))
 
     def _get_correlation_data(self) -> str:
-        """Return encoded correlation data including the SDK version, language, source.
+        """Return encoded correlation data including the SDK version, language, and source.
 
         Returns:
             str: The correlation data.
