@@ -29,3 +29,6 @@ def test_api_client_get_correlation_data():
 
     Cdp.configure(api_key_name="test", private_key="test")
     assert Cdp.api_clients._cdp_client._get_correlation_data() == expected_result
+
+    Cdp.configure(api_key_name="test", private_key="test", source="test", source_version="test_ver")
+    assert Cdp.api_clients._cdp_client._get_correlation_data() == expected_result2

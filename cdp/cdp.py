@@ -56,8 +56,8 @@ class Cdp:
         debugging: bool = False,
         base_path: str = "https://api.cdp.coinbase.com/platform",
         max_network_retries: int = 3,
-        source: str | None = None,
-        source_version: str | None = None,
+        source: str = SDK_DEFAULT_SOURCE,
+        source_version: str = __version__,
     ) -> None:
         """Configure the CDP SDK.
 
@@ -79,11 +79,6 @@ class Cdp:
         cls.base_path = base_path
         cls.max_network_retries = max_network_retries
 
-        if source is None:
-            source = SDK_DEFAULT_SOURCE
-        if source_version is None:
-            source_version = __version__
-
         cdp_client = CdpApiClient(
             api_key_name,
             private_key,
@@ -103,8 +98,8 @@ class Cdp:
         debugging: bool = False,
         base_path: str = "https://api.cdp.coinbase.com/platform",
         max_network_retries: int = 3,
-        source: str | None = None,
-        source_version: str | None = None,
+        source: str = SDK_DEFAULT_SOURCE,
+        source_version: str = __version__,
     ) -> None:
         """Configure the CDP SDK from a JSON file.
 
