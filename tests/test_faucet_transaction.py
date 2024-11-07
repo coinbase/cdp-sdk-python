@@ -11,10 +11,13 @@ def test_faucet_tx_initialization(faucet_transaction_factory):
 
     assert isinstance(faucet_transaction, FaucetTransaction)
     assert faucet_transaction.transaction_hash == "0xtransactionhash"
-    assert faucet_transaction.transaction_link == "https://sepolia.basescan.org/tx/0xtransactionlink"
+    assert (
+        faucet_transaction.transaction_link == "https://sepolia.basescan.org/tx/0xtransactionlink"
+    )
     assert faucet_transaction.network_id == "base-sepolia"
     assert faucet_transaction.address_id == "0xdestination"
     assert faucet_transaction.status.value == "complete"
+
 
 @patch("cdp.Cdp.api_clients")
 def test_reload_faucet_tx(mock_api_clients, faucet_transaction_factory):
@@ -29,11 +32,7 @@ def test_reload_faucet_tx(mock_api_clients, faucet_transaction_factory):
 
     reloaded_faucet_tx = faucet_tx.reload()
 
-    mock_get_faucet_tx.assert_called_once_with(
-        "base-sepolia",
-        "0xdestination",
-        "0xtransactionhash"
-    )
+    mock_get_faucet_tx.assert_called_once_with("base-sepolia", "0xdestination", "0xtransactionhash")
     assert faucet_tx.status.value == "complete"
     assert reloaded_faucet_tx.status.value == "complete"
 
@@ -42,10 +41,7 @@ def test_reload_faucet_tx(mock_api_clients, faucet_transaction_factory):
 @patch("cdp.faucet_transaction.time.sleep")
 @patch("cdp.faucet_transaction.time.time")
 def test_wait_for_faucet_transaction(
-    mock_time,
-    mock_sleep,
-    mock_api_clients,
-    faucet_transaction_factory
+    mock_time, mock_sleep, mock_api_clients, faucet_transaction_factory
 ):
     """Test the waiting for a FaucetTransaction object to complete."""
     faucet_tx = faucet_transaction_factory(status="broadcast")
@@ -63,11 +59,7 @@ def test_wait_for_faucet_transaction(
 
     assert result.status.value == "complete"
 
-    mock_get_faucet_tx.assert_called_with(
-        "base-sepolia",
-        "0xdestination",
-        "0xtransactionhash"
-    )
+    mock_get_faucet_tx.assert_called_with("base-sepolia", "0xdestination", "0xtransactionhash")
     assert mock_get_faucet_tx.call_count == 2
     mock_sleep.assert_has_calls([call(0.2)] * 2)
     assert mock_time.call_count == 3
@@ -77,10 +69,7 @@ def test_wait_for_faucet_transaction(
 @patch("cdp.faucet_transaction.time.sleep")
 @patch("cdp.faucet_transaction.time.time")
 def test_wait_for_faucet_transaction_timeout(
-    mock_time,
-    mock_sleep,
-    mock_api_clients,
-    faucet_transaction_factory
+    mock_time, mock_sleep, mock_api_clients, faucet_transaction_factory
 ):
     """Test the waiting for a FaucetTransaction object to complete with a timeout."""
     faucet_tx = faucet_transaction_factory(status="broadcast")
@@ -91,16 +80,13 @@ def test_wait_for_faucet_transaction_timeout(
 
     mock_time.side_effect = [0, 0.5, 1.0, 1.5, 2.0, 2.5]
 
-    with pytest.raises(TimeoutError, match="Timed out waiting for FaucetTransaction to land onchain"):
+    with pytest.raises(
+        TimeoutError, match="Timed out waiting for FaucetTransaction to land onchain"
+    ):
         faucet_tx.wait(interval_seconds=0.5, timeout_seconds=2)
 
-    mock_get_faucet_tx.assert_called_with(
-        "base-sepolia",
-        "0xdestination",
-        "0xtransactionhash"
-    )
+    mock_get_faucet_tx.assert_called_with("base-sepolia", "0xdestination", "0xtransactionhash")
 
     assert mock_get_faucet_tx.call_count == 5
     mock_sleep.assert_has_calls([call(0.5)] * 4)
     assert mock_time.call_count == 6
-

@@ -30,7 +30,7 @@ class BuildStakingOperationRequest(BaseModel):
     asset_id: StrictStr = Field(description="The ID of the asset being staked")
     address_id: StrictStr = Field(description="The onchain address from which the staking transaction originates and is responsible for signing the transaction.")
     action: StrictStr = Field(description="The type of staking operation")
-    options: Dict[str, StrictStr]
+    options: Dict[str, StrictStr] = Field(description="Additional options for the staking operation.")
     __properties: ClassVar[List[str]] = ["network_id", "asset_id", "address_id", "action", "options"]
 
     model_config = ConfigDict(

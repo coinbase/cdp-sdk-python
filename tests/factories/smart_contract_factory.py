@@ -143,6 +143,19 @@ def all_read_types_abi():
         },
         {
             "type": "function",
+            "name": "pureInt24",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int24",
+                    "internalType": "int24",
+                },
+            ],
+            "stateMutability": "pure",
+        },
+        {
+            "type": "function",
             "name": "pureInt256",
             "inputs": [],
             "outputs": [
@@ -163,6 +176,19 @@ def all_read_types_abi():
                     "name": "",
                     "type": "int32",
                     "internalType": "int32",
+                },
+            ],
+            "stateMutability": "pure",
+        },
+        {
+            "type": "function",
+            "name": "pureInt56",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int56",
+                    "internalType": "int56",
                 },
             ],
             "stateMutability": "pure",
@@ -300,6 +326,19 @@ def all_read_types_abi():
                     "name": "",
                     "type": "uint128",
                     "internalType": "uint128",
+                },
+            ],
+            "stateMutability": "pure",
+        },
+        {
+            "type": "function",
+            "name": "pureUint160",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint160",
+                    "internalType": "uint160",
                 },
             ],
             "stateMutability": "pure",

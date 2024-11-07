@@ -68,7 +68,7 @@ class Address:
             network_id=self.network_id,
             address_id=self.address_id,
             asset_id=asset_id,
-            skip_wait=True
+            skip_wait=True,
         )
 
         return FaucetTransaction(model)
