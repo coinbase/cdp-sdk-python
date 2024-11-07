@@ -371,9 +371,7 @@ class SmartContract:
             contract_address=contract_address,
             read_contract_request=read_contract_request,
         )
-        retval = cls._convert_solidity_value(model)
-        print(f"retval: {retval}")
-        return retval
+        return cls._convert_solidity_value(model)
 
     @classmethod
     def _convert_solidity_value(cls, solidity_value: SolidityValue) -> Any:
