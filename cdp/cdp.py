@@ -1,8 +1,10 @@
 import json
 import os
 
+from cdp import __version__
 from cdp.api_clients import ApiClients
 from cdp.cdp_api_client import CdpApiClient
+from cdp.constants import SDK_DEFAULT_SOURCE
 from cdp.errors import InvalidConfigurationError
 
 
@@ -54,6 +56,8 @@ class Cdp:
         debugging: bool = False,
         base_path: str = "https://api.cdp.coinbase.com/platform",
         max_network_retries: int = 3,
+        source: str = SDK_DEFAULT_SOURCE,
+        source_version: str = __version__,
     ) -> None:
         """Configure the CDP SDK.
 
@@ -64,6 +68,8 @@ class Cdp:
             debugging (bool): Whether debugging is enabled. Defaults to False.
             base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
+            source (Optional[str]): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            source_version (Optional[str]): The version of the source package.
 
         """
         cls.api_key_name = api_key_name
@@ -74,7 +80,13 @@ class Cdp:
         cls.max_network_retries = max_network_retries
 
         cdp_client = CdpApiClient(
-            api_key_name, private_key, base_path, debugging, max_network_retries
+            api_key_name,
+            private_key,
+            base_path,
+            debugging,
+            max_network_retries,
+            source,
+            source_version,
         )
         cls.api_clients = ApiClients(cdp_client)
 
@@ -86,6 +98,8 @@ class Cdp:
         debugging: bool = False,
         base_path: str = "https://api.cdp.coinbase.com/platform",
         max_network_retries: int = 3,
+        source: str = SDK_DEFAULT_SOURCE,
+        source_version: str = __version__,
     ) -> None:
         """Configure the CDP SDK from a JSON file.
 
@@ -95,6 +109,8 @@ class Cdp:
             debugging (bool): Whether debugging is enabled. Defaults to False.
             base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
+            source (Optional[str]): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            source_version (Optional[str]): The version of the source package.
 
         Raises:
             InvalidConfigurationError: If the JSON file is missing the 'api_key_name' or 'private_key'.
@@ -108,7 +124,6 @@ class Cdp:
                 raise InvalidConfigurationError("Invalid JSON format: Missing 'api_key_name'")
             if not private_key:
                 raise InvalidConfigurationError("Invalid JSON format: Missing 'private_key'")
-
             cls.configure(
                 api_key_name,
                 private_key,
@@ -116,4 +131,6 @@ class Cdp:
                 debugging,
                 base_path,
                 max_network_retries,
+                source,
+                source_version,
             )

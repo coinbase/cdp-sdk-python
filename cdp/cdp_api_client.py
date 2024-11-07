@@ -14,6 +14,7 @@ from cdp.client.api_response import ApiResponse
 from cdp.client.api_response import T as ApiResponseT  # noqa: N811
 from cdp.client.configuration import Configuration
 from cdp.client.exceptions import ApiException
+from cdp.constants import SDK_DEFAULT_SOURCE
 from cdp.errors import ApiError, InvalidAPIKeyFormatError
 
 
@@ -27,6 +28,8 @@ class CdpApiClient(ApiClient):
         host: str = "https://api.cdp.coinbase.com/platform",
         debugging: bool = False,
         max_network_retries: int = 3,
+        source: str = SDK_DEFAULT_SOURCE,
+        source_version: str = __version__,
     ):
         """Initialize the CDP API Client.
 
@@ -36,6 +39,8 @@ class CdpApiClient(ApiClient):
             host (str, optional): The base URL for the API. Defaults to "https://api.cdp.coinbase.com/platform".
             debugging (bool): Whether debugging is enabled.
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
+            source (str): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            source_version (str): The version of the source package.
 
         """
         retry_strategy = self._get_retry_strategy(max_network_retries)
@@ -44,6 +49,8 @@ class CdpApiClient(ApiClient):
         self._api_key = api_key
         self._private_key = private_key
         self._debugging = debugging
+        self._source = source
+        self._source_version = source_version
 
     @property
     def api_key(self) -> str:
@@ -208,7 +215,7 @@ class CdpApiClient(ApiClient):
         return "".join(random.choices("0123456789", k=16))
 
     def _get_correlation_data(self) -> str:
-        """Return encoded correlation data including the SDK version and language.
+        """Return encoded correlation data including the SDK version, language, and source.
 
         Returns:
             str: The correlation data.
@@ -217,6 +224,8 @@ class CdpApiClient(ApiClient):
         data = {
             "sdk_version": __version__,
             "sdk_language": "python",
+            "source": self._source,
+            "source_version": self._source_version,
         }
         return ",".join(f"{key}={value}" for key, value in data.items())
 
