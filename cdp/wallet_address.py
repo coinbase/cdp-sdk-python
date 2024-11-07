@@ -176,7 +176,7 @@ class WalletAddress(Address):
         normalized_amount = Decimal(amount) if amount else Decimal("0")
 
         if amount and asset_id:
-            self._ensure_sufficient_balance(amount, asset_id)
+            self._ensure_sufficient_balance(normalized_amount, asset_id)
 
         invocation = ContractInvocation.create(
             address_id=self.address_id,

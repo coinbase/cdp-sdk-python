@@ -8,6 +8,10 @@
 
 - Adds `source` and `source_version` to correlation header for better observability.
 
+### Fixed
+
+- Fix bug in `WalletAddress` `invoke_contract` that failed to properly handle `amount` with type `str`
+
 ## [0.10.2] - 2024-11-06
 
 ### Added
