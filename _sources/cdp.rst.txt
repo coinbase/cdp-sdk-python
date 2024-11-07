@@ -68,6 +68,14 @@ cdp.cdp\_api\_client module
    :undoc-members:
    :show-inheritance:
 
+cdp.constants module
+--------------------
+
+.. automodule:: cdp.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.contract\_invocation module
 -------------------------------
 
