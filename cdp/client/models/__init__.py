@@ -18,6 +18,9 @@ from cdp.client.models.address import Address
 from cdp.client.models.address_balance_list import AddressBalanceList
 from cdp.client.models.address_historical_balance_list import AddressHistoricalBalanceList
 from cdp.client.models.address_list import AddressList
+from cdp.client.models.address_reputation import AddressReputation
+from cdp.client.models.address_reputation_metadata import AddressReputationMetadata
+from cdp.client.models.address_risk import AddressRisk
 from cdp.client.models.address_transaction_list import AddressTransactionList
 from cdp.client.models.asset import Asset
 from cdp.client.models.balance import Balance

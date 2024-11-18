@@ -27,6 +27,7 @@ from cdp.client.api.fund_api import FundApi
 from cdp.client.api.mpc_wallet_stake_api import MPCWalletStakeApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.onchain_identity_api import OnchainIdentityApi
+from cdp.client.api.reputation_api import ReputationApi
 from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.stake_api import StakeApi
@@ -53,6 +54,9 @@ from cdp.client.models.address import Address
 from cdp.client.models.address_balance_list import AddressBalanceList
 from cdp.client.models.address_historical_balance_list import AddressHistoricalBalanceList
 from cdp.client.models.address_list import AddressList
+from cdp.client.models.address_reputation import AddressReputation
+from cdp.client.models.address_reputation_metadata import AddressReputationMetadata
+from cdp.client.models.address_risk import AddressRisk
 from cdp.client.models.address_transaction_list import AddressTransactionList
 from cdp.client.models.asset import Asset
 from cdp.client.models.balance import Balance

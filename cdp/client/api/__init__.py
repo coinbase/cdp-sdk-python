@@ -11,6 +11,7 @@ from cdp.client.api.fund_api import FundApi
 from cdp.client.api.mpc_wallet_stake_api import MPCWalletStakeApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.onchain_identity_api import OnchainIdentityApi
+from cdp.client.api.reputation_api import ReputationApi
 from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.stake_api import StakeApi
