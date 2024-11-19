@@ -9,6 +9,8 @@ from eth_utils import to_bytes, to_hex
 from cdp.address import Address
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
+from cdp.client.models.fund_operation import FundOperation
+from cdp.client.models.fund_quote import FundQuote
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.payload_signature import PayloadSignature
@@ -322,6 +324,52 @@ class WalletAddress(Address):
 
         """
         return Trade.list(wallet_id=self.wallet_id, address_id=self.address_id)
+
+    def fund(self, amount: Number | Decimal | str, asset_id: str) -> FundOperation:
+        """Fund the address from your account on the Coinbase Platform.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount of the Asset to fund the wallet with.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundOperation: The created fund operation object.
+
+        """
+        normalized_amount = Decimal(amount)
+
+        return FundOperation.from_dict(
+            self._client.create_fund_operation(
+                address_id=self.address_id,
+                amount=str(normalized_amount),
+                asset_id=asset_id,
+                network_id=self.network_id,
+                wallet_id=self.wallet_id,
+            )
+        )
+
+    def quote_fund(self, amount: Number | Decimal | str, asset_id: str) -> FundQuote:
+        """Get a quote for funding the address from your Coinbase platform account.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount to fund.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundQuote: The fund quote object.
+
+        """
+        normalized_amount = Decimal(amount)
+
+        return FundQuote.from_dict(
+            self._client.create_fund_quote(
+                address_id=self.address_id,
+                amount=str(normalized_amount),
+                asset_id=asset_id,
+                network_id=self.network_id,
+                wallet_id=self.wallet_id,
+            )
+        )
 
     def _ensure_sufficient_balance(self, amount: Decimal, asset_id: str) -> None:
         """Ensure the wallet address has sufficient balance.
