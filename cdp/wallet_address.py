@@ -72,6 +72,16 @@ class WalletAddress(Address):
         """
         return self.key is not None
 
+    def export(self) -> str:
+        local_account = self.key
+
+        if local_account is None:
+            raise ValueError("Account is unavailable")
+
+        key_bytes = local_account.key
+
+        return key_bytes.hex()
+
     def transfer(
         self,
         amount: Number | Decimal | str,
