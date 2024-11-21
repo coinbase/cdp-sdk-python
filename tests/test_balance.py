@@ -42,7 +42,7 @@ def test_balance_from_model_with_asset_id(balance_model_factory):
     balance = Balance.from_model(balance_model, asset_id="gwei")
     assert balance.amount == Decimal("1000000000")
     assert isinstance(balance.asset, Asset)
-    assert balance.asset.asset_id == "eth"
+    assert balance.asset.asset_id == "gwei"
     assert balance.asset_id == "gwei"
 
 
