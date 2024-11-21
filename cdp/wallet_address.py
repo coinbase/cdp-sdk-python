@@ -9,10 +9,10 @@ from eth_utils import to_bytes, to_hex
 from cdp.address import Address
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
-from cdp.client.models.fund_operation import FundOperation
-from cdp.client.models.fund_quote import FundQuote
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
@@ -338,14 +338,12 @@ class WalletAddress(Address):
         """
         normalized_amount = Decimal(amount)
 
-        return FundOperation.from_dict(
-            self._client.create_fund_operation(
-                address_id=self.address_id,
-                amount=str(normalized_amount),
-                asset_id=asset_id,
-                network_id=self.network_id,
-                wallet_id=self.wallet_id,
-            )
+        return FundOperation.create(
+            address_id=self.address_id,
+            amount=normalized_amount,
+            asset_id=asset_id,
+            network_id=self.network_id,
+            wallet_id=self.wallet_id,
         )
 
     def quote_fund(self, amount: Number | Decimal | str, asset_id: str) -> FundQuote:
@@ -359,16 +357,12 @@ class WalletAddress(Address):
             FundQuote: The fund quote object.
 
         """
-        normalized_amount = Decimal(amount)
-
-        return FundQuote.from_dict(
-            self._client.create_fund_quote(
-                address_id=self.address_id,
-                amount=str(normalized_amount),
-                asset_id=asset_id,
-                network_id=self.network_id,
-                wallet_id=self.wallet_id,
-            )
+        return FundQuote.create(
+            address_id=self.address_id,
+            amount=str(amount),
+            asset_id=asset_id,
+            network_id=self.network_id,
+            wallet_id=self.wallet_id,
         )
 
     def _ensure_sufficient_balance(self, amount: Decimal, asset_id: str) -> None:

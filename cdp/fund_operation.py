@@ -1,7 +1,8 @@
+from numbers import Number
 import time
 from collections.abc import Iterator
 from decimal import Decimal
-from typing import ClassVar, Optional
+from typing import ClassVar
 
 from cdp.asset import Asset
 from cdp.cdp import Cdp
@@ -39,7 +40,7 @@ class FundOperation:
         amount: Decimal,
         asset_id: str,
         network_id: str,
-        quote: Optional["FundQuote"] = None,
+        quote: FundQuote | None = None,
     ) -> "FundOperation":
         """Create a new Fund Operation.
 
@@ -64,7 +65,7 @@ class FundOperation:
 
         if quote:
             create_request["fund_quote_id"] = quote.id
-
+            
         model = Cdp.api_clients.fund.create_fund_operation(
             wallet_id=wallet_id,
             address_id=address_id,

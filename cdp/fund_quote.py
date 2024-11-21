@@ -1,9 +1,12 @@
 from decimal import Decimal
+from typing import TYPE_CHECKING
 
 from cdp.asset import Asset
 from cdp.cdp import Cdp
 from cdp.crypto_amount import CryptoAmount
-from cdp.fund_operation import FundOperation
+
+if TYPE_CHECKING:
+    from cdp.fund_operation import FundOperation
 
 
 class FundQuote:
@@ -160,13 +163,15 @@ class FundQuote:
         """
         return CryptoAmount.from_model(self._model.fees.transfer_fee)
 
-    def execute(self) -> FundOperation:
+    def execute(self) -> "FundOperation":
         """Execute the fund quote to create a fund operation.
 
         Returns:
             FundOperation: The created fund operation.
 
         """
+        from cdp.fund_operation import FundOperation
+
         return FundOperation.create(
             wallet_id=self.wallet_id,
             address_id=self.address_id,
