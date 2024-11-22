@@ -5,7 +5,7 @@ from cdp.crypto_amount import CryptoAmount
 
 def test_crypto_amount_initialization(crypto_amount_factory):
     """Test crypto amount initialization."""
-    crypto_amount = crypto_amount_factory("base-sepolia", "USDC", 6, "1")
+    crypto_amount = crypto_amount_factory("USDC", 6, "1")
     assert isinstance(crypto_amount, CryptoAmount)
     assert crypto_amount.amount == Decimal("1")
     assert crypto_amount.asset.asset_id == "USDC"
@@ -15,7 +15,7 @@ def test_crypto_amount_initialization(crypto_amount_factory):
 
 def test_crypto_amount_from_model(crypto_amount_model_factory):
     """Test crypto amount from model."""
-    crypto_amount_model = crypto_amount_model_factory("base-sepolia", "USDC", 6, "1")
+    crypto_amount_model = crypto_amount_model_factory("USDC", 6, "1")
     crypto_amount = CryptoAmount.from_model(crypto_amount_model)
     assert isinstance(crypto_amount, CryptoAmount)
     assert crypto_amount.amount == (
@@ -28,7 +28,7 @@ def test_crypto_amount_from_model(crypto_amount_model_factory):
 
 def test_crypto_amount_from_model_and_asset_id_with_gwei(crypto_amount_model_factory):
     """Test crypto amount from model with gwei."""
-    crypto_amount_model = crypto_amount_model_factory("base-sepolia", "eth", 18, "1")
+    crypto_amount_model = crypto_amount_model_factory("eth", 18, "1")
     crypto_amount = CryptoAmount.from_model_and_asset_id(crypto_amount_model, "gwei")
     assert isinstance(crypto_amount, CryptoAmount)
     assert crypto_amount.amount == (Decimal(crypto_amount_model.amount) / Decimal(10) ** 9)
@@ -39,7 +39,7 @@ def test_crypto_amount_from_model_and_asset_id_with_gwei(crypto_amount_model_fac
 
 def test_crypto_amount_from_model_and_asset_id_with_wei(crypto_amount_model_factory):
     """Test crypto amount from model with wei."""
-    crypto_amount_model = crypto_amount_model_factory("base-sepolia", "eth", 18, "1")
+    crypto_amount_model = crypto_amount_model_factory("eth", 18, "1")
     crypto_amount = CryptoAmount.from_model_and_asset_id(crypto_amount_model, "wei")
     assert isinstance(crypto_amount, CryptoAmount)
     assert crypto_amount.amount == Decimal(crypto_amount_model.amount)

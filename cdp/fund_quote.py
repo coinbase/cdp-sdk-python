@@ -8,15 +8,17 @@ from cdp.crypto_amount import CryptoAmount
 if TYPE_CHECKING:
     from cdp.fund_operation import FundOperation
 
+from cdp.client.models import FundQuote as FundQuoteModel
+
 
 class FundQuote:
     """A representation of a Fund Operation Quote."""
 
-    def __init__(self, model) -> None:
+    def __init__(self, model: FundQuoteModel) -> None:
         """Initialize the FundQuote class.
 
         Args:
-            model: The model representing the fund quote.
+            model (FundQuoteModel): The model representing the fund quote.
 
         """
         self._model = model
@@ -185,10 +187,10 @@ class FundQuote:
         """Get a string representation of the Fund Quote."""
         return (
             f"FundQuote(network_id: {self.network_id}, wallet_id: {self.wallet_id}, "
-            f"address_id: {self.address_id}, crypto_amount: {self.amount}, "
+            f"address_id: {self.address_id}, crypto_amount: {self.amount.amount}, "
             f"crypto_asset: {self.asset.asset_id}, fiat_amount: {self.fiat_amount}, "
-            f"fiat_currency: {self.fiat_currency}, buy_fee: {self.buy_fee}, "
-            f"transfer_fee: {self.transfer_fee})"
+            f"fiat_currency: {self.fiat_currency}, buy_fee: {{'amount': '{self.buy_fee['amount']}'}}, "
+            f"transfer_fee: {{'amount': '{self.transfer_fee.amount}'}})"
         )
 
     def __repr__(self) -> str:

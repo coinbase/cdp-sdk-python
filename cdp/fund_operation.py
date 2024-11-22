@@ -1,30 +1,47 @@
 import time
 from collections.abc import Iterator
 from decimal import Decimal
-from typing import ClassVar
+from enum import Enum
 
 from cdp.asset import Asset
 from cdp.cdp import Cdp
+from cdp.client.models import FundOperation as FundOperationModel
 from cdp.fund_quote import FundQuote
 
 
 class FundOperation:
     """A representation of a Fund Operation."""
 
-    class Status:
+    class Status(Enum):
         """Fund Operation status constants."""
 
         PENDING = "pending"
         COMPLETE = "complete"
         FAILED = "failed"
 
-        TERMINAL_STATES: ClassVar[set[str]] = {COMPLETE, FAILED}
+        @classmethod
+        def terminal_states(cls):
+            """Get the terminal states.
 
-    def __init__(self, model) -> None:
+            Returns:
+                List[Status]: The terminal states.
+
+            """
+            return [cls.COMPLETE, cls.FAILED]
+
+        def __str__(self) -> str:
+            """Return a string representation of the Status."""
+            return self.value
+
+        def __repr__(self) -> str:
+            """Return a string representation of the Status."""
+            return str(self)
+
+    def __init__(self, model: FundOperationModel) -> None:
         """Initialize the FundOperation class.
 
         Args:
-            model: The model representing the fund operation.
+            model (FundOperationModel): The model representing the fund operation.
 
         """
         self._model = model
@@ -60,10 +77,8 @@ class FundOperation:
         create_request = {
             "amount": str(int(asset.to_atomic_amount(amount))),
             "asset_id": Asset.primary_denomination(asset.asset_id),
+            "fund_quote_id": quote.id if quote else None,
         }
-
-        if quote:
-            create_request["fund_quote_id"] = quote.id
 
         model = Cdp.api_clients.fund.create_fund_operation(
             wallet_id=wallet_id,
@@ -148,9 +163,9 @@ class FundOperation:
         return self._model.fiat_amount.currency
 
     @property
-    def status(self) -> str:
+    def status(self) -> Status:
         """Get the status."""
-        return self._model.status
+        return self.Status(self._model.status)
 
     def reload(self) -> "FundOperation":
         """Reload the fund operation from the server.
@@ -180,7 +195,7 @@ class FundOperation:
         """
         start_time = time.time()
 
-        while not self._is_terminal_state():
+        while not self.terminal_state():
             self.reload()
 
             if time.time() - start_time > timeout_seconds:
@@ -190,9 +205,9 @@ class FundOperation:
 
         return self
 
-    def _is_terminal_state(self) -> bool:
+    def terminal_state(self) -> bool:
         """Check if the operation is in a terminal state."""
-        return self.status in self.Status.TERMINAL_STATES
+        return self.status in self.Status.terminal_states()
 
     def __str__(self) -> str:
         """Get a string representation of the Fund Operation."""
@@ -200,7 +215,7 @@ class FundOperation:
             f"FundOperation(id: {self.id}, network_id: {self.network_id}, "
             f"wallet_id: {self.wallet_id}, address_id: {self.address_id}, "
             f"amount: {self.amount}, asset_id: {self.asset.asset_id}, "
-            f"status: {self.status})"
+            f"status: {self.status.value})"
         )
 
     def __repr__(self) -> str:
