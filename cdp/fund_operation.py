@@ -7,6 +7,7 @@ from cdp.asset import Asset
 from cdp.cdp import Cdp
 from cdp.client.models import FundOperation as FundOperationModel
 from cdp.crypto_amount import CryptoAmount
+from cdp.fiat_amount import FiatAmount
 from cdp.fund_quote import FundQuote
 
 
@@ -153,9 +154,9 @@ class FundOperation:
         return CryptoAmount.from_model(self._model.crypto_amount)
 
     @property
-    def fiat_amount(self) -> Decimal:
+    def fiat_amount(self) -> FiatAmount:
         """Get the fiat amount."""
-        return Decimal(self._model.fiat_amount.amount)
+        return FiatAmount.from_model(self._model.fiat_amount)
 
     @property
     def fiat_currency(self) -> str:

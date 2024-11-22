@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from cdp.asset import Asset
 from cdp.cdp import Cdp
 from cdp.crypto_amount import CryptoAmount
+from cdp.fiat_amount import FiatAmount
 
 if TYPE_CHECKING:
     from cdp.fund_operation import FundOperation
@@ -123,14 +124,14 @@ class FundQuote:
         return CryptoAmount.from_model(self._model.crypto_amount)
 
     @property
-    def fiat_amount(self) -> Decimal:
+    def fiat_amount(self) -> FiatAmount:
         """Get the fiat amount.
 
         Returns:
             Decimal: The fiat amount.
 
         """
-        return Decimal(self._model.fiat_amount.amount)
+        return FiatAmount.from_model(self._model.fiat_amount)
 
     @property
     def fiat_currency(self) -> str:
@@ -188,7 +189,7 @@ class FundQuote:
         return (
             f"FundQuote(network_id: {self.network_id}, wallet_id: {self.wallet_id}, "
             f"address_id: {self.address_id}, crypto_amount: {self.amount.amount}, "
-            f"crypto_asset: {self.asset.asset_id}, fiat_amount: {self.fiat_amount}, "
+            f"crypto_asset: {self.asset.asset_id}, fiat_amount: {self.fiat_amount.amount}, "
             f"fiat_currency: {self.fiat_currency}, buy_fee: {{'amount': '{self.buy_fee['amount']}'}}, "
             f"transfer_fee: {{'amount': '{self.transfer_fee.amount}'}})"
         )

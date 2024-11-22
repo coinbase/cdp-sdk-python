@@ -17,7 +17,7 @@ def test_fund_operation_properties(fund_operation_factory):
     """Test the properties of a FundOperation object."""
     fund_operation = fund_operation_factory()
     assert fund_operation.amount.amount == Decimal("2")
-    assert fund_operation.fiat_amount == Decimal("100")
+    assert fund_operation.fiat_amount.amount == Decimal("100")
     assert fund_operation.buy_fee["amount"] == "1"
     assert fund_operation.transfer_fee.amount == Decimal("0.01")
     assert isinstance(fund_operation.asset, Asset)
