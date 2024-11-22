@@ -1,13 +1,8 @@
-import logging
 from decimal import Decimal
 from unittest.mock import Mock, patch
 
-# import pytest
 from cdp.asset import Asset
 from cdp.fund_quote import FundQuote
-
-logging.basicConfig(level=logging.DEBUG)
-mylogger = logging.getLogger()
 
 
 def test_fund_quote_initialization(fund_quote_factory):

@@ -6,6 +6,7 @@ from enum import Enum
 from cdp.asset import Asset
 from cdp.cdp import Cdp
 from cdp.client.models import FundOperation as FundOperationModel
+from cdp.crypto_amount import CryptoAmount
 from cdp.fund_quote import FundQuote
 
 
@@ -77,8 +78,10 @@ class FundOperation:
         create_request = {
             "amount": str(int(asset.to_atomic_amount(amount))),
             "asset_id": Asset.primary_denomination(asset.asset_id),
-            "fund_quote_id": quote.id if quote else None,
         }
+
+        if quote:
+            create_request["fund_quote_id"] = quote.id
 
         model = Cdp.api_clients.fund.create_fund_operation(
             wallet_id=wallet_id,
@@ -145,12 +148,9 @@ class FundOperation:
         return self._asset
 
     @property
-    def amount(self) -> Decimal:
-        """Get the amount."""
-        return (
-            Decimal(self._model.crypto_amount.amount)
-            / Decimal(10) ** self._model.crypto_amount.asset.decimals
-        )
+    def amount(self) -> CryptoAmount:
+        """Get the crypto amount."""
+        return CryptoAmount.from_model(self._model.crypto_amount)
 
     @property
     def fiat_amount(self) -> Decimal:
@@ -161,6 +161,29 @@ class FundOperation:
     def fiat_currency(self) -> str:
         """Get the fiat currency."""
         return self._model.fiat_amount.currency
+
+    @property
+    def buy_fee(self) -> dict:
+        """Get the buy fee.
+
+        Returns:
+            dict: The buy fee information.
+
+        """
+        return {
+            "amount": self._model.fees.buy_fee.amount,
+            "currency": self._model.fees.buy_fee.currency,
+        }
+
+    @property
+    def transfer_fee(self) -> CryptoAmount:
+        """Get the transfer fee.
+
+        Returns:
+            CryptoAmount: The transfer fee.
+
+        """
+        return CryptoAmount.from_model(self._model.fees.transfer_fee)
 
     @property
     def status(self) -> Status:
