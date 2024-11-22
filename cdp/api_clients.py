@@ -55,6 +55,7 @@ class ApiClients:
         self._balance_history: BalanceHistoryApi | None = None
         self._transaction_history: TransactionHistoryApi | None = None
         self._fund: FundApi | None = None
+
     @property
     def wallets(self) -> WalletsApi:
         """Get the WalletsApi client instance.

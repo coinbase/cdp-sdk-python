@@ -1,4 +1,3 @@
-from numbers import Number
 import time
 from collections.abc import Iterator
 from decimal import Decimal
@@ -65,7 +64,7 @@ class FundOperation:
 
         if quote:
             create_request["fund_quote_id"] = quote.id
-            
+
         model = Cdp.api_clients.fund.create_fund_operation(
             wallet_id=wallet_id,
             address_id=address_id,
