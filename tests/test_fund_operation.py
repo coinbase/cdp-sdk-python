@@ -100,6 +100,22 @@ def test_fund_operation_create_with_quote(
 
 
 @patch("cdp.Cdp.api_clients")
+def test_list_fund_operations(mock_api_clients, fund_operation_factory):
+    """Test the listing of fund operations."""
+    mock_list_fund_operations = Mock()
+    mock_list_fund_operations.return_value = Mock(
+        data=[fund_operation_factory()._model], has_more=False
+    )
+    mock_api_clients.fund.list_fund_operations = mock_list_fund_operations
+    fund_operations = FundOperation.list("test-wallet-id", "0xaddressid")
+    assert len(list(fund_operations)) == 1
+    assert all(isinstance(f, FundOperation) for f in fund_operations)
+    mock_list_fund_operations.assert_called_once_with(
+        wallet_id="test-wallet-id", address_id="0xaddressid", limit=100, page=None
+    )
+
+
+@patch("cdp.Cdp.api_clients")
 def test_fund_operation_reload(mock_api_clients, fund_operation_factory):
     """Test the reloading of a FundOperation object."""
     mock_reload_fund_operation = Mock()
