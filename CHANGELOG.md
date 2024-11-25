@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [0.10.4] - 2024-11-25
+
+### Added
+
+- Wallet address key export
+
 ## [0.10.3] - 2024-11-07
 
 ### Added

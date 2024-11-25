@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 project = 'CDP SDK'
 author = 'Coinbase Developer Platform'
-release = '0.10.3'
+release = '0.10.4'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -28,7 +28,6 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 
 # -- Options for HTML output -------------------------------------------------
