@@ -85,7 +85,7 @@ class WalletAddress(Address):
         local_account = self.key
 
         if local_account is None:
-            raise ValueError("Account is unavailable")
+            raise ValueError("Private key is unavailable")
 
         key_bytes = local_account.key
 
