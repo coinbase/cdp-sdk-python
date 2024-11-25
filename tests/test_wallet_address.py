@@ -88,7 +88,7 @@ def test_export(wallet_address_factory):
     key_hex = wallet_address_with_key.export()
 
     assert key_hex is not None
-    assert key_hex is not ""
+    assert key_hex != ""
 
 
 def test_export_raises_error_when_local_account_is_none(wallet_address_factory):

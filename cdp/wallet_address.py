@@ -73,6 +73,15 @@ class WalletAddress(Address):
         return self.key is not None
 
     def export(self) -> str:
+        """Export the wallet address's private key as a hex string.
+
+        Returns:
+            str: The wallet address's private key as a hex string.
+
+        Raises:
+            ValueError: If the wallet address does not have a private key.
+
+        """
         local_account = self.key
 
         if local_account is None:
