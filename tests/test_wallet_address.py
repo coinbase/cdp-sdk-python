@@ -81,6 +81,25 @@ def test_key_setter_raises_error_when_already_set(wallet_address_factory):
         wallet_address_with_key.key = new_key
 
 
+def test_export(wallet_address_factory):
+    """Test export method success for a WalletAddress."""
+    wallet_address_with_key = wallet_address_factory(True)
+
+    key_hex = wallet_address_with_key.export()
+
+    assert key_hex is not None
+    assert key_hex != ""
+    assert key_hex.startswith("0x")
+
+
+def test_export_raises_error_when_local_account_is_none(wallet_address_factory):
+    """Test export method failure for a WalletAddress with no LocalAccount."""
+    wallet_address_without_key = wallet_address_factory()
+
+    with pytest.raises(ValueError, match="Private key is unavailable"):
+        wallet_address_without_key.export()
+
+
 @patch("cdp.wallet_address.Transfer")
 @patch("cdp.Cdp.api_clients")
 @patch("cdp.Cdp.use_server_signer", True)
