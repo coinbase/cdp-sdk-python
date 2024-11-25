@@ -83,11 +83,12 @@ class WalletAddress(Address):
 
         """
         local_account = self.key
-
         if local_account is None:
             raise ValueError("Private key is unavailable")
 
         key_bytes = local_account.key
+        if key_bytes is None:
+            raise ValueError("Private key is empty")
 
         return key_bytes.hex()
 
