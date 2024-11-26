@@ -20,6 +20,7 @@ def test_fund_operation_properties(fund_operation_factory):
     assert fund_operation.fiat_amount.amount == Decimal("100")
     assert fund_operation.buy_fee["amount"] == "1"
     assert fund_operation.transfer_fee.amount == Decimal("0.01")
+    assert fund_operation.status.value == "complete"
     assert isinstance(fund_operation.asset, Asset)
 
 
