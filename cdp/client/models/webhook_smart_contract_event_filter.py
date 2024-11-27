@@ -18,17 +18,16 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class WebhookWalletActivityFilter(BaseModel):
+class WebhookSmartContractEventFilter(BaseModel):
     """
-    Filter for wallet activity events. This filter allows the client to specify one or more wallet addresses to monitor for activities such as transactions, transfers, or other types of events that are associated with the specified addresses. 
+    Filter for smart contract events. This filter allows the client to specify smart contract addresses to monitor for activities such as contract function calls. 
     """ # noqa: E501
-    addresses: Optional[List[StrictStr]] = Field(default=None, description="A list of wallet addresses to filter on.")
-    wallet_id: StrictStr = Field(description="The ID of the wallet that owns the webhook.")
-    __properties: ClassVar[List[str]] = ["addresses", "wallet_id"]
+    contract_addresses: List[StrictStr] = Field(description="A list of smart contract addresses to filter on.")
+    __properties: ClassVar[List[str]] = ["contract_addresses"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,7 +47,7 @@ class WebhookWalletActivityFilter(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of WebhookWalletActivityFilter from a JSON string"""
+        """Create an instance of WebhookSmartContractEventFilter from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,7 +72,7 @@ class WebhookWalletActivityFilter(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of WebhookWalletActivityFilter from a dict"""
+        """Create an instance of WebhookSmartContractEventFilter from a dict"""
         if obj is None:
             return None
 
@@ -81,8 +80,7 @@ class WebhookWalletActivityFilter(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "addresses": obj.get("addresses"),
-            "wallet_id": obj.get("wallet_id")
+            "contract_addresses": obj.get("contract_addresses")
         })
         return _obj
 

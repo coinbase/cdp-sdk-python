@@ -50,6 +50,7 @@ from cdp.client.exceptions import ApiAttributeError
 from cdp.client.exceptions import ApiException
 
 # import models into sdk package
+from cdp.client.models.abi import ABI
 from cdp.client.models.address import Address
 from cdp.client.models.address_balance_list import AddressBalanceList
 from cdp.client.models.address_historical_balance_list import AddressHistoricalBalanceList
@@ -126,6 +127,7 @@ from cdp.client.models.signature_creation_event import SignatureCreationEvent
 from cdp.client.models.signature_creation_event_result import SignatureCreationEventResult
 from cdp.client.models.signed_voluntary_exit_message_metadata import SignedVoluntaryExitMessageMetadata
 from cdp.client.models.smart_contract import SmartContract
+from cdp.client.models.smart_contract_activity_event import SmartContractActivityEvent
 from cdp.client.models.smart_contract_list import SmartContractList
 from cdp.client.models.smart_contract_options import SmartContractOptions
 from cdp.client.models.smart_contract_type import SmartContractType
@@ -161,4 +163,5 @@ from cdp.client.models.webhook_event_filter import WebhookEventFilter
 from cdp.client.models.webhook_event_type import WebhookEventType
 from cdp.client.models.webhook_event_type_filter import WebhookEventTypeFilter
 from cdp.client.models.webhook_list import WebhookList
+from cdp.client.models.webhook_smart_contract_event_filter import WebhookSmartContractEventFilter
 from cdp.client.models.webhook_wallet_activity_filter import WebhookWalletActivityFilter

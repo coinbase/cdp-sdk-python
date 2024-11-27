@@ -48,7 +48,8 @@ class EthereumTransaction(BaseModel):
     flattened_traces: Optional[List[EthereumTransactionFlattenedTrace]] = None
     block_timestamp: Optional[datetime] = Field(default=None, description="The timestamp of the block in which the event was emitted")
     mint: Optional[StrictStr] = Field(default=None, description="This is for handling optimism rollup specific EIP-2718 transaction type field.")
-    __properties: ClassVar[List[str]] = ["from", "gas", "gas_price", "hash", "input", "nonce", "to", "index", "value", "type", "max_fee_per_gas", "max_priority_fee_per_gas", "priority_fee_per_gas", "transaction_access_list", "token_transfers", "flattened_traces", "block_timestamp", "mint"]
+    rlp_encoded_tx: Optional[StrictStr] = Field(default=None, description="RLP encoded transaction as a hex string (prefixed with 0x) for native compatibility with popular eth clients such as etherjs, viem etc.")
+    __properties: ClassVar[List[str]] = ["from", "gas", "gas_price", "hash", "input", "nonce", "to", "index", "value", "type", "max_fee_per_gas", "max_priority_fee_per_gas", "priority_fee_per_gas", "transaction_access_list", "token_transfers", "flattened_traces", "block_timestamp", "mint", "rlp_encoded_tx"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -135,7 +136,8 @@ class EthereumTransaction(BaseModel):
             "token_transfers": [EthereumTokenTransfer.from_dict(_item) for _item in obj["token_transfers"]] if obj.get("token_transfers") is not None else None,
             "flattened_traces": [EthereumTransactionFlattenedTrace.from_dict(_item) for _item in obj["flattened_traces"]] if obj.get("flattened_traces") is not None else None,
             "block_timestamp": obj.get("block_timestamp"),
-            "mint": obj.get("mint")
+            "mint": obj.get("mint"),
+            "rlp_encoded_tx": obj.get("rlp_encoded_tx")
         })
         return _obj
 
