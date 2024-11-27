@@ -32,6 +32,7 @@ def test_asset_from_model_with_gwei(asset_model_factory):
     asset_model = asset_model_factory(asset_id="eth", decimals=18)
 
     asset = Asset.from_model(asset_model, asset_id="gwei")
+    assert asset.asset_id == "gwei"
     assert asset.decimals == 9
 
 
@@ -40,6 +41,7 @@ def test_asset_from_model_with_wei(asset_model_factory):
     asset_model = asset_model_factory(asset_id="eth", decimals=18)
 
     asset = Asset.from_model(asset_model, asset_id="wei")
+    assert asset.asset_id == "wei"
     assert asset.decimals == 0
 
 

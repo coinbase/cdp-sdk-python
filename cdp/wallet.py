@@ -29,6 +29,8 @@ from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
 from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
@@ -801,3 +803,41 @@ class Wallet:
             raise ValueError("Default address does not exist")
 
         return self.default_address.deploy_multi_token(uri)
+
+    def fund(self, amount: Number | Decimal | str, asset_id: str) -> FundOperation:
+        """Fund the wallet from your account on the Coinbase Platform.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount of the Asset to fund the wallet with.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundOperation: The created fund operation object.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.fund(amount, asset_id)
+
+    def quote_fund(self, amount: Number | Decimal | str, asset_id: str) -> FundQuote:
+        """Get a quote for funding the wallet from your Coinbase platform account.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount to fund.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundQuote: The fund quote object.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.quote_fund(amount, asset_id)

@@ -52,7 +52,7 @@ class Asset:
 
         return cls(
             network_id=model.network_id,
-            asset_id=model.asset_id,
+            asset_id=asset_id or model.asset_id,
             contract_address=model.contract_address,
             decimals=decimals,
         )

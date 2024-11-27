@@ -10,6 +10,8 @@ from web3 import Web3
 
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
@@ -1038,4 +1040,82 @@ def test_ensure_sufficient_balance_sufficient_full_amount(
 
     mock_get_balance.assert_called_once_with(
         network_id=wallet_address.network_id, address_id=wallet_address.address_id, asset_id="eth"
+    )
+
+
+@patch("cdp.wallet_address.FundOperation")
+def test_fund(mock_fund_operation, wallet_address_factory):
+    """Test the fund method."""
+    wallet_address = wallet_address_factory()
+
+    mock_fund_operation_instance = Mock(spec=FundOperation)
+    mock_fund_operation.create.return_value = mock_fund_operation_instance
+
+    fund_operation = wallet_address.fund(amount="1.0", asset_id="eth")
+
+    assert isinstance(fund_operation, FundOperation)
+    mock_fund_operation.create.assert_called_once_with(
+        address_id=wallet_address.address_id,
+        amount=Decimal("1.0"),
+        asset_id="eth",
+        network_id=wallet_address.network_id,
+        wallet_id=wallet_address.wallet_id,
+    )
+
+
+@patch("cdp.wallet_address.FundOperation")
+def test_fund_api_error(mock_fund_operation, wallet_address_factory):
+    """Test the fund method raises an error when the API call fails."""
+    wallet_address = wallet_address_factory()
+
+    mock_fund_operation.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address.fund(amount="1.0", asset_id="eth")
+
+    mock_fund_operation.create.assert_called_once_with(
+        address_id=wallet_address.address_id,
+        amount=Decimal("1.0"),
+        asset_id="eth",
+        network_id=wallet_address.network_id,
+        wallet_id=wallet_address.wallet_id,
+    )
+
+
+@patch("cdp.wallet_address.FundQuote")
+def test_quote_fund(mock_fund_quote, wallet_address_factory):
+    """Test the quote_fund method."""
+    wallet_address = wallet_address_factory()
+
+    mock_fund_quote_instance = Mock(spec=FundQuote)
+    mock_fund_quote.create.return_value = mock_fund_quote_instance
+
+    fund_quote = wallet_address.quote_fund(amount="1.0", asset_id="eth")
+
+    assert isinstance(fund_quote, FundQuote)
+    mock_fund_quote.create.assert_called_once_with(
+        address_id=wallet_address.address_id,
+        amount=Decimal("1.0"),
+        asset_id="eth",
+        network_id=wallet_address.network_id,
+        wallet_id=wallet_address.wallet_id,
+    )
+
+
+@patch("cdp.wallet_address.FundQuote")
+def test_quote_fund_api_error(mock_fund_quote, wallet_address_factory):
+    """Test the quote_fund method raises an error when the API call fails."""
+    wallet_address = wallet_address_factory()
+
+    mock_fund_quote.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address.quote_fund(amount="1.0", asset_id="eth")
+
+    mock_fund_quote.create.assert_called_once_with(
+        address_id=wallet_address.address_id,
+        amount=Decimal("1.0"),
+        asset_id="eth",
+        network_id=wallet_address.network_id,
+        wallet_id=wallet_address.wallet_id,
     )
