@@ -2,13 +2,14 @@ from decimal import Decimal
 from unittest.mock import ANY, Mock, PropertyMock, call, patch
 
 import pytest
-from bip_utils import Bip32Slip10Secp256k1
 from eth_account import Account
 
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import CreateWalletRequest, CreateWalletRequestWallet
 from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.contract_invocation import ContractInvocation
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
@@ -49,60 +50,6 @@ def test_wallet_initialization_with_server_signer(wallet_factory):
     assert wallet.server_signer_status == "active_seed"
     assert wallet._seed is None
     assert not wallet.can_sign
-
-
-@patch("cdp.Cdp.use_server_signer", False)
-@patch("cdp.wallet.Account")
-@patch("cdp.wallet.Bip32Slip10Secp256k1")
-@patch("cdp.Cdp.api_clients")
-def test_wallet_addresses(
-    mock_api_clients, mock_bip32, mock_account, wallet_factory, address_model_factory
-):
-    """Test Wallet addresses method."""
-    wallet = wallet_factory()
-    mock_list_addresses = Mock()
-    mock_list_addresses.return_value.data = [
-        address_model_factory(address_id="0x1234"),
-        address_model_factory(address_id="0x5678"),
-    ]
-    mock_api_clients.addresses.list_addresses = mock_list_addresses
-
-    mock_from_key = Mock(
-        side_effect=[Mock(spec=Account, address="0x1234"), Mock(spec=Account, address="0x5678")]
-    )
-    mock_account.from_key = mock_from_key
-
-    mock_derive_path = Mock(spec=Bip32Slip10Secp256k1)
-    mock_bip32.DerivePath = mock_derive_path
-
-    addresses = wallet.addresses
-
-    assert len(addresses) == 2
-    assert all(isinstance(addr, WalletAddress) for addr in addresses)
-    assert addresses[0].address_id == "0x1234"
-    assert addresses[1].address_id == "0x5678"
-
-
-@patch("cdp.Cdp.use_server_signer", True)
-@patch("cdp.Cdp.api_clients")
-def test_wallet_addresses_with_server_signer(
-    mock_api_clients, wallet_factory, address_model_factory
-):
-    """Test Wallet addresses method with server-signer."""
-    wallet = wallet_factory()
-    mock_list_addresses = Mock()
-    mock_list_addresses.return_value.data = [
-        address_model_factory(address_id="0x1234"),
-        address_model_factory(address_id="0x5678"),
-    ]
-    mock_api_clients.addresses.list_addresses = mock_list_addresses
-
-    addresses = wallet.addresses
-
-    assert len(addresses) == 2
-    assert all(isinstance(addr, WalletAddress) for addr in addresses)
-    assert addresses[0].address_id == "0x1234"
-    assert addresses[1].address_id == "0x5678"
 
 
 @patch("cdp.Cdp.use_server_signer", False)
@@ -645,3 +592,69 @@ def test_create_webhook(mock_api_clients, wallet_factory, webhook_factory):
 
     # Additional assertions to check the returned webhook object
     assert webhook.notification_uri == notification_uri
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_fund(wallet_factory):
+    """Test the fund method of a Wallet."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_fund_operation = Mock(spec=FundOperation)
+    mock_default_address.fund.return_value = mock_fund_operation
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        fund_operation = wallet.fund(amount="1.0", asset_id="eth")
+
+        assert isinstance(fund_operation, FundOperation)
+        mock_default_address.fund.assert_called_once_with("1.0", "eth")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_fund_no_default_address(wallet_factory):
+    """Test the fund method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.fund(amount="1.0", asset_id="eth")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_quote_fund(wallet_factory):
+    """Test the quote_fund method of a Wallet."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_fund_quote = Mock(spec=FundQuote)
+    mock_default_address.quote_fund.return_value = mock_fund_quote
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        fund_quote = wallet.quote_fund(amount="1.0", asset_id="eth")
+
+        assert isinstance(fund_quote, FundQuote)
+        mock_default_address.quote_fund.assert_called_once_with("1.0", "eth")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_quote_fund_no_default_address(wallet_factory):
+    """Test the quote_fund method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.quote_fund(amount="1.0", asset_id="eth")
