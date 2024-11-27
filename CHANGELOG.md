@@ -2,12 +2,15 @@
 
 ## Unreleased
 
-### Fixed
-- Fix bug in `Asset.from_model` where passed in asset ID was not used when creating a gwei or wei asset.
+### [0.11.0] - 2024-11-27
 
 ### Added
+- Add support for funding wallets (Alpha feature release)
+  - Must reach out to CDP SDK Discord channel to be considered for this feature.
+- Added create and update feature for `SmartContractEventActivity` webhook and its related event type filter.
 
-- Add `FundOperation` and `FundQuote` classes to support wallet funding.
+### Fixed
+- Fix bug in `Asset.from_model` where passed in asset ID was not used when creating a gwei or wei asset.
 
 ## [0.10.3] - 2024-11-07
 
