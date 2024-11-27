@@ -12,6 +12,12 @@
 ### Fixed
 - Fix bug in `Asset.from_model` where passed in asset ID was not used when creating a gwei or wei asset.
 
+## [0.10.4] - 2024-11-25
+
+### Added
+
+- Wallet address key export
+
 ## [0.10.3] - 2024-11-07
 
 ### Added
