@@ -1076,7 +1076,7 @@ def test_quote_fund(mock_fund_quote, wallet_address_factory):
     assert isinstance(fund_quote, FundQuote)
     mock_fund_quote.create.assert_called_once_with(
         address_id=wallet_address.address_id,
-        amount="1.0",
+        amount=Decimal("1.0"),
         asset_id="eth",
         network_id=wallet_address.network_id,
         wallet_id=wallet_address.wallet_id,
@@ -1095,7 +1095,7 @@ def test_quote_fund_api_error(mock_fund_quote, wallet_address_factory):
 
     mock_fund_quote.create.assert_called_once_with(
         address_id=wallet_address.address_id,
-        amount="1.0",
+        amount=Decimal("1.0"),
         asset_id="eth",
         network_id=wallet_address.network_id,
         wallet_id=wallet_address.wallet_id,
