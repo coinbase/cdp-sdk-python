@@ -357,9 +357,11 @@ class WalletAddress(Address):
             FundQuote: The fund quote object.
 
         """
+        normalized_amount = Decimal(amount)
+
         return FundQuote.create(
             address_id=self.address_id,
-            amount=str(amount),
+            amount=str(normalized_amount),
             asset_id=asset_id,
             network_id=self.network_id,
             wallet_id=self.wallet_id,
