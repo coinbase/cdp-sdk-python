@@ -1,6 +1,6 @@
 import pytest
 
-from cdp.client import WebhookWalletActivityFilter, WebhookEventTypeFilter
+from cdp.client import WebhookEventTypeFilter, WebhookWalletActivityFilter
 from cdp.webhook import Webhook, WebhookEventType, WebhookModel
 
 
