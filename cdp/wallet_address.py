@@ -361,7 +361,7 @@ class WalletAddress(Address):
 
         return FundQuote.create(
             address_id=self.address_id,
-            amount=str(normalized_amount),
+            amount=normalized_amount,
             asset_id=asset_id,
             network_id=self.network_id,
             wallet_id=self.wallet_id,
