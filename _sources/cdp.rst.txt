@@ -84,6 +84,14 @@ cdp.contract\_invocation module
    :undoc-members:
    :show-inheritance:
 
+cdp.crypto\_amount module
+-------------------------
+
+.. automodule:: cdp.crypto_amount
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.errors module
 -----------------
 
@@ -96,6 +104,30 @@ cdp.faucet\_transaction module
 ------------------------------
 
 .. automodule:: cdp.faucet_transaction
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.fiat\_amount module
+-----------------------
+
+.. automodule:: cdp.fiat_amount
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.fund\_operation module
+--------------------------
+
+.. automodule:: cdp.fund_operation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.fund\_quote module
+----------------------
+
+.. automodule:: cdp.fund_quote
    :members:
    :undoc-members:
    :show-inheritance:

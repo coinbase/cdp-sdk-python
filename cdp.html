@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>cdp package &#8212; CDP SDK 0.10.4 documentation</title>
+    <title>cdp package &#8212; CDP SDK 0.11.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    <script src="_static/documentation_options.js?v=7e173fe4"></script>
+    <script src="_static/documentation_options.js?v=f3b36f1a"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -53,6 +53,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.mpc_wallet_stake_api">cdp.client.api.mpc_wallet_stake_api module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.networks_api">cdp.client.api.networks_api module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.onchain_identity_api">cdp.client.api.onchain_identity_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.reputation_api">cdp.client.api.reputation_api module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.server_signers_api">cdp.client.api.server_signers_api module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.smart_contracts_api">cdp.client.api.smart_contracts_api module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#module-cdp.client.api.stake_api">cdp.client.api.stake_api module</a></li>
@@ -69,10 +70,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cdp.client.models.html">cdp.client.models package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.abi">cdp.client.models.abi module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address">cdp.client.models.address module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_balance_list">cdp.client.models.address_balance_list module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_historical_balance_list">cdp.client.models.address_historical_balance_list module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_list">cdp.client.models.address_list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_reputation">cdp.client.models.address_reputation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_reputation_metadata">cdp.client.models.address_reputation_metadata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_risk">cdp.client.models.address_risk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.address_transaction_list">cdp.client.models.address_transaction_list module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.asset">cdp.client.models.asset module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.balance">cdp.client.models.balance module</a></li>
@@ -144,6 +149,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.signature_creation_event_result">cdp.client.models.signature_creation_event_result module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.signed_voluntary_exit_message_metadata">cdp.client.models.signed_voluntary_exit_message_metadata module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.smart_contract">cdp.client.models.smart_contract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.smart_contract_activity_event">cdp.client.models.smart_contract_activity_event module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.smart_contract_list">cdp.client.models.smart_contract_list module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.smart_contract_options">cdp.client.models.smart_contract_options module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.smart_contract_type">cdp.client.models.smart_contract_type module</a></li>
@@ -179,6 +185,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.webhook_event_type">cdp.client.models.webhook_event_type module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.webhook_event_type_filter">cdp.client.models.webhook_event_type_filter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.webhook_list">cdp.client.models.webhook_list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.webhook_smart_contract_event_filter">cdp.client.models.webhook_smart_contract_event_filter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.webhook_wallet_activity_filter">cdp.client.models.webhook_wallet_activity_filter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models">Module contents</a></li>
 </ul>
@@ -650,6 +657,24 @@ that each client is only instantiated when it’s first accessed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This property lazily initializes the ExternalAddressesApi client on first access.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.api_clients.ApiClients.fund">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fund</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cdp.client.api.html#cdp.client.api.fund_api.FundApi" title="cdp.client.api.fund_api.FundApi"><span class="pre">FundApi</span></a></em><a class="headerlink" href="#cdp.api_clients.ApiClients.fund" title="Link to this definition">¶</a></dt>
+<dd><p>Get the FundApi client instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The FundApi client instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="cdp.client.api.html#cdp.client.api.fund_api.FundApi" title="cdp.client.api.fund_api.FundApi">FundApi</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property lazily initializes the FundApi client on first access.</p>
 </div>
 </dd></dl>
 
@@ -1158,7 +1183,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.cdp.Cdp.configure">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.10.4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.11.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1181,7 +1206,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.cdp.Cdp.configure_from_json">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.10.4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.11.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK from a JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1231,7 +1256,7 @@ and values are balance amounts (Decimal).</p>
 <span id="cdp-cdp-api-client-module"></span><h2>cdp.cdp_api_client module<a class="headerlink" href="#module-cdp.cdp_api_client" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cdp.cdp_api_client.CdpApiClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.cdp_api_client.</span></span><span class="sig-name descname"><span class="pre">CdpApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.10.4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp_api_client.CdpApiClient" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.cdp_api_client.</span></span><span class="sig-name descname"><span class="pre">CdpApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.11.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp_api_client.CdpApiClient" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cdp.client.html#cdp.client.api_client.ApiClient" title="cdp.client.api_client.ApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiClient</span></code></a></p>
 <p>CDP API Client that handles authentication and API calls for Coinbase.</p>
 <dl class="py property">
@@ -1635,6 +1660,111 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.crypto_amount">
+<span id="cdp-crypto-amount-module"></span><h2>cdp.crypto_amount module<a class="headerlink" href="#module-cdp.crypto_amount" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.crypto_amount.</span></span><span class="sig-name descname"><span class="pre">CryptoAmount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of a CryptoAmount that includes the amount and asset.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount.amount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount.amount" title="Link to this definition">¶</a></dt>
+<dd><p>Get the amount of the Asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The amount of the Asset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount.asset">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.asset.Asset" title="cdp.asset.Asset"><span class="pre">Asset</span></a></em><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount.asset" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Asset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.asset.Asset" title="cdp.asset.Asset">Asset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount.asset_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asset_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount.asset_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Asset ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Asset ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount.from_model">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crypto_amount_model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount.from_model" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a CryptoAmount model to a CryptoAmount.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>crypto_amount_model</strong> (<em>CryptoAmountModel</em>) – The crypto amount from the API.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted CryptoAmount object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount">CryptoAmount</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount.from_model_and_asset_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_model_and_asset_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crypto_amount_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount.from_model_and_asset_id" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a CryptoAmount model and asset ID to a CryptoAmount.</p>
+<p>This can be used to specify a non-primary denomination that we want the amount
+to be converted to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>crypto_amount_model</strong> (<em>CryptoAmountModel</em>) – The crypto amount from the API.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The Asset ID of the denomination we want returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted CryptoAmount object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount">CryptoAmount</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.crypto_amount.CryptoAmount.to_atomic_amount">
+<span class="sig-name descname"><span class="pre">to_atomic_amount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.crypto_amount.CryptoAmount.to_atomic_amount" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the amount to atomic units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The amount in atomic units.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Decimal</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2058,6 +2188,468 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#cdp.faucet_transaction.FaucetTransaction" title="cdp.faucet_transaction.FaucetTransaction">FaucetTransaction</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.fiat_amount">
+<span id="cdp-fiat-amount-module"></span><h2>cdp.fiat_amount module<a class="headerlink" href="#module-cdp.fiat_amount" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.fiat_amount.FiatAmount">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.fiat_amount.</span></span><span class="sig-name descname"><span class="pre">FiatAmount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fiat_amount.FiatAmount" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of a FiatAmount that includes the amount and currency.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fiat_amount.FiatAmount.amount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#cdp.fiat_amount.FiatAmount.amount" title="Link to this definition">¶</a></dt>
+<dd><p>Get the amount in the fiat currency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The amount in the fiat currency.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fiat_amount.FiatAmount.currency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">currency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fiat_amount.FiatAmount.currency" title="Link to this definition">¶</a></dt>
+<dd><p>Get the currency code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The currency code.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fiat_amount.FiatAmount.from_model">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fiat_amount_model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fiat_amount.FiatAmount.from_model" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a FiatAmount model to a FiatAmount.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fiat_amount_model</strong> (<em>FiatAmountModel</em>) – The fiat amount from the API.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted FiatAmount object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fiat_amount.FiatAmount" title="cdp.fiat_amount.FiatAmount">FiatAmount</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.fund_operation">
+<span id="cdp-fund-operation-module"></span><h2>cdp.fund_operation module<a class="headerlink" href="#module-cdp.fund_operation" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.fund_operation.</span></span><span class="sig-name descname"><span class="pre">FundOperation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of a Fund Operation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.Status">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.Status" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Fund Operation status constants.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.Status.COMPLETE">
+<span class="sig-name descname"><span class="pre">COMPLETE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'complete'</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.Status.COMPLETE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.Status.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'failed'</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.Status.FAILED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.Status.PENDING">
+<span class="sig-name descname"><span class="pre">PENDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pending'</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.Status.PENDING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.Status.terminal_states">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.Status.terminal_states" title="Link to this definition">¶</a></dt>
+<dd><p>Get the terminal states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The terminal states.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="#cdp.fund_operation.FundOperation.Status" title="cdp.fund_operation.FundOperation.Status">Status</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.address_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">address_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.address_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Address ID.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.amount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount"><span class="pre">CryptoAmount</span></a></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.amount" title="Link to this definition">¶</a></dt>
+<dd><p>Get the crypto amount.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.asset">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.asset.Asset" title="cdp.asset.Asset"><span class="pre">Asset</span></a></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.asset" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Asset.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.buy_fee">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buy_fee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.buy_fee" title="Link to this definition">¶</a></dt>
+<dd><p>Get the buy fee.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The buy fee information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new Fund Operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_id</strong> (<em>str</em>) – The Wallet ID</p></li>
+<li><p><strong>address_id</strong> (<em>str</em>) – The Address ID</p></li>
+<li><p><strong>amount</strong> (<em>Decimal</em>) – The amount of the Asset</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The Asset ID</p></li>
+<li><p><strong>network_id</strong> (<em>str</em>) – The Network ID</p></li>
+<li><p><strong>quote</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#cdp.fund_quote.FundQuote" title="cdp.fund_quote.FundQuote"><em>FundQuote</em></a><em>]</em>) – The optional Fund Quote</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new FundOperation object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.fiat_amount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiat_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.fiat_amount.FiatAmount" title="cdp.fiat_amount.FiatAmount"><span class="pre">FiatAmount</span></a></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.fiat_amount" title="Link to this definition">¶</a></dt>
+<dd><p>Get the fiat amount.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.fiat_currency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiat_currency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.fiat_currency" title="Link to this definition">¶</a></dt>
+<dd><p>Get the fiat currency.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Fund Operation ID.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.list">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.list" title="Link to this definition">¶</a></dt>
+<dd><p>List fund operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_id</strong> (<em>str</em>) – The wallet ID</p></li>
+<li><p><strong>address_id</strong> (<em>str</em>) – The address ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An iterator of fund operation objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator[<a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.network_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.network_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Network ID.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.reload">
+<span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.reload" title="Link to this definition">¶</a></dt>
+<dd><p>Reload the fund operation from the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated fund operation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.fund_operation.FundOperation.Status" title="cdp.fund_operation.FundOperation.Status"><span class="pre">Status</span></a></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.status" title="Link to this definition">¶</a></dt>
+<dd><p>Get the status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.terminal_state">
+<span class="sig-name descname"><span class="pre">terminal_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.terminal_state" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the operation is in a terminal state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.transfer_fee">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transfer_fee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount"><span class="pre">CryptoAmount</span></a></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.transfer_fee" title="Link to this definition">¶</a></dt>
+<dd><p>Get the transfer fee.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The transfer fee.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount">CryptoAmount</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_operation.FundOperation.wait" title="Link to this definition">¶</a></dt>
+<dd><p>Wait for the fund operation to complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval_seconds</strong> (<em>float</em>) – The interval between checks</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>float</em>) – The maximum time to wait</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The completed fund operation</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TimeoutError</strong> – If the operation takes too long</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_operation.FundOperation.wallet_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_operation.FundOperation.wallet_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Wallet ID.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.fund_quote">
+<span id="cdp-fund-quote-module"></span><h2>cdp.fund_quote module<a class="headerlink" href="#module-cdp.fund_quote" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.fund_quote.</span></span><span class="sig-name descname"><span class="pre">FundQuote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_quote.FundQuote" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of a Fund Operation Quote.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.address_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">address_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.address_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Address ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Address ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.amount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount"><span class="pre">CryptoAmount</span></a></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.amount" title="Link to this definition">¶</a></dt>
+<dd><p>Get the crypto amount.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The crypto amount.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount">CryptoAmount</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.asset">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.asset.Asset" title="cdp.asset.Asset"><span class="pre">Asset</span></a></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.asset" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Asset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.asset.Asset" title="cdp.asset.Asset">Asset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.buy_fee">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buy_fee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.buy_fee" title="Link to this definition">¶</a></dt>
+<dd><p>Get the buy fee.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The buy fee information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_quote.FundQuote.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new Fund Operation Quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_id</strong> (<em>str</em>) – The Wallet ID</p></li>
+<li><p><strong>address_id</strong> (<em>str</em>) – The Address ID</p></li>
+<li><p><strong>amount</strong> (<em>Decimal</em>) – The amount of the Asset</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The Asset ID</p></li>
+<li><p><strong>network_id</strong> (<em>str</em>) – The Network ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new FundQuote object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_quote.FundQuote" title="cdp.fund_quote.FundQuote">FundQuote</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.fund_quote.FundQuote.execute" title="Link to this definition">¶</a></dt>
+<dd><p>Execute the fund quote to create a fund operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The created fund operation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.fiat_amount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiat_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.fiat_amount.FiatAmount" title="cdp.fiat_amount.FiatAmount"><span class="pre">FiatAmount</span></a></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.fiat_amount" title="Link to this definition">¶</a></dt>
+<dd><p>Get the fiat amount.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The fiat amount.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.fiat_currency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiat_currency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.fiat_currency" title="Link to this definition">¶</a></dt>
+<dd><p>Get the fiat currency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The fiat currency.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Fund Quote ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Fund Quote ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.network_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.network_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Network ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Network ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.transfer_fee">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transfer_fee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount"><span class="pre">CryptoAmount</span></a></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.transfer_fee" title="Link to this definition">¶</a></dt>
+<dd><p>Get the transfer fee.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The transfer fee.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.crypto_amount.CryptoAmount" title="cdp.crypto_amount.CryptoAmount">CryptoAmount</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.fund_quote.FundQuote.wallet_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.fund_quote.FundQuote.wallet_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Wallet ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Wallet ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3857,6 +4449,29 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.fund">
+<span class="sig-name descname"><span class="pre">fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.fund" title="Link to this definition">¶</a></dt>
+<dd><p>Fund the wallet from your account on the Coinbase Platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount of the Asset to fund the wallet with.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created fund operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.wallet.Wallet.id" title="Link to this definition">¶</a></dt>
@@ -3962,6 +4577,29 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.quote_fund">
+<span class="sig-name descname"><span class="pre">quote_fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.quote_fund" title="Link to this definition">¶</a></dt>
+<dd><p>Get a quote for funding the wallet from your Coinbase platform account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount to fund.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fund quote object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_quote.FundQuote" title="cdp.fund_quote.FundQuote">FundQuote</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4181,6 +4819,26 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet_address.WalletAddress.fund">
+<span class="sig-name descname"><span class="pre">fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_address.WalletAddress.fund" title="Link to this definition">¶</a></dt>
+<dd><p>Fund the address from your account on the Coinbase Platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount of the Asset to fund the wallet with.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created fund operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet_address.WalletAddress.invoke_contract">
 <span class="sig-name descname"><span class="pre">invoke_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_address.WalletAddress.invoke_contract" title="Link to this definition">¶</a></dt>
 <dd><p>Invoke a method on the specified contract address, with the given ABI and arguments.</p>
@@ -4208,6 +4866,26 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 <dt class="sig sig-object py" id="cdp.wallet_address.WalletAddress.key">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">LocalAccount</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.wallet_address.WalletAddress.key" title="Link to this definition">¶</a></dt>
 <dd><p>Get the local account key.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet_address.WalletAddress.quote_fund">
+<span class="sig-name descname"><span class="pre">quote_fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_address.WalletAddress.quote_fund" title="Link to this definition">¶</a></dt>
+<dd><p>Get a quote for funding the address from your Coinbase platform account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount to fund.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fund quote object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_quote.FundQuote" title="cdp.fund_quote.FundQuote">FundQuote</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -4392,7 +5070,7 @@ for <cite>application/x-www-form-urlencoded</cite>, <cite>multipart/form-data</c
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>notification_uri</strong> (<em>str</em>) – The URI where notifications should be sent.</p></li>
 <li><p><strong>event_type</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type.WebhookEventType" title="cdp.client.models.webhook_event_type.WebhookEventType"><em>WebhookEventType</em></a>) – The type of event that the webhook listens to.</p></li>
-<li><p><strong>event_type_filter</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter" title="cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter"><em>WebhookEventTypeFilter</em></a>) – Filter specifically for wallet activity event type.</p></li>
+<li><p><strong>event_type_filter</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter" title="cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter"><em>WebhookEventTypeFilter</em></a>) – Filter specifically for wallet or contract activity event type.</p></li>
 <li><p><strong>event_filters</strong> (<em>List</em><em>[</em><a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter" title="cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter"><em>WebhookEventTypeFilter</em></a><em>]</em>) – Filters applied to the events that determine which specific address(es) trigger.</p></li>
 <li><p><strong>network_id</strong> (<em>str</em>) – The network ID of the wallet. Defaults to “base-sepolia”.</p></li>
 </ul>
@@ -5042,7 +5720,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Cdp.configure">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.10.4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.11.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -5065,7 +5743,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Cdp.configure_from_json">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.10.4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.11.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK from a JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7160,6 +7838,29 @@ and values are balance amounts (Decimal).</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.fund">
+<span class="sig-name descname"><span class="pre">fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.fund" title="Link to this definition">¶</a></dt>
+<dd><p>Fund the wallet from your account on the Coinbase Platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount of the Asset to fund the wallet with.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created fund operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.Wallet.id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.Wallet.id" title="Link to this definition">¶</a></dt>
@@ -7265,6 +7966,29 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.quote_fund">
+<span class="sig-name descname"><span class="pre">quote_fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.quote_fund" title="Link to this definition">¶</a></dt>
+<dd><p>Get a quote for funding the wallet from your Coinbase platform account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount to fund.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fund quote object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_quote.FundQuote" title="cdp.fund_quote.FundQuote">FundQuote</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7481,6 +8205,26 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.WalletAddress.fund">
+<span class="sig-name descname"><span class="pre">fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletAddress.fund" title="Link to this definition">¶</a></dt>
+<dd><p>Fund the address from your account on the Coinbase Platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount of the Asset to fund the wallet with.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created fund operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_operation.FundOperation" title="cdp.fund_operation.FundOperation">FundOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.WalletAddress.invoke_contract">
 <span class="sig-name descname"><span class="pre">invoke_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletAddress.invoke_contract" title="Link to this definition">¶</a></dt>
 <dd><p>Invoke a method on the specified contract address, with the given ABI and arguments.</p>
@@ -7508,6 +8252,26 @@ and values are balance amounts (Decimal).</p>
 <dt class="sig sig-object py" id="cdp.WalletAddress.key">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">LocalAccount</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.WalletAddress.key" title="Link to this definition">¶</a></dt>
 <dd><p>Get the local account key.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.WalletAddress.quote_fund">
+<span class="sig-name descname"><span class="pre">quote_fund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletAddress.quote_fund" title="Link to this definition">¶</a></dt>
+<dd><p>Get a quote for funding the address from your Coinbase platform account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>Union</em><em>[</em><em>Number</em><em>, </em><em>Decimal</em><em>, </em><em>str</em><em>]</em>) – The amount to fund.</p></li>
+<li><p><strong>asset_id</strong> (<em>str</em>) – The ID of the Asset to fund with. For Ether, ‘eth’, ‘gwei’, and ‘wei’ are supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fund quote object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.fund_quote.FundQuote" title="cdp.fund_quote.FundQuote">FundQuote</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -7686,7 +8450,7 @@ and values are balance amounts (Decimal).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>notification_uri</strong> (<em>str</em>) – The URI where notifications should be sent.</p></li>
 <li><p><strong>event_type</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type.WebhookEventType" title="cdp.client.models.webhook_event_type.WebhookEventType"><em>WebhookEventType</em></a>) – The type of event that the webhook listens to.</p></li>
-<li><p><strong>event_type_filter</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter" title="cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter"><em>WebhookEventTypeFilter</em></a>) – Filter specifically for wallet activity event type.</p></li>
+<li><p><strong>event_type_filter</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter" title="cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter"><em>WebhookEventTypeFilter</em></a>) – Filter specifically for wallet or contract activity event type.</p></li>
 <li><p><strong>event_filters</strong> (<em>List</em><em>[</em><a class="reference internal" href="cdp.client.models.html#cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter" title="cdp.client.models.webhook_event_type_filter.WebhookEventTypeFilter"><em>WebhookEventTypeFilter</em></a><em>]</em>) – Filters applied to the events that determine which specific address(es) trigger.</p></li>
 <li><p><strong>network_id</strong> (<em>str</em>) – The network ID of the wallet. Defaults to “base-sepolia”.</p></li>
 </ul>
