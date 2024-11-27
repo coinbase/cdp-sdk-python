@@ -1,7 +1,5 @@
 from collections.abc import Iterator
 
-from cdp.client.models.webhook_wallet_activity_filter import WebhookWalletActivityFilter
-
 from cdp.cdp import Cdp
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
@@ -169,7 +167,9 @@ class Webhook:
 
         # wallet ID is required for wallet activity event type filter, but we do not support updating it just yet, this will be added in the future
         if self.event_type == WebhookEventType.WALLET_ACTIVITY:
-            final_event_type_filter.actual_instance.wallet_id = self.event_type_filter.actual_instance.wallet_id
+            final_event_type_filter.actual_instance.wallet_id = (
+                self.event_type_filter.actual_instance.wallet_id
+            )
 
         update_webhook_request = UpdateWebhookRequest(
             event_type_filter=final_event_type_filter,
