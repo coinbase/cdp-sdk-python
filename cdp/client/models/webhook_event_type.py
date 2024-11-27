@@ -30,6 +30,7 @@ class WebhookEventType(str, Enum):
     ERC20_TRANSFER = 'erc20_transfer'
     ERC721_TRANSFER = 'erc721_transfer'
     WALLET_ACTIVITY = 'wallet_activity'
+    SMART_CONTRACT_EVENT_ACTIVITY = 'smart_contract_event_activity'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

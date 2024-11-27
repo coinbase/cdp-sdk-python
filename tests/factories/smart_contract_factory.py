@@ -19,6 +19,7 @@ def smart_contract_model_factory(transaction_model_factory):
             network_id="base-sepolia",
             wallet_id="test-wallet-id",
             contract_address="0xcontractaddress",
+            contract_name="TestContract",
             deployer_address="0xdeployeraddress",
             type="erc20",
             options=smart_contract_options,

@@ -1,5 +1,7 @@
 from collections.abc import Iterator
 
+from cdp.client.models.webhook_wallet_activity_filter import WebhookWalletActivityFilter
+
 from cdp.cdp import Cdp
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
@@ -94,7 +96,7 @@ class Webhook:
         Args:
             notification_uri (str): The URI where notifications should be sent.
             event_type (WebhookEventType): The type of event that the webhook listens to.
-            event_type_filter (WebhookEventTypeFilter): Filter specifically for wallet activity event type.
+            event_type_filter (WebhookEventTypeFilter): Filter specifically for wallet or contract activity event type.
             event_filters (List[WebhookEventTypeFilter]): Filters applied to the events that determine which specific address(es) trigger.
             network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
 
@@ -164,6 +166,10 @@ class Webhook:
         # Fallback to current properties if no new values are provided
         final_notification_uri = notification_uri or self.notification_uri
         final_event_type_filter = event_type_filter or self.event_type_filter
+
+        # wallet ID is required for wallet activity event type filter, but we do not support updating it just yet, this will be added in the future
+        if self.event_type == WebhookEventType.WALLET_ACTIVITY:
+            final_event_type_filter.actual_instance.wallet_id = self.event_type_filter.actual_instance.wallet_id
 
         update_webhook_request = UpdateWebhookRequest(
             event_type_filter=final_event_type_filter,

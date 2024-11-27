@@ -29,6 +29,7 @@ class SmartContractType(str, Enum):
     ERC20 = 'erc20'
     ERC721 = 'erc721'
     ERC1155 = 'erc1155'
+    CUSTOM = 'custom'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

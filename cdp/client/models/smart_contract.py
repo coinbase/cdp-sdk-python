@@ -33,12 +33,13 @@ class SmartContract(BaseModel):
     network_id: StrictStr = Field(description="The name of the blockchain network")
     wallet_id: StrictStr = Field(description="The ID of the wallet that deployed the smart contract")
     contract_address: StrictStr = Field(description="The EVM address of the smart contract")
+    contract_name: StrictStr = Field(description="The name of the smart contract")
     deployer_address: StrictStr = Field(description="The EVM address of the account that deployed the smart contract")
     type: SmartContractType
     options: SmartContractOptions
     abi: StrictStr = Field(description="The JSON-encoded ABI of the contract")
     transaction: Transaction
-    __properties: ClassVar[List[str]] = ["smart_contract_id", "network_id", "wallet_id", "contract_address", "deployer_address", "type", "options", "abi", "transaction"]
+    __properties: ClassVar[List[str]] = ["smart_contract_id", "network_id", "wallet_id", "contract_address", "contract_name", "deployer_address", "type", "options", "abi", "transaction"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,6 +102,7 @@ class SmartContract(BaseModel):
             "network_id": obj.get("network_id"),
             "wallet_id": obj.get("wallet_id"),
             "contract_address": obj.get("contract_address"),
+            "contract_name": obj.get("contract_name"),
             "deployer_address": obj.get("deployer_address"),
             "type": obj.get("type"),
             "options": SmartContractOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
