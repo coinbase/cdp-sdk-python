@@ -23,6 +23,7 @@ jobs:
 
     - name: Build Sphinx Documentation
       run: |
+        make docs
         cd docs
         make html
 
@@ -32,5 +33,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/_build/html
         keep_files: false
-        
-      

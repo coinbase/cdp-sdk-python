@@ -4,11 +4,17 @@ from numbers import Number
 from typing import TYPE_CHECKING, Union
 
 from eth_account.signers.local import LocalAccount
+from eth_utils import to_bytes, to_hex
 
 from cdp.address import Address
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
+from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
+from cdp.payload_signature import PayloadSignature
+from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.transfer import Transfer
 
@@ -67,6 +73,26 @@ class WalletAddress(Address):
 
         """
         return self.key is not None
+
+    def export(self) -> str:
+        """Export the wallet address's private key as a hex string.
+
+        Returns:
+            str: The wallet address's private key as a hex string.
+
+        Raises:
+            ValueError: If the wallet address does not have a private key.
+
+        """
+        local_account = self.key
+        if local_account is None:
+            raise ValueError("Private key is unavailable")
+
+        key_bytes = local_account.key
+        if key_bytes is None:
+            raise ValueError("Private key is empty")
+
+        return key_bytes.hex()
 
     def transfer(
         self,
@@ -146,6 +172,161 @@ class WalletAddress(Address):
 
         return trade
 
+    def invoke_contract(
+        self,
+        contract_address: str,
+        method: str,
+        abi: list[dict] | None = None,
+        args: dict | None = None,
+        amount: Number | Decimal | str | None = None,
+        asset_id: str | None = None,
+    ) -> ContractInvocation:
+        """Invoke a method on the specified contract address, with the given ABI and arguments.
+
+        Args:
+            contract_address (str): The address of the contract to invoke.
+            method (str): The name of the method to call on the contract.
+            abi (Optional[list[dict]]): The ABI of the contract, if provided.
+            args (Optional[dict]): The arguments to pass to the method.
+            amount (Optional[Union[Number, Decimal, str]]): The amount to send with the invocation, if applicable.
+            asset_id (Optional[str]): The asset ID associated with the amount, if applicable.
+
+        Returns:
+            ContractInvocation: The contract invocation object.
+
+        """
+        normalized_amount = Decimal(amount) if amount else Decimal("0")
+
+        if amount and asset_id:
+            self._ensure_sufficient_balance(normalized_amount, asset_id)
+
+        invocation = ContractInvocation.create(
+            address_id=self.address_id,
+            wallet_id=self.wallet_id,
+            network_id=self.network_id,
+            contract_address=contract_address,
+            method=method,
+            abi=abi,
+            args=args,
+            amount=normalized_amount,
+            asset_id=asset_id,
+        )
+
+        if Cdp.use_server_signer:
+            return invocation
+
+        invocation.sign(self.key)
+
+        invocation.broadcast()
+
+        return invocation
+
+    def sign_payload(self, unsigned_payload: str) -> PayloadSignature:
+        """Sign the given unsigned payload.
+
+        Args:
+            unsigned_payload (str): The unsigned payload.
+
+        Returns:
+            PayloadSignature: The payload signature object.
+
+        """
+        signature = None
+
+        if not Cdp.use_server_signer:
+            signed_message = self.key.unsafe_sign_hash(to_bytes(hexstr=unsigned_payload))
+            signature = to_hex(signed_message.signature)
+
+        return PayloadSignature.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            unsigned_payload=unsigned_payload,
+            signature=signature,
+        )
+
+    def deploy_token(
+        self, name: str, symbol: str, total_supply: Number | Decimal | str
+    ) -> SmartContract:
+        """Deploy a token smart contract.
+
+        Args:
+            name (str): The name of the token.
+            symbol (str): The symbol of the token.
+            total_supply (Union[Number, Decimal, str]): The total supply of the token.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.ERC20,
+            options=SmartContract.TokenContractOptions(
+                name=name, symbol=symbol, total_supply=str(total_supply)
+            ),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
+
+    def deploy_nft(self, name: str, symbol: str, base_uri: str) -> SmartContract:
+        """Deploy an NFT smart contract.
+
+        Args:
+            name (str): The name of the NFT.
+            symbol (str): The symbol of the NFT.
+            base_uri (str): The base URI for the NFT.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.ERC721,
+            options=SmartContract.NFTContractOptions(name=name, symbol=symbol, base_uri=base_uri),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
+
+    def deploy_multi_token(self, uri: str) -> SmartContract:
+        """Deploy a multi-token smart contract.
+
+        Args:
+            uri (str): The URI for the multi-token contract.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.ERC1155,
+            options=SmartContract.MultiTokenContractOptions(uri=uri),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
+
     def transfers(self) -> Iterator[Transfer]:
         """List transfers for this wallet address.
 
@@ -164,6 +345,48 @@ class WalletAddress(Address):
         """
         return Trade.list(wallet_id=self.wallet_id, address_id=self.address_id)
 
+    def fund(self, amount: Number | Decimal | str, asset_id: str) -> FundOperation:
+        """Fund the address from your account on the Coinbase Platform.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount of the Asset to fund the wallet with.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundOperation: The created fund operation object.
+
+        """
+        normalized_amount = Decimal(amount)
+
+        return FundOperation.create(
+            address_id=self.address_id,
+            amount=normalized_amount,
+            asset_id=asset_id,
+            network_id=self.network_id,
+            wallet_id=self.wallet_id,
+        )
+
+    def quote_fund(self, amount: Number | Decimal | str, asset_id: str) -> FundQuote:
+        """Get a quote for funding the address from your Coinbase platform account.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount to fund.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundQuote: The fund quote object.
+
+        """
+        normalized_amount = Decimal(amount)
+
+        return FundQuote.create(
+            address_id=self.address_id,
+            amount=normalized_amount,
+            asset_id=asset_id,
+            network_id=self.network_id,
+            wallet_id=self.wallet_id,
+        )
+
     def _ensure_sufficient_balance(self, amount: Decimal, asset_id: str) -> None:
         """Ensure the wallet address has sufficient balance.
 
@@ -177,7 +400,7 @@ class WalletAddress(Address):
         """
         current_balance = self.balance(asset_id)
 
-        if amount < current_balance:
+        if amount <= current_balance:
             return
 
         raise InsufficientFundsError(expected=amount, exact=current_balance)

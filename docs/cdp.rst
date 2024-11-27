@@ -68,6 +68,14 @@ cdp.cdp\_api\_client module
    :undoc-members:
    :show-inheritance:
 
+cdp.contract\_invocation module
+-------------------------------
+
+.. automodule:: cdp.contract_invocation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.errors module
 -----------------
 
@@ -80,6 +88,38 @@ cdp.faucet\_transaction module
 ------------------------------
 
 .. automodule:: cdp.faucet_transaction
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.hash\_utils module
+----------------------
+
+.. automodule:: cdp.hash_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.historical\_balance module
+------------------------------
+
+.. automodule:: cdp.historical_balance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.payload\_signature module
+-----------------------------
+
+.. automodule:: cdp.payload_signature
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.smart\_contract module
+--------------------------
+
+.. automodule:: cdp.smart_contract
    :members:
    :undoc-members:
    :show-inheritance:
@@ -128,6 +168,22 @@ cdp.wallet\_address module
 --------------------------
 
 .. automodule:: cdp.wallet_address
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.wallet\_data module
+-----------------------
+
+.. automodule:: cdp.wallet_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.webhook module
+------------------
+
+.. automodule:: cdp.webhook
    :members:
    :undoc-members:
    :show-inheritance:

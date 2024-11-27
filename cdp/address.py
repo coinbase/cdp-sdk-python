@@ -1,3 +1,4 @@
+from collections.abc import Iterator
 from decimal import Decimal
 
 from cdp.asset import Asset
@@ -5,6 +6,8 @@ from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.historical_balance import HistoricalBalance
+from cdp.transaction import Transaction
 
 
 class Address:
@@ -62,7 +65,10 @@ class Address:
 
         """
         model = Cdp.api_clients.external_addresses.request_external_faucet_funds(
-            network_id=self.network_id, address_id=self.address_id, asset_id=asset_id
+            network_id=self.network_id,
+            address_id=self.address_id,
+            asset_id=asset_id,
+            skip_wait=True,
         )
 
         return FaucetTransaction(model)
@@ -97,6 +103,35 @@ class Address:
         )
 
         return BalanceMap.from_models(response.data)
+
+    def historical_balances(self, asset_id) -> Iterator[HistoricalBalance]:
+        """List historical balances.
+
+        Args:
+            asset_id (str): The asset ID.
+
+        Returns:
+            Iterator[HistoricalBalance]: An iterator of HistoricalBalance objects.
+
+        Raises:
+            Exception: If there's an error listing the historical balances.
+
+        """
+        return HistoricalBalance.list(
+            network_id=self.network_id, address_id=self.address_id, asset_id=asset_id
+        )
+
+    def transactions(self) -> Iterator[Transaction]:
+        """List transactions of the address.
+
+        Returns:
+            Iterator[Transaction]: An iterator of Transaction objects.
+
+        Raises:
+            Exception: If there's an error listing the transactions.
+
+        """
+        return Transaction.list(network_id=self.network_id, address_id=self.address_id)
 
     def __str__(self) -> str:
         """Return a string representation of the Address."""

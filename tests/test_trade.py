@@ -3,100 +3,9 @@ from unittest.mock import ANY, Mock, call, patch
 
 import pytest
 
-from cdp.asset import Asset
-from cdp.client.models.asset import Asset as AssetModel
-from cdp.client.models.trade import Trade as TradeModel
-from cdp.client.models.transaction import Transaction as TransactionModel
 from cdp.errors import TransactionNotSignedError
 from cdp.trade import Trade
 from cdp.transaction import Transaction
-
-
-@pytest.fixture
-def asset_model_factory():
-    """Create and return a factory for creating AssetModel fixtures."""
-
-    def _create_asset_model(network_id="base-sepolia", asset_id="usdc", decimals=6):
-        return AssetModel(network_id=network_id, asset_id=asset_id, decimals=decimals)
-
-    return _create_asset_model
-
-
-@pytest.fixture
-def asset_factory(asset_model_factory):
-    """Create and return a factory for creating Asset fixtures."""
-
-    def _create_asset(network_id="base-sepolia", asset_id="usdc", decimals=6):
-        asset_model = asset_model_factory(network_id, asset_id, decimals)
-        return Asset.from_model(asset_model)
-
-    return _create_asset
-
-
-@pytest.fixture
-def transaction_model_factory():
-    """Create and return a factory for creating TransactionModel fixtures."""
-
-    def _create_transaction_model(status="complete"):
-        return TransactionModel(
-            network_id="base-sepolia",
-            transaction_hash="0xtransactionhash",
-            from_address_id="0xaddressid",
-            to_address_id="0xdestination",
-            unsigned_payload="0xunsignedpayload",
-            signed_payload="0xsignedpayload"
-            if status in ["signed", "broadcast", "complete"]
-            else None,
-            status=status,
-            transaction_link="https://sepolia.basescan.org/tx/0xtransactionlink"
-            if status == "complete"
-            else None,
-        )
-
-    return _create_transaction_model
-
-
-@pytest.fixture
-def trade_model_factory(asset_model_factory, transaction_model_factory):
-    """Create and return a factory for creating TradeModel fixtures."""
-
-    def _create_trade_model(
-        status="complete",
-        from_asset_id="usdc",
-        to_asset_id="eth",
-        from_asset_decimals=6,
-        to_asset_decimals=18,
-    ):
-        from_asset_model = asset_model_factory(asset_id=from_asset_id, decimals=from_asset_decimals)
-        to_asset_model = asset_model_factory(asset_id=to_asset_id, decimals=to_asset_decimals)
-        transaction_model = transaction_model_factory(status)
-        approve_transaction_model = transaction_model_factory(status)
-
-        return TradeModel(
-            network_id="base-sepolia",
-            wallet_id="test-wallet-id",
-            address_id="0xaddressid",
-            trade_id="test-trade-id",
-            from_asset=from_asset_model,
-            to_asset=to_asset_model,
-            from_amount="1000000",  # 1 USDC
-            to_amount="500000000000000000",  # 0.5 ETH
-            transaction=transaction_model,
-            approve_transaction=approve_transaction_model,
-        )
-
-    return _create_trade_model
-
-
-@pytest.fixture
-def trade_factory(trade_model_factory):
-    """Create and return a factory for creating Trade fixtures."""
-
-    def _create_trade(status="complete", from_asset_id="usdc", to_asset_id="eth"):
-        trade_model = trade_model_factory(status, from_asset_id, to_asset_id)
-        return Trade(trade_model)
-
-    return _create_trade
 
 
 def test_trade_initialization(trade_factory):
@@ -193,7 +102,7 @@ def test_broadcast_trade(mock_api_clients, trade_factory):
         broadcast_trade_request=ANY,
     )
     assert isinstance(response, Trade)
-    assert response.transaction.status.value == "broadcast"
+    assert response.status.value == "broadcast"
     broadcast_trade_request = mock_broadcast.call_args[1]["broadcast_trade_request"]
     assert broadcast_trade_request.signed_payload == trade.transaction.signature
     assert (
@@ -224,7 +133,7 @@ def test_wait_for_trade(mock_time, mock_sleep, mock_api_clients, trade_factory):
 
     result = pending_trade.wait(interval_seconds=0.2, timeout_seconds=1)
 
-    assert result.transaction.status.value == "complete"
+    assert result.status.value == "complete"
     mock_get_trade.assert_called_with(
         wallet_id=pending_trade.wallet_id,
         address_id=pending_trade.address_id,

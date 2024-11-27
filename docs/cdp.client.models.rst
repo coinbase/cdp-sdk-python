@@ -148,6 +148,22 @@ cdp.client.models.create\_contract\_invocation\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.create\_fund\_operation\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_fund_operation_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.create\_fund\_quote\_request module
+-----------------------------------------------------
+
+.. automodule:: cdp.client.models.create_fund_quote_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.create\_payload\_signature\_request module
 ------------------------------------------------------------
 
@@ -212,10 +228,26 @@ cdp.client.models.create\_wallet\_request\_wallet module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.create\_wallet\_webhook\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_wallet_webhook_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.create\_webhook\_request module
 -------------------------------------------------
 
 .. automodule:: cdp.client.models.create_webhook_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.crypto\_amount module
+---------------------------------------
+
+.. automodule:: cdp.client.models.crypto_amount
    :members:
    :undoc-members:
    :show-inheritance:
@@ -248,6 +280,14 @@ cdp.client.models.error module
 ------------------------------
 
 .. automodule:: cdp.client.models.error
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.ethereum\_token\_transfer module
+--------------------------------------------------
+
+.. automodule:: cdp.client.models.ethereum_token_transfer
    :members:
    :undoc-members:
    :show-inheritance:
@@ -332,6 +372,46 @@ cdp.client.models.fetch\_staking\_rewards\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.fiat\_amount module
+-------------------------------------
+
+.. automodule:: cdp.client.models.fiat_amount
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_operation module
+----------------------------------------
+
+.. automodule:: cdp.client.models.fund_operation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_operation\_fees module
+----------------------------------------------
+
+.. automodule:: cdp.client.models.fund_operation_fees
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_operation\_list module
+----------------------------------------------
+
+.. automodule:: cdp.client.models.fund_operation_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.fund\_quote module
+------------------------------------
+
+.. automodule:: cdp.client.models.fund_quote
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.get\_staking\_context\_request module
 -------------------------------------------------------
 
@@ -344,6 +424,14 @@ cdp.client.models.historical\_balance module
 --------------------------------------------
 
 .. automodule:: cdp.client.models.historical_balance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.multi\_token\_contract\_options module
+--------------------------------------------------------
+
+.. automodule:: cdp.client.models.multi_token_contract_options
    :members:
    :undoc-members:
    :show-inheritance:
@@ -372,6 +460,30 @@ cdp.client.models.nft\_contract\_options module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.onchain\_name module
+--------------------------------------
+
+.. automodule:: cdp.client.models.onchain_name
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.onchain\_name\_list module
+--------------------------------------------
+
+.. automodule:: cdp.client.models.onchain_name_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.onchain\_name\_text\_records\_inner module
+------------------------------------------------------------
+
+.. automodule:: cdp.client.models.onchain_name_text_records_inner
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.payload\_signature module
 -------------------------------------------
 
@@ -384,6 +496,22 @@ cdp.client.models.payload\_signature\_list module
 -------------------------------------------------
 
 .. automodule:: cdp.client.models.payload_signature_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.read\_contract\_request module
+------------------------------------------------
+
+.. automodule:: cdp.client.models.read_contract_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.read\_smart\_contract\_request module
+-------------------------------------------------------
+
+.. automodule:: cdp.client.models.read_smart_contract_request
    :members:
    :undoc-members:
    :show-inheritance:
@@ -500,6 +628,14 @@ cdp.client.models.smart\_contract\_type module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.solidity\_value module
+----------------------------------------
+
+.. automodule:: cdp.client.models.solidity_value
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.sponsored\_send module
 ----------------------------------------
 
@@ -576,6 +712,14 @@ cdp.client.models.token\_contract\_options module
 -------------------------------------------------
 
 .. automodule:: cdp.client.models.token_contract_options
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.token\_transfer\_type module
+----------------------------------------------
+
+.. automodule:: cdp.client.models.token_transfer_type
    :members:
    :undoc-members:
    :show-inheritance:

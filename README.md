@@ -10,6 +10,7 @@ one asset into another.
 ## Documentation
 
 - [CDP API Documentation](https://docs.cdp.coinbase.com/platform-apis/docs/welcome)
+- [CDP SDK Python Documentation](https://coinbase.github.io/cdp-sdk-python/)
 
 ## Requirements
 
@@ -21,9 +22,11 @@ Before using the SDK, ensure that you have the correct version of Python install
 
 ```bash
 python --version
+pip --version
 ```
 
 If you need to upgrade your Python version, you can download and install the latest version of Python from the [official Python website](https://www.python.org/downloads/).
+For `pip`, refer to the [official pip documentation](https://pip.pypa.io/en/stable/installation/) for installation instructions.
 
 ## Installation
 
@@ -39,7 +42,9 @@ To start a Python REPL:
 python
 ```
 
-## Creating a Wallet
+## Quickstart
+
+### Creating a Wallet
 
 To start, [create a CDP API key](https://portal.cdp.coinbase.com/access/api). Then, initialize the CDP SDK by passing your API key name and API key's private key via the `configure` method:
 
@@ -47,7 +52,7 @@ To start, [create a CDP API key](https://portal.cdp.coinbase.com/access/api). Th
 from cdp import *
 
 api_key_name = "Copy your API key name here."
-# Ensure that you are using double-quotes here.
+
 api_key_private_key = "Copy your API key's private key here."
 
 Cdp.configure(api_key_name, api_key_private_key)
@@ -66,7 +71,7 @@ print("CDP SDK has been successfully configured from JSON file.")
 
 This will allow you to authenticate with the Platform APIs.
 
-If you are using a CDP Server-Signer to manage your private keys, enable it with
+If you are using a CDP [Server-Signer](https://docs.cdp.coinbase.com/mpc-wallet/docs/serversigners) to manage your private keys, enable it with
 
 ```python
 Cdp.use_server_signer = True
@@ -77,6 +82,8 @@ Now create a wallet. Wallets are created with a single default address.
 ```python
 # Create a wallet with one address by default.
 wallet1 = Wallet.create()
+
+print(f"Wallet successfully created: {wallet1}")
 ```
 
 Wallets come with a single default address, accessible via `default_address`:
@@ -86,7 +93,7 @@ Wallets come with a single default address, accessible via `default_address`:
 address = wallet1.default_address
 ```
 
-## Funding a Wallet
+### Funding a Wallet
 
 Wallets do not have funds on them to start. For Base Sepolia testnet, we provide a `faucet` method to fund your wallet with
 testnet ETH. You are allowed one faucet claim per 24-hour window.
@@ -95,10 +102,13 @@ testnet ETH. You are allowed one faucet claim per 24-hour window.
 # Fund the wallet with a faucet transaction.
 faucet_tx = wallet1.faucet()
 
+# Wait for the faucet transaction to complete.
+faucet_tx.wait()
+
 print(f"Faucet transaction successfully completed: {faucet_tx}")
 ```
 
-## Transferring Funds
+### Transferring Funds
 
 See [Transfers](https://docs.cdp.coinbase.com/wallets/docs/transfers) for more information.
 
@@ -117,7 +127,7 @@ transfer = wallet1.transfer(0.00001, "eth", wallet2).wait()
 print(f"Transfer successfully completed: {transfer}")
 ```
 
-### Gasless USDC Transfers
+#### Gasless USDC Transfers
 
 To transfer USDC without needing to hold ETH for gas, you can use the `transfer` method with the `gasless` option set to `True`.
 
@@ -127,17 +137,25 @@ wallet3 = Wallet.create()
 
 print(f"Wallet successfully created: {wallet3}")
 
+# Fund the wallet with USDC with a faucet transaction.
+usdc_faucet_tx = wallet1.faucet("usdc")
+
+# Wait for the faucet transaction to complete.
+usdc_faucet_tx.wait()
+
+print(f"Faucet transaction successfully completed: {usdc_faucet_tx}")
+
 transfer = wallet1.transfer(0.00001, "usdc", wallet3, gasless=True).wait()
 ```
 
-## Listing Transfers
+### Listing Transfers
 
 ```python
 # Return list of all transfers. This will paginate and fetch all transfers for the address.
-address.transfers()
+list(address.transfers())
 ```
 
-## Trading Funds
+### Trading Funds
 
 See [Trades](https://docs.cdp.coinbase.com/wallets/docs/trades) for more information.
 
@@ -152,10 +170,95 @@ trade = wallet.trade(0.00001, "eth", "usdc").wait()
 print(f"Trade successfully completed: {trade}")
 ```
 
-## Listing Trades
+### Listing Trades
 
 ```python
 # Return list of all trades. This will paginate and fetch all trades for the address.
-address.trades()
+list(address.trades())
 ```
+
+### Re-Instantiating Wallets
+
+The SDK creates wallets with [Developer-Managed (1-1)](https://docs.cdp.coinbase.com/mpc-wallet/docs/wallets#developer-managed-wallets) keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.
+
+```python
+# Export the data required to re-instantiate the wallet. The data contains the seed and the ID of the wallet.
+data = wallet.export_data()
+```
+
+In order to persist the data for the wallet, you will need to implement a store method to store the data export in a secure location. If you do not store the wallet in a secure location you will lose access to the wallet and all of the funds on it.
+
+```python
+# You should implement the "store" method to securely persist the data object,
+# which is required to re-instantiate the wallet at a later time. For ease of use,
+# the data object is converted to a dictionary first.
+store(data.to_dict())
+```
+
+For convenience during testing, we provide a `save_seed` method that stores the wallet's seed in your local file system. This is an insecure method of storing wallet seeds and should only be used for development purposes.
+
+To encrypt the saved data, set encrypt to `True`. Note that your CDP API key also serves as the encryption key for the data persisted locally. To re-instantiate wallets with encrypted data, ensure that your SDK is configured with the same API key when invoking `save_seed` and `load_seed`.
+
+```python
+# Pick a file to which to save your wallet seed.
+file_path = "my_seed.json"
+
+# Set encrypt=True to encrypt the wallet seed with your CDP secret API key.
+wallet.save_seed(file_path, encrypt=True)
+
+print(f"Seed for wallet {wallet.id} successfully saved to {file_path}.")
+```
+
+The below code demonstrates how to re-instantiate a wallet from the data export.
+
+```python
+# You should implement the "fetch" method to retrieve the securely persisted data object,
+# keyed by the wallet ID.
+fetched_data = fetch(wallet.id)
+
+# imported_wallet will be equivalent to wallet.
+imported_wallet = Wallet.import_data(fetched_data)
+```
+
+To import Wallets that were persisted to your local file system using `save_seed`, use the below code.
+
+```python
+# Get the unhydrated wallet from the server.
+fetched_wallet = Wallet.fetch(wallet.id)
+
+# You can now load the seed into the wallet from the local file.
+# fetched_wallet will be equivalent to imported_wallet.
+fetched_wallet.load_seed(file_path)
+```
+
+### Creating a Webhook
+A webhook is a way to provide other applications with real-time information from the blockchain. When an event occurs on a blockchain address, it can send a POST request to a URL you specify. You can create a webhook to receive notifications about events that occur in your wallet or crypto address, such as when a user makes a transfer.
+```python
+from cdp.client.models.webhook import WebhookEventType
+from cdp.client.models.webhook import WebhookEventFilter
+
+wh1 = Webhook.create(
+    notification_uri="https://your-app.com/callback",
+    event_type=WebhookEventType.ERC20_TRANSFER,
+    event_filters=[WebhookEventFilter(from_address="0x71d4d7d5e9ce0f41e6a68bd3a9b43aa597dc0eb0")]
+)
+print(wh1)
+```
+
+### Creating a Webhook On A Wallet
+A webhook can be attached to an existing wallet to monitor events that occur on the wallet, i.e. all addresses associated with this wallet. A list of supported blockchain events can be found [here](https://docs.cdp.coinbase.com/get-started/docs/webhooks/event-types).
+```python
+import cdp
+
+wallet1 = Wallet.create()
+wh1 = wallet1.create_webhook("https://your-app.com/callback")
+print(wh1)
+```
+
+## Examples
+Examples, demo apps, and further code samples can be found in the [CDP SDK Python Documentation](https://docs.cdp.coinbase.com/cdp-apis/docs/welcome).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 

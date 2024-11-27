@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 import jwt
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
+from urllib3.util import Retry
 
 from cdp import __version__
 from cdp.client import rest
@@ -13,6 +14,7 @@ from cdp.client.api_response import ApiResponse
 from cdp.client.api_response import T as ApiResponseT  # noqa: N811
 from cdp.client.configuration import Configuration
 from cdp.client.exceptions import ApiException
+from cdp.constants import SDK_DEFAULT_SOURCE
 from cdp.errors import ApiError, InvalidAPIKeyFormatError
 
 
@@ -24,6 +26,10 @@ class CdpApiClient(ApiClient):
         api_key: str,
         private_key: str,
         host: str = "https://api.cdp.coinbase.com/platform",
+        debugging: bool = False,
+        max_network_retries: int = 3,
+        source: str = SDK_DEFAULT_SOURCE,
+        source_version: str = __version__,
     ):
         """Initialize the CDP API Client.
 
@@ -31,12 +37,50 @@ class CdpApiClient(ApiClient):
             api_key (str): The API key for authentication.
             private_key (str): The private key for authentication.
             host (str, optional): The base URL for the API. Defaults to "https://api.cdp.coinbase.com/platform".
+            debugging (bool): Whether debugging is enabled.
+            max_network_retries (int): The maximum number of network retries. Defaults to 3.
+            source (str): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            source_version (str): The version of the source package.
 
         """
-        configuration = Configuration(host=host)
+        retry_strategy = self._get_retry_strategy(max_network_retries)
+        configuration = Configuration(host=host, retries=retry_strategy)
         super().__init__(configuration)
-        self.api_key = api_key
-        self.private_key = private_key
+        self._api_key = api_key
+        self._private_key = private_key
+        self._debugging = debugging
+        self._source = source
+        self._source_version = source_version
+
+    @property
+    def api_key(self) -> str:
+        """The API key for authentication.
+
+        Returns:
+            str: The API key.
+
+        """
+        return self._api_key
+
+    @property
+    def private_key(self) -> str:
+        """The private key for authentication.
+
+        Returns:
+            str: The private key.
+
+        """
+        return self._private_key
+
+    @property
+    def debugging(self) -> str:
+        """Whether debugging is enabled.
+
+        Returns:
+            bool: Whether debugging is enabled.
+
+        """
+        return self._debugging
 
     def call_api(
         self,
@@ -63,6 +107,9 @@ class CdpApiClient(ApiClient):
             RESTResponse
 
         """
+        if self.debugging is True:
+            print(f"CDP API REQUEST: {method} {url}")
+
         if header_params is None:
             header_params = {}
 
@@ -85,6 +132,9 @@ class CdpApiClient(ApiClient):
             ApiResponse[ApiResponseT]
 
         """
+        if self.debugging is True:
+            print(f"CDP API RESPONSE: Status: {response_data.status}, Data: {response_data.data}")
+
         try:
             return super().response_deserialize(response_data, response_types_map)
         except ApiException as e:
@@ -119,7 +169,7 @@ class CdpApiClient(ApiClient):
             method (str): The HTTP method to use.
 
         Returns:
-            The JWT for the given API endpoint URL.
+            str: The JWT for the given API endpoint URL.
 
         """
         try:
@@ -155,26 +205,43 @@ class CdpApiClient(ApiClient):
             print(f"Error during JWT signing: {e!s}")
             raise InvalidAPIKeyFormatError("Could not sign the JWT") from e
 
-    @staticmethod
-    def _nonce() -> str:
+    def _nonce(self) -> str:
         """Generate a random nonce for the JWT.
 
         Returns:
-            The nonce.
+            str: The nonce.
 
         """
         return "".join(random.choices("0123456789", k=16))
 
-    @staticmethod
-    def _get_correlation_data() -> str:
-        """Return encoded correlation data including the SDK version and language.
+    def _get_correlation_data(self) -> str:
+        """Return encoded correlation data including the SDK version, language, and source.
 
         Returns:
-            The correlation data.
+            str: The correlation data.
 
         """
         data = {
             "sdk_version": __version__,
             "sdk_language": "python",
+            "source": self._source,
+            "source_version": self._source_version,
         }
         return ",".join(f"{key}={value}" for key, value in data.items())
+
+    def _get_retry_strategy(self, max_network_retries: int) -> Retry:
+        """Return the retry strategy for the CDP API Client.
+
+        Args:
+            max_network_retries (int): The maximum number of network retries.
+
+        Returns:
+            Retry: The retry strategy.
+
+        """
+        return Retry(
+            total=max_network_retries,  # Number of total retries
+            status_forcelist=[500, 502, 503, 504],  # Retry on HTTP status code 500
+            allowed_methods=["GET"],  # Retry only on GET requests
+            backoff_factor=1,  # Exponential backoff factor
+        )

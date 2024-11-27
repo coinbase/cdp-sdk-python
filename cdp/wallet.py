@@ -1,3 +1,4 @@
+import builtins
 import hashlib
 import json
 import os
@@ -23,11 +24,19 @@ from cdp.client.models.create_wallet_request import (
     CreateWalletRequest,
     CreateWalletRequestWallet,
 )
+from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
 from cdp.client.models.wallet import Wallet as WalletModel
 from cdp.client.models.wallet_list import WalletList
+from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
+from cdp.payload_signature import PayloadSignature
+from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
+from cdp.wallet_data import WalletData
+from cdp.webhook import Webhook
 
 
 class Wallet:
@@ -176,8 +185,8 @@ class Wallet:
         self._model = model
         return
 
-    @staticmethod
-    def fetch(wallet_id: str) -> "Wallet":
+    @classmethod
+    def fetch(cls, wallet_id: str) -> "Wallet":
         """Fetch a wallet by its ID.
 
         Args:
@@ -192,7 +201,7 @@ class Wallet:
         """
         model = Cdp.api_clients.wallets.get_wallet(wallet_id)
 
-        return Wallet(model, "")
+        return cls(model, "")
 
     @classmethod
     def list(cls) -> Iterator["Wallet"]:
@@ -217,6 +226,31 @@ class Wallet:
                 break
 
             page = response.next_page
+
+    @classmethod
+    def import_data(cls, data: WalletData) -> "Wallet":
+        """Import a wallet from previously exported wallet data.
+
+        Args:
+            data (WalletData): The wallet data to import.
+
+        Returns:
+            Wallet: The imported wallet.
+
+        Raises:
+            Exception: If there's an error getting the wallet.
+
+        """
+        if not isinstance(data, WalletData):
+            raise ValueError("Data must be a WalletData instance")
+
+        model = Cdp.api_clients.wallets.get_wallet(data.wallet_id)
+
+        wallet = cls(model, data.seed)
+
+        wallet._set_addresses()
+
+        return wallet
 
     def create_address(self) -> "WalletAddress":
         """Create a new address for the wallet.
@@ -255,6 +289,28 @@ class Wallet:
         self._addresses.append(wallet_address)
 
         return wallet_address
+
+    def create_webhook(self, notification_uri: str) -> "Webhook":
+        """Create a new webhook for the wallet.
+
+        Args:
+            notification_uri (str): The notification URI of the webhook.
+
+        Returns:
+            Webhook: The created webhook object. It can be used to monitor activities happening in the wallet. When they occur, webhook will make a request to the specified URI.
+
+        Raises:
+            Exception: If there's an error creating the webhook.
+
+        """
+        create_wallet_webhook_request = CreateWalletWebhookRequest(
+            notification_uri=notification_uri
+        )
+        model = Cdp.api_clients.webhooks.create_wallet_webhook(
+            wallet_id=self.id, create_wallet_webhook_request=create_wallet_webhook_request
+        )
+
+        return Webhook(model)
 
     def faucet(self, asset_id: str | None = None) -> FaucetTransaction:
         """Request faucet funds.
@@ -358,6 +414,57 @@ class Wallet:
 
         return self.default_address.trade(amount, from_asset_id, to_asset_id)
 
+    def invoke_contract(
+        self,
+        contract_address: str,
+        method: str,
+        abi: builtins.list[dict] | None = None,
+        args: dict | None = None,
+        amount: Number | Decimal | str | None = None,
+        asset_id: str | None = None,
+    ) -> ContractInvocation:
+        """Invoke a method on the specified contract address, with the given ABI and arguments.
+
+        Args:
+            contract_address (str): The address of the contract to invoke.
+            method (str): The name of the method to call on the contract.
+            abi (Optional[list[dict]]): The ABI of the contract, if provided.
+            args (Optional[dict]): The arguments to pass to the method.
+            amount (Optional[Union[Number, Decimal, str]]): The amount to send with the invocation, if applicable.
+            asset_id (Optional[str]): The asset ID associated with the amount, if applicable.
+
+        Returns:
+            ContractInvocation: The contract invocation object.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        invocation = self.default_address.invoke_contract(
+            contract_address, method, abi, args, amount, asset_id
+        )
+
+        return invocation
+
+    def sign_payload(self, unsigned_payload: str) -> PayloadSignature:
+        """Sign the given unsigned payload.
+
+        Args:
+            unsigned_payload (str): The unsigned payload.
+
+        Returns:
+            PayloadSignature: The payload signature object.
+
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.sign_payload(unsigned_payload)
+
     @property
     def default_address(self) -> WalletAddress | None:
         """Get the default address of the wallet.
@@ -371,6 +478,21 @@ class Wallet:
             if self._model.default_address is not None
             else None
         )
+
+    def export_data(self) -> WalletData:
+        """Export the wallet's data.
+
+        Returns:
+            WalletData: The wallet's data.
+
+        Raises:
+            ValueError: If the wallet does not have a seed loaded.
+
+        """
+        if self._master is None or self._seed is None:
+            raise ValueError("Wallet does not have seed loaded")
+
+        return WalletData(self.id, self._seed)
 
     def save_seed(self, file_path: str, encrypt: bool | None = False) -> None:
         """Save the wallet seed to a file.
@@ -528,7 +650,7 @@ class Wallet:
 
         """
         return next(
-            (address for address in self._addresses if address.address_id == address_id),
+            (address for address in self.addresses if address.address_id == address_id),
             None,
         )
 
@@ -621,3 +743,101 @@ class Wallet:
 
         """
         return str(self)
+
+    def deploy_token(
+        self, name: str, symbol: str, total_supply: Number | Decimal | str
+    ) -> SmartContract:
+        """Deploy a token smart contract.
+
+        Args:
+            name (str): The name of the token.
+            symbol (str): The symbol of the token.
+            total_supply (Union[Number, Decimal, str]): The total supply of the token.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_token(name, symbol, str(total_supply))
+
+    def deploy_nft(self, name: str, symbol: str, base_uri: str) -> SmartContract:
+        """Deploy an NFT smart contract.
+
+        Args:
+            name (str): The name of the NFT.
+            symbol (str): The symbol of the NFT.
+            base_uri (str): The base URI for the NFT.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_nft(name, symbol, base_uri)
+
+    def deploy_multi_token(self, uri: str) -> SmartContract:
+        """Deploy a multi-token smart contract.
+
+        Args:
+            uri (str): The URI for the multi-token contract.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_multi_token(uri)
+
+    def fund(self, amount: Number | Decimal | str, asset_id: str) -> FundOperation:
+        """Fund the wallet from your account on the Coinbase Platform.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount of the Asset to fund the wallet with.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundOperation: The created fund operation object.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.fund(amount, asset_id)
+
+    def quote_fund(self, amount: Number | Decimal | str, asset_id: str) -> FundQuote:
+        """Get a quote for funding the wallet from your Coinbase platform account.
+
+        Args:
+            amount (Union[Number, Decimal, str]): The amount to fund.
+            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
+
+        Returns:
+            FundQuote: The fund quote object.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.quote_fund(amount, asset_id)

@@ -1,11 +1,17 @@
 from cdp.cdp_api_client import CdpApiClient
 from cdp.client.api.addresses_api import AddressesApi
 from cdp.client.api.assets_api import AssetsApi
+from cdp.client.api.balance_history_api import BalanceHistoryApi
+from cdp.client.api.contract_invocations_api import ContractInvocationsApi
 from cdp.client.api.external_addresses_api import ExternalAddressesApi
+from cdp.client.api.fund_api import FundApi
 from cdp.client.api.networks_api import NetworksApi
+from cdp.client.api.smart_contracts_api import SmartContractsApi
 from cdp.client.api.trades_api import TradesApi
+from cdp.client.api.transaction_history_api import TransactionHistoryApi
 from cdp.client.api.transfers_api import TransfersApi
 from cdp.client.api.wallets_api import WalletsApi
+from cdp.client.api.webhooks_api import WebhooksApi
 
 
 class ApiClients:
@@ -17,12 +23,14 @@ class ApiClients:
     Attributes:
         _cdp_client (CdpApiClient): The CDP API client used to initialize individual API clients.
         _wallets (Optional[WalletsApi]): The WalletsApi client instance.
+        _webhooks (Optional[WebhooksApi]): The WebhooksApi client instance.
         _addresses (Optional[AddressesApi]): The AddressesApi client instance.
         _external_addresses (Optional[ExternalAddressesApi]): The ExternalAddressesApi client instance.
         _transfers (Optional[TransfersApi]): The TransfersApi client instance.
         _networks (Optional[NetworksApi]): The NetworksApi client instance.
         _assets (Optional[AssetsApi]): The AssetsApi client instance.
         _trades (Optional[TradesApi]): The TradesApi client instance.
+        _contract_invocations (Optional[ContractInvocationsApi]): The ContractInvocationsApi client instance.
 
     """
 
@@ -35,12 +43,18 @@ class ApiClients:
         """
         self._cdp_client: CdpApiClient = cdp_client
         self._wallets: WalletsApi | None = None
+        self._webhooks: WebhooksApi | None = None
         self._addresses: AddressesApi | None = None
         self._external_addresses: ExternalAddressesApi | None = None
         self._transfers: TransfersApi | None = None
         self._networks: NetworksApi | None = None
         self._assets: AssetsApi | None = None
         self._trades: TradesApi | None = None
+        self._contract_invocations: ContractInvocationsApi | None = None
+        self._smart_contracts: SmartContractsApi | None = None
+        self._balance_history: BalanceHistoryApi | None = None
+        self._transaction_history: TransactionHistoryApi | None = None
+        self._fund: FundApi | None = None
 
     @property
     def wallets(self) -> WalletsApi:
@@ -56,6 +70,21 @@ class ApiClients:
         if self._wallets is None:
             self._wallets = WalletsApi(api_client=self._cdp_client)
         return self._wallets
+
+    @property
+    def webhooks(self) -> WebhooksApi:
+        """Get the WebhooksApi client instance.
+
+        Returns:
+            WebhooksApi: The WebhooksApi client instance.
+
+        Note:
+            This property lazily initializes the WebhooksApi client on first access.
+
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhooksApi(api_client=self._cdp_client)
+        return self._webhooks
 
     @property
     def addresses(self) -> AddressesApi:
@@ -146,3 +175,78 @@ class ApiClients:
         if self._trades is None:
             self._trades = TradesApi(api_client=self._cdp_client)
         return self._trades
+
+    @property
+    def contract_invocations(self) -> ContractInvocationsApi:
+        """Get the ContractInvocationsApi client instance.
+
+        Returns:
+            ContractInvocationsApi: The ContractInvocationsApi client instance.
+
+        Note:
+            This property lazily initializes the ContractInvocationsApi client on first access.
+
+        """
+        if self._contract_invocations is None:
+            self._contract_invocations = ContractInvocationsApi(api_client=self._cdp_client)
+        return self._contract_invocations
+
+    @property
+    def balance_history(self) -> BalanceHistoryApi:
+        """Get the BalanceHistoryApi client instance.
+
+        Returns:
+            BalanceHistoryApi: The BalanceHistoryApi client instance.
+
+        Note:
+            This property lazily initializes the BalanceHistoryApi client on first access.
+
+        """
+        if self._balance_history is None:
+            self._balance_history = BalanceHistoryApi(api_client=self._cdp_client)
+        return self._balance_history
+
+    @property
+    def smart_contracts(self) -> SmartContractsApi:
+        """Get the SmartContractsApi client instance.
+
+        Returns:
+            SmartContractsApi: The SmartContractsApi client instance.
+
+        Note:
+            This property lazily initializes the SmartContractsApi client on first access.
+
+        """
+        if self._smart_contracts is None:
+            self._smart_contracts = SmartContractsApi(api_client=self._cdp_client)
+        return self._smart_contracts
+
+    @property
+    def transaction_history(self) -> TransactionHistoryApi:
+        """Get the TransactionHistoryApi client instance.
+
+        Returns:
+            TransactionHistoryApi: The TransactionHistoryApi client instance.
+
+        Note:
+            This property lazily initializes the TransactionHistoryApi client on first access.
+
+        """
+        if self._transaction_history is None:
+            self._transaction_history = TransactionHistoryApi(api_client=self._cdp_client)
+        return self._transaction_history
+
+    @property
+    def fund(self) -> FundApi:
+        """Get the FundApi client instance.
+
+        Returns:
+            FundApi: The FundApi client instance.
+
+        Note:
+            This property lazily initializes the FundApi client on first access.
+
+        """
+        if self._fund is None:
+            self._fund = FundApi(api_client=self._cdp_client)
+        return self._fund

@@ -1,11 +1,14 @@
 import json
+from collections.abc import Iterator
 from enum import Enum
 
 from eth_account.signers.local import LocalAccount
 from eth_account.typed_transactions import DynamicFeeTransaction
 from web3 import Web3
 
+from cdp.cdp import Cdp
 from cdp.client.models import Transaction as TransactionModel
+from cdp.client.models.address_transaction_list import AddressTransactionList
 
 
 class Transaction:
@@ -52,6 +55,40 @@ class Transaction:
         self._raw: DynamicFeeTransaction | None = None
         self._signature: str | None = model.signed_payload
 
+    @classmethod
+    def list(cls, network_id: str, address_id: str) -> Iterator["Transaction"]:
+        """List transactions of the address.
+
+        Args:
+            network_id (str): The ID of the network to list transaction for.
+            address_id (str): The ID of the address to list transaction for.
+
+        Returns:
+            Iterator[Transaction]: An iterator of Transaction objects.
+
+        Raises:
+            Exception: If there's an error listing the transactions.
+
+        """
+        page = None
+        while True:
+            response: AddressTransactionList = (
+                Cdp.api_clients.transaction_history.list_address_transactions(
+                    network_id=network_id,
+                    address_id=address_id,
+                    limit=1,
+                    page=page,
+                )
+            )
+
+            for model in response.data:
+                yield cls(model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
+
     @property
     def unsigned_payload(self) -> str:
         """Get the unsigned payload."""
@@ -66,6 +103,11 @@ class Transaction:
     def transaction_hash(self) -> str:
         """Get the transaction hash."""
         return self._model.transaction_hash
+
+    @property
+    def network_id(self) -> str:
+        """Get the Network ID of the Transaction."""
+        return self._model.network_id
 
     @property
     def status(self) -> Status:
@@ -125,12 +167,16 @@ class Transaction:
                 "maxPriorityFeePerGas": int(parsed_payload["maxPriorityFeePerGas"], 16),
                 "maxFeePerGas": int(parsed_payload["maxFeePerGas"], 16),
                 "gas": int(parsed_payload["gas"], 16),
-                "to": Web3.to_bytes(hexstr=parsed_payload["to"]),
                 "value": int(parsed_payload["value"], 16),
                 "data": parsed_payload.get("input", ""),
                 "type": "0x2",  # EIP-1559 transaction type
             }
 
+            # Handle 'to' field separately since smart contract deployments have an empty 'to' field
+            if parsed_payload["to"]:
+                transaction_dict["to"] = Web3.to_bytes(hexstr=parsed_payload["to"])
+            else:
+                transaction_dict["to"] = b""  # Empty bytes for contract deployment
             self._raw = DynamicFeeTransaction(transaction_dict)
 
         return self._raw
