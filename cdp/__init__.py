@@ -6,6 +6,8 @@ from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
+from cdp.fund_operation import FundOperation
+from cdp.fund_quote import FundQuote
 from cdp.hash_utils import hash_message, hash_typed_data_message
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
@@ -39,4 +41,6 @@ __all__ = [
     "SmartContract",
     "hash_message",
     "hash_typed_data_message",
+    "FundOperation",
+    "FundQuote",
 ]

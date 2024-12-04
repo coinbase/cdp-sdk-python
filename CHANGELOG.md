@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Add `FundOperation` and `FundQuote` classes to `cdp` module.
+
 ### [0.11.0] - 2024-11-27
 
 ### Added
