@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### [0.12.0] - 2024-12-06
+
+### Added
+- Use Poetry as the dependency manager
+- Relax dependency version constraints
+
 ### [0.11.0] - 2024-11-27
 
 ### Added
