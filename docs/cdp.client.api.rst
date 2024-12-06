@@ -84,6 +84,14 @@ cdp.client.api.onchain\_identity\_api module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.api.reputation\_api module
+-------------------------------------
+
+.. automodule:: cdp.client.api.reputation_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.api.server\_signers\_api module
 ------------------------------------------
 

@@ -1,34 +1,34 @@
 .PHONY: format
 format:
-	ruff format .
+	poetry run ruff format .
 
 .PHONY: lint
 lint:
-	ruff check .
+	poetry run ruff check .
 
 .PHONY: lint-fix
 lint-fix:
-	ruff check . --fix
+	poetry run ruff check . --fix
 
 .PHONY: test
 test:
-	pytest
+	poetry run pytest
 
 .PHONY: e2e
 e2e:
-	python -m tests.e2e
+	poetry run python -m tests.e2e
 
 .PHONY: repl
 repl:
-	python
+	poetry run python
 
 .PHONY: install-deps
 install-deps:
-	pip install .[dev]
+	poetry install
 
 .PHONY: docs
 docs:
-	sphinx-apidoc -f -o docs/ ./cdp/
+	poetry run sphinx-apidoc -f -o docs/ ./cdp/
 
 .PHONY: local-docs
 local-docs: docs
