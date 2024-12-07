@@ -14,7 +14,7 @@ one asset into another.
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.10 (refer to [this](https://github.com/coinbase/cdp-sdk-python/issues/58) to see why)
 - Poetry for package management and tooling
   - [Poetry Installation Instructions](https://python-poetry.org/docs/#installation)
 
