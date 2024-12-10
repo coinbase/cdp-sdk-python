@@ -479,9 +479,6 @@ def test_invoke_contract_with_invalid_input(
 ):
     """Test the invoke_contract method raises an error with invalid input."""
     wallet_address_with_key = wallet_address_factory(key=True)
-    balance_model = balance_model_factory(
-        amount="5000000000000000000", network_id="base-sepolia", asset_id="eth", decimals=18
-    )
 
     with pytest.raises(Exception, match="Asset ID is required for contract invocation if an amount is provided"):
         wallet_address_with_key.invoke_contract(
