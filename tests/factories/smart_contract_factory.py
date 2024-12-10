@@ -23,8 +23,29 @@ def smart_contract_model_factory(transaction_model_factory):
             deployer_address="0xdeployeraddress",
             type="erc20",
             options=smart_contract_options,
-            abi='{"abi": "data"}',
+            abi='{"abi":"data"}',
             transaction=transaction_model_factory(status),
+            is_external=False,
+        )
+
+    return _create_smart_contract_model
+
+
+@pytest.fixture
+def external_smart_contract_factory(transaction_model_factory):
+    """Create and return a factory for creating SmartContractModel fixtures."""
+
+    def _create_smart_contract_model(status="complete"):
+        return SmartContract(
+            SmartContractModel(
+                smart_contract_id="test-contract-id",
+                network_id="base-sepolia",
+                contract_address="0xcontractaddress",
+                contract_name="TestContract",
+                type="custom",
+                abi='{"abi":"data"}',
+                is_external=True,
+            )
         )
 
     return _create_smart_contract_model

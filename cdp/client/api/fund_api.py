@@ -326,6 +326,7 @@ class FundApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey'
         ]
 
         return self.api_client.param_serialize(
@@ -629,6 +630,7 @@ class FundApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey'
         ]
 
         return self.api_client.param_serialize(
@@ -919,6 +921,8 @@ class FundApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(
@@ -1228,6 +1232,8 @@ class FundApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(

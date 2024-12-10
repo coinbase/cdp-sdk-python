@@ -328,6 +328,8 @@ class TransactionHistoryApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(

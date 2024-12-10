@@ -1,8 +1,11 @@
+import json
 from unittest.mock import ANY, Mock, call, patch
 
 import pytest
 
+from cdp.client.models.register_smart_contract_request import RegisterSmartContractRequest
 from cdp.client.models.solidity_value import SolidityValue
+from cdp.client.models.update_smart_contract_request import UpdateSmartContractRequest
 from cdp.smart_contract import SmartContract
 
 
@@ -33,6 +36,24 @@ def test_smart_contract_properties(smart_contract_factory):
         == "https://sepolia.basescan.org/tx/0xtransactionlink"
     )
     assert smart_contract.transaction.transaction_hash == "0xtransactionhash"
+
+
+def test_external_smart_contract_properties(external_smart_contract_factory):
+    """Test the properties of a SmartContract object."""
+    smart_contract = external_smart_contract_factory()
+    assert smart_contract.smart_contract_id == "test-contract-id"
+    assert smart_contract.network_id == "base-sepolia"
+    assert smart_contract.contract_address == "0xcontractaddress"
+    assert smart_contract.type.value == SmartContract.Type.CUSTOM.value
+    assert smart_contract.abi == {"abi": "data"}
+
+    assert not smart_contract.wallet_id
+    assert not smart_contract.deployer_address
+    assert not smart_contract.transaction
+    with pytest.raises(
+        ValueError, match="SmartContract options cannot be returned for external SmartContract"
+    ):
+        _ = smart_contract.options
 
 
 @patch("cdp.Cdp.api_clients")
@@ -84,6 +105,13 @@ def test_broadcast_unsigned_smart_contract(smart_contract_factory):
         smart_contract.broadcast()
 
 
+def test_broadcast_external_smart_contract(external_smart_contract_factory):
+    """Test the broadcasting of an external SmartContract object."""
+    smart_contract = external_smart_contract_factory()
+    with pytest.raises(ValueError, match="Cannot broadcast an external SmartContract"):
+        smart_contract.broadcast()
+
+
 @patch("cdp.Cdp.api_clients")
 def test_reload_smart_contract(mock_api_clients, smart_contract_factory):
     """Test the reloading of a SmartContract object."""
@@ -101,6 +129,13 @@ def test_reload_smart_contract(mock_api_clients, smart_contract_factory):
         smart_contract_id=smart_contract.smart_contract_id,
     )
     assert smart_contract.transaction.status.value == "complete"
+
+
+def test_reload_external_smart_contract(external_smart_contract_factory):
+    """Test the reloading of an external SmartContract object."""
+    smart_contract = external_smart_contract_factory()
+    with pytest.raises(ValueError, match="Cannot reload an external SmartContract"):
+        smart_contract.reload()
 
 
 @patch("cdp.Cdp.api_clients")
@@ -129,6 +164,13 @@ def test_wait_for_smart_contract(mock_time, mock_sleep, mock_api_clients, smart_
     assert mock_time.call_count == 3
 
 
+def test_wait_external_smart_contract(external_smart_contract_factory):
+    """Test the waiting of an external SmartContract object."""
+    smart_contract = external_smart_contract_factory()
+    with pytest.raises(ValueError, match="Cannot wait for an external SmartContract"):
+        smart_contract.wait()
+
+
 @patch("cdp.Cdp.api_clients")
 @patch("cdp.smart_contract.time.sleep")
 @patch("cdp.smart_contract.time.time")
@@ -155,6 +197,13 @@ def test_sign_smart_contract_invalid_key(smart_contract_factory):
     smart_contract = smart_contract_factory()
     with pytest.raises(ValueError, match="key must be a LocalAccount"):
         smart_contract.sign("invalid_key")
+
+
+def test_sign_external_smart_contract(external_smart_contract_factory):
+    """Test the signing of an external SmartContract object."""
+    smart_contract = external_smart_contract_factory()
+    with pytest.raises(ValueError, match="Cannot sign an external SmartContract"):
+        smart_contract.sign("key")
 
 
 def test_smart_contract_str_representation(smart_contract_factory):
@@ -1626,3 +1675,79 @@ def test_read_pure_int8_without_abi(mock_api_clients):
         contract_address="0x1234567890123456789012345678901234567890",
         read_contract_request=ANY,
     )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_register_smart_contract(mock_api_clients, smart_contract_factory):
+    """Test the registration of a SmartContract object."""
+    mock_register_contract = Mock()
+    expected_smart_contract = smart_contract_factory()._model
+    mock_register_contract.return_value = expected_smart_contract
+    mock_api_clients.smart_contracts.register_smart_contract = mock_register_contract
+
+    contract_address = expected_smart_contract.contract_address
+    network_id = expected_smart_contract.network_id
+    contract_name = expected_smart_contract.contract_name
+    abi_json = json.loads(expected_smart_contract.abi)
+    abi = expected_smart_contract.abi
+
+    smart_contract = SmartContract.register(
+        abi=abi_json,
+        contract_name=contract_name,
+        contract_address=contract_address,
+        network_id=network_id,
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_register_contract.assert_called_once_with(
+        contract_address=contract_address,
+        network_id=network_id,
+        register_smart_contract_request=RegisterSmartContractRequest(
+            abi=abi, contract_name=contract_name
+        ),
+    )
+
+    _validate_smart_contract(smart_contract, expected_smart_contract)
+
+
+@patch("cdp.Cdp.api_clients")
+def test_update_smart_contract(mock_api_clients, smart_contract_factory, all_read_types_abi):
+    """Test the update of a SmartContract object."""
+    mock_updated_contract = Mock()
+    mock_api_clients.smart_contracts.update_smart_contract = mock_updated_contract
+    contract_name = "test-contract-2"
+    abi = '{"abi":"data2"}'
+    abi_json = json.loads(abi)
+
+    expected_smart_contract = smart_contract_factory()._model
+    expected_smart_contract.contract_name = contract_name
+    expected_smart_contract.abi = abi
+    mock_updated_contract.return_value = expected_smart_contract
+    contract_address = expected_smart_contract.contract_address
+    network_id = expected_smart_contract.network_id
+
+    smart_contract = SmartContract.update(
+        abi=abi_json,
+        contract_name=contract_name,
+        contract_address=contract_address,
+        network_id=network_id,
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_updated_contract.assert_called_once_with(
+        contract_address=contract_address,
+        network_id=network_id,
+        update_smart_contract_request=UpdateSmartContractRequest(
+            abi=abi, contract_name=contract_name
+        ),
+    )
+
+    _validate_smart_contract(smart_contract, expected_smart_contract)
+
+
+def _validate_smart_contract(returned_smart_contract, expected_smart_contract):
+    assert returned_smart_contract.network_id == expected_smart_contract.network_id
+    assert returned_smart_contract.contract_address == expected_smart_contract.contract_address
+    assert returned_smart_contract.contract_name == expected_smart_contract.contract_name
+    assert returned_smart_contract.abi == json.loads(expected_smart_contract.abi)
+    assert returned_smart_contract.is_external == expected_smart_contract.is_external

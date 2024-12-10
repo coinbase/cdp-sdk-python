@@ -1,20 +1,24 @@
 import json
 import time
+from collections.abc import Iterator
 from enum import Enum
 from typing import Any
 
 from eth_account.signers.local import LocalAccount
 
 from cdp.cdp import Cdp
+from cdp.client import SmartContractList
 from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.multi_token_contract_options import MultiTokenContractOptions
 from cdp.client.models.nft_contract_options import NFTContractOptions
 from cdp.client.models.read_contract_request import ReadContractRequest
+from cdp.client.models.register_smart_contract_request import RegisterSmartContractRequest
 from cdp.client.models.smart_contract import SmartContract as SmartContractModel
 from cdp.client.models.smart_contract_options import SmartContractOptions
 from cdp.client.models.solidity_value import SolidityValue
 from cdp.client.models.token_contract_options import TokenContractOptions
+from cdp.client.models.update_smart_contract_request import UpdateSmartContractRequest
 from cdp.transaction import Transaction
 
 
@@ -27,6 +31,7 @@ class SmartContract:
         ERC20 = "erc20"
         ERC721 = "erc721"
         ERC1155 = "erc1155"
+        CUSTOM = "custom"
 
         def __str__(self) -> str:
             """Return a string representation of the Type."""
@@ -112,7 +117,7 @@ class SmartContract:
         return self._model.network_id
 
     @property
-    def wallet_id(self) -> str:
+    def wallet_id(self) -> str | None:
         """Get the wallet ID that deployed the smart contract.
 
         Returns:
@@ -132,7 +137,17 @@ class SmartContract:
         return self._model.contract_address
 
     @property
-    def deployer_address(self) -> str:
+    def contract_name(self) -> str:
+        """Get the contract address of the smart contract.
+
+        Returns:
+            The contract address.
+
+        """
+        return self._model.contract_name
+
+    @property
+    def deployer_address(self) -> str | None:
         """Get the deployer address of the smart contract.
 
         Returns:
@@ -140,6 +155,16 @@ class SmartContract:
 
         """
         return self._model.deployer_address
+
+    @property
+    def is_external(self) -> bool:
+        """Get the contract address of the smart contract.
+
+        Returns:
+            The contract address.
+
+        """
+        return self._model.is_external
 
     @property
     def type(self) -> Type:
@@ -155,7 +180,9 @@ class SmartContract:
         return self.Type(self._model.type)
 
     @property
-    def options(self) -> TokenContractOptions | NFTContractOptions | MultiTokenContractOptions:
+    def options(
+        self,
+    ) -> TokenContractOptions | NFTContractOptions | MultiTokenContractOptions | None:
         """Get the options of the smart contract.
 
         Returns:
@@ -165,6 +192,9 @@ class SmartContract:
             ValueError: If the smart contract type is unknown or if options are not set.
 
         """
+        if self.is_external:
+            raise ValueError("SmartContract options cannot be returned for external SmartContract")
+
         if self._model.options is None or self._model.options.actual_instance is None:
             raise ValueError("Smart contract options are not set")
 
@@ -196,6 +226,8 @@ class SmartContract:
             Transaction: The transaction.
 
         """
+        if self.is_external:
+            return None
         if self._transaction is None and self._model.transaction is not None:
             self._update_transaction(self._model)
         return self._transaction
@@ -213,6 +245,8 @@ class SmartContract:
             ValueError: If the key is not a LocalAccount.
 
         """
+        if self.is_external:
+            raise ValueError("Cannot sign an external SmartContract")
         if not isinstance(key, LocalAccount):
             raise ValueError("key must be a LocalAccount")
 
@@ -229,6 +263,9 @@ class SmartContract:
             ValueError: If the smart contract deployment is not signed.
 
         """
+        if self.is_external:
+            raise ValueError("Cannot broadcast an external SmartContract")
+
         if not self.transaction.signed:
             raise ValueError("Cannot broadcast unsigned SmartContract deployment")
 
@@ -252,6 +289,8 @@ class SmartContract:
             The updated SmartContract object.
 
         """
+        if self.is_external:
+            raise ValueError("Cannot reload an external SmartContract")
         model = Cdp.api_clients.smart_contracts.get_smart_contract(
             wallet_id=self.wallet_id,
             address_id=self.deployer_address,
@@ -275,6 +314,8 @@ class SmartContract:
             TimeoutError: If the smart contract deployment times out.
 
         """
+        if self.is_external:
+            raise ValueError("Cannot wait for an external SmartContract")
         start_time = time.time()
         while self.transaction is not None and not self.transaction.terminal_state:
             self.reload()
@@ -372,6 +413,105 @@ class SmartContract:
             read_contract_request=read_contract_request,
         )
         return cls._convert_solidity_value(model)
+
+    @classmethod
+    def update(
+        cls,
+        contract_address: str,
+        network_id: str,
+        contract_name: str | None = None,
+        abi: list[dict] | None = None,
+    ) -> "SmartContract":
+        """Update an existing SmartContract.
+
+        Args:
+            network_id: The ID of the network.
+            contract_name: The name of the smart contract.
+            contract_address: The address of the smart contract.
+            abi: The ABI of the smart contract.
+
+        Returns:
+            The updated smart contract.
+
+        """
+        abi_json = None
+
+        if abi:
+            abi_json = json.dumps(abi, separators=(",", ":"))
+
+        update_smart_contract_request = UpdateSmartContractRequest(
+            abi=abi_json,
+            contract_name=contract_name,
+        )
+
+        model = Cdp.api_clients.smart_contracts.update_smart_contract(
+            contract_address=contract_address,
+            network_id=network_id,
+            update_smart_contract_request=update_smart_contract_request,
+        )
+
+        return cls(model)
+
+    @classmethod
+    def register(
+        cls,
+        contract_address: str,
+        network_id: str,
+        abi: list[dict],
+        contract_name: str | None = None,
+    ) -> "SmartContract":
+        """Register a new SmartContract.
+
+        Args:
+            network_id: The ID of the network.
+            contract_name: The name of the smart contract.
+            contract_address: The address of the smart contract.
+            abi: The ABI of the smart contract.
+
+        Returns:
+            The registered smart contract.
+
+        """
+        abi_json = None
+
+        if abi:
+            abi_json = json.dumps(abi, separators=(",", ":"))
+
+        register_smart_contract_request = RegisterSmartContractRequest(
+            abi=abi_json,
+            contract_name=contract_name,
+        )
+
+        model = Cdp.api_clients.smart_contracts.register_smart_contract(
+            contract_address=contract_address,
+            network_id=network_id,
+            register_smart_contract_request=register_smart_contract_request,
+        )
+
+        return cls(model)
+
+    @classmethod
+    def list(cls) -> Iterator["SmartContract"]:
+        """List smart contracts.
+
+        Returns:
+            Iterator[SmartContract]: An iterator of smart contract objects.
+
+        """
+        while True:
+            page = None
+
+            response: SmartContractList = Cdp.api_clients.smart_contracts.list_smart_contracts(
+                page=page
+            )
+
+            for smart_contract_model in response.data:
+                yield cls(smart_contract_model)
+
+            if not response.has_more:
+                break
+
+            page = response.next_page
 
     @classmethod
     def _convert_solidity_value(cls, solidity_value: SolidityValue) -> Any:

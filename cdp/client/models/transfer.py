@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.asset import Asset
 from cdp.client.models.sponsored_send import SponsoredSend
@@ -34,7 +34,7 @@ class Transfer(BaseModel):
     address_id: StrictStr = Field(description="The onchain address of the sender")
     destination: StrictStr = Field(description="The onchain address of the recipient")
     amount: StrictStr = Field(description="The amount in the atomic units of the asset")
-    asset_id: StrictStr = Field(description="The ID of the asset being transferred")
+    asset_id: StrictStr = Field(description="The ID of the asset being transferred. Use `asset.asset_id` instead.")
     asset: Asset
     transfer_id: StrictStr = Field(description="The ID of the transfer")
     transaction: Optional[Transaction] = None
@@ -42,19 +42,9 @@ class Transfer(BaseModel):
     unsigned_payload: Optional[StrictStr] = Field(default=None, description="The unsigned payload of the transfer. This is the payload that needs to be signed by the sender.")
     signed_payload: Optional[StrictStr] = Field(default=None, description="The signed payload of the transfer. This is the payload that has been signed by the sender.")
     transaction_hash: Optional[StrictStr] = Field(default=None, description="The hash of the transfer transaction")
-    status: Optional[StrictStr] = Field(default=None, description="The status of the transfer")
+    status: Optional[StrictStr] = None
     gasless: StrictBool = Field(description="Whether the transfer uses sponsored gas")
     __properties: ClassVar[List[str]] = ["network_id", "wallet_id", "address_id", "destination", "amount", "asset_id", "asset", "transfer_id", "transaction", "sponsored_send", "unsigned_payload", "signed_payload", "transaction_hash", "status", "gasless"]
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['pending', 'broadcast', 'complete', 'failed']):
-            raise ValueError("must be one of enum values ('pending', 'broadcast', 'complete', 'failed')")
-        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

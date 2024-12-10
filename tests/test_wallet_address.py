@@ -480,7 +480,9 @@ def test_invoke_contract_with_invalid_input(
     """Test the invoke_contract method raises an error with invalid input."""
     wallet_address_with_key = wallet_address_factory(key=True)
 
-    with pytest.raises(Exception, match="Asset ID is required for contract invocation if an amount is provided"):
+    with pytest.raises(
+        Exception, match="Asset ID is required for contract invocation if an amount is provided"
+    ):
         wallet_address_with_key.invoke_contract(
             contract_address="0xcontractaddress",
             method="testMethod",
@@ -490,13 +492,11 @@ def test_invoke_contract_with_invalid_input(
         )
 
 
-@ patch("cdp.wallet_address.ContractInvocation")
-@ patch("cdp.Cdp.api_clients")
-@ patch("cdp.Cdp.use_server_signer", False)
+@patch("cdp.wallet_address.ContractInvocation")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
 def test_invoke_contract_api_error(
     mock_api_clients, mock_contract_invocation, wallet_address_factory, balance_model_factory
-
-
 ):
     """Test the invoke_contract method raises an error when the create API call fails."""
     wallet_address_with_key = wallet_address_factory(key=True)

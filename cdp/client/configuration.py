@@ -59,6 +59,26 @@ class Configuration:
       in PEM format.
     :param retries: Number of retries for API requests.
 
+    :Example:
+
+    API Key Authentication Example.
+    Given the following security scheme in the OpenAPI specification:
+      components:
+        securitySchemes:
+          cookieAuth:         # name for the security scheme
+            type: apiKey
+            in: cookie
+            name: JSESSIONID  # cookie name
+
+    You can programmatically set the cookie:
+
+conf = cdp.client.Configuration(
+    api_key={'cookieAuth': 'abc123'}
+    api_key_prefix={'cookieAuth': 'JSESSIONID'}
+)
+
+    The following cookie will be added to the HTTP request:
+       Cookie: JSESSIONID abc123
     """
 
     _default = None
@@ -373,6 +393,24 @@ class Configuration:
         :return: The Auth Settings information dict.
         """
         auth = {}
+        if 'apiKey' in self.api_key:
+            auth['apiKey'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'Jwt',
+                'value': self.get_api_key_with_prefix(
+                    'apiKey',
+                ),
+            }
+        if 'session' in self.api_key:
+            auth['session'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'Jwt',
+                'value': self.get_api_key_with_prefix(
+                    'session',
+                ),
+            }
         return auth
 
     def to_debug_report(self):
