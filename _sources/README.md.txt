@@ -15,6 +15,8 @@ one asset into another.
 ## Requirements
 
 - Python 3.10+
+- Poetry for package management and tooling
+  - [Poetry Installation Instructions](https://python-poetry.org/docs/#installation)
 
 ### Checking Python Version
 
@@ -32,6 +34,11 @@ For `pip`, refer to the [official pip documentation](https://pip.pypa.io/en/stab
 
 ```bash
 pip install cdp-sdk
+```
+
+if you prefer to manage dependencies with Poetry:
+```bash
+poetry add cdp-sdk
 ```
 
 ### Starting a Python REPL
