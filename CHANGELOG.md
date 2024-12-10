@@ -2,20 +2,27 @@
 
 ## Unreleased
 
+### Added
+
+- Wallet address contract invocation input validation for payable contracts.
+
 ### [0.12.0] - 2024-12-06
 
 ### Added
+
 - Use Poetry as the dependency manager
 - Relax dependency version constraints
 
 ### [0.11.0] - 2024-11-27
 
 ### Added
+
 - Add support for funding wallets (Alpha feature release)
-  - Must reach out to CDP SDK Discord channel to be considered for this feature.
+    - Must reach out to CDP SDK Discord channel to be considered for this feature.
 - Added create and update feature for `SmartContractEventActivity` webhook and its related event type filter.
 
 ### Fixed
+
 - Fix bug in `Asset.from_model` where passed in asset ID was not used when creating a gwei or wei asset.
 
 ## [0.10.4] - 2024-11-25
@@ -57,7 +64,7 @@
 ### Changed
 
 - Make faucet transactions async i.e. using `faucet_tx.wait()` to wait for the transaction to be confirmed.
-  - This will make the SDK more consistent and make faucet transactions more reliable.
+    - This will make the SDK more consistent and make faucet transactions more reliable.
 
 ## [0.0.9] - 2024-10-29
 
