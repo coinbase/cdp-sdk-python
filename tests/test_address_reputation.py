@@ -1,8 +1,7 @@
-import pytest
 from unittest.mock import Mock, patch
 
 from cdp.reputation import AddressReputation
-from tests.factories.address_reputation_factory import address_reputation_factory
+
 
 def test_address_reputation_initialization(address_reputation_factory):
     address_reputation = address_reputation_factory(reputation_score=10)

@@ -1,11 +1,9 @@
 from cdp.cdp import Cdp
 from cdp.client.models.address_reputation import AddressReputation as AddressReputationModel
-from cdp.client.api_client import ApiClient
-from cdp.client.api.reputation_api import ReputationApi
+
 
 class AddressReputation:
-    """
-    A representation of the reputation of a blockchain address.
+    """A representation of the reputation of a blockchain address.
     """
 
     def __init__(self, model: AddressReputationModel) -> None:
@@ -45,8 +43,7 @@ class AddressReputation:
 
     @staticmethod
     def pretty_print_object(class_name, **kwargs):
-        """
-        Pretty prints an object as a string.
+        """Pretty prints an object as a string.
         """
         attributes = ', '.join(f"{key}={value}" for key, value in kwargs.items())
         return f"<{class_name}({attributes})>"

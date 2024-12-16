@@ -1,8 +1,9 @@
 import pytest
 
-from cdp.reputation import AddressReputation
 from cdp.client.models.address_reputation import AddressReputation as AddressReputationModel
 from cdp.client.models.address_reputation_metadata import AddressReputationMetadata
+from cdp.reputation import AddressReputation
+
 
 @pytest.fixture
 def address_reputation_model_factory():
