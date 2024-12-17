@@ -17,6 +17,7 @@ from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.transfer import Transfer
+from cdp.signers.base_signer import BaseSigner
 
 if TYPE_CHECKING:
     from cdp.wallet import Wallet
@@ -25,16 +26,16 @@ if TYPE_CHECKING:
 class WalletAddress(Address):
     """A class representing a wallet address."""
 
-    def __init__(self, model: AddressModel, key: LocalAccount | None = None) -> None:
+    def __init__(self, model: AddressModel, signer: BaseSigner | None = None) -> None:
         """Initialize the WalletAddress.
 
         Args:
             model (AddressModel): The address model.
-            key (Optional[LocalAccount]): The local account key.
+            signer (Optional[BaseSigner]): The signer.
 
         """
         self._model = model
-        self._key = key
+        self._signer = signer
 
         super().__init__(model.network_id, model.address_id)
 
@@ -44,25 +45,25 @@ class WalletAddress(Address):
         return self._model.wallet_id
 
     @property
-    def key(self) -> LocalAccount | None:
-        """Get the local account key."""
-        return self._key
+    def signer(self) -> BaseSigner | None:
+        """Get the signer."""
+        return self._signer
 
-    @key.setter
-    def key(self, key: LocalAccount) -> None:
+    @signer.setter
+    def signer(self, signer: BaseSigner) -> None:
         """Set the private key for signing transactions.
 
         Args:
-            key (LocalAccount): The private key.
+            signer (BaseSigner): The signer.
 
         Raises:
-            ValueError: If the private key is already set.
+            ValueError: If the signer is already set.
 
         """
-        if self.key is not None:
-            raise ValueError("Private key is already set")
+        if self.signer is not None:
+            raise ValueError("Signer is already set")
 
-        self._key = key
+        self._signer = signer
 
     @property
     def can_sign(self) -> bool:
@@ -84,11 +85,10 @@ class WalletAddress(Address):
             ValueError: If the wallet address does not have a private key.
 
         """
-        local_account = self.key
-        if local_account is None:
+        if self._signer is None:
             raise ValueError("Private key is unavailable")
 
-        key_bytes = local_account.key
+        key_bytes = self._signer.private_key
         if key_bytes is None:
             raise ValueError("Private key is empty")
 

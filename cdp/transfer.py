@@ -2,8 +2,6 @@ import time
 from collections.abc import Iterator
 from decimal import Decimal
 
-from eth_account.signers.local import LocalAccount
-
 from cdp.asset import Asset
 from cdp.cdp import Cdp
 from cdp.client.models.broadcast_transfer_request import BroadcastTransferRequest
@@ -13,6 +11,7 @@ from cdp.client.models.transfer_list import TransferList
 from cdp.errors import TransactionNotSignedError
 from cdp.sponsored_send import SponsoredSend
 from cdp.transaction import Transaction
+from cdp.signers.base_signer import BaseSigner
 
 
 class Transfer:
@@ -223,11 +222,11 @@ class Transfer:
 
             page = response.next_page
 
-    def sign(self, key: LocalAccount) -> "Transfer":
-        """Sign the Transfer with the given key.
+    def sign(self, signer: BaseSigner) -> "Transfer":
+        """Sign the Transfer with the given signer.
 
         Args:
-            key (LocalAccount): The key to sign the Transfer with.
+            signer (BaseSigner): The signer to sign the Transfer with.
 
         Returns:
             Transfer: The Transfer object.
@@ -236,10 +235,10 @@ class Transfer:
             ValueError: If the key is not a LocalAccount.
 
         """
-        if not isinstance(key, LocalAccount):
-            raise ValueError("key must be a LocalAccount")
+        if not isinstance(signer, BaseSigner):
+            raise ValueError("key must be a BaseSigner")
 
-        self.send_tx_delegate.sign(key)
+        self.send_tx_delegate.sign(signer)
 
         return self
 

@@ -37,6 +37,8 @@ from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
 from cdp.webhook import Webhook
+from cdp.signers.base_key_mananger import BaseKeyManager, LocalBip32KeyManager
+from cdp.signers.base_signer import BaseSigner
 
 
 class Wallet:
@@ -45,7 +47,12 @@ class Wallet:
     MAX_ADDRESSES: int = 20
     """The maximum number of addresses that can be associated with a wallet."""
 
-    def __init__(self, model: WalletModel, seed: str | None = None) -> None:
+    def __init__(
+            self,
+            model: WalletModel,
+            seed: str | None = None,
+            key_manager: BaseKeyManager = LocalBip32KeyManager,
+    ) -> None:
         """Initialize the Wallet class.
 
         Args:
@@ -55,8 +62,11 @@ class Wallet:
         """
         self._model = model
         self._addresses: list[WalletAddress] | None = None
-        self._seed = seed
-        self._master = None if Cdp.use_server_signer else self._set_master_node()
+        if not Cdp.use_server_signer:
+            self._key_manager = LocalBip32KeyManager()
+            self._key_manager.seed = seed
+        else:
+            self._key_manager = None
 
     @property
     def id(self) -> str:
@@ -109,7 +119,7 @@ class Wallet:
             bool: True if the wallet can sign, False otherwise.
 
         """
-        return self._master is not None
+        return self._key_manager is not None
 
     @classmethod
     def create(
@@ -271,7 +281,7 @@ class Wallet:
         if self.can_sign:
             index = len(self._addresses)
             derived_key = self._derive_key(index)
-            public_key_hex = derived_key.PublicKey().RawCompressed().ToHex()
+            public_key_hex = derived_key.public_address
             attestation = self._create_attestation(derived_key, public_key_hex)
 
             create_address_request = CreateAddressRequest(
@@ -654,26 +664,6 @@ class Wallet:
             None,
         )
 
-    def _set_master_node(self) -> Bip32Slip10Secp256k1 | None:
-        """Set the master node for the wallet.
-
-        Returns:
-            Optional[Bip32Slip10Secp256k1]: The master node, or None if no seed is available.
-
-        """
-        if self._seed is None:
-            seed = os.urandom(64)
-            self._seed = seed.hex()
-
-        if self._seed == "":
-            return None
-
-        seed = bytes.fromhex(self._seed)
-
-        self._validate_seed(seed)
-
-        return Bip32Slip10Secp256k1.FromSeed(seed)
-
     def _validate_seed(self, seed: bytes) -> None:
         """Validate the seed.
 
@@ -687,7 +677,7 @@ class Wallet:
         if len(seed) != 64:
             raise ValueError("Invalid seed length")
 
-    def _derive_key(self, index: int) -> Bip32Slip10Secp256k1:
+    def _derive_key(self, index: int) -> BaseSigner:
         """Derive a key from the master node.
 
         Args:
@@ -697,7 +687,7 @@ class Wallet:
             Bip32Slip10Secp256k1: The derived key.
 
         """
-        return self._master.DerivePath("m/44'/60'/0'/0" + f"/{index}")
+        return self._key_manager.derive_key(index)
 
     def _create_attestation(self, key: Bip32Slip10Secp256k1, public_key_hex: str) -> str:
         """Create an attestation for the given private key in the format expected.
