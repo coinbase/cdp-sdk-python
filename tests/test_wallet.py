@@ -658,3 +658,22 @@ def test_wallet_quote_fund_no_default_address(wallet_factory):
 
         with pytest.raises(ValueError, match="Default address does not exist"):
             wallet.quote_fund(amount="1.0", asset_id="eth")
+
+@patch("cdp.Cdp.use_server_signer", False)
+@patch("cdp.wallet.os")
+@patch("cdp.wallet.Bip32Slip10Secp256k1")
+def test_wallet_export_data(mock_bip32, mock_os, wallet_factory, master_key_factory):
+    """Test Wallet export_data method."""
+    seed = b"\x00" * 64
+    mock_urandom = Mock(return_value=seed)
+    mock_os.urandom = mock_urandom
+    mock_from_seed = Mock(return_value=master_key_factory(seed))
+    mock_bip32.FromSeed = mock_from_seed
+
+    wallet = wallet_factory()
+
+    exported = wallet.export_data()
+
+    assert exported.wallet_id == wallet.id
+    assert exported.seed == seed.hex()
+    assert exported.network_id == wallet.network_id

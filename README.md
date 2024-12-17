@@ -189,7 +189,7 @@ list(address.trades())
 The SDK creates wallets with [Developer-Managed (1-1)](https://docs.cdp.coinbase.com/mpc-wallet/docs/wallets#developer-managed-wallets) keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.
 
 ```python
-# Export the data required to re-instantiate the wallet. The data contains the seed and the ID of the wallet.
+# Export the data required to re-instantiate the wallet. The data contains the seed, the ID of the wallet, and the network ID.
 data = wallet.export_data()
 ```
 
