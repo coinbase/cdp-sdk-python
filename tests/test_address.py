@@ -10,6 +10,7 @@ from cdp.errors import ApiError
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.historical_balance import HistoricalBalance
 from cdp.transaction import Transaction
+from cdp.address_reputation import AddressReputation
 
 
 def test_address_initialization(address_factory):
@@ -238,6 +239,28 @@ def test_address_transactions_error(mock_api_clients, address_factory):
     with pytest.raises(ApiError):
         transactions = address.transactions()
         next(transactions)
+
+
+@patch("cdp.Cdp.api_clients")
+def test_address_reputation(mock_api_clients, address_factory, address_reputation_factory):
+    """Test the reputation property of an Address."""
+    address = address_factory()
+    address_reputation_data = address_reputation_factory(score=-10)
+
+    mock_address_reputation = Mock()
+    mock_address_reputation.return_value = address_reputation_data
+    mock_api_clients.reputation.get_address_reputation = mock_address_reputation
+
+    reputation = address.reputation()
+
+    assert isinstance(reputation, AddressReputation)
+
+    assert reputation.metadata.activity_period_days == 6
+    assert reputation.risky is True
+
+    mock_address_reputation.assert_called_once_with(
+        network_id=address.network_id, address_id=address.address_id
+    )
 
 
 def test_address_str_representation(address_factory):
