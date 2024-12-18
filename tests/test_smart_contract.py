@@ -1719,6 +1719,7 @@ def test_update_smart_contract(mock_api_clients, smart_contract_factory, all_rea
     abi = '{"abi":"data2"}'
     abi_json = json.loads(abi)
 
+    existing_smart_contract = smart_contract_factory()
     expected_smart_contract = smart_contract_factory()._model
     expected_smart_contract.contract_name = contract_name
     expected_smart_contract.abi = abi
@@ -1726,11 +1727,9 @@ def test_update_smart_contract(mock_api_clients, smart_contract_factory, all_rea
     contract_address = expected_smart_contract.contract_address
     network_id = expected_smart_contract.network_id
 
-    smart_contract = SmartContract.update(
+    smart_contract = existing_smart_contract.update(
         abi=abi_json,
         contract_name=contract_name,
-        contract_address=contract_address,
-        network_id=network_id,
     )
 
     assert isinstance(smart_contract, SmartContract)

@@ -414,20 +414,15 @@ class SmartContract:
         )
         return cls._convert_solidity_value(model)
 
-    @classmethod
     def update(
-        cls,
-        contract_address: str,
-        network_id: str,
+        self,
         contract_name: str | None = None,
         abi: list[dict] | None = None,
     ) -> "SmartContract":
         """Update an existing SmartContract.
 
         Args:
-            network_id: The ID of the network.
             contract_name: The name of the smart contract.
-            contract_address: The address of the smart contract.
             abi: The ABI of the smart contract.
 
         Returns:
@@ -445,12 +440,13 @@ class SmartContract:
         )
 
         model = Cdp.api_clients.smart_contracts.update_smart_contract(
-            contract_address=contract_address,
-            network_id=network_id,
+            contract_address=self.contract_address,
+            network_id=self.network_id,
             update_smart_contract_request=update_smart_contract_request,
         )
 
-        return cls(model)
+        self._model = model
+        return self
 
     @classmethod
     def register(
