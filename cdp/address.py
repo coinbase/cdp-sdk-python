@@ -1,6 +1,7 @@
 from collections.abc import Iterator
 from decimal import Decimal
 
+from cdp.address_reputation import AddressReputation
 from cdp.asset import Asset
 from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
@@ -8,7 +9,6 @@ from cdp.cdp import Cdp
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.historical_balance import HistoricalBalance
 from cdp.transaction import Transaction
-from cdp.address_reputation import AddressReputation
 
 
 class Address:

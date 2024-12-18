@@ -4,13 +4,13 @@ from unittest.mock import Mock, patch
 import pytest
 
 from cdp.address import Address
+from cdp.address_reputation import AddressReputation
 from cdp.balance_map import BalanceMap
 from cdp.client.exceptions import ApiException
 from cdp.errors import ApiError
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.historical_balance import HistoricalBalance
 from cdp.transaction import Transaction
-from cdp.address_reputation import AddressReputation
 
 
 def test_address_initialization(address_factory):
