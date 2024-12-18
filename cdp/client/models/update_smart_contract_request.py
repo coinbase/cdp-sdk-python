@@ -17,19 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
-from cdp.client.models.address_reputation_metadata import AddressReputationMetadata
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AddressReputation(BaseModel):
+class UpdateSmartContractRequest(BaseModel):
     """
-    The reputation score with metadata of a blockchain address.
+    Smart Contract data to be updated
     """ # noqa: E501
-    score: StrictInt = Field(description="The score of a wallet address, ranging from -100 to 100. A negative score indicates a bad reputation, while a positive score indicates a good reputation.")
-    metadata: AddressReputationMetadata
-    __properties: ClassVar[List[str]] = ["score", "metadata"]
+    abi: Optional[StrictStr] = Field(default=None, description="ABI of the smart contract")
+    contract_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Name of the smart contract")
+    __properties: ClassVar[List[str]] = ["abi", "contract_name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +49,7 @@ class AddressReputation(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AddressReputation from a JSON string"""
+        """Create an instance of UpdateSmartContractRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,14 +70,11 @@ class AddressReputation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of metadata
-        if self.metadata:
-            _dict['metadata'] = self.metadata.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AddressReputation from a dict"""
+        """Create an instance of UpdateSmartContractRequest from a dict"""
         if obj is None:
             return None
 
@@ -85,8 +82,8 @@ class AddressReputation(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "score": obj.get("score"),
-            "metadata": AddressReputationMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None
+            "abi": obj.get("abi"),
+            "contract_name": obj.get("contract_name")
         })
         return _obj
 

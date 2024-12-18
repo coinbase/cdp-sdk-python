@@ -19,13 +19,14 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
-from cdp.client.models.abi import ABI
 from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
 from cdp.client.models.deploy_smart_contract_request import DeploySmartContractRequest
 from cdp.client.models.read_contract_request import ReadContractRequest
+from cdp.client.models.register_smart_contract_request import RegisterSmartContractRequest
 from cdp.client.models.smart_contract import SmartContract
 from cdp.client.models.smart_contract_list import SmartContractList
 from cdp.client.models.solidity_value import SolidityValue
+from cdp.client.models.update_smart_contract_request import UpdateSmartContractRequest
 
 from cdp.client.api_client import ApiClient, RequestSerialized
 from cdp.client.api_response import ApiResponse
@@ -328,6 +329,7 @@ class SmartContractsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey'
         ]
 
         return self.api_client.param_serialize(
@@ -646,6 +648,7 @@ class SmartContractsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey'
         ]
 
         return self.api_client.param_serialize(
@@ -936,6 +939,8 @@ class SmartContractsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(
@@ -1198,6 +1203,8 @@ class SmartContractsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(
@@ -1501,6 +1508,8 @@ class SmartContractsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(
@@ -1524,9 +1533,9 @@ class SmartContractsApi:
     @validate_call
     def register_smart_contract(
         self,
-        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
         network_id: Annotated[StrictStr, Field(description="The ID of the network to fetch.")],
-        abi: ABI,
+        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
+        register_smart_contract_request: Optional[RegisterSmartContractRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1539,17 +1548,17 @@ class SmartContractsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> SmartContract:
         """Register a smart contract
 
         Register a smart contract
 
-        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
-        :type contract_address: str
         :param network_id: The ID of the network to fetch. (required)
         :type network_id: str
-        :param abi: (required)
-        :type abi: ABI
+        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
+        :type contract_address: str
+        :param register_smart_contract_request:
+        :type register_smart_contract_request: RegisterSmartContractRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1573,9 +1582,9 @@ class SmartContractsApi:
         """ # noqa: E501
 
         _param = self._register_smart_contract_serialize(
-            contract_address=contract_address,
             network_id=network_id,
-            abi=abi,
+            contract_address=contract_address,
+            register_smart_contract_request=register_smart_contract_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1583,7 +1592,7 @@ class SmartContractsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SmartContract",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1599,9 +1608,9 @@ class SmartContractsApi:
     @validate_call
     def register_smart_contract_with_http_info(
         self,
-        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
         network_id: Annotated[StrictStr, Field(description="The ID of the network to fetch.")],
-        abi: ABI,
+        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
+        register_smart_contract_request: Optional[RegisterSmartContractRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1614,17 +1623,17 @@ class SmartContractsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[SmartContract]:
         """Register a smart contract
 
         Register a smart contract
 
-        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
-        :type contract_address: str
         :param network_id: The ID of the network to fetch. (required)
         :type network_id: str
-        :param abi: (required)
-        :type abi: ABI
+        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
+        :type contract_address: str
+        :param register_smart_contract_request:
+        :type register_smart_contract_request: RegisterSmartContractRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1648,9 +1657,9 @@ class SmartContractsApi:
         """ # noqa: E501
 
         _param = self._register_smart_contract_serialize(
-            contract_address=contract_address,
             network_id=network_id,
-            abi=abi,
+            contract_address=contract_address,
+            register_smart_contract_request=register_smart_contract_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1658,7 +1667,7 @@ class SmartContractsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SmartContract",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1674,9 +1683,9 @@ class SmartContractsApi:
     @validate_call
     def register_smart_contract_without_preload_content(
         self,
-        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
         network_id: Annotated[StrictStr, Field(description="The ID of the network to fetch.")],
-        abi: ABI,
+        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
+        register_smart_contract_request: Optional[RegisterSmartContractRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1694,12 +1703,12 @@ class SmartContractsApi:
 
         Register a smart contract
 
-        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
-        :type contract_address: str
         :param network_id: The ID of the network to fetch. (required)
         :type network_id: str
-        :param abi: (required)
-        :type abi: ABI
+        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
+        :type contract_address: str
+        :param register_smart_contract_request:
+        :type register_smart_contract_request: RegisterSmartContractRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1723,9 +1732,9 @@ class SmartContractsApi:
         """ # noqa: E501
 
         _param = self._register_smart_contract_serialize(
-            contract_address=contract_address,
             network_id=network_id,
-            abi=abi,
+            contract_address=contract_address,
+            register_smart_contract_request=register_smart_contract_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1733,7 +1742,7 @@ class SmartContractsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SmartContract",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1744,9 +1753,9 @@ class SmartContractsApi:
 
     def _register_smart_contract_serialize(
         self,
-        contract_address,
         network_id,
-        abi,
+        contract_address,
+        register_smart_contract_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1768,16 +1777,16 @@ class SmartContractsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if contract_address is not None:
-            _path_params['contract_address'] = contract_address
         if network_id is not None:
             _path_params['network_id'] = network_id
+        if contract_address is not None:
+            _path_params['contract_address'] = contract_address
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if abi is not None:
-            _body_params = abi
+        if register_smart_contract_request is not None:
+            _body_params = register_smart_contract_request
 
 
         # set the HTTP header `Accept`
@@ -1804,11 +1813,318 @@ class SmartContractsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
         ]
 
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v1/networks/{network_id}/smart_contracts/{contract_address}/register',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def update_smart_contract(
+        self,
+        network_id: Annotated[StrictStr, Field(description="The ID of the network to fetch.")],
+        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
+        update_smart_contract_request: Optional[UpdateSmartContractRequest] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> SmartContract:
+        """Update a smart contract
+
+        Update a smart contract
+
+        :param network_id: The ID of the network to fetch. (required)
+        :type network_id: str
+        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
+        :type contract_address: str
+        :param update_smart_contract_request:
+        :type update_smart_contract_request: UpdateSmartContractRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._update_smart_contract_serialize(
+            network_id=network_id,
+            contract_address=contract_address,
+            update_smart_contract_request=update_smart_contract_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SmartContract",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def update_smart_contract_with_http_info(
+        self,
+        network_id: Annotated[StrictStr, Field(description="The ID of the network to fetch.")],
+        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
+        update_smart_contract_request: Optional[UpdateSmartContractRequest] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[SmartContract]:
+        """Update a smart contract
+
+        Update a smart contract
+
+        :param network_id: The ID of the network to fetch. (required)
+        :type network_id: str
+        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
+        :type contract_address: str
+        :param update_smart_contract_request:
+        :type update_smart_contract_request: UpdateSmartContractRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._update_smart_contract_serialize(
+            network_id=network_id,
+            contract_address=contract_address,
+            update_smart_contract_request=update_smart_contract_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SmartContract",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def update_smart_contract_without_preload_content(
+        self,
+        network_id: Annotated[StrictStr, Field(description="The ID of the network to fetch.")],
+        contract_address: Annotated[StrictStr, Field(description="EVM address of the smart contract (42 characters, including '0x', in lowercase)")],
+        update_smart_contract_request: Optional[UpdateSmartContractRequest] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Update a smart contract
+
+        Update a smart contract
+
+        :param network_id: The ID of the network to fetch. (required)
+        :type network_id: str
+        :param contract_address: EVM address of the smart contract (42 characters, including '0x', in lowercase) (required)
+        :type contract_address: str
+        :param update_smart_contract_request:
+        :type update_smart_contract_request: UpdateSmartContractRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._update_smart_contract_serialize(
+            network_id=network_id,
+            contract_address=contract_address,
+            update_smart_contract_request=update_smart_contract_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SmartContract",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _update_smart_contract_serialize(
+        self,
+        network_id,
+        contract_address,
+        update_smart_contract_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if network_id is not None:
+            _path_params['network_id'] = network_id
+        if contract_address is not None:
+            _path_params['contract_address'] = contract_address
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if update_smart_contract_request is not None:
+            _body_params = update_smart_contract_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'apiKey', 
+            'session'
+        ]
+
+        return self.api_client.param_serialize(
+            method='PUT',
+            resource_path='/v1/networks/{network_id}/smart_contracts/{contract_address}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

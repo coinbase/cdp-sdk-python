@@ -50,14 +50,12 @@ from cdp.client.exceptions import ApiAttributeError
 from cdp.client.exceptions import ApiException
 
 # import models into sdk package
-from cdp.client.models.abi import ABI
 from cdp.client.models.address import Address
 from cdp.client.models.address_balance_list import AddressBalanceList
 from cdp.client.models.address_historical_balance_list import AddressHistoricalBalanceList
 from cdp.client.models.address_list import AddressList
 from cdp.client.models.address_reputation import AddressReputation
 from cdp.client.models.address_reputation_metadata import AddressReputationMetadata
-from cdp.client.models.address_risk import AddressRisk
 from cdp.client.models.address_transaction_list import AddressTransactionList
 from cdp.client.models.asset import Asset
 from cdp.client.models.balance import Balance
@@ -116,6 +114,7 @@ from cdp.client.models.onchain_name_list import OnchainNameList
 from cdp.client.models.payload_signature import PayloadSignature
 from cdp.client.models.payload_signature_list import PayloadSignatureList
 from cdp.client.models.read_contract_request import ReadContractRequest
+from cdp.client.models.register_smart_contract_request import RegisterSmartContractRequest
 from cdp.client.models.seed_creation_event import SeedCreationEvent
 from cdp.client.models.seed_creation_event_result import SeedCreationEventResult
 from cdp.client.models.server_signer import ServerSigner
@@ -150,6 +149,7 @@ from cdp.client.models.transaction_content import TransactionContent
 from cdp.client.models.transaction_type import TransactionType
 from cdp.client.models.transfer import Transfer
 from cdp.client.models.transfer_list import TransferList
+from cdp.client.models.update_smart_contract_request import UpdateSmartContractRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
 from cdp.client.models.user import User
 from cdp.client.models.validator import Validator

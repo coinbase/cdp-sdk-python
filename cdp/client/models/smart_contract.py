@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.smart_contract_options import SmartContractOptions
 from cdp.client.models.smart_contract_type import SmartContractType
 from cdp.client.models.transaction import Transaction
@@ -29,17 +29,18 @@ class SmartContract(BaseModel):
     """
     Represents a smart contract on the blockchain
     """ # noqa: E501
-    smart_contract_id: StrictStr = Field(description="The unique identifier of the smart contract")
+    smart_contract_id: StrictStr = Field(description="The unique identifier of the smart contract.")
     network_id: StrictStr = Field(description="The name of the blockchain network")
-    wallet_id: StrictStr = Field(description="The ID of the wallet that deployed the smart contract")
+    wallet_id: Optional[StrictStr] = Field(default=None, description="The ID of the wallet that deployed the smart contract. If this smart contract was deployed externally, this will be omitted.")
     contract_address: StrictStr = Field(description="The EVM address of the smart contract")
     contract_name: StrictStr = Field(description="The name of the smart contract")
-    deployer_address: StrictStr = Field(description="The EVM address of the account that deployed the smart contract")
+    deployer_address: Optional[StrictStr] = Field(default=None, description="The EVM address of the account that deployed the smart contract. If this smart contract was deployed externally, this will be omitted.")
     type: SmartContractType
-    options: SmartContractOptions
+    options: Optional[SmartContractOptions] = None
     abi: StrictStr = Field(description="The JSON-encoded ABI of the contract")
-    transaction: Transaction
-    __properties: ClassVar[List[str]] = ["smart_contract_id", "network_id", "wallet_id", "contract_address", "contract_name", "deployer_address", "type", "options", "abi", "transaction"]
+    transaction: Optional[Transaction] = None
+    is_external: StrictBool = Field(description="Whether the smart contract was deployed externally. If true, the deployer_address and transaction will be omitted.")
+    __properties: ClassVar[List[str]] = ["smart_contract_id", "network_id", "wallet_id", "contract_address", "contract_name", "deployer_address", "type", "options", "abi", "transaction", "is_external"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,7 +108,8 @@ class SmartContract(BaseModel):
             "type": obj.get("type"),
             "options": SmartContractOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
             "abi": obj.get("abi"),
-            "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None
+            "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None,
+            "is_external": obj.get("is_external")
         })
         return _obj
 
