@@ -492,7 +492,7 @@ class Wallet:
         if self._master is None or self._seed is None:
             raise ValueError("Wallet does not have seed loaded")
 
-        return WalletData(self.id, self._seed)
+        return WalletData(self.id, self._seed, self.network_id)
 
     def save_seed(self, file_path: str, encrypt: bool | None = False) -> None:
         """Save the wallet seed to a file.
@@ -530,6 +530,7 @@ class Wallet:
             "encrypted": encrypt,
             "auth_tag": auth_tag,
             "iv": iv,
+            "network_id": self.network_id,
         }
 
         with open(file_path, "w") as f:

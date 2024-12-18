@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add `network_id` to `WalletData` so that it is saved with the seed data and surfaced via the export function
+
 ### [0.12.1] - 2024-12-10
 
 ### Added
