@@ -682,21 +682,51 @@ def test_wallet_export_data(mock_bip32, mock_os, wallet_factory, master_key_fact
 
 @patch("cdp.Cdp.use_server_signer", False)
 @patch("cdp.Cdp.api_clients")
+@patch("cdp.wallet.Account")
 def test_wallet_import_from_mnemonic_seed_phrase(
+    mock_account,
     mock_api_clients,
     wallet_factory,
+    address_model_factory,
 ):
     """Test importing a wallet from a mnemonic seed phrase."""
     # Valid 24-word mnemonic and expected address
     valid_mnemonic = "crouch cereal notice one canyon kiss tape employ ghost column vanish despair eight razor laptop keen rally gaze riot regret assault jacket risk curve"
     expected_address = "0x43A0477E658C6e05136e81C576CF02daCEa067bB"
+    public_key = "0x037e6cbdd1d949f60f41d5db7ffa9b3ddce0b77eab35ef7affd3f64cbfd9e33a91"
 
-    # Mock API responses for wallet creation
-    mock_create_wallet = Mock(return_value=wallet_factory(id="new-wallet-id"))
-    mock_api_clients.wallets.create_wallet = mock_create_wallet
+    # Create mock address model
+    mock_address = address_model_factory(
+        address_id=expected_address,
+        public_key=public_key,
+        wallet_id="new-wallet-id",
+        network_id="base-sepolia",
+        index=0,
+    )
 
-    mock_get_wallet = Mock(return_value=wallet_factory(id="new-wallet-id"))
-    mock_api_clients.wallets.get_wallet = mock_get_wallet
+    # Create mock wallet model with the address model
+    mock_wallet = wallet_factory(
+        id="new-wallet-id", network_id="base-sepolia", default_address=mock_address
+    )._model
+
+    # Add debug assertions
+    assert mock_wallet.default_address is not None
+    assert mock_wallet.default_address.address_id == expected_address
+
+    # Mock Account.from_key to return an account with our expected address
+    mock_account_instance = Mock(spec=Account)
+    mock_account_instance.address = expected_address
+    mock_account.from_key = Mock(return_value=mock_account_instance)
+
+    # Mock both API calls to return the same wallet model
+    mock_api_clients.wallets.create_wallet = Mock(return_value=mock_wallet)
+    mock_api_clients.wallets.get_wallet = Mock(return_value=mock_wallet)
+    mock_api_clients.addresses.create_address = Mock(return_value=mock_address)
+
+    # Mock list_addresses call
+    mock_address_list = Mock()
+    mock_address_list.data = [mock_address]
+    mock_api_clients.addresses.list_addresses = Mock(return_value=mock_address_list)
 
     # Import wallet using mnemonic
     from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
@@ -709,6 +739,7 @@ def test_wallet_import_from_mnemonic_seed_phrase(
     # Verify the default address matches expected address
     assert wallet.default_address is not None
     assert wallet.default_address.address_id == expected_address
+    assert wallet.default_address._model.public_key == public_key
 
 
 def test_wallet_import_from_mnemonic_empty_phrase():
