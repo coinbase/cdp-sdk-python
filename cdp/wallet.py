@@ -259,7 +259,7 @@ class Wallet:
             page = response.next_page
 
     @classmethod
-    def import_data(cls, data: WalletData | MnemonicSeedPhrase) -> "Wallet":
+    def import_wallet(cls, data: WalletData | MnemonicSeedPhrase) -> "Wallet":
         """Import a wallet from previously exported wallet data or a mnemonic seed phrase.
 
         Args:
@@ -301,6 +301,23 @@ class Wallet:
             return wallet
 
         raise ValueError("Data must be a WalletData or MnemonicSeedPhrase instance")
+
+    @classmethod
+    def import_data(cls, data: WalletData) -> "Wallet":
+        """Import a wallet from previously exported wallet data.
+
+        Args:
+            data (WalletData): The wallet data to import.
+
+        Returns:
+            Wallet: The imported wallet.
+
+        Raises:
+            ValueError: If data is not a WalletData instance.
+            Exception: If there's an error getting the wallet.
+
+        """
+        return cls.import_wallet(data)
 
     def create_address(self) -> "WalletAddress":
         """Create a new address for the wallet.

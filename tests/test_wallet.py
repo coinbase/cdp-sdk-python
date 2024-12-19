@@ -731,7 +731,7 @@ def test_wallet_import_from_mnemonic_seed_phrase(
     # Import wallet using mnemonic
     from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 
-    wallet = Wallet.import_data(MnemonicSeedPhrase(valid_mnemonic))
+    wallet = Wallet.import_wallet(MnemonicSeedPhrase(valid_mnemonic))
 
     # Verify the wallet was created successfully
     assert isinstance(wallet, Wallet)
@@ -747,7 +747,7 @@ def test_wallet_import_from_mnemonic_empty_phrase():
     from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 
     with pytest.raises(ValueError, match="BIP-39 mnemonic seed phrase must be provided"):
-        Wallet.import_data(MnemonicSeedPhrase(""))
+        Wallet.import_wallet(MnemonicSeedPhrase(""))
 
 
 def test_wallet_import_from_mnemonic_invalid_phrase():
@@ -755,4 +755,4 @@ def test_wallet_import_from_mnemonic_invalid_phrase():
     from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 
     with pytest.raises(ValueError, match="Invalid BIP-39 mnemonic seed phrase"):
-        Wallet.import_data(MnemonicSeedPhrase("invalid mnemonic phrase"))
+        Wallet.import_wallet(MnemonicSeedPhrase("invalid mnemonic phrase"))
