@@ -193,9 +193,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi.get_address_reputation"><code class="docutils literal notranslate"><span class="pre">ReputationApi.get_address_reputation()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi.get_address_reputation_with_http_info"><code class="docutils literal notranslate"><span class="pre">ReputationApi.get_address_reputation_with_http_info()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi.get_address_reputation_without_preload_content"><code class="docutils literal notranslate"><span class="pre">ReputationApi.get_address_reputation_without_preload_content()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi.get_address_risk"><code class="docutils literal notranslate"><span class="pre">ReputationApi.get_address_risk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi.get_address_risk_with_http_info"><code class="docutils literal notranslate"><span class="pre">ReputationApi.get_address_risk_with_http_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi.get_address_risk_without_preload_content"><code class="docutils literal notranslate"><span class="pre">ReputationApi.get_address_risk_without_preload_content()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -244,6 +241,9 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract"><code class="docutils literal notranslate"><span class="pre">SmartContractsApi.register_smart_contract()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_with_http_info"><code class="docutils literal notranslate"><span class="pre">SmartContractsApi.register_smart_contract_with_http_info()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_without_preload_content"><code class="docutils literal notranslate"><span class="pre">SmartContractsApi.register_smart_contract_without_preload_content()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract"><code class="docutils literal notranslate"><span class="pre">SmartContractsApi.update_smart_contract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract_with_http_info"><code class="docutils literal notranslate"><span class="pre">SmartContractsApi.update_smart_contract_with_http_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract_without_preload_content"><code class="docutils literal notranslate"><span class="pre">SmartContractsApi.update_smart_contract_without_preload_content()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -487,7 +487,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.from_json"><code class="docutils literal notranslate"><span class="pre">AddressReputation.from_json()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.metadata"><code class="docutils literal notranslate"><span class="pre">AddressReputation.metadata</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.model_config"><code class="docutils literal notranslate"><span class="pre">AddressReputation.model_config</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.reputation_score"><code class="docutils literal notranslate"><span class="pre">AddressReputation.reputation_score</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.score"><code class="docutils literal notranslate"><span class="pre">AddressReputation.score</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.to_dict"><code class="docutils literal notranslate"><span class="pre">AddressReputation.to_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.to_json"><code class="docutils literal notranslate"><span class="pre">AddressReputation.to_json()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation.AddressReputation.to_str"><code class="docutils literal notranslate"><span class="pre">AddressReputation.to_str()</span></code></a></li>
@@ -1535,6 +1535,20 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.register_smart_contract_request">cdp.client.models.register_smart_contract_request module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.abi"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.abi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.contract_name"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.contract_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.from_dict"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.from_json"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.from_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.model_config"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.to_dict"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.to_json"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest.to_str"><code class="docutils literal notranslate"><span class="pre">RegisterSmartContractRequest.to_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.seed_creation_event">cdp.client.models.seed_creation_event module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.seed_creation_event.SeedCreationEvent"><code class="docutils literal notranslate"><span class="pre">SeedCreationEvent</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.seed_creation_event.SeedCreationEvent.from_dict"><code class="docutils literal notranslate"><span class="pre">SeedCreationEvent.from_dict()</span></code></a></li>
@@ -1704,6 +1718,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.deployer_address"><code class="docutils literal notranslate"><span class="pre">SmartContract.deployer_address</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.from_dict"><code class="docutils literal notranslate"><span class="pre">SmartContract.from_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.from_json"><code class="docutils literal notranslate"><span class="pre">SmartContract.from_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.is_external"><code class="docutils literal notranslate"><span class="pre">SmartContract.is_external</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.model_config"><code class="docutils literal notranslate"><span class="pre">SmartContract.model_config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.network_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract.options"><code class="docutils literal notranslate"><span class="pre">SmartContract.options</span></code></a></li>
@@ -2080,7 +2095,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.signed_payload"><code class="docutils literal notranslate"><span class="pre">Transfer.signed_payload</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.sponsored_send"><code class="docutils literal notranslate"><span class="pre">Transfer.sponsored_send</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.status"><code class="docutils literal notranslate"><span class="pre">Transfer.status</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.status_validate_enum"><code class="docutils literal notranslate"><span class="pre">Transfer.status_validate_enum()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.to_dict"><code class="docutils literal notranslate"><span class="pre">Transfer.to_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.to_json"><code class="docutils literal notranslate"><span class="pre">Transfer.to_json()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer.Transfer.to_str"><code class="docutils literal notranslate"><span class="pre">Transfer.to_str()</span></code></a></li>
@@ -2105,6 +2119,20 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer_list.TransferList.to_json"><code class="docutils literal notranslate"><span class="pre">TransferList.to_json()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer_list.TransferList.to_str"><code class="docutils literal notranslate"><span class="pre">TransferList.to_str()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.transfer_list.TransferList.total_count"><code class="docutils literal notranslate"><span class="pre">TransferList.total_count</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.update_smart_contract_request">cdp.client.models.update_smart_contract_request module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.abi"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.abi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.contract_name"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.contract_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.from_dict"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.from_json"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.from_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.model_config"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.to_dict"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.to_json"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest.to_str"><code class="docutils literal notranslate"><span class="pre">UpdateSmartContractRequest.to_str()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2726,44 +2754,19 @@ Generated by OpenAPI Generator (<a class="reference external" href="https://open
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class contains various settings of the API client.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>host</strong> – Base url.</p>
-</dd>
 </dl>
 <dl class="simple">
-<dt>:param ignore_operation_servers</dt><dd><p>Boolean to ignore operation servers for the API client.
-Config will use <cite>host</cite> as the base url regardless of the operation servers.</p>
+<dt>conf = cdp.client.Configuration(</dt><dd><p>api_key={‘cookieAuth’: ‘abc123’}
+api_key_prefix={‘cookieAuth’: ‘JSESSIONID’}</p>
 </dd>
 </dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>api_key</strong> – Dict to store API key(s).
-Each entry in the dict specifies an API key.
-The dict key is the name of the security scheme in the OAS specification.
-The dict value is the API key secret.</p></li>
-<li><p><strong>api_key_prefix</strong> – Dict to store API prefix (e.g. Bearer).
-The dict key is the name of the security scheme in the OAS specification.
-The dict value is an API key prefix when generating the auth data.</p></li>
-<li><p><strong>username</strong> – Username for HTTP basic authentication.</p></li>
-<li><p><strong>password</strong> – Password for HTTP basic authentication.</p></li>
-<li><p><strong>access_token</strong> – Access token.</p></li>
-<li><p><strong>server_index</strong> – Index to servers configuration.</p></li>
-<li><p><strong>server_variables</strong> – Mapping with string values to replace variables in
-templated server configuration. The validation of enums is performed for
-variables with defined enum values before.</p></li>
-<li><p><strong>server_operation_index</strong> – Mapping from operation ID to an index to server
-configuration.</p></li>
-<li><p><strong>server_operation_variables</strong> – Mapping from operation ID to a mapping with
-string values to replace variables in templated server configuration.
-The validation of enums is performed for variables with defined enum
-values before.</p></li>
-<li><p><strong>ssl_ca_cert</strong> – str - the path to a file of concatenated CA certificates
-in PEM format.</p></li>
-<li><p><strong>retries</strong> – Number of retries for API requests.</p></li>
-</ul>
+<p>)</p>
+<blockquote>
+<div><dl class="simple">
+<dt>The following cookie will be added to the HTTP request:</dt><dd><p>Cookie: JSESSIONID abc123</p>
 </dd>
 </dl>
+</div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cdp.client.configuration.Configuration.access_token">
 <span class="sig-name descname"><span class="pre">access_token</span></span><a class="headerlink" href="#cdp.client.configuration.Configuration.access_token" title="Link to this definition">¶</a></dt>

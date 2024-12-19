@@ -138,6 +138,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.payload_signature_list">cdp.client.models.payload_signature_list module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.read_contract_request">cdp.client.models.read_contract_request module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.read_smart_contract_request">cdp.client.models.read_smart_contract_request module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.register_smart_contract_request">cdp.client.models.register_smart_contract_request module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.seed_creation_event">cdp.client.models.seed_creation_event module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.seed_creation_event_result">cdp.client.models.seed_creation_event_result module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.server_signer">cdp.client.models.server_signer module</a></li>
@@ -172,6 +173,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.transaction_type">cdp.client.models.transaction_type module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.transfer">cdp.client.models.transfer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.transfer_list">cdp.client.models.transfer_list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.update_smart_contract_request">cdp.client.models.update_smart_contract_request module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.update_webhook_request">cdp.client.models.update_webhook_request module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.user">cdp.client.models.user module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.validator">cdp.client.models.validator module</a></li>
@@ -430,6 +432,20 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.address.Address.reputation">
+<span class="sig-name descname"><span class="pre">reputation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.address.Address.reputation" title="Link to this definition">¶</a></dt>
+<dd><p>Get the reputation of the address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reputation of the address.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.address_reputation.AddressReputation" title="cdp.address_reputation.AddressReputation">AddressReputation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.address.Address.transactions">
 <span class="sig-name descname"><span class="pre">transactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.address.Address.transactions" title="Link to this definition">¶</a></dt>
 <dd><p>List transactions of the address.</p>
@@ -444,6 +460,34 @@
 <dd class="field-odd"><p><strong>Exception</strong> – If there’s an error listing the transactions.</p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.address_reputation">
+<span id="cdp-address-reputation-module"></span><h2>cdp.address_reputation module<a class="headerlink" href="#module-cdp.address_reputation" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.address_reputation.AddressReputation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.address_reputation.</span></span><span class="sig-name descname"><span class="pre">AddressReputation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.address_reputation.AddressReputation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of the reputation of a blockchain address.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.address_reputation.AddressReputation.metadata">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_reputation_metadata.AddressReputationMetadata" title="cdp.client.models.address_reputation_metadata.AddressReputationMetadata"><span class="pre">AddressReputationMetadata</span></a></em><a class="headerlink" href="#cdp.address_reputation.AddressReputation.metadata" title="Link to this definition">¶</a></dt>
+<dd><p>Return the metadata of the address.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.address_reputation.AddressReputation.risky">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">risky</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cdp.address_reputation.AddressReputation.risky" title="Link to this definition">¶</a></dt>
+<dd><p>Return whether the address is risky.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.address_reputation.AddressReputation.score">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">score</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cdp.address_reputation.AddressReputation.score" title="Link to this definition">¶</a></dt>
+<dd><p>Return the score of the address.</p>
 </dd></dl>
 
 </dd></dl>
@@ -691,6 +735,24 @@ that each client is only instantiated when it’s first accessed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This property lazily initializes the NetworksApi client on first access.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.api_clients.ApiClients.reputation">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reputation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi" title="cdp.client.api.reputation_api.ReputationApi"><span class="pre">ReputationApi</span></a></em><a class="headerlink" href="#cdp.api_clients.ApiClients.reputation" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ReputationApi client instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ReputationApi client instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="cdp.client.api.html#cdp.client.api.reputation_api.ReputationApi" title="cdp.client.api.reputation_api.ReputationApi">ReputationApi</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property lazily initializes the ReputationApi client on first access.</p>
 </div>
 </dd></dl>
 
@@ -2804,6 +2866,27 @@ to be converted to.</p>
 </dd></dl>
 
 </section>
+<section id="module-cdp.mnemonic_seed_phrase">
+<span id="cdp-mnemonic-seed-phrase-module"></span><h2>cdp.mnemonic_seed_phrase module<a class="headerlink" href="#module-cdp.mnemonic_seed_phrase" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.mnemonic_seed_phrase.MnemonicSeedPhrase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.mnemonic_seed_phrase.</span></span><span class="sig-name descname"><span class="pre">MnemonicSeedPhrase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mnemonic_phrase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.mnemonic_seed_phrase.MnemonicSeedPhrase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a BIP-39mnemonic seed phrase.</p>
+<p>Used to import external wallets into CDP as 1-of-1 wallets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mnemonic_phrase</strong> (<em>str</em>) – A valid BIP-39 mnemonic phrase (12, 15, 18, 21, or 24 words).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.mnemonic_seed_phrase.MnemonicSeedPhrase.mnemonic_phrase">
+<span class="sig-name descname"><span class="pre">mnemonic_phrase</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#cdp.mnemonic_seed_phrase.MnemonicSeedPhrase.mnemonic_phrase" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cdp.payload_signature">
 <span id="cdp-payload-signature-module"></span><h2>cdp.payload_signature module<a class="headerlink" href="#module-cdp.payload_signature" title="Link to this heading">¶</a></h2>
 <dl class="py class">
@@ -3061,6 +3144,11 @@ to be converted to.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>Enumeration of SmartContract types.</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.Type.CUSTOM">
+<span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'custom'</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.Type.CUSTOM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.Type.ERC1155">
 <span class="sig-name descname"><span class="pre">ERC1155</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'erc1155'</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.Type.ERC1155" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -3116,6 +3204,17 @@ to be converted to.</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.contract_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contract_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.contract_name" title="Link to this definition">¶</a></dt>
+<dd><p>Get the contract address of the smart contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The contract address.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.create">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.create" title="Link to this definition">¶</a></dt>
@@ -3143,11 +3242,36 @@ to be converted to.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.deployer_address">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deployer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.deployer_address" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deployer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.deployer_address" title="Link to this definition">¶</a></dt>
 <dd><p>Get the deployer address of the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The deployer address.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.is_external">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_external</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.is_external" title="Link to this definition">¶</a></dt>
+<dd><p>Get the contract address of the smart contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The contract address.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.list">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.list" title="Link to this definition">¶</a></dt>
+<dd><p>List smart contracts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An iterator of smart contract objects.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterator[<a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract">SmartContract</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3165,7 +3289,7 @@ to be converted to.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.options">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.options" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.options" title="Link to this definition">¶</a></dt>
 <dd><p>Get the options of the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -3187,7 +3311,7 @@ to be converted to.</p>
 <li><p><strong>network_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the network.</p></li>
 <li><p><strong>contract_address</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The address of the smart contract.</p></li>
 <li><p><strong>method</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The method to call on the smart contract.</p></li>
-<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</span>) – The ABI of the smart contract.</p></li>
+<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cdp.smart_contract.SmartContract.list" title="cdp.smart_contract.SmartContract.list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</span>) – The ABI of the smart contract.</p></li>
 <li><p><strong>args</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span>) – The arguments to pass to the method.</p></li>
 </ul>
 </dd>
@@ -3196,6 +3320,28 @@ to be converted to.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The data read from the smart contract.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.register">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.register" title="Link to this definition">¶</a></dt>
+<dd><p>Register a new SmartContract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the network.</p></li>
+<li><p><strong>contract_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The name of the smart contract.</p></li>
+<li><p><strong>contract_address</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The address of the smart contract.</p></li>
+<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.list" title="cdp.smart_contract.SmartContract.list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span>) – The ABI of the smart contract.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartContract</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The registered smart contract.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3274,6 +3420,26 @@ to be converted to.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update an existing SmartContract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contract_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The name of the smart contract.</p></li>
+<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cdp.smart_contract.SmartContract.list" title="cdp.smart_contract.SmartContract.list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</span>) – The ABI of the smart contract.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartContract</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated smart contract.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.wait">
 <span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.wait" title="Link to this definition">¶</a></dt>
 <dd><p>Wait until the smart contract deployment is confirmed on the network or fails onchain.</p>
@@ -3298,7 +3464,7 @@ to be converted to.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.wallet_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.wallet_id" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.wallet_id" title="Link to this definition">¶</a></dt>
 <dd><p>Get the wallet ID that deployed the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -4250,7 +4416,7 @@ to be converted to.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.create">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'base-sepolia'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.create" title="Link to this definition">¶</a></dt>
-<dd><p>Create a new wallet.</p>
+<dd><p>Create a new wallet with a random seed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -4304,6 +4470,31 @@ to be converted to.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>Exception</strong> – If there’s an error creating the webhook.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.create_with_seed">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_with_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'base-sepolia'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.create_with_seed" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new wallet with the given seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>str</em>) – The seed to use for the wallet. If None, a random seed will be generated.</p></li>
+<li><p><strong>network_id</strong> (<em>str</em>) – The network ID of the wallet. Defaults to “base-sepolia”.</p></li>
+<li><p><strong>interval_seconds</strong> (<em>float</em>) – The interval between checks in seconds. Defaults to 0.2.</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>float</em>) – The maximum time to wait for the server signer to be active. Defaults to 20.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created wallet object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.wallet.Wallet" title="cdp.wallet.Wallet">Wallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an error creating the wallet.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4499,7 +4690,36 @@ to be converted to.</p>
 <dd class="field-odd"><p><a class="reference internal" href="#cdp.wallet.Wallet" title="cdp.wallet.Wallet">Wallet</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception</strong> – If there’s an error getting the wallet.</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If data is not a WalletData instance.</p></li>
+<li><p><strong>Exception</strong> – If there’s an error getting the wallet.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.import_wallet">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">import_wallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.import_wallet" title="Link to this definition">¶</a></dt>
+<dd><p>Import a wallet from previously exported wallet data or a mnemonic seed phrase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#cdp.wallet_data.WalletData" title="cdp.wallet_data.WalletData"><em>WalletData</em></a><em>, </em><a class="reference internal" href="#cdp.mnemonic_seed_phrase.MnemonicSeedPhrase" title="cdp.mnemonic_seed_phrase.MnemonicSeedPhrase"><em>MnemonicSeedPhrase</em></a><em>]</em>) – Either:
+- WalletData: The wallet data to import, containing wallet_id and seed
+- MnemonicSeedPhrase: A valid BIP-39 mnemonic phrase object for importing external wallets</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The imported wallet.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.wallet.Wallet" title="cdp.wallet.Wallet">Wallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If data is not a WalletData or MnemonicSeedPhrase instance.</p></li>
+<li><p><strong>ValueError</strong> – If the mnemonic phrase is invalid.</p></li>
+<li><p><strong>Exception</strong> – If there’s an error getting the wallet.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -4551,6 +4771,24 @@ to be converted to.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.load_seed">
 <span class="sig-name descname"><span class="pre">load_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.load_seed" title="Link to this definition">¶</a></dt>
+<dd><p>Load the wallet seed from a file (deprecated).</p>
+<p>This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the file containing the seed data.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the file does not contain seed data for this wallet or if decryption fails.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.load_seed_from_file">
+<span class="sig-name descname"><span class="pre">load_seed_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.load_seed_from_file" title="Link to this definition">¶</a></dt>
 <dd><p>Load the wallet seed from a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4619,6 +4857,27 @@ to be converted to.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.save_seed">
 <span class="sig-name descname"><span class="pre">save_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encrypt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.save_seed" title="Link to this definition">¶</a></dt>
+<dd><p>[Save the wallet seed to a file (deprecated).</p>
+<p>This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>str</em>) – The path to the file where the seed will be saved.</p></li>
+<li><p><strong>encrypt</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Whether to encrypt the seed before saving. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the wallet does not have a seed loaded.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.save_seed_to_file">
+<span class="sig-name descname"><span class="pre">save_seed_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encrypt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.save_seed_to_file" title="Link to this definition">¶</a></dt>
 <dd><p>Save the wallet seed to a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4990,7 +5249,7 @@ to be converted to.</p>
 <span id="cdp-wallet-data-module"></span><h2>cdp.wallet_data module<a class="headerlink" href="#module-cdp.wallet_data" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cdp.wallet_data.WalletData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.wallet_data.</span></span><span class="sig-name descname"><span class="pre">WalletData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.wallet_data.</span></span><span class="sig-name descname"><span class="pre">WalletData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class representing wallet data required to recreate a wallet.</p>
 <dl class="py method">
@@ -4999,13 +5258,50 @@ to be converted to.</p>
 <dd><p>Create a WalletData class instance from the given dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The data to create the WalletData object from.</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The data to create the WalletData object from.
+Must contain exactly one of (‘wallet_id’ or ‘walletId’), and a seed.
+May optionally contain exactly one of (‘network_id’ or ‘networkId’).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The wallet data.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#cdp.wallet_data.WalletData" title="cdp.wallet_data.WalletData">WalletData</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – </p></li>
+<li><p><strong>- If both 'wallet_id' and 'walletId' are present</strong><strong>, or </strong><strong>if neither is present.</strong> – </p></li>
+<li><p><strong>- If both 'network_id' and 'networkId' are present</strong><strong>, or </strong><strong>if neither is present.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.networkId">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">networkId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.wallet_data.WalletData.networkId" title="Link to this definition">¶</a></dt>
+<dd><p>Get the network ID of the wallet (camelCase alias).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The network ID of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.network_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.wallet_data.WalletData.network_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the network ID of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The network ID of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5026,14 +5322,31 @@ to be converted to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet_data.WalletData.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData.to_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">camel_case</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_data.WalletData.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Convert the wallet data to a dictionary.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>camel_case</strong> (<em>bool</em>) – Whether to use camelCase keys. Defaults to False.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dictionary representation of the wallet data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.wallet_data.WalletData.walletId">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">walletId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.wallet_data.WalletData.walletId" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ID of the wallet (camelCase alias).</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The dictionary representation of the wallet data.</p>
+<dd class="field-odd"><p>The ID of the wallet.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[str, str]</p>
+<dd class="field-even"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5333,6 +5646,20 @@ to be converted to.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Address.reputation">
+<span class="sig-name descname"><span class="pre">reputation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Address.reputation" title="Link to this definition">¶</a></dt>
+<dd><p>Get the reputation of the address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reputation of the address.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.address_reputation.AddressReputation" title="cdp.address_reputation.AddressReputation">AddressReputation</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -6217,6 +6544,24 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="cdp.MnemonicSeedPhrase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">MnemonicSeedPhrase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mnemonic_phrase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.MnemonicSeedPhrase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a BIP-39mnemonic seed phrase.</p>
+<p>Used to import external wallets into CDP as 1-of-1 wallets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mnemonic_phrase</strong> (<em>str</em>) – A valid BIP-39 mnemonic phrase (12, 15, 18, 21, or 24 words).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.MnemonicSeedPhrase.mnemonic_phrase">
+<span class="sig-name descname"><span class="pre">mnemonic_phrase</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#cdp.MnemonicSeedPhrase.mnemonic_phrase" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="cdp.PayloadSignature">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">PayloadSignature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.PayloadSignature" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -6468,6 +6813,11 @@ and values are balance amounts (Decimal).</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>Enumeration of SmartContract types.</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.SmartContract.Type.CUSTOM">
+<span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'custom'</span></em><a class="headerlink" href="#cdp.SmartContract.Type.CUSTOM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cdp.SmartContract.Type.ERC1155">
 <span class="sig-name descname"><span class="pre">ERC1155</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'erc1155'</span></em><a class="headerlink" href="#cdp.SmartContract.Type.ERC1155" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -6523,6 +6873,17 @@ and values are balance amounts (Decimal).</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.SmartContract.contract_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contract_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.SmartContract.contract_name" title="Link to this definition">¶</a></dt>
+<dd><p>Get the contract address of the smart contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The contract address.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.SmartContract.create">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.create" title="Link to this definition">¶</a></dt>
@@ -6550,11 +6911,36 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.SmartContract.deployer_address">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deployer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.SmartContract.deployer_address" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deployer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.SmartContract.deployer_address" title="Link to this definition">¶</a></dt>
 <dd><p>Get the deployer address of the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The deployer address.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.SmartContract.is_external">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_external</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cdp.SmartContract.is_external" title="Link to this definition">¶</a></dt>
+<dd><p>Get the contract address of the smart contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The contract address.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.SmartContract.list">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.list" title="Link to this definition">¶</a></dt>
+<dd><p>List smart contracts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An iterator of smart contract objects.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterator[<a class="reference internal" href="#cdp.SmartContract" title="cdp.SmartContract">SmartContract</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6572,7 +6958,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.SmartContract.options">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a></em><a class="headerlink" href="#cdp.SmartContract.options" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.SmartContract.options" title="Link to this definition">¶</a></dt>
 <dd><p>Get the options of the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -6594,7 +6980,7 @@ and values are balance amounts (Decimal).</p>
 <li><p><strong>network_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the network.</p></li>
 <li><p><strong>contract_address</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The address of the smart contract.</p></li>
 <li><p><strong>method</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The method to call on the smart contract.</p></li>
-<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</span>) – The ABI of the smart contract.</p></li>
+<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cdp.SmartContract.list" title="cdp.SmartContract.list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</span>) – The ABI of the smart contract.</p></li>
 <li><p><strong>args</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span>) – The arguments to pass to the method.</p></li>
 </ul>
 </dd>
@@ -6603,6 +6989,28 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The data read from the smart contract.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.SmartContract.register">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.register" title="Link to this definition">¶</a></dt>
+<dd><p>Register a new SmartContract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the network.</p></li>
+<li><p><strong>contract_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The name of the smart contract.</p></li>
+<li><p><strong>contract_address</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The address of the smart contract.</p></li>
+<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.SmartContract.list" title="cdp.SmartContract.list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span>) – The ABI of the smart contract.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartContract</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The registered smart contract.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6681,6 +7089,26 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.SmartContract.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update an existing SmartContract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contract_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The name of the smart contract.</p></li>
+<li><p><strong>abi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cdp.SmartContract.list" title="cdp.SmartContract.list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</span>) – The ABI of the smart contract.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartContract</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated smart contract.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.SmartContract.wait">
 <span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.wait" title="Link to this definition">¶</a></dt>
 <dd><p>Wait until the smart contract deployment is confirmed on the network or fails onchain.</p>
@@ -6705,7 +7133,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.SmartContract.wallet_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.SmartContract.wallet_id" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wallet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.SmartContract.wallet_id" title="Link to this definition">¶</a></dt>
 <dd><p>Get the wallet ID that deployed the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7642,7 +8070,7 @@ and values are balance amounts (Decimal).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Wallet.create">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'base-sepolia'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.create" title="Link to this definition">¶</a></dt>
-<dd><p>Create a new wallet.</p>
+<dd><p>Create a new wallet with a random seed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -7696,6 +8124,31 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>Exception</strong> – If there’s an error creating the webhook.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.create_with_seed">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_with_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'base-sepolia'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.create_with_seed" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new wallet with the given seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>str</em>) – The seed to use for the wallet. If None, a random seed will be generated.</p></li>
+<li><p><strong>network_id</strong> (<em>str</em>) – The network ID of the wallet. Defaults to “base-sepolia”.</p></li>
+<li><p><strong>interval_seconds</strong> (<em>float</em>) – The interval between checks in seconds. Defaults to 0.2.</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>float</em>) – The maximum time to wait for the server signer to be active. Defaults to 20.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created wallet object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.Wallet" title="cdp.Wallet">Wallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an error creating the wallet.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7891,7 +8344,36 @@ and values are balance amounts (Decimal).</p>
 <dd class="field-odd"><p><a class="reference internal" href="#cdp.Wallet" title="cdp.Wallet">Wallet</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception</strong> – If there’s an error getting the wallet.</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If data is not a WalletData instance.</p></li>
+<li><p><strong>Exception</strong> – If there’s an error getting the wallet.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.import_wallet">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">import_wallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.import_wallet" title="Link to this definition">¶</a></dt>
+<dd><p>Import a wallet from previously exported wallet data or a mnemonic seed phrase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#cdp.WalletData" title="cdp.WalletData"><em>WalletData</em></a><em>, </em><a class="reference internal" href="#cdp.MnemonicSeedPhrase" title="cdp.MnemonicSeedPhrase"><em>MnemonicSeedPhrase</em></a><em>]</em>) – Either:
+- WalletData: The wallet data to import, containing wallet_id and seed
+- MnemonicSeedPhrase: A valid BIP-39 mnemonic phrase object for importing external wallets</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The imported wallet.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.Wallet" title="cdp.Wallet">Wallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If data is not a WalletData or MnemonicSeedPhrase instance.</p></li>
+<li><p><strong>ValueError</strong> – If the mnemonic phrase is invalid.</p></li>
+<li><p><strong>Exception</strong> – If there’s an error getting the wallet.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -7943,6 +8425,24 @@ and values are balance amounts (Decimal).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Wallet.load_seed">
 <span class="sig-name descname"><span class="pre">load_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.load_seed" title="Link to this definition">¶</a></dt>
+<dd><p>Load the wallet seed from a file (deprecated).</p>
+<p>This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the file containing the seed data.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the file does not contain seed data for this wallet or if decryption fails.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.load_seed_from_file">
+<span class="sig-name descname"><span class="pre">load_seed_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.load_seed_from_file" title="Link to this definition">¶</a></dt>
 <dd><p>Load the wallet seed from a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8011,6 +8511,27 @@ and values are balance amounts (Decimal).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Wallet.save_seed">
 <span class="sig-name descname"><span class="pre">save_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encrypt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.save_seed" title="Link to this definition">¶</a></dt>
+<dd><p>[Save the wallet seed to a file (deprecated).</p>
+<p>This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>str</em>) – The path to the file where the seed will be saved.</p></li>
+<li><p><strong>encrypt</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Whether to encrypt the seed before saving. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the wallet does not have a seed loaded.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.save_seed_to_file">
+<span class="sig-name descname"><span class="pre">save_seed_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encrypt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.save_seed_to_file" title="Link to this definition">¶</a></dt>
 <dd><p>Save the wallet seed to a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8376,7 +8897,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cdp.WalletData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">WalletData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">WalletData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class representing wallet data required to recreate a wallet.</p>
 <dl class="py method">
@@ -8385,13 +8906,50 @@ and values are balance amounts (Decimal).</p>
 <dd><p>Create a WalletData class instance from the given dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The data to create the WalletData object from.</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The data to create the WalletData object from.
+Must contain exactly one of (‘wallet_id’ or ‘walletId’), and a seed.
+May optionally contain exactly one of (‘network_id’ or ‘networkId’).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The wallet data.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#cdp.WalletData" title="cdp.WalletData">WalletData</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – </p></li>
+<li><p><strong>- If both 'wallet_id' and 'walletId' are present</strong><strong>, or </strong><strong>if neither is present.</strong> – </p></li>
+<li><p><strong>- If both 'network_id' and 'networkId' are present</strong><strong>, or </strong><strong>if neither is present.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.WalletData.networkId">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">networkId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.WalletData.networkId" title="Link to this definition">¶</a></dt>
+<dd><p>Get the network ID of the wallet (camelCase alias).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The network ID of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.WalletData.network_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.WalletData.network_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the network ID of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The network ID of the wallet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8412,14 +8970,31 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.WalletData.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData.to_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">camel_case</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletData.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Convert the wallet data to a dictionary.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>camel_case</strong> (<em>bool</em>) – Whether to use camelCase keys. Defaults to False.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dictionary representation of the wallet data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.WalletData.walletId">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">walletId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.WalletData.walletId" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ID of the wallet (camelCase alias).</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The dictionary representation of the wallet data.</p>
+<dd class="field-odd"><p>The ID of the wallet.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[str, str]</p>
+<dd class="field-even"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>

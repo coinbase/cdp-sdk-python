@@ -3489,111 +3489,6 @@ in the spec for a single request.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cdp.client.api.reputation_api.ReputationApi.get_address_risk">
-<span class="sig-name descname"><span class="pre">get_address_risk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.reputation_api.ReputationApi.get_address_risk" title="Link to this definition">¶</a></dt>
-<dd><p>Get the risk of an address</p>
-<p>Get the risk of an address</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network. (required)</p></li>
-<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the risk for. (required)</p></li>
-<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
-number provided, it will be total request
-timeout. It can also be a pair (tuple) of
-(connection, read) timeouts.</p></li>
-<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
-request; this effectively ignores the
-authentication in the spec for a single request.</p></li>
-<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
-<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
-request; this effectively ignores the headers
-in the spec for a single request.</p></li>
-<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
-request; this effectively ignores the host_index
-in the spec for a single request.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.address_risk.AddressRisk" title="cdp.client.models.address_risk.AddressRisk"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressRisk</span></code></a></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the result object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cdp.client.api.reputation_api.ReputationApi.get_address_risk_with_http_info">
-<span class="sig-name descname"><span class="pre">get_address_risk_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.reputation_api.ReputationApi.get_address_risk_with_http_info" title="Link to this definition">¶</a></dt>
-<dd><p>Get the risk of an address</p>
-<p>Get the risk of an address</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network. (required)</p></li>
-<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the risk for. (required)</p></li>
-<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
-number provided, it will be total request
-timeout. It can also be a pair (tuple) of
-(connection, read) timeouts.</p></li>
-<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
-request; this effectively ignores the
-authentication in the spec for a single request.</p></li>
-<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
-<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
-request; this effectively ignores the headers
-in the spec for a single request.</p></li>
-<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
-request; this effectively ignores the host_index
-in the spec for a single request.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[AddressRisk]</span></code></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the result object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cdp.client.api.reputation_api.ReputationApi.get_address_risk_without_preload_content">
-<span class="sig-name descname"><span class="pre">get_address_risk_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.reputation_api.ReputationApi.get_address_risk_without_preload_content" title="Link to this definition">¶</a></dt>
-<dd><p>Get the risk of an address</p>
-<p>Get the risk of an address</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the blockchain network. (required)</p></li>
-<li><p><strong>address_id</strong> (<em>str</em>) – The ID of the address to fetch the risk for. (required)</p></li>
-<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
-number provided, it will be total request
-timeout. It can also be a pair (tuple) of
-(connection, read) timeouts.</p></li>
-<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
-request; this effectively ignores the
-authentication in the spec for a single request.</p></li>
-<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
-<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
-request; this effectively ignores the headers
-in the spec for a single request.</p></li>
-<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
-request; this effectively ignores the host_index
-in the spec for a single request.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPResponse</span></code></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the result object.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -4794,15 +4689,15 @@ in the spec for a single request.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract">
-<span class="sig-name descname"><span class="pre">register_smart_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">register_smart_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">register_smart_contract_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract" title="Link to this definition">¶</a></dt>
 <dd><p>Register a smart contract</p>
 <p>Register a smart contract</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
 <li><p><strong>network_id</strong> (<em>str</em>) – The ID of the network to fetch. (required)</p></li>
-<li><p><strong>abi</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.abi.ABI" title="cdp.client.models.abi.ABI"><em>ABI</em></a>) – (required)</p></li>
+<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
+<li><p><strong>register_smart_contract_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest" title="cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest"><em>RegisterSmartContractRequest</em></a>)</p></li>
 <li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
 number provided, it will be total request
 timeout. It can also be a pair (tuple) of
@@ -4820,7 +4715,7 @@ in the spec for a single request.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract" title="cdp.client.models.smart_contract.SmartContract"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartContract</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Returns the result object.</p>
@@ -4830,15 +4725,15 @@ in the spec for a single request.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_with_http_info">
-<span class="sig-name descname"><span class="pre">register_smart_contract_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_with_http_info" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">register_smart_contract_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">register_smart_contract_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_with_http_info" title="Link to this definition">¶</a></dt>
 <dd><p>Register a smart contract</p>
 <p>Register a smart contract</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
 <li><p><strong>network_id</strong> (<em>str</em>) – The ID of the network to fetch. (required)</p></li>
-<li><p><strong>abi</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.abi.ABI" title="cdp.client.models.abi.ABI"><em>ABI</em></a>) – (required)</p></li>
+<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
+<li><p><strong>register_smart_contract_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest" title="cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest"><em>RegisterSmartContractRequest</em></a>)</p></li>
 <li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
 number provided, it will be total request
 timeout. It can also be a pair (tuple) of
@@ -4856,7 +4751,7 @@ in the spec for a single request.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[NoneType]</span></code></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[SmartContract]</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Returns the result object.</p>
@@ -4866,15 +4761,123 @@ in the spec for a single request.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_without_preload_content">
-<span class="sig-name descname"><span class="pre">register_smart_contract_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_without_preload_content" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">register_smart_contract_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">register_smart_contract_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.register_smart_contract_without_preload_content" title="Link to this definition">¶</a></dt>
 <dd><p>Register a smart contract</p>
 <p>Register a smart contract</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
 <li><p><strong>network_id</strong> (<em>str</em>) – The ID of the network to fetch. (required)</p></li>
-<li><p><strong>abi</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.abi.ABI" title="cdp.client.models.abi.ABI"><em>ABI</em></a>) – (required)</p></li>
+<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
+<li><p><strong>register_smart_contract_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest" title="cdp.client.models.register_smart_contract_request.RegisterSmartContractRequest"><em>RegisterSmartContractRequest</em></a>)</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPResponse</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract">
+<span class="sig-name descname"><span class="pre">update_smart_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_smart_contract_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract" title="Link to this definition">¶</a></dt>
+<dd><p>Update a smart contract</p>
+<p>Update a smart contract</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the network to fetch. (required)</p></li>
+<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
+<li><p><strong>update_smart_contract_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest" title="cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest"><em>UpdateSmartContractRequest</em></a>)</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="cdp.client.models.html#cdp.client.models.smart_contract.SmartContract" title="cdp.client.models.smart_contract.SmartContract"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartContract</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract_with_http_info">
+<span class="sig-name descname"><span class="pre">update_smart_contract_with_http_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_smart_contract_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract_with_http_info" title="Link to this definition">¶</a></dt>
+<dd><p>Update a smart contract</p>
+<p>Update a smart contract</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the network to fetch. (required)</p></li>
+<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
+<li><p><strong>update_smart_contract_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest" title="cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest"><em>UpdateSmartContractRequest</em></a>)</p></li>
+<li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</p></li>
+<li><p><strong>_request_auth</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</p></li>
+<li><p><strong>_content_type</strong> (<em>str</em><em>, </em><em>Optional</em>) – force content-type for the request.</p></li>
+<li><p><strong>_headers</strong> (<em>dict</em><em>, </em><em>optional</em>) – set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</p></li>
+<li><p><strong>_host_index</strong> (<em>int</em><em>, </em><em>optional</em>) – set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiResponse[SmartContract]</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the result object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract_without_preload_content">
+<span class="sig-name descname"><span class="pre">update_smart_contract_without_preload_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_smart_contract_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_request_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_host_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.client.api.smart_contracts_api.SmartContractsApi.update_smart_contract_without_preload_content" title="Link to this definition">¶</a></dt>
+<dd><p>Update a smart contract</p>
+<p>Update a smart contract</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_id</strong> (<em>str</em>) – The ID of the network to fetch. (required)</p></li>
+<li><p><strong>contract_address</strong> (<em>str</em>) – EVM address of the smart contract (42 characters, including ‘0x’, in lowercase) (required)</p></li>
+<li><p><strong>update_smart_contract_request</strong> (<a class="reference internal" href="cdp.client.models.html#cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest" title="cdp.client.models.update_smart_contract_request.UpdateSmartContractRequest"><em>UpdateSmartContractRequest</em></a>)</p></li>
 <li><p><strong>_request_timeout</strong> (<em>int</em><em>, </em><em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>optional</em>) – timeout setting for this request. If one
 number provided, it will be total request
 timeout. It can also be a pair (tuple) of

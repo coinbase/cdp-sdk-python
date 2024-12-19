@@ -62,7 +62,17 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.faucet"><code class="docutils literal notranslate"><span class="pre">Address.faucet()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.historical_balances"><code class="docutils literal notranslate"><span class="pre">Address.historical_balances()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.network_id"><code class="docutils literal notranslate"><span class="pre">Address.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.reputation"><code class="docutils literal notranslate"><span class="pre">Address.reputation()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address.Address.transactions"><code class="docutils literal notranslate"><span class="pre">Address.transactions()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.address_reputation">cdp.address_reputation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.address_reputation.AddressReputation"><code class="docutils literal notranslate"><span class="pre">AddressReputation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address_reputation.AddressReputation.metadata"><code class="docutils literal notranslate"><span class="pre">AddressReputation.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address_reputation.AddressReputation.risky"><code class="docutils literal notranslate"><span class="pre">AddressReputation.risky</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.address_reputation.AddressReputation.score"><code class="docutils literal notranslate"><span class="pre">AddressReputation.score</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -86,6 +96,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.external_addresses"><code class="docutils literal notranslate"><span class="pre">ApiClients.external_addresses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.fund"><code class="docutils literal notranslate"><span class="pre">ApiClients.fund</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.networks"><code class="docutils literal notranslate"><span class="pre">ApiClients.networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.reputation"><code class="docutils literal notranslate"><span class="pre">ApiClients.reputation</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.smart_contracts"><code class="docutils literal notranslate"><span class="pre">ApiClients.smart_contracts</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.trades"><code class="docutils literal notranslate"><span class="pre">ApiClients.trades</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.api_clients.ApiClients.transaction_history"><code class="docutils literal notranslate"><span class="pre">ApiClients.transaction_history</span></code></a></li>
@@ -322,6 +333,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.mnemonic_seed_phrase">cdp.mnemonic_seed_phrase module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.mnemonic_seed_phrase.MnemonicSeedPhrase"><code class="docutils literal notranslate"><span class="pre">MnemonicSeedPhrase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.mnemonic_seed_phrase.MnemonicSeedPhrase.mnemonic_phrase"><code class="docutils literal notranslate"><span class="pre">MnemonicSeedPhrase.mnemonic_phrase</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.payload_signature">cdp.payload_signature module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.payload_signature.PayloadSignature"><code class="docutils literal notranslate"><span class="pre">PayloadSignature</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.payload_signature.PayloadSignature.Status"><code class="docutils literal notranslate"><span class="pre">PayloadSignature.Status</span></code></a></li>
@@ -349,16 +367,21 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.abi"><code class="docutils literal notranslate"><span class="pre">SmartContract.abi</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.broadcast"><code class="docutils literal notranslate"><span class="pre">SmartContract.broadcast()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.contract_address"><code class="docutils literal notranslate"><span class="pre">SmartContract.contract_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.contract_name"><code class="docutils literal notranslate"><span class="pre">SmartContract.contract_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.create"><code class="docutils literal notranslate"><span class="pre">SmartContract.create()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.deployer_address"><code class="docutils literal notranslate"><span class="pre">SmartContract.deployer_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.is_external"><code class="docutils literal notranslate"><span class="pre">SmartContract.is_external</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.list"><code class="docutils literal notranslate"><span class="pre">SmartContract.list()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.network_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.options"><code class="docutils literal notranslate"><span class="pre">SmartContract.options</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.read"><code class="docutils literal notranslate"><span class="pre">SmartContract.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.register"><code class="docutils literal notranslate"><span class="pre">SmartContract.register()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.reload"><code class="docutils literal notranslate"><span class="pre">SmartContract.reload()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.sign"><code class="docutils literal notranslate"><span class="pre">SmartContract.sign()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.smart_contract_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.smart_contract_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.transaction"><code class="docutils literal notranslate"><span class="pre">SmartContract.transaction</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.type"><code class="docutils literal notranslate"><span class="pre">SmartContract.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.update"><code class="docutils literal notranslate"><span class="pre">SmartContract.update()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.wait"><code class="docutils literal notranslate"><span class="pre">SmartContract.wait()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.smart_contract.SmartContract.wallet_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.wallet_id</span></code></a></li>
 </ul>
@@ -463,6 +486,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.create"><code class="docutils literal notranslate"><span class="pre">Wallet.create()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.create_address"><code class="docutils literal notranslate"><span class="pre">Wallet.create_address()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.create_webhook"><code class="docutils literal notranslate"><span class="pre">Wallet.create_webhook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.create_with_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.create_with_seed()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.default_address"><code class="docutils literal notranslate"><span class="pre">Wallet.default_address</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.deploy_multi_token"><code class="docutils literal notranslate"><span class="pre">Wallet.deploy_multi_token()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.deploy_nft"><code class="docutils literal notranslate"><span class="pre">Wallet.deploy_nft()</span></code></a></li>
@@ -473,13 +497,16 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.fund"><code class="docutils literal notranslate"><span class="pre">Wallet.fund()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.id"><code class="docutils literal notranslate"><span class="pre">Wallet.id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.import_data"><code class="docutils literal notranslate"><span class="pre">Wallet.import_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.import_wallet"><code class="docutils literal notranslate"><span class="pre">Wallet.import_wallet()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.invoke_contract"><code class="docutils literal notranslate"><span class="pre">Wallet.invoke_contract()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.list"><code class="docutils literal notranslate"><span class="pre">Wallet.list()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.load_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.load_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.load_seed_from_file"><code class="docutils literal notranslate"><span class="pre">Wallet.load_seed_from_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.network_id"><code class="docutils literal notranslate"><span class="pre">Wallet.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.quote_fund"><code class="docutils literal notranslate"><span class="pre">Wallet.quote_fund()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.reload"><code class="docutils literal notranslate"><span class="pre">Wallet.reload()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.save_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.save_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.save_seed_to_file"><code class="docutils literal notranslate"><span class="pre">Wallet.save_seed_to_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.server_signer_status"><code class="docutils literal notranslate"><span class="pre">Wallet.server_signer_status</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.sign_payload"><code class="docutils literal notranslate"><span class="pre">Wallet.sign_payload()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet.Wallet.trade"><code class="docutils literal notranslate"><span class="pre">Wallet.trade()</span></code></a></li>
@@ -512,8 +539,11 @@
 <li class="toctree-l2"><a class="reference internal" href="cdp.html#module-cdp.wallet_data">cdp.wallet_data module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData"><code class="docutils literal notranslate"><span class="pre">WalletData</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.from_dict"><code class="docutils literal notranslate"><span class="pre">WalletData.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.networkId"><code class="docutils literal notranslate"><span class="pre">WalletData.networkId</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.network_id"><code class="docutils literal notranslate"><span class="pre">WalletData.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.seed"><code class="docutils literal notranslate"><span class="pre">WalletData.seed</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.to_dict"><code class="docutils literal notranslate"><span class="pre">WalletData.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.walletId"><code class="docutils literal notranslate"><span class="pre">WalletData.walletId</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.wallet_data.WalletData.wallet_id"><code class="docutils literal notranslate"><span class="pre">WalletData.wallet_id</span></code></a></li>
 </ul>
 </li>
@@ -544,6 +574,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.faucet"><code class="docutils literal notranslate"><span class="pre">Address.faucet()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.historical_balances"><code class="docutils literal notranslate"><span class="pre">Address.historical_balances()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.network_id"><code class="docutils literal notranslate"><span class="pre">Address.network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.reputation"><code class="docutils literal notranslate"><span class="pre">Address.reputation()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Address.transactions"><code class="docutils literal notranslate"><span class="pre">Address.transactions()</span></code></a></li>
 </ul>
 </li>
@@ -623,6 +654,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.FaucetTransaction.wait"><code class="docutils literal notranslate"><span class="pre">FaucetTransaction.wait()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.MnemonicSeedPhrase"><code class="docutils literal notranslate"><span class="pre">MnemonicSeedPhrase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.MnemonicSeedPhrase.mnemonic_phrase"><code class="docutils literal notranslate"><span class="pre">MnemonicSeedPhrase.mnemonic_phrase</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.PayloadSignature"><code class="docutils literal notranslate"><span class="pre">PayloadSignature</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.PayloadSignature.Status"><code class="docutils literal notranslate"><span class="pre">PayloadSignature.Status</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.PayloadSignature.address_id"><code class="docutils literal notranslate"><span class="pre">PayloadSignature.address_id</span></code></a></li>
@@ -646,16 +681,21 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.abi"><code class="docutils literal notranslate"><span class="pre">SmartContract.abi</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.broadcast"><code class="docutils literal notranslate"><span class="pre">SmartContract.broadcast()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.contract_address"><code class="docutils literal notranslate"><span class="pre">SmartContract.contract_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.contract_name"><code class="docutils literal notranslate"><span class="pre">SmartContract.contract_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.create"><code class="docutils literal notranslate"><span class="pre">SmartContract.create()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.deployer_address"><code class="docutils literal notranslate"><span class="pre">SmartContract.deployer_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.is_external"><code class="docutils literal notranslate"><span class="pre">SmartContract.is_external</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.list"><code class="docutils literal notranslate"><span class="pre">SmartContract.list()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.network_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.options"><code class="docutils literal notranslate"><span class="pre">SmartContract.options</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.read"><code class="docutils literal notranslate"><span class="pre">SmartContract.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.register"><code class="docutils literal notranslate"><span class="pre">SmartContract.register()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.reload"><code class="docutils literal notranslate"><span class="pre">SmartContract.reload()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.sign"><code class="docutils literal notranslate"><span class="pre">SmartContract.sign()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.smart_contract_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.smart_contract_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.transaction"><code class="docutils literal notranslate"><span class="pre">SmartContract.transaction</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.type"><code class="docutils literal notranslate"><span class="pre">SmartContract.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.update"><code class="docutils literal notranslate"><span class="pre">SmartContract.update()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.wait"><code class="docutils literal notranslate"><span class="pre">SmartContract.wait()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.SmartContract.wallet_id"><code class="docutils literal notranslate"><span class="pre">SmartContract.wallet_id</span></code></a></li>
 </ul>
@@ -745,6 +785,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.create"><code class="docutils literal notranslate"><span class="pre">Wallet.create()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.create_address"><code class="docutils literal notranslate"><span class="pre">Wallet.create_address()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.create_webhook"><code class="docutils literal notranslate"><span class="pre">Wallet.create_webhook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.create_with_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.create_with_seed()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.default_address"><code class="docutils literal notranslate"><span class="pre">Wallet.default_address</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.deploy_multi_token"><code class="docutils literal notranslate"><span class="pre">Wallet.deploy_multi_token()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.deploy_nft"><code class="docutils literal notranslate"><span class="pre">Wallet.deploy_nft()</span></code></a></li>
@@ -755,13 +796,16 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.fund"><code class="docutils literal notranslate"><span class="pre">Wallet.fund()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.id"><code class="docutils literal notranslate"><span class="pre">Wallet.id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.import_data"><code class="docutils literal notranslate"><span class="pre">Wallet.import_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.import_wallet"><code class="docutils literal notranslate"><span class="pre">Wallet.import_wallet()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.invoke_contract"><code class="docutils literal notranslate"><span class="pre">Wallet.invoke_contract()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.list"><code class="docutils literal notranslate"><span class="pre">Wallet.list()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.load_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.load_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.load_seed_from_file"><code class="docutils literal notranslate"><span class="pre">Wallet.load_seed_from_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.network_id"><code class="docutils literal notranslate"><span class="pre">Wallet.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.quote_fund"><code class="docutils literal notranslate"><span class="pre">Wallet.quote_fund()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.reload"><code class="docutils literal notranslate"><span class="pre">Wallet.reload()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.save_seed"><code class="docutils literal notranslate"><span class="pre">Wallet.save_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.save_seed_to_file"><code class="docutils literal notranslate"><span class="pre">Wallet.save_seed_to_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.server_signer_status"><code class="docutils literal notranslate"><span class="pre">Wallet.server_signer_status</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.sign_payload"><code class="docutils literal notranslate"><span class="pre">Wallet.sign_payload()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.Wallet.trade"><code class="docutils literal notranslate"><span class="pre">Wallet.trade()</span></code></a></li>
@@ -788,8 +832,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cdp.html#cdp.WalletData"><code class="docutils literal notranslate"><span class="pre">WalletData</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.from_dict"><code class="docutils literal notranslate"><span class="pre">WalletData.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.networkId"><code class="docutils literal notranslate"><span class="pre">WalletData.networkId</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.network_id"><code class="docutils literal notranslate"><span class="pre">WalletData.network_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.seed"><code class="docutils literal notranslate"><span class="pre">WalletData.seed</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.to_dict"><code class="docutils literal notranslate"><span class="pre">WalletData.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.walletId"><code class="docutils literal notranslate"><span class="pre">WalletData.walletId</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.html#cdp.WalletData.wallet_id"><code class="docutils literal notranslate"><span class="pre">WalletData.wallet_id</span></code></a></li>
 </ul>
 </li>

@@ -209,7 +209,7 @@ the second:</p>
 <section id="re-instantiating-wallets">
 <h4>Re-Instantiating Wallets<a class="headerlink" href="#re-instantiating-wallets" title="Link to this heading">¶</a></h4>
 <p>The SDK creates wallets with <a class="reference external" href="https://docs.cdp.coinbase.com/mpc-wallet/docs/wallets#developer-managed-wallets">Developer-Managed (1-1)</a> keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export the data required to re-instantiate the wallet. The data contains the seed and the ID of the wallet.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export the data required to re-instantiate the wallet. The data contains the seed, the ID of the wallet, and the network ID.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">wallet</span><span class="o">.</span><span class="n">export_data</span><span class="p">()</span>
 </pre></div>
 </div>
