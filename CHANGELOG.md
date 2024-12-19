@@ -1,34 +1,34 @@
 # CDP Python SDK Changelog
 
-## Unreleased
-- Add support for fetching address reputation
-  - Add `reputation` method to `Address` to fetch the reputation of the address.
+## [0.13.0] - 2024-12-19
 
 ### Added
-
+- Add support for fetching address reputation
+  - Add `reputation` method to `Address` to fetch the reputation of the address.
 - Add support for registering, updating, and listing smart contracts that are
 deployed external to CDP.
-
 - Add `network_id` to `WalletData` so that it is saved with the seed data and surfaced via the export function
 - Add ability to import external wallets into CDP via a BIP-39 mnemonic phrase, as a 1-of-1 wallet
 - Add ability to import WalletData files exported by the NodeJS CDP SDK
+
+### Deprecated
 - Deprecate `Wallet.load_seed` method in favor of `Wallet.load_seed_from_file`
 - Deprecate `Wallet.save_seed` method in favor of `Wallet.save_seed_to_file`
 
-### [0.12.1] - 2024-12-10
+## [0.12.1] - 2024-12-10
 
 ### Added
 
 - Wallet address contract invocation input validation for payable contracts.
 
-### [0.12.0] - 2024-12-06
+## [0.12.0] - 2024-12-06
 
 ### Added
 
 - Use Poetry as the dependency manager
 - Relax dependency version constraints
 
-### [0.11.0] - 2024-11-27
+## [0.11.0] - 2024-11-27
 
 ### Added
 
