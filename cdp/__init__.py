@@ -16,6 +16,7 @@ from cdp.transfer import Transfer
 from cdp.wallet import Wallet
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
+from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.webhook import Webhook
 
 __all__ = [
@@ -25,6 +26,7 @@ __all__ = [
     "Wallet",
     "WalletAddress",
     "WalletData",
+    "MnemonicSeedPhrase",
     "Webhook",
     "Asset",
     "Transfer",

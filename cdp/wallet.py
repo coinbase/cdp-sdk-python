@@ -9,7 +9,7 @@ from numbers import Number
 from typing import Any, Union
 
 import coincurve
-from bip_utils import Bip32Slip10Secp256k1
+from bip_utils import Bip32Slip10Secp256k1, Bip39MnemonicValidator, Bip39SeedGenerator
 from Crypto.Cipher import AES
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
@@ -36,6 +36,7 @@ from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
+from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.webhook import Webhook
 
 
@@ -118,19 +119,47 @@ class Wallet:
         interval_seconds: float = 0.2,
         timeout_seconds: float = 20,
     ) -> "Wallet":
-        """Create a new wallet.
+        """Create a new wallet with a random seed.
 
         Args:
-            network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
-            interval_seconds (float): The interval between checks in seconds. Defaults to 0.2.
-            timeout_seconds (float): The maximum time to wait for the server signer to be active. Defaults to 20.
+            network_id (str) - The network ID of the wallet. Defaults to "base-sepolia".
+            interval_seconds (float) - The interval between checks in seconds. Defaults to 0.2.
+            timeout_seconds (float) - The maximum time to wait for the server signer to be active. Defaults to 20.
 
         Returns:
             Wallet: The created wallet object.
 
         Raises:
             Exception: If there's an error creating the wallet.
+        """
+        return cls.create_with_seed(
+            seed=None,
+            network_id=network_id,
+            interval_seconds=interval_seconds,
+            timeout_seconds=timeout_seconds,
+        )
 
+    @classmethod
+    def create_with_seed(
+        cls,
+        seed: str | None = None,
+        network_id: str = "base-sepolia",
+        interval_seconds: float = 0.2,
+        timeout_seconds: float = 20,
+    ) -> "Wallet":
+        """Create a new wallet with the given seed.
+
+        Args:
+            seed (str) - The seed to use for the wallet. If None, a random seed will be generated.
+            network_id (str) - The network ID of the wallet. Defaults to "base-sepolia".
+            interval_seconds (float) - The interval between checks in seconds. Defaults to 0.2.
+            timeout_seconds (float) - The maximum time to wait for the server signer to be active. Defaults to 20.
+
+        Returns:
+            Wallet: The created wallet object.
+
+        Raises:
+            Exception: If there's an error creating the wallet.
         """
         create_wallet_request = CreateWalletRequest(
             wallet=CreateWalletRequestWallet(
@@ -139,7 +168,7 @@ class Wallet:
         )
 
         model = Cdp.api_clients.wallets.create_wallet(create_wallet_request)
-        wallet = cls(model)
+        wallet = cls(model, seed)
 
         if Cdp.use_server_signer:
             wallet._wait_for_signer(interval_seconds, timeout_seconds)
@@ -228,29 +257,47 @@ class Wallet:
             page = response.next_page
 
     @classmethod
-    def import_data(cls, data: WalletData) -> "Wallet":
-        """Import a wallet from previously exported wallet data.
+    def import_data(cls, data: Union[WalletData, MnemonicSeedPhrase]) -> "Wallet":
+        """Import a wallet from previously exported wallet data or a mnemonic seed phrase.
 
         Args:
-            data (WalletData): The wallet data to import.
+            data (Union[WalletData, MnemonicSeedPhrase]): Either:
+                - WalletData: The wallet data to import, containing wallet_id and seed
+                - MnemonicSeedPhrase: A valid BIP-39 mnemonic phrase object for importing external wallets
 
         Returns:
             Wallet: The imported wallet.
 
         Raises:
+            ValueError: If data is not a WalletData or MnemonicSeedPhrase instance.
+            ValueError: If the mnemonic phrase is invalid.
             Exception: If there's an error getting the wallet.
-
         """
-        if not isinstance(data, WalletData):
-            raise ValueError("Data must be a WalletData instance")
+        if isinstance(data, MnemonicSeedPhrase):
+            # Validate mnemonic phrase
+            if not data.mnemonic_phrase:
+                raise ValueError("BIP-39 mnemonic seed phrase must be provided")
 
-        model = Cdp.api_clients.wallets.get_wallet(data.wallet_id)
+            # Validate the mnemonic using bip_utils
+            if not Bip39MnemonicValidator().IsValid(data.mnemonic_phrase):
+                raise ValueError("Invalid BIP-39 mnemonic seed phrase")
 
-        wallet = cls(model, data.seed)
+            # Convert mnemonic to seed
+            seed_bytes = Bip39SeedGenerator(data.mnemonic_phrase).Generate()
+            seed = seed_bytes.hex()
 
-        wallet._set_addresses()
+            # Create wallet using the provided seed
+            wallet = cls.create_with_seed(seed=seed)
+            wallet._set_addresses()
+            return wallet
 
-        return wallet
+        elif isinstance(data, WalletData):
+            model = Cdp.api_clients.wallets.get_wallet(data.wallet_id)
+            wallet = cls(model, data.seed)
+            wallet._set_addresses()
+            return wallet
+
+        raise ValueError("Data must be a WalletData or MnemonicSeedPhrase instance")
 
     def create_address(self) -> "WalletAddress":
         """Create a new address for the wallet.
@@ -495,6 +542,24 @@ class Wallet:
         return WalletData(self.id, self._seed, self.network_id)
 
     def save_seed(self, file_path: str, encrypt: bool | None = False) -> None:
+        """[Deprecated] Use save_seed_to_file() instead. This method will be removed in a future version.
+
+        Args:
+            file_path (str): The path to the file where the seed will be saved.
+            encrypt (Optional[bool]): Whether to encrypt the seed before saving. Defaults to False.
+
+        Raises:
+            ValueError: If the wallet does not have a seed loaded.
+        """
+        import warnings
+        warnings.warn(
+            "save_seed() is deprecated and will be removed in a future version. Use save_seed_to_file() instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        self.save_seed_to_file(file_path, encrypt)
+
+    def save_seed_to_file(self, file_path: str, encrypt: bool | None = False) -> None:
         """Save the wallet seed to a file.
 
         Args:
@@ -537,6 +602,23 @@ class Wallet:
             json.dump(existing_seeds, f, indent=4)
 
     def load_seed(self, file_path: str) -> None:
+        """[Deprecated] Use load_seed_from_file() instead. This method will be removed in a future version.
+
+        Args:
+            file_path (str): The path to the file containing the seed data.
+
+        Raises:
+            ValueError: If the file does not contain seed data for this wallet or if decryption fails.
+        """
+        import warnings
+        warnings.warn(
+            "load_seed() is deprecated and will be removed in a future version. Use load_seed_from_file() instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        self.load_seed_from_file(file_path)
+
+    def load_seed_from_file(self, file_path: str) -> None:
         """Load the wallet seed from a file.
 
         Args:
@@ -685,8 +767,8 @@ class Wallet:
             ValueError: If the seed length is invalid.
 
         """
-        if len(seed) != 64:
-            raise ValueError("Invalid seed length")
+        if len(seed) != 32 and len(seed) != 64:
+            raise ValueError("Seed must be 32 or 64 bytes")
 
     def _derive_key(self, index: int) -> Bip32Slip10Secp256k1:
         """Derive a key from the master node.
