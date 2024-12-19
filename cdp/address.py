@@ -1,6 +1,7 @@
 from collections.abc import Iterator
 from decimal import Decimal
 
+from cdp.address_reputation import AddressReputation
 from cdp.asset import Asset
 from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
@@ -23,6 +24,7 @@ class Address:
         """
         self._network_id = network_id
         self._id = address_id
+        self._reputation: AddressReputation | None = None
 
     @property
     def address_id(self) -> str:
@@ -132,6 +134,22 @@ class Address:
 
         """
         return Transaction.list(network_id=self.network_id, address_id=self.address_id)
+
+    def reputation(self) -> AddressReputation:
+        """Get the reputation of the address.
+
+        Returns:
+            AddressReputation: The reputation of the address.
+
+        """
+        if self._reputation is not None:
+            return self._reputation
+
+        response = Cdp.api_clients.reputation.get_address_reputation(
+            network_id=self.network_id, address_id=self.address_id
+        )
+        self._reputation = AddressReputation(response)
+        return self._reputation
 
     def __str__(self) -> str:
         """Return a string representation of the Address."""
