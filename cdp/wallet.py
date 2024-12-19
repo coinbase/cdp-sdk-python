@@ -31,12 +31,12 @@ from cdp.contract_invocation import ContractInvocation
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.fund_operation import FundOperation
 from cdp.fund_quote import FundQuote
+from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
-from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.webhook import Webhook
 
 
@@ -131,6 +131,7 @@ class Wallet:
 
         Raises:
             Exception: If there's an error creating the wallet.
+
         """
         return cls.create_with_seed(
             seed=None,
@@ -160,6 +161,7 @@ class Wallet:
 
         Raises:
             Exception: If there's an error creating the wallet.
+
         """
         create_wallet_request = CreateWalletRequest(
             wallet=CreateWalletRequestWallet(
@@ -257,7 +259,7 @@ class Wallet:
             page = response.next_page
 
     @classmethod
-    def import_data(cls, data: Union[WalletData, MnemonicSeedPhrase]) -> "Wallet":
+    def import_data(cls, data: WalletData | MnemonicSeedPhrase) -> "Wallet":
         """Import a wallet from previously exported wallet data or a mnemonic seed phrase.
 
         Args:
@@ -272,6 +274,7 @@ class Wallet:
             ValueError: If data is not a WalletData or MnemonicSeedPhrase instance.
             ValueError: If the mnemonic phrase is invalid.
             Exception: If there's an error getting the wallet.
+
         """
         if isinstance(data, MnemonicSeedPhrase):
             # Validate mnemonic phrase
@@ -550,8 +553,10 @@ class Wallet:
 
         Raises:
             ValueError: If the wallet does not have a seed loaded.
+
         """
         import warnings
+
         warnings.warn(
             "save_seed() is deprecated and will be removed in a future version. Use save_seed_to_file() instead.",
             DeprecationWarning,
@@ -609,8 +614,10 @@ class Wallet:
 
         Raises:
             ValueError: If the file does not contain seed data for this wallet or if decryption fails.
+
         """
         import warnings
+
         warnings.warn(
             "load_seed() is deprecated and will be removed in a future version. Use load_seed_from_file() instead.",
             DeprecationWarning,

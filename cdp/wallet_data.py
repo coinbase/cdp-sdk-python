@@ -98,9 +98,10 @@ class WalletData:
             WalletData: The wallet data.
 
         Raises:
-            ValueError: 
+            ValueError:
             - If both 'wallet_id' and 'walletId' are present, or if neither is present.
             - If both 'network_id' and 'networkId' are present, or if neither is present.
+
         """
         has_snake_case_wallet = "wallet_id" in data
         has_camel_case_wallet = "walletId" in data
@@ -124,11 +125,7 @@ class WalletData:
 
         network_id = data.get("network_id") if has_snake_case_network else data.get("networkId")
 
-        return cls(
-            wallet_id,
-            seed,
-            network_id
-        )
+        return cls(wallet_id, seed, network_id)
 
     def __str__(self) -> str:
         """Return a string representation of the WalletData object.
