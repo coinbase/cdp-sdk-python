@@ -658,3 +658,101 @@ def test_wallet_quote_fund_no_default_address(wallet_factory):
 
         with pytest.raises(ValueError, match="Default address does not exist"):
             wallet.quote_fund(amount="1.0", asset_id="eth")
+
+
+@patch("cdp.Cdp.use_server_signer", False)
+@patch("cdp.wallet.os")
+@patch("cdp.wallet.Bip32Slip10Secp256k1")
+def test_wallet_export_data(mock_bip32, mock_os, wallet_factory, master_key_factory):
+    """Test Wallet export_data method."""
+    seed = b"\x00" * 64
+    mock_urandom = Mock(return_value=seed)
+    mock_os.urandom = mock_urandom
+    mock_from_seed = Mock(return_value=master_key_factory(seed))
+    mock_bip32.FromSeed = mock_from_seed
+
+    wallet = wallet_factory()
+
+    exported = wallet.export_data()
+
+    assert exported.wallet_id == wallet.id
+    assert exported.seed == seed.hex()
+    assert exported.network_id == wallet.network_id
+
+
+@patch("cdp.Cdp.use_server_signer", False)
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.wallet.Account")
+def test_wallet_import_from_mnemonic_seed_phrase(
+    mock_account,
+    mock_api_clients,
+    wallet_factory,
+    address_model_factory,
+):
+    """Test importing a wallet from a mnemonic seed phrase."""
+    # Valid 24-word mnemonic and expected address
+    valid_mnemonic = "crouch cereal notice one canyon kiss tape employ ghost column vanish despair eight razor laptop keen rally gaze riot regret assault jacket risk curve"
+    expected_address = "0x43A0477E658C6e05136e81C576CF02daCEa067bB"
+    public_key = "0x037e6cbdd1d949f60f41d5db7ffa9b3ddce0b77eab35ef7affd3f64cbfd9e33a91"
+
+    # Create mock address model
+    mock_address = address_model_factory(
+        address_id=expected_address,
+        public_key=public_key,
+        wallet_id="new-wallet-id",
+        network_id="base-sepolia",
+        index=0,
+    )
+
+    # Create mock wallet model with the address model
+    mock_wallet = wallet_factory(
+        id="new-wallet-id", network_id="base-sepolia", default_address=mock_address
+    )._model
+
+    # Add debug assertions
+    assert mock_wallet.default_address is not None
+    assert mock_wallet.default_address.address_id == expected_address
+
+    # Mock Account.from_key to return an account with our expected address
+    mock_account_instance = Mock(spec=Account)
+    mock_account_instance.address = expected_address
+    mock_account.from_key = Mock(return_value=mock_account_instance)
+
+    # Mock both API calls to return the same wallet model
+    mock_api_clients.wallets.create_wallet = Mock(return_value=mock_wallet)
+    mock_api_clients.wallets.get_wallet = Mock(return_value=mock_wallet)
+    mock_api_clients.addresses.create_address = Mock(return_value=mock_address)
+
+    # Mock list_addresses call
+    mock_address_list = Mock()
+    mock_address_list.data = [mock_address]
+    mock_api_clients.addresses.list_addresses = Mock(return_value=mock_address_list)
+
+    # Import wallet using mnemonic
+    from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
+
+    wallet = Wallet.import_wallet(MnemonicSeedPhrase(valid_mnemonic))
+
+    # Verify the wallet was created successfully
+    assert isinstance(wallet, Wallet)
+
+    # Verify the default address matches expected address
+    assert wallet.default_address is not None
+    assert wallet.default_address.address_id == expected_address
+    assert wallet.default_address._model.public_key == public_key
+
+
+def test_wallet_import_from_mnemonic_empty_phrase():
+    """Test importing a wallet with an empty mnemonic phrase."""
+    from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
+
+    with pytest.raises(ValueError, match="BIP-39 mnemonic seed phrase must be provided"):
+        Wallet.import_wallet(MnemonicSeedPhrase(""))
+
+
+def test_wallet_import_from_mnemonic_invalid_phrase():
+    """Test importing a wallet with an invalid mnemonic phrase."""
+    from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
+
+    with pytest.raises(ValueError, match="Invalid BIP-39 mnemonic seed phrase"):
+        Wallet.import_wallet(MnemonicSeedPhrase("invalid mnemonic phrase"))

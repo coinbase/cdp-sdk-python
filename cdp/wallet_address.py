@@ -201,7 +201,9 @@ class WalletAddress(Address):
         normalized_amount = Decimal(amount) if amount else Decimal("0")
 
         if normalized_amount > 0.0 and not asset_id:
-            raise ValueError("Asset ID is required for contract invocation if an amount is provided")
+            raise ValueError(
+                "Asset ID is required for contract invocation if an amount is provided"
+            )
 
         if amount and asset_id:
             self._ensure_sufficient_balance(normalized_amount, asset_id)
