@@ -15,20 +15,20 @@ deployed external to CDP.
 - Deprecate `Wallet.load_seed` method in favor of `Wallet.load_seed_from_file`
 - Deprecate `Wallet.save_seed` method in favor of `Wallet.save_seed_to_file`
 
-### [0.12.1] - 2024-12-10
+## [0.12.1] - 2024-12-10
 
 ### Added
 
 - Wallet address contract invocation input validation for payable contracts.
 
-### [0.12.0] - 2024-12-06
+## [0.12.0] - 2024-12-06
 
 ### Added
 
 - Use Poetry as the dependency manager
 - Relax dependency version constraints
 
-### [0.11.0] - 2024-11-27
+## [0.11.0] - 2024-11-27
 
 ### Added
 
