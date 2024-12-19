@@ -1,4 +1,5 @@
 from cdp.cdp_api_client import CdpApiClient
+from cdp.client import ReputationApi
 from cdp.client.api.addresses_api import AddressesApi
 from cdp.client.api.assets_api import AssetsApi
 from cdp.client.api.balance_history_api import BalanceHistoryApi
@@ -55,6 +56,7 @@ class ApiClients:
         self._balance_history: BalanceHistoryApi | None = None
         self._transaction_history: TransactionHistoryApi | None = None
         self._fund: FundApi | None = None
+        self._reputation: ReputationApi | None = None
 
     @property
     def wallets(self) -> WalletsApi:
@@ -250,3 +252,18 @@ class ApiClients:
         if self._fund is None:
             self._fund = FundApi(api_client=self._cdp_client)
         return self._fund
+
+    @property
+    def reputation(self) -> ReputationApi:
+        """Get the ReputationApi client instance.
+
+        Returns:
+            ReputationApi: The ReputationApi client instance.
+
+        Note:
+            This property lazily initializes the ReputationApi client on first access.
+
+        """
+        if self._reputation is None:
+            self._reputation = ReputationApi(api_client=self._cdp_client)
+        return self._reputation
