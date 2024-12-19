@@ -122,9 +122,9 @@ class Wallet:
         """Create a new wallet with a random seed.
 
         Args:
-            network_id (str) - The network ID of the wallet. Defaults to "base-sepolia".
-            interval_seconds (float) - The interval between checks in seconds. Defaults to 0.2.
-            timeout_seconds (float) - The maximum time to wait for the server signer to be active. Defaults to 20.
+            network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
+            interval_seconds (float): The interval between checks in seconds. Defaults to 0.2.
+            timeout_seconds (float): The maximum time to wait for the server signer to be active. Defaults to 20.
 
         Returns:
             Wallet: The created wallet object.
@@ -151,10 +151,10 @@ class Wallet:
         """Create a new wallet with the given seed.
 
         Args:
-            seed (str) - The seed to use for the wallet. If None, a random seed will be generated.
-            network_id (str) - The network ID of the wallet. Defaults to "base-sepolia".
-            interval_seconds (float) - The interval between checks in seconds. Defaults to 0.2.
-            timeout_seconds (float) - The maximum time to wait for the server signer to be active. Defaults to 20.
+            seed (str): The seed to use for the wallet. If None, a random seed will be generated.
+            network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
+            interval_seconds (float): The interval between checks in seconds. Defaults to 0.2.
+            timeout_seconds (float): The maximum time to wait for the server signer to be active. Defaults to 20.
 
         Returns:
             Wallet: The created wallet object.
@@ -545,7 +545,9 @@ class Wallet:
         return WalletData(self.id, self._seed, self.network_id)
 
     def save_seed(self, file_path: str, encrypt: bool | None = False) -> None:
-        """[Deprecated] Use save_seed_to_file() instead. This method will be removed in a future version.
+        """[Save the wallet seed to a file (deprecated).
+
+        This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.
 
         Args:
             file_path (str): The path to the file where the seed will be saved.
@@ -607,7 +609,9 @@ class Wallet:
             json.dump(existing_seeds, f, indent=4)
 
     def load_seed(self, file_path: str) -> None:
-        """[Deprecated] Use load_seed_from_file() instead. This method will be removed in a future version.
+        """Load the wallet seed from a file (deprecated).
+
+        This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.
 
         Args:
             file_path (str): The path to the file containing the seed data.
@@ -617,7 +621,6 @@ class Wallet:
 
         """
         import warnings
-
         warnings.warn(
             "load_seed() is deprecated and will be removed in a future version. Use load_seed_from_file() instead.",
             DeprecationWarning,
