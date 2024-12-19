@@ -49,6 +49,11 @@ exclude = ["./build/**", "./dist/**", "./docs/**", "./cdp/client/**"]
 select = ["E", "F", "I", "N", "W", "D", "UP", "B", "C4", "SIM", "RUF"]
 ignore = ["D213", "D203", "D100", "D104", "D107", "E501"]
 
+[tool.ruff.lint.pep8-naming]
+# Allow camelCase property names in WalletData import for cross-compatibility with Node.JS SDK
+classmethod-decorators = ["classmethod"]
+ignore-names = ["networkId", "walletId"]
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
