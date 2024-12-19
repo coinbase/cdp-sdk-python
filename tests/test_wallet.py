@@ -659,6 +659,7 @@ def test_wallet_quote_fund_no_default_address(wallet_factory):
         with pytest.raises(ValueError, match="Default address does not exist"):
             wallet.quote_fund(amount="1.0", asset_id="eth")
 
+
 @patch("cdp.Cdp.use_server_signer", False)
 @patch("cdp.wallet.os")
 @patch("cdp.wallet.Bip32Slip10Secp256k1")
@@ -677,3 +678,50 @@ def test_wallet_export_data(mock_bip32, mock_os, wallet_factory, master_key_fact
     assert exported.wallet_id == wallet.id
     assert exported.seed == seed.hex()
     assert exported.network_id == wallet.network_id
+
+
+@patch("cdp.Cdp.use_server_signer", False)
+@patch("cdp.Cdp.api_clients")
+def test_wallet_import_from_mnemonic_seed_phrase(
+    mock_api_clients,
+    wallet_factory,
+):
+    """Test importing a wallet from a mnemonic seed phrase."""
+    # Valid 24-word mnemonic and expected address
+    valid_mnemonic = "crouch cereal notice one canyon kiss tape employ ghost column vanish despair eight razor laptop keen rally gaze riot regret assault jacket risk curve"
+    expected_address = "0x43A0477E658C6e05136e81C576CF02daCEa067bB"
+
+    # Mock API responses for wallet creation
+    mock_create_wallet = Mock(return_value=wallet_factory(id="new-wallet-id"))
+    mock_api_clients.wallets.create_wallet = mock_create_wallet
+
+    mock_get_wallet = Mock(return_value=wallet_factory(id="new-wallet-id"))
+    mock_api_clients.wallets.get_wallet = mock_get_wallet
+
+    # Import wallet using mnemonic
+    from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
+
+    wallet = Wallet.import_data(MnemonicSeedPhrase(valid_mnemonic))
+
+    # Verify the wallet was created successfully
+    assert isinstance(wallet, Wallet)
+
+    # Verify the default address matches expected address
+    assert wallet.default_address is not None
+    assert wallet.default_address.address_id == expected_address
+
+
+def test_wallet_import_from_mnemonic_empty_phrase():
+    """Test importing a wallet with an empty mnemonic phrase."""
+    from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
+
+    with pytest.raises(ValueError, match="BIP-39 mnemonic seed phrase must be provided"):
+        Wallet.import_data(MnemonicSeedPhrase(""))
+
+
+def test_wallet_import_from_mnemonic_invalid_phrase():
+    """Test importing a wallet with an invalid mnemonic phrase."""
+    from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
+
+    with pytest.raises(ValueError, match="Invalid BIP-39 mnemonic seed phrase"):
+        Wallet.import_data(MnemonicSeedPhrase("invalid mnemonic phrase"))
