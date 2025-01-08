@@ -247,10 +247,12 @@ from cdp.client.models.webhook import WebhookEventFilter
 wh1 = Webhook.create(
     notification_uri="https://your-app.com/callback",
     event_type=WebhookEventType.ERC20_TRANSFER,
-    event_filters=[WebhookEventFilter(from_address="0x71d4d7d5e9ce0f41e6a68bd3a9b43aa597dc0eb0")]
+    event_filters=[WebhookEventFilter(from_address="0x71d4d7d5e9ce0f41e6a68bd3a9b43aa597dc0eb0")],
+    network_id="base-mainnet"
 )
 print(wh1)
 ```
+In the above example, parameter `network_id` is optional, if not provided, the default network is `base-sepolia`. Today we support Base mainnet and Base Sepolia networks.
 
 ### Creating a Webhook On A Wallet
 A webhook can be attached to an existing wallet to monitor events that occur on the wallet, i.e. all addresses associated with this wallet. A list of supported blockchain events can be found [here](https://docs.cdp.coinbase.com/get-started/docs/webhooks/event-types).
