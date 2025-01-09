@@ -37,6 +37,7 @@ pip install cdp-sdk
 ```
 
 if you prefer to manage dependencies with Poetry:
+
 ```bash
 poetry add cdp-sdk
 ```
@@ -155,6 +156,12 @@ print(f"Faucet transaction successfully completed: {usdc_faucet_tx}")
 transfer = wallet1.transfer(0.00001, "usdc", wallet3, gasless=True).wait()
 ```
 
+By default, gasless transfers are batched with other transfers, and might take longer to submit. If you want to opt out of batching, you can set the `skip_batching` option to `True`, which will submit the transaction immediately.
+
+```python
+transfer = wallet1.transfer(0.00001, "usdc", wallet3, gasless=True, skip_batching=True).wait()
+```
+
 ### Listing Transfers
 
 ```python
@@ -239,7 +246,9 @@ fetched_wallet.load_seed(file_path)
 ```
 
 ### Creating a Webhook
+
 A webhook is a way to provide other applications with real-time information from the blockchain. When an event occurs on a blockchain address, it can send a POST request to a URL you specify. You can create a webhook to receive notifications about events that occur in your wallet or crypto address, such as when a user makes a transfer.
+
 ```python
 from cdp.client.models.webhook import WebhookEventType
 from cdp.client.models.webhook import WebhookEventFilter
@@ -252,10 +261,13 @@ wh1 = Webhook.create(
 )
 print(wh1)
 ```
+
 In the above example, parameter `network_id` is optional, if not provided, the default network is `base-sepolia`. Today we support Base mainnet and Base Sepolia networks.
 
 ### Creating a Webhook On A Wallet
+
 A webhook can be attached to an existing wallet to monitor events that occur on the wallet, i.e. all addresses associated with this wallet. A list of supported blockchain events can be found [here](https://docs.cdp.coinbase.com/get-started/docs/webhooks/event-types).
+
 ```python
 import cdp
 
@@ -265,9 +277,9 @@ print(wh1)
 ```
 
 ## Examples
+
 Examples, demo apps, and further code samples can be found in the [CDP SDK Python Documentation](https://docs.cdp.coinbase.com/cdp-apis/docs/welcome).
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
-

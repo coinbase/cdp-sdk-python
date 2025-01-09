@@ -35,6 +35,7 @@ from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
 from cdp.trade import Trade
+from cdp.transfer import Transfer
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
 from cdp.webhook import Webhook
@@ -436,7 +437,8 @@ class Wallet:
         asset_id: str,
         destination: Union[Address, "Wallet", str],
         gasless: bool = False,
-    ) -> Any:
+        skip_batching: bool = False,
+    ) -> Transfer:
         """Transfer funds from the wallet.
 
         Args:
@@ -444,6 +446,7 @@ class Wallet:
             asset_id (str): The ID of the asset to transfer.
             destination (Union[Address, 'Wallet', str]): The destination for the transfer.
             gasless (bool): Whether the transfer should be gasless. Defaults to False.
+            skip_batching (bool): When True, the Transfer will be submitted immediately. Otherwise, the Transfer will be batched. Defaults to False. Note: requires gasless option to be set to True.
 
         Returns:
             Any: The result of the transfer operation.
@@ -459,7 +462,7 @@ class Wallet:
         if isinstance(amount, float | int | str):
             amount = Decimal(amount)
 
-        return self.default_address.transfer(amount, asset_id, destination, gasless)
+        return self.default_address.transfer(amount, asset_id, destination, gasless, skip_batching)
 
     def trade(self, amount: Number | Decimal | str, from_asset_id: str, to_asset_id: str) -> Trade:
         """Trade funds from the wallet address.

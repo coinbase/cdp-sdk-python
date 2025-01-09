@@ -135,6 +135,7 @@ def test_transfer_with_server_signer(
         network_id=wallet_address.network_id,
         wallet_id=wallet_address.wallet_id,
         gasless=False,
+        skip_batching=False,
     )
     mock_transfer_instance.sign.assert_not_called()
     mock_transfer_instance.broadcast.assert_not_called()
@@ -175,6 +176,7 @@ def test_transfer(mock_api_clients, mock_transfer, wallet_address_factory, balan
         network_id=wallet_address_with_key.network_id,
         wallet_id=wallet_address_with_key.wallet_id,
         gasless=False,
+        skip_batching=False,
     )
     mock_transfer_instance.sign.assert_called_once_with(wallet_address_with_key.key)
     mock_transfer_instance.broadcast.assert_called_once()
@@ -214,6 +216,7 @@ def test_transfer_create_api_error(
         network_id=wallet_address_with_key.network_id,
         wallet_id=wallet_address_with_key.wallet_id,
         gasless=False,
+        skip_batching=False,
     )
 
 
@@ -253,6 +256,7 @@ def test_transfer_broadcast_api_error(
         network_id=wallet_address_with_key.network_id,
         wallet_id=wallet_address_with_key.wallet_id,
         gasless=False,
+        skip_batching=False,
     )
     mock_transfer_instance.sign.assert_called_once_with(wallet_address_with_key.key)
     mock_transfer_instance.broadcast.assert_called_once()
