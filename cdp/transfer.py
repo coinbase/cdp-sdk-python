@@ -273,7 +273,7 @@ class Transfer:
 
         return self
 
-    def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 20) -> "Transfer":
+    def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 40) -> "Transfer":
         """Wait for the transfer to complete.
 
         Args:
