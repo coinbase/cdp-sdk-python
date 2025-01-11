@@ -3,9 +3,11 @@
 ## Unreleased
 
 ### Added
-
+- Add `Webhook.delete_webhook` instance method to delete a webhook instance.
 - `ExternalAddress` derived `Address` class.
 
+### Deprecated
+- Deprecate `Webhook.delete` static method in `Webhook` which deletes a webhook by its ID.
 
 ## [0.13.0] - 2024-12-19
 
