@@ -42,16 +42,13 @@ def test_webhook_creation(mock_api_clients, webhook_factory):
 
 
 @patch("cdp.Cdp.api_clients")
-def test_webhook_delete(mock_api_clients, webhook_factory):
+def test_webhook_delete(mock_api_clients):
     """Test Webhook delete method."""
-    # Create a webhook instance using the factory
-    webhook = webhook_factory(webhook_id="webhook-123")
-    
-    # Call delete on the webhook instance
-    webhook.delete()
+    webhook_id = "webhook-123"
 
-    # Verify the API client was called with the correct webhook ID
-    mock_api_clients.webhooks.delete_webhook.assert_called_once_with("webhook-123")
+    Webhook.delete(webhook_id)
+
+    mock_api_clients.webhooks.delete_webhook.assert_called_once_with(webhook_id)
 
 
 @patch("cdp.Cdp.api_clients")

@@ -136,12 +136,15 @@ class Webhook:
 
             page = response.next_page
 
-    def delete(self) -> None:
-        """Delete this webhook.
+    @staticmethod
+    def delete(webhook_id: str) -> None:
+        """Delete a webhook by its ID.
 
-        This method deletes the current webhook instance from the system.
+        Args:
+            webhook_id (str): The ID of the webhook to delete.
+
         """
-        Cdp.api_clients.webhooks.delete_webhook(self.id)
+        Cdp.api_clients.webhooks.delete_webhook(webhook_id)
 
     def update(
         self,
