@@ -150,11 +150,11 @@ class Webhook:
 
         Deprecated:
             This static method is deprecated. Please use the instance method instead:
-            webhook_instance.delete()
+            webhook_instance.delete_webhook()
 
         """
         warnings.warn(
-            "This static method is deprecated. Please use the instance method instead: webhook_instance.delete()",
+            "This static method is deprecated. Please use the instance method instead: webhook_instance.delete_webhook()",
             DeprecationWarning,
             stacklevel=2,
         )
