@@ -1,5 +1,4 @@
 from collections.abc import Iterator
-import warnings
 
 from cdp.cdp import Cdp
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
@@ -7,6 +6,7 @@ from cdp.client.models.update_webhook_request import UpdateWebhookRequest
 from cdp.client.models.webhook import Webhook as WebhookModel
 from cdp.client.models.webhook import WebhookEventFilter, WebhookEventType, WebhookEventTypeFilter
 from cdp.client.models.webhook_list import WebhookList
+import warnings
 
 
 class Webhook:
@@ -142,6 +142,7 @@ class Webhook:
         """Delete a webhook by its ID.
 
         Args:
+
             webhook_id (str): The ID of the webhook to delete.
 
         Deprecated:
