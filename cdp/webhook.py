@@ -1,11 +1,10 @@
-from collections.abc import Iterator
-
 from cdp.cdp import Cdp
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
 from cdp.client.models.webhook import Webhook as WebhookModel
 from cdp.client.models.webhook import WebhookEventFilter, WebhookEventType, WebhookEventTypeFilter
 from cdp.client.models.webhook_list import WebhookList
+from collections.abc import Iterator
 import warnings
 
 
@@ -142,15 +141,15 @@ class Webhook:
         """Delete a webhook by its ID.
 
         Args:
-
             webhook_id (str): The ID of the webhook to delete.
 
         Deprecated:
             This static method is deprecated. Please use the instance method instead:
-            webhook_instance.delete_webhook()
+            webhook_instance.delete()
+
         """
         warnings.warn(
-            "This static method is deprecated. Please use the instance method instead: webhook_instance.delete_webhook()",
+            "This static method is deprecated. Please use the instance method instead: webhook_instance.delete()",
             DeprecationWarning,
             stacklevel=2,
         )

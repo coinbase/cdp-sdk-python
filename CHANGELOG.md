@@ -3,7 +3,7 @@
 ## [0.14.0] - 2025-01-16
 
 ### Added
-- Add `Webhook.delete_webhook` method to delete a webhook instance.
+- Add `Webhook.delete` instance method to delete a webhook instance.
 
 ### Deprecated
 - Deprecate `Webhook.delete` static method in `Webhook` which deletes a webhook by its ID.
