@@ -93,3 +93,16 @@ def test_webhook_update(mock_api_clients, webhook_factory):
     assert isinstance(updated_webhook, Webhook)
     assert updated_webhook.notification_uri == new_notification_uri
     assert updated_webhook.id == webhook.id
+
+
+@patch("cdp.Cdp.api_clients")
+def test_webhook_instance_delete(mock_api_clients, webhook_factory):
+    """Test Webhook instance delete method."""
+    # Create a webhook instance using the factory
+    webhook = Webhook(model=webhook_factory(webhook_id="webhook-123"))
+    
+    # Call delete on the webhook instance
+    webhook.delete_webhook()
+
+    # Verify the API client was called with the correct webhook ID
+    mock_api_clients.webhooks.delete_webhook.assert_called_once_with("webhook-123")
