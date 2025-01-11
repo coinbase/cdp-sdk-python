@@ -4,8 +4,12 @@
 
 ### Added
 
-- `ExternalAddress` derived `Address` class.
+- Add `Webhook.delete_webhook` instance method to delete a webhook instance.
+- Add `ExternalAddress` derived `Address` class.
 
+### Deprecated
+
+- Deprecate `Webhook.delete` static method in `Webhook` which deletes a webhook by its ID.
 
 ## [0.13.0] - 2024-12-19
 
@@ -14,7 +18,7 @@
 - Add support for fetching address reputation
   - Add `reputation` method to `Address` to fetch the reputation of the address.
 - Add support for registering, updating, and listing smart contracts that are
-deployed external to CDP.
+  deployed external to CDP.
 - Add `network_id` to `WalletData` so that it is saved with the seed data and surfaced via the export function
 - Add ability to import external wallets into CDP via a BIP-39 mnemonic phrase, as a 1-of-1 wallet
 - Add ability to import WalletData files exported by the NodeJS CDP SDK
@@ -42,7 +46,7 @@ deployed external to CDP.
 ### Added
 
 - Add support for funding wallets (Alpha feature release)
-    - Must reach out to CDP SDK Discord channel to be considered for this feature.
+  - Must reach out to CDP SDK Discord channel to be considered for this feature.
 - Added create and update feature for `SmartContractEventActivity` webhook and its related event type filter.
 
 ### Fixed
@@ -88,7 +92,7 @@ deployed external to CDP.
 ### Changed
 
 - Make faucet transactions async i.e. using `faucet_tx.wait()` to wait for the transaction to be confirmed.
-    - This will make the SDK more consistent and make faucet transactions more reliable.
+  - This will make the SDK more consistent and make faucet transactions more reliable.
 
 ## [0.0.9] - 2024-10-29
 
