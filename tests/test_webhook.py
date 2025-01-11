@@ -100,9 +100,9 @@ def test_webhook_instance_delete(mock_api_clients, webhook_factory):
     """Test Webhook instance delete method."""
     # Create a webhook instance using the factory
     webhook = Webhook(model=webhook_factory(webhook_id="webhook-123"))
-
+    
     # Call delete on the webhook instance
-    webhook.delete()
+    webhook.delete_webhook()
 
     # Verify the API client was called with the correct webhook ID
     mock_api_clients.webhooks.delete_webhook.assert_called_once_with("webhook-123")
