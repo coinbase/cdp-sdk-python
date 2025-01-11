@@ -1,11 +1,16 @@
+import warnings
+from collections.abc import Iterator
+
 from cdp.cdp import Cdp
 from cdp.client.models.create_webhook_request import CreateWebhookRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
 from cdp.client.models.webhook import Webhook as WebhookModel
-from cdp.client.models.webhook import WebhookEventFilter, WebhookEventType, WebhookEventTypeFilter
+from cdp.client.models.webhook import (
+    WebhookEventFilter,
+    WebhookEventType,
+    WebhookEventTypeFilter,
+)
 from cdp.client.models.webhook_list import WebhookList
-from collections.abc import Iterator
-import warnings
 
 
 class Webhook:
