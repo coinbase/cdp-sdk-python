@@ -1,8 +1,3 @@
-ifneq (,$(wildcard ./.env))
-	include .env
-	export
-endif
-
 .PHONY: format
 format:
 	poetry run ruff format .
@@ -17,11 +12,11 @@ lint-fix:
 
 .PHONY: test
 test:
-	poetry run pytest
+	poetry run pytest -m "not e2e"
 
 .PHONY: e2e
 e2e:
-	poetry run python -m tests.e2e
+	poetry run pytest -m "e2e"
 
 .PHONY: repl
 repl:

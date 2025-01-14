@@ -30,6 +30,7 @@ sphinx-autodoc-typehints = "^2.4.4"
 myst-parser = "^4.0.0"
 ruff-lsp = "^0.0.58"
 python-lsp-server = "^1.12.0"
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -68,6 +69,9 @@ minversion = "6.0"
 addopts = "-ra -q --cov=cdp --cov-report=term-missing"
 testpaths = [
     "tests",
+]
+markers = [
+  "e2e: marks tests as e2e, requiring env, deselect with '-m \"not e2e\"'",
 ]
 
 [tool.coverage.run]
