@@ -108,6 +108,14 @@ cdp.errors module
    :undoc-members:
    :show-inheritance:
 
+cdp.external\_address module
+----------------------------
+
+.. automodule:: cdp.external_address
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.faucet\_transaction module
 ------------------------------
 
