@@ -262,9 +262,7 @@ class TestE2E:
                 amount=Decimal("0.000000001"),
                 asset_id="eth",
                 destination=destination_wallet
-            )
-
-            transfer.wait()
+            ).wait()
             time.sleep(2)  # wait for balances to update
 
             # verify transfer completed
