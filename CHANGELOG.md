@@ -1,8 +1,16 @@
 # CDP Python SDK Changelog
 
+## Unreleased
+
+### Added
+
+- `ExternalAddress` derived `Address` class.
+
+
 ## [0.13.0] - 2024-12-19
 
 ### Added
+
 - Add support for fetching address reputation
   - Add `reputation` method to `Address` to fetch the reputation of the address.
 - Add support for registering, updating, and listing smart contracts that are
@@ -12,6 +20,7 @@ deployed external to CDP.
 - Add ability to import WalletData files exported by the NodeJS CDP SDK
 
 ### Deprecated
+
 - Deprecate `Wallet.load_seed` method in favor of `Wallet.load_seed_from_file`
 - Deprecate `Wallet.save_seed` method in favor of `Wallet.save_seed_to_file`
 
