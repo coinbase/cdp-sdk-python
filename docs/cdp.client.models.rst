@@ -100,6 +100,14 @@ cdp.client.models.broadcast\_contract\_invocation\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.broadcast\_external\_transfer\_request module
+---------------------------------------------------------------
+
+.. automodule:: cdp.client.models.broadcast_external_transfer_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.broadcast\_staking\_operation\_request module
 ---------------------------------------------------------------
 
@@ -176,6 +184,14 @@ cdp.client.models.create\_contract\_invocation\_request module
 --------------------------------------------------------------
 
 .. automodule:: cdp.client.models.create_contract_invocation_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.create\_external\_transfer\_request module
+------------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_external_transfer_request
    :members:
    :undoc-members:
    :show-inheritance:
@@ -548,6 +564,14 @@ cdp.client.models.read\_smart\_contract\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.register\_smart\_contract\_request module
+-----------------------------------------------------------
+
+.. automodule:: cdp.client.models.register_smart_contract_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.seed\_creation\_event module
 ----------------------------------------------
 
@@ -816,6 +840,14 @@ cdp.client.models.transfer\_list module
 ---------------------------------------
 
 .. automodule:: cdp.client.models.transfer_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.update\_smart\_contract\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.update_smart_contract_request
    :members:
    :undoc-members:
    :show-inheritance:

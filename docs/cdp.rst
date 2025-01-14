@@ -20,6 +20,14 @@ cdp.address module
    :undoc-members:
    :show-inheritance:
 
+cdp.address\_reputation module
+------------------------------
+
+.. automodule:: cdp.address_reputation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.api\_clients module
 -----------------------
 
@@ -100,6 +108,14 @@ cdp.errors module
    :undoc-members:
    :show-inheritance:
 
+cdp.external\_address module
+----------------------------
+
+.. automodule:: cdp.external_address
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.faucet\_transaction module
 ------------------------------
 
@@ -144,6 +160,14 @@ cdp.historical\_balance module
 ------------------------------
 
 .. automodule:: cdp.historical_balance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.mnemonic\_seed\_phrase module
+---------------------------------
+
+.. automodule:: cdp.mnemonic_seed_phrase
    :members:
    :undoc-members:
    :show-inheritance:
