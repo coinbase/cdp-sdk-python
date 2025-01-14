@@ -1,5 +1,4 @@
 import os
-import pytest
 
 factory_modules = [
     f[:-3] for f in os.listdir("./tests/factories") if f.endswith(".py") and f != "__init__.py"
