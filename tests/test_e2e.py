@@ -37,12 +37,6 @@ class TestE2E:
         assert "CDP_API_PRIVATE_KEY" in os.environ
         assert "WALLET_DATA" in os.environ
 
-    # def test_wallet_create(self):
-    #     """Test wallet creation."""
-    #     wallet = Wallet.create()
-
-    #     assert wallet is not None
-    #     assert wallet.id is not None
 
     class TestWalletImport:
         @pytest.fixture(autouse=True)
