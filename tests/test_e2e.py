@@ -13,7 +13,7 @@ def configure_cdp():
     """Configure CDP once for all tests."""
     Cdp.configure(
         api_key_name=os.environ["CDP_API_KEY_NAME"],
-        private_key=os.environ["CDP_API_PRIVATE_KEY"],
+        private_key=os.environ["CDP_API_PRIVATE_KEY"].replace("\\n", "\n")
     )
 
 
@@ -200,7 +200,7 @@ class TestE2E:
         def setup(self, imported_wallet):
             """Setup wallet transaction tests."""
             self.wallet = imported_wallet
-            
+
             # create a traceable transaction
             self.destination_wallet = Wallet.create()
             self.transfer = self.wallet.transfer(
@@ -217,7 +217,7 @@ class TestE2E:
             for i in range(5):
                 # get all transactions for this address
                 transactions = list(self.wallet.default_address.transactions())
-                
+
                 if transactions:
                     # look for our specific transaction
                     matching_tx = None
@@ -225,10 +225,10 @@ class TestE2E:
                         # match by from/to addresses and transaction hash
                         if (tx.from_address_id == self.wallet.default_address.address_id
                             and tx.to_address_id == self.destination_wallet.default_address.address_id
-                            and tx.transaction_hash == self.transfer.transaction_hash):
+                                and tx.transaction_hash == self.transfer.transaction_hash):
                             matching_tx = tx
                             break
-                    
+
                     # if we found our transaction, verify its status
                     if matching_tx is not None:
                         assert matching_tx.status.value == "complete"
@@ -252,7 +252,7 @@ class TestE2E:
             """Test wallet transfer."""
             # create a new wallet to transfer to
             destination_wallet = Wallet.create()
-            
+
             # get initial balances
             initial_source_balance = Decimal(str(self.wallet.balances().get("eth", 0)))
             initial_dest_balance = Decimal(str(destination_wallet.balances().get("eth", 0)))

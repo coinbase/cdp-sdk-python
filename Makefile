@@ -1,3 +1,8 @@
+ifneq (,$(wildcard ./.env))
+	include .env
+	export
+endif
+
 .PHONY: format
 format:
 	poetry run ruff format .
