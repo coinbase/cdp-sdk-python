@@ -71,7 +71,6 @@ testpaths = [
     "tests",
 ]
 markers = [
-  "tests: tests",
   "e2e: e2e tests, requiring env, deselect with '-m \"not e2e\"'",
 ]
 

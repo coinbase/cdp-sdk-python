@@ -35,7 +35,6 @@ def imported_wallet(wallet_data):
     return Wallet.import_data(WalletData.from_dict(wallet_data))
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_data(wallet_data):
     """Test wallet data format and required values."""
@@ -51,7 +50,6 @@ def test_wallet_data(wallet_data):
         assert value is not None
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_import(wallet_data):
     """Test wallet import functionality."""
@@ -68,7 +66,6 @@ def test_wallet_import(wallet_data):
     assert imported_wallet.default_address.address_id == default_address_id
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_faucet(imported_wallet):
     """Test wallet faucet with ETH."""
@@ -83,7 +80,6 @@ def test_wallet_faucet(imported_wallet):
     assert final_eth_balance > initial_eth_balance
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_faucet_usdc(imported_wallet):
     """Test wallet faucet with USDC."""
@@ -98,7 +94,6 @@ def test_wallet_faucet_usdc(imported_wallet):
     assert final_usdc_balance > initial_usdc_balance
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
@@ -125,7 +120,6 @@ def test_wallet_transfer(imported_wallet):
     assert final_dest_balance > initial_dest_balance
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_transaction_history(imported_wallet):
     """Test transaction history retrieval."""
@@ -137,24 +131,20 @@ def test_transaction_history(imported_wallet):
         destination=destination_wallet
     ).wait()
 
-    print(f"transfer: {transfer.transaction_hash}")
-    time.sleep(10)  # wait for the transaction to be indexed
+    time.sleep(10)
 
     transactions = imported_wallet.default_address.transactions()
     matching_tx = None
 
-    # look for our specific transaction
     for tx in transactions:
         if tx.transaction_hash == transfer.transaction_hash:
             matching_tx = tx
             break
 
-    # verify that we found the transaction and it is complete
     assert matching_tx is not None
     assert matching_tx.status.value == "complete"
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_export(imported_wallet):
     """Test wallet export."""
@@ -163,11 +153,9 @@ def test_wallet_export(imported_wallet):
     assert exported_wallet.seed is not None
     assert len(exported_wallet.seed) == 128
 
-    # test seed file creation and format
     imported_wallet.save_seed_to_file("test_seed.json")
     assert os.path.exists("test_seed.json")
 
-    # verify seed file contents
     with open("test_seed.json") as f:
         saved_seed = json.loads(f.read())
 
@@ -179,11 +167,9 @@ def test_wallet_export(imported_wallet):
         "network_id": exported_wallet.network_id
     }
 
-    # cleanup
     os.unlink("test_seed.json")
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_addresses(imported_wallet):
     """Test wallet addresses retrieval."""
@@ -192,7 +178,6 @@ def test_wallet_addresses(imported_wallet):
     assert imported_wallet.default_address in addresses
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_balances(imported_wallet):
     """Test wallet balances retrieval."""
@@ -200,7 +185,6 @@ def test_wallet_balances(imported_wallet):
     assert balances.get("eth") > 0
 
 
-@pytest.mark.tests
 @pytest.mark.e2e
 def test_historical_balances(imported_wallet):
     """Test historical balance retrieval."""
