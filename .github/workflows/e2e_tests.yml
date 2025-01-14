@@ -36,4 +36,9 @@ jobs:
         run: poetry install --with dev
 
       - name: Run tests
+        env:
+          CDP_API_KEY_NAME: ${{ secrets.CDP_API_KEY_NAME }}
+          CDP_API_PRIVATE_KEY: ${{ secrets.CDP_API_PRIVATE_KEY }}
+          NETWORK_ID: ${{ secrets.NETWORK_ID}}
+          WALLET_DATA: ${{ secrets.WALLET_DATA }}
         run: make e2e
