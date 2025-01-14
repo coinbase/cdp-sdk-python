@@ -22,17 +22,16 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateTransferRequest(BaseModel):
+class CreateExternalTransferRequest(BaseModel):
     """
-    CreateTransferRequest
+    CreateExternalTransferRequest
     """ # noqa: E501
     amount: StrictStr = Field(description="The amount to transfer")
-    network_id: StrictStr = Field(description="The ID of the blockchain network")
     asset_id: StrictStr = Field(description="The ID of the asset to transfer. Can be an asset symbol or a token contract address.")
     destination: StrictStr = Field(description="The destination address, which can be a 0x address, Basename, or ENS name")
-    gasless: Optional[StrictBool] = Field(default=None, description="Whether the transfer uses sponsored gas")
-    skip_batching: Optional[StrictBool] = Field(default=None, description="When true, the transfer will be submitted immediately. Otherwise, the transfer will be batched. Defaults to false")
-    __properties: ClassVar[List[str]] = ["amount", "network_id", "asset_id", "destination", "gasless", "skip_batching"]
+    gasless: StrictBool = Field(description="Whether the transfer uses sponsored gas")
+    skip_batching: Optional[StrictBool] = Field(default=None, description="When true, the transfer will be submitted immediately. Otherwise, the transfer will be batched. Defaults to false. Note: Requires the gasless option to be set to true. ")
+    __properties: ClassVar[List[str]] = ["amount", "asset_id", "destination", "gasless", "skip_batching"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +51,7 @@ class CreateTransferRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateTransferRequest from a JSON string"""
+        """Create an instance of CreateExternalTransferRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -77,7 +76,7 @@ class CreateTransferRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateTransferRequest from a dict"""
+        """Create an instance of CreateExternalTransferRequest from a dict"""
         if obj is None:
             return None
 
@@ -86,7 +85,6 @@ class CreateTransferRequest(BaseModel):
 
         _obj = cls.model_validate({
             "amount": obj.get("amount"),
-            "network_id": obj.get("network_id"),
             "asset_id": obj.get("asset_id"),
             "destination": obj.get("destination"),
             "gasless": obj.get("gasless"),

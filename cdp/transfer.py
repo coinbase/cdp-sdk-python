@@ -151,6 +151,7 @@ class Transfer:
         network_id: str,
         wallet_id: str,
         gasless: bool = False,
+        skip_batching: bool = False,
     ) -> "Transfer":
         """Create a transfer.
 
@@ -162,11 +163,15 @@ class Transfer:
             network_id (str): The network ID.
             wallet_id (str): The wallet ID.
             gasless (bool): Whether to use gasless.
+            skip_batching (bool): When True, the Transfer will be submitted immediately. Otherwise, the Transfer will be batched. Defaults to False. Note: requires gasless option to be set to True.
 
         Returns:
             Transfer: The transfer.
 
         """
+        if skip_batching and not gasless:
+            raise ValueError("skip_batching requires gasless to be True")
+
         asset = Asset.fetch(network_id, asset_id)
 
         if hasattr(destination, "address_id"):
@@ -184,6 +189,7 @@ class Transfer:
             destination=destination,
             network_id=network_id,
             gasless=gasless,
+            skip_batching=skip_batching,
         )
 
         model = Cdp.api_clients.transfers.create_transfer(
