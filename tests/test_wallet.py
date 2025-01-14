@@ -262,7 +262,7 @@ def test_wallet_transfer_with_server_signer(wallet_factory):
 
         assert isinstance(transfer, Transfer)
         mock_default_address.transfer.assert_called_once_with(
-            Decimal("1.0"), "eth", "0xdestination", False
+            Decimal("1.0"), "eth", "0xdestination", False, False
         )
 
 

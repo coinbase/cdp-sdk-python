@@ -27,7 +27,7 @@ class CreateFundOperationRequest(BaseModel):
     CreateFundOperationRequest
     """ # noqa: E501
     amount: StrictStr = Field(description="The amount of the asset to fund the address with in atomic units.")
-    asset_id: StrictStr = Field(description="The ID of the asset to fund the address with.")
+    asset_id: StrictStr = Field(description="The ID of the asset to fund the address with. Can be an asset symbol or a token contract address.")
     fund_quote_id: Optional[StrictStr] = Field(default=None, description="The Optional ID of the fund quote to fund the address with. If omitted we will generate a quote and immediately execute it.")
     __properties: ClassVar[List[str]] = ["amount", "asset_id", "fund_quote_id"]
 

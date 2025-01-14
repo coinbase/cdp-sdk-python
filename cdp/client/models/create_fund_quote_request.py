@@ -27,7 +27,7 @@ class CreateFundQuoteRequest(BaseModel):
     CreateFundQuoteRequest
     """ # noqa: E501
     amount: StrictStr = Field(description="The amount of the asset to fund the address with in atomic units.")
-    asset_id: StrictStr = Field(description="The ID of the asset to fund the address with.")
+    asset_id: StrictStr = Field(description="The ID of the asset to fund the address with. Can be an asset symbol alias or a token contract address.")
     __properties: ClassVar[List[str]] = ["amount", "asset_id"]
 
     model_config = ConfigDict(

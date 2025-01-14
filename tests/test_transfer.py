@@ -85,6 +85,61 @@ def test_create_transfer(mock_asset, mock_api_clients, transfer_factory, asset_f
     assert create_transfer_request.network_id == "base-sepolia"
     assert create_transfer_request.gasless == gasless
 
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.transfer.Asset")
+def test_create_transfer_with_skip_batching(mock_asset, mock_api_clients, transfer_factory, asset_factory):
+    """Test the creation of a Transfer object."""
+    mock_fetch = Mock()
+    mock_fetch.return_value = asset_factory()
+    mock_asset.fetch = mock_fetch
+
+    mock_primary_denomination = Mock()
+    mock_primary_denomination.return_value = "usdc"
+    mock_asset.primary_denomination = mock_primary_denomination
+
+    mock_create_transfer = Mock()
+    mock_create_transfer.return_value = transfer_factory(gasless=True)._model
+    mock_api_clients.transfers.create_transfer = mock_create_transfer
+
+    transfer = Transfer.create(
+        address_id="0xaddressid",
+        amount=Decimal("1"),
+        asset_id="usdc",
+        destination="0xdestination",
+        network_id="base-sepolia",
+        wallet_id="test-wallet-id",
+        gasless=True,
+        skip_batching=True,
+    )
+
+    assert isinstance(transfer, Transfer)
+    mock_fetch.assert_called_once_with("base-sepolia", "usdc")
+    mock_primary_denomination.assert_called_once_with("usdc")
+    mock_create_transfer.assert_called_once_with(
+        wallet_id="test-wallet-id", address_id="0xaddressid", create_transfer_request=ANY
+    )
+
+    create_transfer_request = mock_create_transfer.call_args[1]["create_transfer_request"]
+    assert create_transfer_request.amount == "1000000"  # 1 USDC in atomic units
+    assert create_transfer_request.asset_id == "usdc"
+    assert create_transfer_request.destination == "0xdestination"
+    assert create_transfer_request.network_id == "base-sepolia"
+    assert create_transfer_request.gasless
+    assert create_transfer_request.skip_batching
+
+def test_create_transfer_invalid_skip_batching():
+    """Test the creation of a Transfer object with skip_batching and no gasless."""
+    with pytest.raises(ValueError, match="skip_batching requires gasless to be True"):
+        Transfer.create(
+            address_id="0xaddressid",
+            amount=Decimal("1"),
+            asset_id="usdc",
+            destination="0xdestination",
+            network_id="base-sepolia",
+            wallet_id="test-wallet-id",
+            gasless=False,
+            skip_batching=True,
+        )
 
 @patch("cdp.Cdp.api_clients")
 def test_list_transfers(mock_api_clients, transfer_factory):
