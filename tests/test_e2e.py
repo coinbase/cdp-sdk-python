@@ -1,16 +1,14 @@
-import os
 import json
+import os
 import time
-
 from decimal import Decimal
-from dotenv import load_dotenv
 
 import pytest
+from dotenv import load_dotenv
 
 from cdp import Cdp
 from cdp.wallet import Wallet
 from cdp.wallet_data import WalletData
-from cdp.wallet_address import WalletAddress
 
 load_dotenv()
 
@@ -162,7 +160,9 @@ def test_wallet_export(imported_wallet):
     assert os.path.exists("test_seed.json")
 
     # verify seed file contents
-    saved_seed = json.loads(open("test_seed.json").read())
+    with open("test_seed.json") as f:
+        saved_seed = json.loads(f.read())
+
     assert saved_seed[exported_wallet.wallet_id] == {
         "seed": exported_wallet.seed,
         "encrypted": False,
