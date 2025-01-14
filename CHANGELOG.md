@@ -1,10 +1,11 @@
 # CDP Python SDK Changelog
 
-## Unreleased
+## [0.14.0] - 2025-01-14
 
 ### Added
 - Add `Webhook.delete_webhook` instance method to delete a webhook instance.
 - Add `skip_batching` option to `Wallet.transfer` to allow for lower latency gasless transfers.
+- Add `ExternalAddress` derived `Address` class.
 
 ### Deprecated
 - Deprecate `Webhook.delete` static method in `Webhook` which deletes a webhook by its ID.
