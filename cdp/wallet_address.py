@@ -100,6 +100,7 @@ class WalletAddress(Address):
         asset_id: str,
         destination: Union[Address, "Wallet", str],
         gasless: bool = False,
+        skip_batching: bool = False,
     ) -> Transfer:
         """Transfer funds from the wallet address.
 
@@ -108,6 +109,7 @@ class WalletAddress(Address):
             asset_id (str): The asset ID.
             destination (Union[Address, 'Wallet', str]): The transfer destination.
             gasless (bool): Whether to use gasless transfer.
+            skip_batching (bool): When True, the Transfer will be submitted immediately. Otherwise, the Transfer will be batched. Defaults to False. Note: requires gasless option to be set to True.
 
         Returns:
             Transfer: The created transfer object.
@@ -125,6 +127,7 @@ class WalletAddress(Address):
             network_id=self.network_id,
             wallet_id=self.wallet_id,
             gasless=gasless,
+            skip_batching=skip_batching,
         )
 
         if Cdp.use_server_signer:

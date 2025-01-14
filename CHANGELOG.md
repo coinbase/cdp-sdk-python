@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add `skip_batching` option to `Wallet.transfer` to allow for lower latency gasless transfers.
 - Add `Webhook.delete_webhook` instance method to delete a webhook instance.
 - Add `ExternalAddress` derived `Address` class.
 

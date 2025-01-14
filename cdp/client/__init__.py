@@ -60,6 +60,7 @@ from cdp.client.models.address_transaction_list import AddressTransactionList
 from cdp.client.models.asset import Asset
 from cdp.client.models.balance import Balance
 from cdp.client.models.broadcast_contract_invocation_request import BroadcastContractInvocationRequest
+from cdp.client.models.broadcast_external_transfer_request import BroadcastExternalTransferRequest
 from cdp.client.models.broadcast_staking_operation_request import BroadcastStakingOperationRequest
 from cdp.client.models.broadcast_trade_request import BroadcastTradeRequest
 from cdp.client.models.broadcast_transfer_request import BroadcastTransferRequest
@@ -70,6 +71,7 @@ from cdp.client.models.contract_invocation import ContractInvocation
 from cdp.client.models.contract_invocation_list import ContractInvocationList
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_contract_invocation_request import CreateContractInvocationRequest
+from cdp.client.models.create_external_transfer_request import CreateExternalTransferRequest
 from cdp.client.models.create_fund_operation_request import CreateFundOperationRequest
 from cdp.client.models.create_fund_quote_request import CreateFundQuoteRequest
 from cdp.client.models.create_payload_signature_request import CreatePayloadSignatureRequest
