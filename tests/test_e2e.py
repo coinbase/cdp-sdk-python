@@ -18,7 +18,7 @@ def configure_cdp():
     """Configure CDP once for all tests."""
     Cdp.configure(
         api_key_name=os.environ["CDP_API_KEY_NAME"],
-        private_key=os.environ["CDP_API_PRIVATE_KEY"].replace("\\n", "\n"),
+        private_key=os.environ["CDP_API_KEY_PRIVATE_KEY"].replace("\\n", "\n"),
     )
 
 
