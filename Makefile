@@ -12,11 +12,11 @@ lint-fix:
 
 .PHONY: test
 test:
-	poetry run pytest -m "not e2e"
+	poetry run pytest
 
 .PHONY: e2e
 e2e:
-	poetry run pytest -m "e2e"
+	poetry run pytest -m "tests and e2e"
 
 .PHONY: repl
 repl:

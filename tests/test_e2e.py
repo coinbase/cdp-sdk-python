@@ -35,6 +35,8 @@ def imported_wallet(wallet_data):
     return Wallet.import_data(WalletData.from_dict(wallet_data))
 
 
+@pytest.mark.tests
+@pytest.mark.e2e
 def test_wallet_data(wallet_data):
     """Test wallet data format and required values."""
     expected = {
@@ -49,6 +51,7 @@ def test_wallet_data(wallet_data):
         assert value is not None
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_import(wallet_data):
     """Test wallet import functionality."""
@@ -65,6 +68,7 @@ def test_wallet_import(wallet_data):
     assert imported_wallet.default_address.address_id == default_address_id
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_faucet(imported_wallet):
     """Test wallet faucet with ETH."""
@@ -79,6 +83,7 @@ def test_wallet_faucet(imported_wallet):
     assert final_eth_balance > initial_eth_balance
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_faucet_usdc(imported_wallet):
     """Test wallet faucet with USDC."""
@@ -93,6 +98,7 @@ def test_wallet_faucet_usdc(imported_wallet):
     assert final_usdc_balance > initial_usdc_balance
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
@@ -119,6 +125,7 @@ def test_wallet_transfer(imported_wallet):
     assert final_dest_balance > initial_dest_balance
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_transaction_history(imported_wallet):
     """Test transaction history retrieval."""
@@ -147,6 +154,7 @@ def test_transaction_history(imported_wallet):
     assert matching_tx.status.value == "complete"
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_export(imported_wallet):
     """Test wallet export."""
@@ -175,6 +183,7 @@ def test_wallet_export(imported_wallet):
     os.unlink("test_seed.json")
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_addresses(imported_wallet):
     """Test wallet addresses retrieval."""
@@ -183,6 +192,7 @@ def test_wallet_addresses(imported_wallet):
     assert imported_wallet.default_address in addresses
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_wallet_balances(imported_wallet):
     """Test wallet balances retrieval."""
@@ -190,6 +200,7 @@ def test_wallet_balances(imported_wallet):
     assert balances.get("eth") > 0
 
 
+@pytest.mark.tests
 @pytest.mark.e2e
 def test_historical_balances(imported_wallet):
     """Test historical balance retrieval."""

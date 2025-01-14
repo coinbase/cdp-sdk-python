@@ -66,12 +66,13 @@ known-first-party = ["cdp"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-ra -q --cov=cdp --cov-report=term-missing"
+addopts = "-ra -q --cov=cdp --cov-report=term-missing -m 'not e2e'"
 testpaths = [
     "tests",
 ]
 markers = [
-  "e2e: marks tests as e2e, requiring env, deselect with '-m \"not e2e\"'",
+  "tests: tests",
+  "e2e: e2e tests, requiring env, deselect with '-m \"not e2e\"'",
 ]
 
 [tool.coverage.run]
