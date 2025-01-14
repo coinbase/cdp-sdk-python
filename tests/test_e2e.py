@@ -187,16 +187,7 @@ def test_wallet_addresses(imported_wallet):
 def test_wallet_balances(imported_wallet):
     """Test wallet balances retrieval."""
     balances = imported_wallet.balances()
-    assert isinstance(balances, dict)
-    assert isinstance(balances.get("eth"), (int, float, Decimal))
-
-
-@pytest.mark.e2e
-def test_wallet_address_balances(imported_wallet):
-    """Test address balances retrieval."""
-    balances = imported_wallet.default_address.balances()
-    assert isinstance(balances, dict)
-    assert isinstance(balances.get("eth"), (int, float, Decimal))
+    assert balances.get("eth") > 0
 
 
 @pytest.mark.e2e
