@@ -5,6 +5,7 @@ from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.contract_invocation import ContractInvocation
+from cdp.external_address import ExternalAddress
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.hash_utils import hash_message, hash_typed_data_message
 from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
@@ -26,6 +27,7 @@ __all__ = [
     "BalanceMap",
     "Cdp",
     "ContractInvocation",
+    "ExternalAddress",
     "FaucetTransaction",
     "MnemonicSeedPhrase",
     "PayloadSignature",
