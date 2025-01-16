@@ -1,5 +1,11 @@
 # CDP Python SDK Changelog
 
+## Unreleased
+
+### Fixed
+
+- Allow wallet mnemonic seed import to optionally accept `network_id` input argument.
+
 ## [0.14.0] - 2025-01-14
 
 ### Added

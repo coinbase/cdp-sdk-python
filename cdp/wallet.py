@@ -260,13 +260,14 @@ class Wallet:
             page = response.next_page
 
     @classmethod
-    def import_wallet(cls, data: WalletData | MnemonicSeedPhrase) -> "Wallet":
+    def import_wallet(cls, data: WalletData | MnemonicSeedPhrase, network_id: str = "base-sepolia") -> "Wallet":
         """Import a wallet from previously exported wallet data or a mnemonic seed phrase.
 
         Args:
             data (Union[WalletData, MnemonicSeedPhrase]): Either:
                 - WalletData: The wallet data to import, containing wallet_id and seed
                 - MnemonicSeedPhrase: A valid BIP-39 mnemonic phrase object for importing external wallets
+            network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
 
         Returns:
             Wallet: The imported wallet.
@@ -291,7 +292,7 @@ class Wallet:
             seed = seed_bytes.hex()
 
             # Create wallet using the provided seed
-            wallet = cls.create_with_seed(seed=seed)
+            wallet = cls.create_with_seed(seed=seed, network_id=network_id)
             wallet._set_addresses()
             return wallet
 
