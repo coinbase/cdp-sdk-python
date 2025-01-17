@@ -110,12 +110,12 @@ def test_transaction_history(imported_wallet):
     destination_wallet = Wallet.create()
 
     transfer = imported_wallet.transfer(
-        amount=Decimal("0.000000001"),
+        amount=Decimal("0.0001"),
         asset_id="eth",
         destination=destination_wallet
     ).wait()
 
-    time.sleep(2)
+    time.sleep(10)
 
     transactions = imported_wallet.default_address.transactions()
     matching_tx = None
