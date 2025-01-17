@@ -76,7 +76,7 @@ def test_wallet_transfer(imported_wallet):
        print("Faucet limit reached, continuing...")
 
     destination_wallet = Wallet.create()
-    
+
     initial_source_balance = Decimal(str(imported_wallet.balances().get("eth", 0)))
     initial_dest_balance = Decimal(str(destination_wallet.balances().get("eth", 0)))
 
