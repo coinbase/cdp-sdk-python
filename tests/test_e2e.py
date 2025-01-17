@@ -1,16 +1,15 @@
 import json
 import os
 import time
-
 from decimal import Decimal
-from dotenv import load_dotenv
+
 import pytest
+from dotenv import load_dotenv
 
 from cdp import Cdp
+from cdp.errors import FaucetLimitReachedError
 from cdp.wallet import Wallet
 from cdp.wallet_data import WalletData
-from cdp.errors import FaucetLimitReachedError
-
 
 load_dotenv()
 
