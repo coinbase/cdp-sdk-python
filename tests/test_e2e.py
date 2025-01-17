@@ -70,8 +70,13 @@ def test_wallet_import(wallet_data):
 @pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
-    destination_wallet = Wallet.create()
+    try:
+        imported_wallet.faucet().wait()
+    except FaucetLimitReachedError:
+        pytest.skip("Faucet limit reached")
 
+    destination_wallet = Wallet.create()
+    
     initial_source_balance = Decimal(str(imported_wallet.balances().get("eth", 0)))
     initial_dest_balance = Decimal(str(destination_wallet.balances().get("eth", 0)))
 
@@ -82,6 +87,7 @@ def test_wallet_transfer(imported_wallet):
     )
 
     transfer.wait()
+    time.sleep(2)
 
     assert transfer is not None
     assert transfer.status.value == "complete"
@@ -104,7 +110,7 @@ def test_transaction_history(imported_wallet):
         destination=destination_wallet
     ).wait()
 
-    time.sleep(10)
+    time.sleep(2)
 
     transactions = imported_wallet.default_address.transactions()
     matching_tx = None
