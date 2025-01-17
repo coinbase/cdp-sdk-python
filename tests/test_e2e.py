@@ -1,14 +1,16 @@
 import json
 import os
 import time
-from decimal import Decimal
 
-import pytest
+from decimal import Decimal
 from dotenv import load_dotenv
+import pytest
 
 from cdp import Cdp
 from cdp.wallet import Wallet
 from cdp.wallet_data import WalletData
+from cdp.errors import FaucetLimitReachedError
+
 
 load_dotenv()
 
@@ -72,12 +74,15 @@ def test_wallet_faucet(imported_wallet):
     initial_balances = imported_wallet.balances()
     initial_eth_balance = Decimal(str(initial_balances.get("eth", 0)))
 
-    imported_wallet.faucet().wait()
-    time.sleep(1)
+    try:
+        imported_wallet.faucet()
+        time.sleep(5)  # increased wait time for balance to update
 
-    final_balances = imported_wallet.balances()
-    final_eth_balance = Decimal(str(final_balances.get("eth", 0)))
-    assert final_eth_balance > initial_eth_balance
+        final_balances = imported_wallet.balances()
+        final_eth_balance = Decimal(str(final_balances.get("eth", 0)))
+        assert final_eth_balance > initial_eth_balance
+    except FaucetLimitReachedError:
+        pytest.skip("Faucet limit reached")
 
 
 @pytest.mark.e2e
@@ -86,12 +91,15 @@ def test_wallet_faucet_usdc(imported_wallet):
     initial_balances = imported_wallet.balances()
     initial_usdc_balance = Decimal(str(initial_balances.get("usdc", 0)))
 
-    imported_wallet.faucet(asset_id="usdc").wait()
-    time.sleep(1)
+    try:
+        imported_wallet.faucet(asset_id="usdc")
+        time.sleep(5)  # increased wait time for balance to update
 
-    final_balances = imported_wallet.balances()
-    final_usdc_balance = Decimal(str(final_balances.get("usdc", 0)))
-    assert final_usdc_balance > initial_usdc_balance
+        final_balances = imported_wallet.balances()
+        final_usdc_balance = Decimal(str(final_balances.get("usdc", 0)))
+        assert final_usdc_balance > initial_usdc_balance
+    except FaucetLimitReachedError:
+        pytest.skip("Faucet limit reached")
 
 
 @pytest.mark.e2e
