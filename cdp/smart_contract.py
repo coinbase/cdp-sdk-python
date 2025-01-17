@@ -182,7 +182,7 @@ class SmartContract:
     @property
     def options(
         self,
-    ) -> TokenContractOptions | NFTContractOptions | MultiTokenContractOptions | None:
+    ) -> TokenContractOptions | NFTContractOptions | MultiTokenContractOptions | str | None:
         """Get the options of the smart contract.
 
         Returns:
@@ -205,6 +205,8 @@ class SmartContract:
             return self.NFTContractOptions(**options_dict)
         elif self.type == self.Type.ERC1155:
             return self.MultiTokenContractOptions(**options_dict)
+        elif self.type == self.Type.CUSTOM:
+            return json.dumps(options_dict, separators=(",", ":"))
         else:
             raise ValueError(f"Unknown smart contract type: {self.type}")
 
@@ -333,7 +335,8 @@ class SmartContract:
         wallet_id: str,
         address_id: str,
         type: Type,
-        options: TokenContractOptions | NFTContractOptions | MultiTokenContractOptions,
+        options: TokenContractOptions | NFTContractOptions | MultiTokenContractOptions | str,
+        compiled_smart_contract_id: str | None = None,
     ) -> "SmartContract":
         """Create a new SmartContract object.
 
@@ -342,6 +345,7 @@ class SmartContract:
             address_id: The ID of the address that will deploy the smart contract.
             type: The type of the smart contract (ERC20, ERC721, or ERC1155).
             options: The options of the smart contract.
+            compiled_smart_contract_id: The ID of the compiled smart contract. This must be set for custom contracts.
 
         Returns:
             The created smart contract.
@@ -356,6 +360,8 @@ class SmartContract:
             openapi_options = NFTContractOptions(**options)
         elif isinstance(options, cls.MultiTokenContractOptions):
             openapi_options = MultiTokenContractOptions(**options)
+        elif isinstance(options, str):
+            openapi_options = options
         else:
             raise ValueError(f"Unsupported options type: {type(options)}")
 
@@ -364,6 +370,7 @@ class SmartContract:
         create_smart_contract_request = CreateSmartContractRequest(
             type=type.value,
             options=smart_contract_options,
+            compiled_smart_contract_id=compiled_smart_contract_id,
         )
 
         model = Cdp.api_clients.smart_contracts.create_smart_contract(

@@ -85,9 +85,12 @@ def test_create_transfer(mock_asset, mock_api_clients, transfer_factory, asset_f
     assert create_transfer_request.network_id == "base-sepolia"
     assert create_transfer_request.gasless == gasless
 
+
 @patch("cdp.Cdp.api_clients")
 @patch("cdp.transfer.Asset")
-def test_create_transfer_with_skip_batching(mock_asset, mock_api_clients, transfer_factory, asset_factory):
+def test_create_transfer_with_skip_batching(
+    mock_asset, mock_api_clients, transfer_factory, asset_factory
+):
     """Test the creation of a Transfer object."""
     mock_fetch = Mock()
     mock_fetch.return_value = asset_factory()
@@ -127,6 +130,7 @@ def test_create_transfer_with_skip_batching(mock_asset, mock_api_clients, transf
     assert create_transfer_request.gasless
     assert create_transfer_request.skip_batching
 
+
 def test_create_transfer_invalid_skip_batching():
     """Test the creation of a Transfer object with skip_batching and no gasless."""
     with pytest.raises(ValueError, match="skip_batching requires gasless to be True"):
@@ -140,6 +144,7 @@ def test_create_transfer_invalid_skip_batching():
             gasless=False,
             skip_batching=True,
         )
+
 
 @patch("cdp.Cdp.api_clients")
 def test_list_transfers(mock_api_clients, transfer_factory):

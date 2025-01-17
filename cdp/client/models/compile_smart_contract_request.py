@@ -18,20 +18,18 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from cdp.client.models.smart_contract_options import SmartContractOptions
-from cdp.client.models.smart_contract_type import SmartContractType
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateSmartContractRequest(BaseModel):
+class CompileSmartContractRequest(BaseModel):
     """
-    CreateSmartContractRequest
+    CompileSmartContractRequest
     """ # noqa: E501
-    type: SmartContractType
-    options: SmartContractOptions
-    compiled_smart_contract_id: Optional[StrictStr] = Field(default=None, description="The optional UUID of the compiled smart contract to deploy. This field is only required when SmartContractType is set to custom.")
-    __properties: ClassVar[List[str]] = ["type", "options", "compiled_smart_contract_id"]
+    solidity_input_json: StrictStr = Field(description="The JSON input containing the Solidity code, dependencies, and compiler settings.")
+    contract_name: StrictStr = Field(description="The name of the contract to compile.")
+    solidity_compiler_version: StrictStr = Field(description="The version of the Solidity compiler to use.")
+    __properties: ClassVar[List[str]] = ["solidity_input_json", "contract_name", "solidity_compiler_version"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +49,7 @@ class CreateSmartContractRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateSmartContractRequest from a JSON string"""
+        """Create an instance of CompileSmartContractRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,14 +70,11 @@ class CreateSmartContractRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of options
-        if self.options:
-            _dict['options'] = self.options.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateSmartContractRequest from a dict"""
+        """Create an instance of CompileSmartContractRequest from a dict"""
         if obj is None:
             return None
 
@@ -87,9 +82,9 @@ class CreateSmartContractRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type"),
-            "options": SmartContractOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
-            "compiled_smart_contract_id": obj.get("compiled_smart_contract_id")
+            "solidity_input_json": obj.get("solidity_input_json"),
+            "contract_name": obj.get("contract_name"),
+            "solidity_compiler_version": obj.get("solidity_compiler_version")
         })
         return _obj
 

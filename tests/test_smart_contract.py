@@ -3,7 +3,10 @@ from unittest.mock import ANY, Mock, call, patch
 
 import pytest
 
+from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
 from cdp.client.models.register_smart_contract_request import RegisterSmartContractRequest
+from cdp.client.models.smart_contract import SmartContract as SmartContractModel
+from cdp.client.models.smart_contract_options import SmartContractOptions
 from cdp.client.models.solidity_value import SolidityValue
 from cdp.client.models.update_smart_contract_request import UpdateSmartContractRequest
 from cdp.smart_contract import SmartContract
@@ -77,6 +80,45 @@ def test_create_smart_contract(mock_api_clients, smart_contract_factory):
         wallet_id="test-wallet-id",
         address_id="0xaddressid",
         create_smart_contract_request=ANY,
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_create_custom_smart_contract(mock_api_clients, transaction_model_factory):
+    """Test the creation of a custom SmartContract object."""
+    mock_create_contract = Mock()
+    mock_create_contract.return_value = SmartContractModel(
+        smart_contract_id="test-contract-id",
+        network_id="base-sepolia",
+        wallet_id="test-wallet-id",
+        contract_address="0xcontractaddress",
+        contract_name="TestContract",
+        deployer_address="0xdeployeraddress",
+        type="custom",
+        options={},
+        abi='{"abi":"data"}',
+        transaction=transaction_model_factory(status="complete"),
+        is_external=False,
+    )
+    mock_api_clients.smart_contracts.create_smart_contract = mock_create_contract
+
+    smart_contract = SmartContract.create(
+        wallet_id="test-wallet-id",
+        address_id="0xaddressid",
+        type=SmartContract.Type.CUSTOM,
+        options="{}",
+        compiled_smart_contract_id="test-compiled-smart-contract-id",
+    )
+
+    assert isinstance(smart_contract, SmartContract)
+    mock_create_contract.assert_called_once_with(
+        wallet_id="test-wallet-id",
+        address_id="0xaddressid",
+        create_smart_contract_request=CreateSmartContractRequest(
+            type=SmartContract.Type.CUSTOM,
+            options=SmartContractOptions(actual_instance="{}"),
+            compiled_smart_contract_id="test-compiled-smart-contract-id",
+        ),
     )
 
 

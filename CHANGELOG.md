@@ -1,6 +1,10 @@
 # CDP Python SDK Changelog
 
-## Unreleased
+## [0.15.0] - 2025-01-17
+
+### Added
+
+- Add `deploy_contract` method to `WalletAddress` and `Wallet` to deploy an arbitrary contract.
 
 ## [0.14.1] - 2025-01-17
 

@@ -8,6 +8,7 @@ from eth_account.signers.local import LocalAccount
 from eth_utils import to_bytes
 from web3 import Web3
 
+from cdp.client.models.compile_smart_contract_request import CompileSmartContractRequest
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.fund_operation import FundOperation
@@ -868,6 +869,57 @@ def test_wallet_address_deploy_multi_token(mock_smart_contract, wallet_address_f
     mock_smart_contract_instance.broadcast.assert_called_once()
 
 
+# Note: The decorators are applied from bottom to top, but parameters are passed from top to bottom
+# So we need to reverse the order of the patches to match the parameter order
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", False)
+def test_wallet_address_deploy_contract(
+    mock_cdp_api_clients,
+    mock_smart_contract,
+    wallet_address_factory,
+    compiled_smart_contract_model_factory,
+):
+    """Test the deploy_contract method of a WalletAddress."""
+    wallet_address = wallet_address_factory(key=True)
+
+    mock_smart_contracts = Mock()
+    mock_cdp_api_clients.smart_contracts = mock_smart_contracts
+    compiled_contract = compiled_smart_contract_model_factory()
+    mock_smart_contracts.compile_smart_contract.return_value = compiled_contract
+
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+
+    smart_contract = wallet_address.deploy_contract(
+        solidity_version="0.8.28+commit.7893614a",
+        solidity_input_json='{"abi":"data"}',
+        contract_name="TestContract",
+        constructor_args={},
+    )
+
+    mock_smart_contracts.compile_smart_contract.assert_called_once_with(
+        compile_smart_contract_request=CompileSmartContractRequest(
+            solidity_compiler_version="0.8.28+commit.7893614a",
+            solidity_input_json='{"abi":"data"}',
+            contract_name="TestContract",
+        ),
+    )
+
+    mock_smart_contract.create.assert_called_once_with(
+        wallet_id=wallet_address.wallet_id,
+        address_id=wallet_address.address_id,
+        type=mock_smart_contract.Type.CUSTOM,
+        options="{}",
+        compiled_smart_contract_id=compiled_contract.compiled_smart_contract_id,
+    )
+
+    assert isinstance(smart_contract, Mock)
+    assert smart_contract == mock_smart_contract_instance
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
+
+
 @patch("cdp.wallet_address.SmartContract")
 @patch("cdp.Cdp.use_server_signer", True)
 def test_wallet_address_deploy_token_with_server_signer(
@@ -949,6 +1001,47 @@ def test_wallet_address_deploy_multi_token_with_server_signer(
         ),
     )
     # Verify that sign and broadcast methods are not called when using server signer
+    mock_smart_contract_instance.sign.assert_not_called()
+    mock_smart_contract_instance.broadcast.assert_not_called()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.Cdp.use_server_signer", True)
+def test_deploy_contract_with_server_signer(
+    mock_cdp_api_clients,
+    mock_smart_contract,
+    wallet_address_factory,
+    compiled_smart_contract_model_factory,
+):
+    """Test the deploy_contract method of a WalletAddress with server signer."""
+    wallet_address = wallet_address_factory(key=True)
+
+    mock_smart_contracts = Mock()
+    mock_cdp_api_clients.smart_contracts = mock_smart_contracts
+    compiled_contract = compiled_smart_contract_model_factory()
+    mock_smart_contracts.compile_smart_contract.return_value = compiled_contract
+
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+
+    smart_contract = wallet_address.deploy_contract(
+        solidity_version="0.8.28+commit.7893614a",
+        solidity_input_json='{"abi":"data"}',
+        contract_name="TestContract",
+        constructor_args={},
+    )
+
+    mock_smart_contracts.compile_smart_contract.assert_called_once_with(
+        compile_smart_contract_request=CompileSmartContractRequest(
+            solidity_compiler_version="0.8.28+commit.7893614a",
+            solidity_input_json='{"abi":"data"}',
+            contract_name="TestContract",
+        ),
+    )
+
+    assert isinstance(smart_contract, Mock)
+    assert smart_contract == mock_smart_contract_instance
     mock_smart_contract_instance.sign.assert_not_called()
     mock_smart_contract_instance.broadcast.assert_not_called()
 
@@ -1041,6 +1134,77 @@ def test_deploy_multi_token_broadcast_api_error(mock_smart_contract, wallet_addr
 
     with pytest.raises(Exception, match="API Error"):
         wallet_address_with_key.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+    mock_smart_contract.create.assert_called_once()
+    mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
+    mock_smart_contract_instance.broadcast.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+def test_deploy_contract_api_error(
+    mock_cdp_api_clients, mock_smart_contract, wallet_address_factory
+):
+    """Test the deploy_contract method raises an error when the API call fails."""
+    wallet_address_with_key = wallet_address_factory(key=True)
+
+    mock_smart_contracts = Mock()
+    mock_cdp_api_clients.smart_contracts = mock_smart_contracts
+    mock_smart_contract.create.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_contract(
+            solidity_version="0.8.28+commit.7893614a",
+            solidity_input_json='{"abi":"data"}',
+            contract_name="TestContract",
+            constructor_args={},
+        )
+
+    mock_smart_contracts.compile_smart_contract.assert_called_once_with(
+        compile_smart_contract_request=CompileSmartContractRequest(
+            solidity_compiler_version="0.8.28+commit.7893614a",
+            solidity_input_json='{"abi":"data"}',
+            contract_name="TestContract",
+        ),
+    )
+    mock_smart_contract.create.assert_called_once()
+
+
+@patch("cdp.wallet_address.SmartContract")
+@patch("cdp.Cdp.api_clients")
+def test_deploy_contract_broadcast_api_error(
+    mock_cdp_api_clients,
+    mock_smart_contract,
+    wallet_address_factory,
+    compiled_smart_contract_model_factory,
+):
+    """Test the deploy_contract method raises an error when the API call fails."""
+    wallet_address_with_key = wallet_address_factory(key=True)
+
+    mock_smart_contracts = Mock()
+    mock_cdp_api_clients.smart_contracts = mock_smart_contracts
+    compiled_contract = compiled_smart_contract_model_factory()
+    mock_smart_contracts.compile_smart_contract.return_value = compiled_contract
+
+    mock_smart_contract_instance = Mock(spec=SmartContract)
+    mock_smart_contract.create.return_value = mock_smart_contract_instance
+    mock_smart_contract_instance.broadcast.side_effect = Exception("API Error")
+
+    with pytest.raises(Exception, match="API Error"):
+        wallet_address_with_key.deploy_contract(
+            solidity_version="0.8.28+commit.7893614a",
+            solidity_input_json='{"abi":"data"}',
+            contract_name="TestContract",
+            constructor_args={},
+        )
+
+    mock_smart_contracts.compile_smart_contract.assert_called_once_with(
+        compile_smart_contract_request=CompileSmartContractRequest(
+            solidity_compiler_version="0.8.28+commit.7893614a",
+            solidity_input_json='{"abi":"data"}',
+            contract_name="TestContract",
+        ),
+    )
 
     mock_smart_contract.create.assert_called_once()
     mock_smart_contract_instance.sign.assert_called_once_with(wallet_address_with_key.key)
