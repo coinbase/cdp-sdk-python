@@ -73,7 +73,7 @@ def test_wallet_transfer(imported_wallet):
     try:
         imported_wallet.faucet().wait()
     except FaucetLimitReachedError:
-        pytest.skip("Faucet limit reached")
+       print("Faucet limit reached, continuing...")
 
     destination_wallet = Wallet.create()
     
@@ -102,8 +102,13 @@ def test_wallet_transfer(imported_wallet):
 @pytest.mark.e2e
 def test_transaction_history(imported_wallet):
     """Test transaction history retrieval."""
-    # create a transaction
+    try:
+        imported_wallet.faucet().wait()
+    except FaucetLimitReachedError:
+       print("Faucet limit reached, continuing...")
+
     destination_wallet = Wallet.create()
+
     transfer = imported_wallet.transfer(
         amount=Decimal("0.000000001"),
         asset_id="eth",
