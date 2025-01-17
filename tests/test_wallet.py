@@ -461,6 +461,32 @@ def test_wallet_deploy_multi_token(wallet_factory):
 
 
 @patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_contract(wallet_factory):
+    """Test the deploy_contract method of a Wallet."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_contract.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_contract(
+            solidity_version="0.8.28+commit.7893614a",
+            solidity_input_json="{}",
+            contract_name="TestContract",
+            constructor_args={"arg1": "value1"},
+        )
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_contract.assert_called_once_with(
+            "0.8.28+commit.7893614a", "{}", "TestContract", {"arg1": "value1"}
+        )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
 def test_wallet_deploy_token_no_default_address(wallet_factory):
     """Test the deploy_token method of a Wallet with no default address."""
     wallet = wallet_factory()
@@ -500,6 +526,25 @@ def test_wallet_deploy_multi_token_no_default_address(wallet_factory):
 
         with pytest.raises(ValueError, match="Default address does not exist"):
             wallet.deploy_multi_token(uri="https://example.com/multi-token/{id}.json")
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_contract_no_default_address(wallet_factory):
+    """Test the deploy_contract method of a Wallet with no default address."""
+    wallet = wallet_factory()
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = None
+
+        with pytest.raises(ValueError, match="Default address does not exist"):
+            wallet.deploy_contract(
+                solidity_version="0.8.28+commit.7893614a",
+                solidity_input_json="{}",
+                contract_name="TestContract",
+                constructor_args={"arg1": "value1"},
+            )
 
 
 @patch("cdp.Cdp.use_server_signer", True)
@@ -562,6 +607,32 @@ def test_wallet_deploy_multi_token_with_server_signer(wallet_factory):
         assert isinstance(smart_contract, SmartContract)
         mock_default_address.deploy_multi_token.assert_called_once_with(
             "https://example.com/multi-token/{id}.json"
+        )
+
+
+@patch("cdp.Cdp.use_server_signer", True)
+def test_wallet_deploy_contract_with_server_signer(wallet_factory):
+    """Test the deploy_contract method of a Wallet with server-signer."""
+    wallet = wallet_factory()
+    mock_default_address = Mock(spec=WalletAddress)
+    mock_smart_contract = Mock(spec=SmartContract)
+    mock_default_address.deploy_contract.return_value = mock_smart_contract
+
+    with patch.object(
+        Wallet, "default_address", new_callable=PropertyMock
+    ) as mock_default_address_prop:
+        mock_default_address_prop.return_value = mock_default_address
+
+        smart_contract = wallet.deploy_contract(
+            solidity_version="0.8.28+commit.7893614a",
+            solidity_input_json="{}",
+            contract_name="TestContract",
+            constructor_args={"arg1": "value1"},
+        )
+
+        assert isinstance(smart_contract, SmartContract)
+        mock_default_address.deploy_contract.assert_called_once_with(
+            "0.8.28+commit.7893614a", "{}", "TestContract", {"arg1": "value1"}
         )
 
 
