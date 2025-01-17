@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.14.1] - 2025-01-17
+
 ### Fixed
 
 - Allow wallet mnemonic seed import to optionally accept `network_id` input argument.
