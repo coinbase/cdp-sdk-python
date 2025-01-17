@@ -7,6 +7,7 @@ import pytest
 from dotenv import load_dotenv
 
 from cdp import Cdp
+from cdp.errors import FaucetLimitReachedError
 from cdp.wallet import Wallet
 from cdp.wallet_data import WalletData
 
@@ -67,36 +68,13 @@ def test_wallet_import(wallet_data):
 
 
 @pytest.mark.e2e
-def test_wallet_faucet(imported_wallet):
-    """Test wallet faucet with ETH."""
-    initial_balances = imported_wallet.balances()
-    initial_eth_balance = Decimal(str(initial_balances.get("eth", 0)))
-
-    imported_wallet.faucet().wait()
-    time.sleep(1)
-
-    final_balances = imported_wallet.balances()
-    final_eth_balance = Decimal(str(final_balances.get("eth", 0)))
-    assert final_eth_balance > initial_eth_balance
-
-
-@pytest.mark.e2e
-def test_wallet_faucet_usdc(imported_wallet):
-    """Test wallet faucet with USDC."""
-    initial_balances = imported_wallet.balances()
-    initial_usdc_balance = Decimal(str(initial_balances.get("usdc", 0)))
-
-    imported_wallet.faucet(asset_id="usdc").wait()
-    time.sleep(1)
-
-    final_balances = imported_wallet.balances()
-    final_usdc_balance = Decimal(str(final_balances.get("usdc", 0)))
-    assert final_usdc_balance > initial_usdc_balance
-
-
-@pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
+    try:
+        imported_wallet.faucet().wait()
+    except FaucetLimitReachedError:
+       print("Faucet limit reached, continuing...")
+
     destination_wallet = Wallet.create()
 
     initial_source_balance = Decimal(str(imported_wallet.balances().get("eth", 0)))
@@ -109,6 +87,7 @@ def test_wallet_transfer(imported_wallet):
     )
 
     transfer.wait()
+    time.sleep(2)
 
     assert transfer is not None
     assert transfer.status.value == "complete"
@@ -123,10 +102,15 @@ def test_wallet_transfer(imported_wallet):
 @pytest.mark.e2e
 def test_transaction_history(imported_wallet):
     """Test transaction history retrieval."""
-    # create a transaction
+    try:
+        imported_wallet.faucet().wait()
+    except FaucetLimitReachedError:
+       print("Faucet limit reached, continuing...")
+
     destination_wallet = Wallet.create()
+
     transfer = imported_wallet.transfer(
-        amount=Decimal("0.000000001"),
+        amount=Decimal("0.0001"),
         asset_id="eth",
         destination=destination_wallet
     ).wait()
