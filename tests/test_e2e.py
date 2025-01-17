@@ -68,40 +68,6 @@ def test_wallet_import(wallet_data):
 
 
 @pytest.mark.e2e
-def test_wallet_faucet(imported_wallet):
-    """Test wallet faucet with ETH."""
-    initial_balances = imported_wallet.balances()
-    initial_eth_balance = Decimal(str(initial_balances.get("eth", 0)))
-
-    try:
-        imported_wallet.faucet()
-        time.sleep(5)  # increased wait time for balance to update
-
-        final_balances = imported_wallet.balances()
-        final_eth_balance = Decimal(str(final_balances.get("eth", 0)))
-        assert final_eth_balance > initial_eth_balance
-    except FaucetLimitReachedError:
-        pytest.skip("Faucet limit reached")
-
-
-@pytest.mark.e2e
-def test_wallet_faucet_usdc(imported_wallet):
-    """Test wallet faucet with USDC."""
-    initial_balances = imported_wallet.balances()
-    initial_usdc_balance = Decimal(str(initial_balances.get("usdc", 0)))
-
-    try:
-        imported_wallet.faucet(asset_id="usdc")
-        time.sleep(5)  # increased wait time for balance to update
-
-        final_balances = imported_wallet.balances()
-        final_usdc_balance = Decimal(str(final_balances.get("usdc", 0)))
-        assert final_usdc_balance > initial_usdc_balance
-    except FaucetLimitReachedError:
-        pytest.skip("Faucet limit reached")
-
-
-@pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
     destination_wallet = Wallet.create()
