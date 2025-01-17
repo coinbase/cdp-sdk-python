@@ -140,6 +140,22 @@ cdp.client.models.build\_staking\_operation\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.compile\_smart\_contract\_request module
+----------------------------------------------------------
+
+.. automodule:: cdp.client.models.compile_smart_contract_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.compiled\_smart\_contract module
+--------------------------------------------------
+
+.. automodule:: cdp.client.models.compiled_smart_contract
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.contract\_event module
 ----------------------------------------
 

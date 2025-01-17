@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>cdp package &#8212; CDP SDK 0.14.1 documentation</title>
+    <title>cdp package &#8212; CDP SDK 0.15.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    <script src="_static/documentation_options.js?v=3a3a8e7f"></script>
+    <script src="_static/documentation_options.js?v=ef97403f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -87,6 +87,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.broadcast_trade_request">cdp.client.models.broadcast_trade_request module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.broadcast_transfer_request">cdp.client.models.broadcast_transfer_request module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.build_staking_operation_request">cdp.client.models.build_staking_operation_request module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.compile_smart_contract_request">cdp.client.models.compile_smart_contract_request module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.compiled_smart_contract">cdp.client.models.compiled_smart_contract module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.contract_event">cdp.client.models.contract_event module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.contract_event_list">cdp.client.models.contract_event_list module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdp.client.models.html#module-cdp.client.models.contract_invocation">cdp.client.models.contract_invocation module</a></li>
@@ -1245,7 +1247,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.cdp.Cdp.configure">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.14.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.15.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1268,7 +1270,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.cdp.Cdp.configure_from_json">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.14.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.15.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK from a JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1318,7 +1320,7 @@ and values are balance amounts (Decimal).</p>
 <span id="cdp-cdp-api-client-module"></span><h2>cdp.cdp_api_client module<a class="headerlink" href="#module-cdp.cdp_api_client" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cdp.cdp_api_client.CdpApiClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.cdp_api_client.</span></span><span class="sig-name descname"><span class="pre">CdpApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.14.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp_api_client.CdpApiClient" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.cdp_api_client.</span></span><span class="sig-name descname"><span class="pre">CdpApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.15.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp_api_client.CdpApiClient" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cdp.client.html#cdp.client.api_client.ApiClient" title="cdp.client.api_client.ApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiClient</span></code></a></p>
 <p>CDP API Client that handles authentication and API calls for Coinbase.</p>
 <dl class="py property">
@@ -3229,7 +3231,7 @@ to be converted to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.create">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.create" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiled_smart_contract_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_contract.SmartContract.create" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new SmartContract object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3237,7 +3239,8 @@ to be converted to.</p>
 <li><p><strong>wallet_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the wallet that will deploy the smart contract.</p></li>
 <li><p><strong>address_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the address that will deploy the smart contract.</p></li>
 <li><p><strong>type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.Type" title="cdp.smart_contract.SmartContract.Type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></span>) – The type of the smart contract (ERC20, ERC721, or ERC1155).</p></li>
-<li><p><strong>options</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">NFTContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTokenContractOptions</span></code></a></span>) – The options of the smart contract.</p></li>
+<li><p><strong>options</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">NFTContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTokenContractOptions</span></code></a> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The options of the smart contract.</p></li>
+<li><p><strong>compiled_smart_contract_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The ID of the compiled smart contract. This must be set for custom contracts.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -3301,7 +3304,7 @@ to be converted to.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.smart_contract.SmartContract.options">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.options" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.smart_contract.SmartContract.options" title="Link to this definition">¶</a></dt>
 <dd><p>Get the options of the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -4527,6 +4530,31 @@ to be converted to.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet.Wallet.deploy_contract">
+<span class="sig-name descname"><span class="pre">deploy_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solidity_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solidity_input_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.deploy_contract" title="Link to this definition">¶</a></dt>
+<dd><p>Deploy a custom contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>solidity_version</strong> (<em>str</em>) – The version of the solidity compiler, must be 0.8.+, such as “0.8.28+commit.7893614a”. See <a class="reference external" href="https://binaries.soliditylang.org/bin/list.json">https://binaries.soliditylang.org/bin/list.json</a></p></li>
+<li><p><strong>solidity_input_json</strong> (<em>str</em>) – The input json for the solidity compiler. See <a class="reference external" href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description">https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description</a> for more details.</p></li>
+<li><p><strong>contract_name</strong> (<em>str</em>) – The name of the contract class to be deployed.</p></li>
+<li><p><strong>constructor_args</strong> (<em>dict</em>) – The arguments for the constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deployed smart contract.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract">SmartContract</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.wallet.Wallet.deploy_multi_token">
 <span class="sig-name descname"><span class="pre">deploy_multi_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet.Wallet.deploy_multi_token" title="Link to this definition">¶</a></dt>
 <dd><p>Deploy a multi-token smart contract.</p>
@@ -5012,6 +5040,28 @@ to be converted to.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.wallet_address.WalletAddress.deploy_contract">
+<span class="sig-name descname"><span class="pre">deploy_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solidity_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solidity_input_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.wallet_address.WalletAddress.deploy_contract" title="Link to this definition">¶</a></dt>
+<dd><p>Deploy an arbitrary contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>solidity_version</strong> (<em>str</em>) – The version of the solidity compiler, must be 0.8.+, such as “0.8.28+commit.7893614a”. See <a class="reference external" href="https://binaries.soliditylang.org/bin/list.json">https://binaries.soliditylang.org/bin/list.json</a></p></li>
+<li><p><strong>solidity_input_json</strong> (<em>str</em>) – The input json for the solidity compiler. See <a class="reference external" href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description">https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description</a> for more details.</p></li>
+<li><p><strong>contract_name</strong> (<em>str</em>) – The name of the contract class to be deployed.</p></li>
+<li><p><strong>constructor_args</strong> (<em>dict</em>) – The arguments for the constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deployed smart contract.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.smart_contract.SmartContract" title="cdp.smart_contract.SmartContract">SmartContract</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -6083,7 +6133,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Cdp.configure">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.14.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.15.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6106,7 +6156,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Cdp.configure_from_json">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.14.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.15.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK from a JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6928,7 +6978,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.SmartContract.create">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.create" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiled_smart_contract_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartContract.create" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new SmartContract object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6936,7 +6986,8 @@ and values are balance amounts (Decimal).</p>
 <li><p><strong>wallet_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the wallet that will deploy the smart contract.</p></li>
 <li><p><strong>address_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the address that will deploy the smart contract.</p></li>
 <li><p><strong>type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.Type" title="cdp.smart_contract.SmartContract.Type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></span>) – The type of the smart contract (ERC20, ERC721, or ERC1155).</p></li>
-<li><p><strong>options</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">NFTContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTokenContractOptions</span></code></a></span>) – The options of the smart contract.</p></li>
+<li><p><strong>options</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">NFTContractOptions</span></code></a> | <a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTokenContractOptions</span></code></a> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The options of the smart contract.</p></li>
+<li><p><strong>compiled_smart_contract_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The ID of the compiled smart contract. This must be set for custom contracts.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -7000,7 +7051,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cdp.SmartContract.options">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.SmartContract.options" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.TokenContractOptions" title="cdp.smart_contract.SmartContract.TokenContractOptions"><span class="pre">TokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.NFTContractOptions" title="cdp.smart_contract.SmartContract.NFTContractOptions"><span class="pre">NFTContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#cdp.smart_contract.SmartContract.MultiTokenContractOptions" title="cdp.smart_contract.SmartContract.MultiTokenContractOptions"><span class="pre">MultiTokenContractOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.SmartContract.options" title="Link to this definition">¶</a></dt>
 <dd><p>Get the options of the smart contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -8211,6 +8262,31 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cdp.Wallet.deploy_contract">
+<span class="sig-name descname"><span class="pre">deploy_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solidity_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solidity_input_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.deploy_contract" title="Link to this definition">¶</a></dt>
+<dd><p>Deploy a custom contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>solidity_version</strong> (<em>str</em>) – The version of the solidity compiler, must be 0.8.+, such as “0.8.28+commit.7893614a”. See <a class="reference external" href="https://binaries.soliditylang.org/bin/list.json">https://binaries.soliditylang.org/bin/list.json</a></p></li>
+<li><p><strong>solidity_input_json</strong> (<em>str</em>) – The input json for the solidity compiler. See <a class="reference external" href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description">https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description</a> for more details.</p></li>
+<li><p><strong>contract_name</strong> (<em>str</em>) – The name of the contract class to be deployed.</p></li>
+<li><p><strong>constructor_args</strong> (<em>dict</em>) – The arguments for the constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deployed smart contract.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.SmartContract" title="cdp.SmartContract">SmartContract</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cdp.Wallet.deploy_multi_token">
 <span class="sig-name descname"><span class="pre">deploy_multi_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Wallet.deploy_multi_token" title="Link to this definition">¶</a></dt>
 <dd><p>Deploy a multi-token smart contract.</p>
@@ -8693,6 +8769,28 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.WalletAddress.deploy_contract">
+<span class="sig-name descname"><span class="pre">deploy_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solidity_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solidity_input_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.WalletAddress.deploy_contract" title="Link to this definition">¶</a></dt>
+<dd><p>Deploy an arbitrary contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>solidity_version</strong> (<em>str</em>) – The version of the solidity compiler, must be 0.8.+, such as “0.8.28+commit.7893614a”. See <a class="reference external" href="https://binaries.soliditylang.org/bin/list.json">https://binaries.soliditylang.org/bin/list.json</a></p></li>
+<li><p><strong>solidity_input_json</strong> (<em>str</em>) – The input json for the solidity compiler. See <a class="reference external" href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description">https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description</a> for more details.</p></li>
+<li><p><strong>contract_name</strong> (<em>str</em>) – The name of the contract class to be deployed.</p></li>
+<li><p><strong>constructor_args</strong> (<em>dict</em>) – The arguments for the constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deployed smart contract.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.SmartContract" title="cdp.SmartContract">SmartContract</a></p>
 </dd>
 </dl>
 </dd></dl>
