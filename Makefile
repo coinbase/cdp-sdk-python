@@ -12,7 +12,7 @@ lint-fix:
 
 .PHONY: test
 test:
-	poetry run pytest
+	poetry run pytest -m "not e2e"
 
 .PHONY: e2e
 e2e:
