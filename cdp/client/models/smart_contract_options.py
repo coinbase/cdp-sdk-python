@@ -24,7 +24,7 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-SMARTCONTRACTOPTIONS_ONE_OF_SCHEMAS = ["MultiTokenContractOptions", "NFTContractOptions", "TokenContractOptions"]
+SMARTCONTRACTOPTIONS_ONE_OF_SCHEMAS = ["MultiTokenContractOptions", "NFTContractOptions", "TokenContractOptions", "str"]
 
 class SmartContractOptions(BaseModel):
     """
@@ -36,8 +36,10 @@ class SmartContractOptions(BaseModel):
     oneof_schema_2_validator: Optional[NFTContractOptions] = None
     # data type: MultiTokenContractOptions
     oneof_schema_3_validator: Optional[MultiTokenContractOptions] = None
-    actual_instance: Optional[Union[MultiTokenContractOptions, NFTContractOptions, TokenContractOptions]] = None
-    one_of_schemas: Set[str] = { "MultiTokenContractOptions", "NFTContractOptions", "TokenContractOptions" }
+    # data type: str
+    oneof_schema_4_validator: Optional[StrictStr] = Field(default=None, description="The JSON-encoded arguments to pass to the constructor method for a custom contract. The keys should be the constructor parameter names and the values should be the argument values.")
+    actual_instance: Optional[Union[MultiTokenContractOptions, NFTContractOptions, TokenContractOptions, str]] = None
+    one_of_schemas: Set[str] = { "MultiTokenContractOptions", "NFTContractOptions", "TokenContractOptions", "str" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -75,12 +77,18 @@ class SmartContractOptions(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `MultiTokenContractOptions`")
         else:
             match += 1
+        # validate data type: str
+        try:
+            instance.oneof_schema_4_validator = v
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions, str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions, str. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -113,13 +121,22 @@ class SmartContractOptions(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into str
+        try:
+            # validation
+            instance.oneof_schema_4_validator = json.loads(json_str)
+            # assign value to actual_instance
+            instance.actual_instance = instance.oneof_schema_4_validator
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions, str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into SmartContractOptions with oneOf schemas: MultiTokenContractOptions, NFTContractOptions, TokenContractOptions, str. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -133,7 +150,7 @@ class SmartContractOptions(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], MultiTokenContractOptions, NFTContractOptions, TokenContractOptions]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], MultiTokenContractOptions, NFTContractOptions, TokenContractOptions, str]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

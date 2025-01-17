@@ -40,7 +40,8 @@ class SmartContract(BaseModel):
     abi: StrictStr = Field(description="The JSON-encoded ABI of the contract")
     transaction: Optional[Transaction] = None
     is_external: StrictBool = Field(description="Whether the smart contract was deployed externally. If true, the deployer_address and transaction will be omitted.")
-    __properties: ClassVar[List[str]] = ["smart_contract_id", "network_id", "wallet_id", "contract_address", "contract_name", "deployer_address", "type", "options", "abi", "transaction", "is_external"]
+    compiled_smart_contract_id: Optional[StrictStr] = Field(default=None, description="The ID of the compiled smart contract that was used to deploy this contract")
+    __properties: ClassVar[List[str]] = ["smart_contract_id", "network_id", "wallet_id", "contract_address", "contract_name", "deployer_address", "type", "options", "abi", "transaction", "is_external", "compiled_smart_contract_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,7 +110,8 @@ class SmartContract(BaseModel):
             "options": SmartContractOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
             "abi": obj.get("abi"),
             "transaction": Transaction.from_dict(obj["transaction"]) if obj.get("transaction") is not None else None,
-            "is_external": obj.get("is_external")
+            "is_external": obj.get("is_external"),
+            "compiled_smart_contract_id": obj.get("compiled_smart_contract_id")
         })
         return _obj
 

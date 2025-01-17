@@ -641,6 +641,7 @@ class Wallet:
 
         """
         import warnings
+
         warnings.warn(
             "load_seed() is deprecated and will be removed in a future version. Use load_seed_from_file() instead.",
             DeprecationWarning,
@@ -916,6 +917,35 @@ class Wallet:
             raise ValueError("Default address does not exist")
 
         return self.default_address.deploy_multi_token(uri)
+
+    def deploy_contract(
+        self,
+        solidity_version: str,
+        solidity_input_json: str,
+        contract_name: str,
+        constructor_args: dict,
+    ) -> SmartContract:
+        """Deploy a custom contract.
+
+        Args:
+            solidity_version (str): The version of the solidity compiler, must be 0.8.+, such as "0.8.28+commit.7893614a". See https://binaries.soliditylang.org/bin/list.json
+            solidity_input_json (str): The input json for the solidity compiler. See https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description for more details.
+            contract_name (str): The name of the contract class to be deployed.
+            constructor_args (dict): The arguments for the constructor.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        Raises:
+            ValueError: If the default address does not exist.
+
+        """
+        if self.default_address is None:
+            raise ValueError("Default address does not exist")
+
+        return self.default_address.deploy_contract(
+            solidity_version, solidity_input_json, contract_name, constructor_args
+        )
 
     def fund(self, amount: Number | Decimal | str, asset_id: str) -> FundOperation:
         """Fund the wallet from your account on the Coinbase Platform.

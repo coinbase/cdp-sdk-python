@@ -65,6 +65,8 @@ from cdp.client.models.broadcast_staking_operation_request import BroadcastStaki
 from cdp.client.models.broadcast_trade_request import BroadcastTradeRequest
 from cdp.client.models.broadcast_transfer_request import BroadcastTransferRequest
 from cdp.client.models.build_staking_operation_request import BuildStakingOperationRequest
+from cdp.client.models.compile_smart_contract_request import CompileSmartContractRequest
+from cdp.client.models.compiled_smart_contract import CompiledSmartContract
 from cdp.client.models.contract_event import ContractEvent
 from cdp.client.models.contract_event_list import ContractEventList
 from cdp.client.models.contract_invocation import ContractInvocation

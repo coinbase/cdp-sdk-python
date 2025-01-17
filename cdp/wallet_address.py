@@ -1,3 +1,4 @@
+import json
 from collections.abc import Iterator
 from decimal import Decimal
 from numbers import Number
@@ -9,6 +10,7 @@ from eth_utils import to_bytes, to_hex
 from cdp.address import Address
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
+from cdp.client.models.compile_smart_contract_request import CompileSmartContractRequest
 from cdp.contract_invocation import ContractInvocation
 from cdp.errors import InsufficientFundsError
 from cdp.fund_operation import FundOperation
@@ -328,6 +330,50 @@ class WalletAddress(Address):
             address_id=self.address_id,
             type=SmartContract.Type.ERC1155,
             options=SmartContract.MultiTokenContractOptions(uri=uri),
+        )
+
+        if Cdp.use_server_signer:
+            return smart_contract
+
+        smart_contract.sign(self.key)
+        smart_contract.broadcast()
+
+        return smart_contract
+
+    def deploy_contract(
+        self,
+        solidity_version: str,
+        solidity_input_json: str,
+        contract_name: str,
+        constructor_args: dict,
+    ) -> SmartContract:
+        """Deploy an arbitrary contract.
+
+        Args:
+            solidity_version (str): The version of the solidity compiler, must be 0.8.+, such as "0.8.28+commit.7893614a". See https://binaries.soliditylang.org/bin/list.json
+            solidity_input_json (str): The input json for the solidity compiler. See https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description for more details.
+            contract_name (str): The name of the contract class to be deployed.
+            constructor_args (dict): The arguments for the constructor.
+
+        Returns:
+            SmartContract: The deployed smart contract.
+
+        """
+        compile_smart_contract_request = CompileSmartContractRequest(
+            solidity_compiler_version=solidity_version,
+            solidity_input_json=solidity_input_json,
+            contract_name=contract_name,
+        )
+        compiled_contract = Cdp.api_clients.smart_contracts.compile_smart_contract(
+            compile_smart_contract_request=compile_smart_contract_request,
+        )
+
+        smart_contract = SmartContract.create(
+            wallet_id=self.wallet_id,
+            address_id=self.address_id,
+            type=SmartContract.Type.CUSTOM,
+            options=json.dumps(constructor_args or {}, separators=(",", ":")),
+            compiled_smart_contract_id=compiled_contract.compiled_smart_contract_id,
         )
 
         if Cdp.use_server_signer:

@@ -34,6 +34,8 @@ class NetworkIdentifier(str, Enum):
     SOLANA_MINUS_DEVNET = 'solana-devnet'
     SOLANA_MINUS_MAINNET = 'solana-mainnet'
     ARBITRUM_MINUS_MAINNET = 'arbitrum-mainnet'
+    ARBITRUM_MINUS_SEPOLIA = 'arbitrum-sepolia'
+    BITCOIN_MINUS_MAINNET = 'bitcoin-mainnet'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

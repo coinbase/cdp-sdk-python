@@ -43,7 +43,7 @@ def test_wallet_data(wallet_data):
         "wallet_id": wallet_data["wallet_id"],
         "network_id": wallet_data["network_id"],
         "seed": wallet_data["seed"],
-        "default_address_id": wallet_data["default_address_id"]
+        "default_address_id": wallet_data["default_address_id"],
     }
 
     for key, value in expected.items():
@@ -73,7 +73,7 @@ def test_wallet_transfer(imported_wallet):
     try:
         imported_wallet.faucet().wait()
     except FaucetLimitReachedError:
-       print("Faucet limit reached, continuing...")
+        print("Faucet limit reached, continuing...")
 
     destination_wallet = Wallet.create()
 
@@ -81,9 +81,7 @@ def test_wallet_transfer(imported_wallet):
     initial_dest_balance = Decimal(str(destination_wallet.balances().get("eth", 0)))
 
     transfer = imported_wallet.transfer(
-        amount=Decimal("0.000000001"),
-        asset_id="eth",
-        destination=destination_wallet
+        amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
     )
 
     transfer.wait()
@@ -105,14 +103,12 @@ def test_transaction_history(imported_wallet):
     try:
         imported_wallet.faucet().wait()
     except FaucetLimitReachedError:
-       print("Faucet limit reached, continuing...")
+        print("Faucet limit reached, continuing...")
 
     destination_wallet = Wallet.create()
 
     transfer = imported_wallet.transfer(
-        amount=Decimal("0.0001"),
-        asset_id="eth",
-        destination=destination_wallet
+        amount=Decimal("0.0001"), asset_id="eth", destination=destination_wallet
     ).wait()
 
     time.sleep(10)
@@ -148,7 +144,7 @@ def test_wallet_export(imported_wallet):
         "encrypted": False,
         "auth_tag": "",
         "iv": "",
-        "network_id": exported_wallet.network_id
+        "network_id": exported_wallet.network_id,
     }
 
     os.unlink("test_seed.json")
