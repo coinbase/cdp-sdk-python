@@ -1,5 +1,9 @@
 # CDP Python SDK Changelog
 
+### Unreleased
+
+- Add support for deploying custom contracts
+
 ## [0.14.0] - 2025-01-14
 
 ### Added
