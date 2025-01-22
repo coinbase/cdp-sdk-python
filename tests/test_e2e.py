@@ -82,12 +82,8 @@ def test_wallet_transfer(imported_wallet):
 
     transfer = imported_wallet.transfer(
         amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
-    )
+    ).wait()
 
-    transfer.wait()
-    time.sleep(2)
-
-    assert transfer is not None
     assert transfer.status.value == "complete"
 
     final_source_balance = Decimal(str(imported_wallet.balances().get("eth", 0)))
