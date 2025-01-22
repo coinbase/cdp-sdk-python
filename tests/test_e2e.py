@@ -70,7 +70,6 @@ def test_wallet_import(wallet_data):
 @pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
-
     destination_wallet = Wallet.create()
 
     initial_source_balance = imported_wallet.balance("eth")
