@@ -70,28 +70,25 @@ def test_wallet_import(wallet_data):
 @pytest.mark.e2e
 def test_wallet_transfer(imported_wallet):
     """Test wallet transfer."""
-    try:
-        imported_wallet.faucet().wait()
-    except FaucetLimitReachedError:
-        print("Faucet limit reached, continuing...")
-
     destination_wallet = Wallet.create()
 
-    initial_source_balance = Decimal(str(imported_wallet.balances().get("eth", 0)))
-    initial_dest_balance = Decimal(str(destination_wallet.balances().get("eth", 0)))
+    initial_source_balance = imported_wallet.balance("eth")
+    initial_dest_balance = destination_wallet.balance("eth")
+
+    if initial_source_balance < 0.0001:
+        try:
+            imported_wallet.faucet().wait()
+        except FaucetLimitReachedError:
+            print("Faucet limit reached, continuing...")
 
     transfer = imported_wallet.transfer(
         amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
-    )
+    ).wait()
 
-    transfer.wait()
-    time.sleep(2)
-
-    assert transfer is not None
     assert transfer.status.value == "complete"
 
-    final_source_balance = Decimal(str(imported_wallet.balances().get("eth", 0)))
-    final_dest_balance = Decimal(str(destination_wallet.balances().get("eth", 0)))
+    final_source_balance = imported_wallet.balance("eth")
+    final_dest_balance = destination_wallet.balance("eth")
 
     assert final_source_balance < initial_source_balance
     assert final_dest_balance > initial_dest_balance
@@ -100,15 +97,17 @@ def test_wallet_transfer(imported_wallet):
 @pytest.mark.e2e
 def test_transaction_history(imported_wallet):
     """Test transaction history retrieval."""
-    try:
-        imported_wallet.faucet().wait()
-    except FaucetLimitReachedError:
-        print("Faucet limit reached, continuing...")
-
     destination_wallet = Wallet.create()
 
+    initial_source_balance = imported_wallet.balance("eth")
+    if initial_source_balance < 0.0001:
+        try:
+            imported_wallet.faucet().wait()
+        except FaucetLimitReachedError:
+            print("Faucet limit reached, continuing...")
+
     transfer = imported_wallet.transfer(
-        amount=Decimal("0.0001"), asset_id="eth", destination=destination_wallet
+        amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
     ).wait()
 
     time.sleep(10)
