@@ -75,7 +75,7 @@ def test_wallet_transfer(imported_wallet):
     initial_source_balance = imported_wallet.balance("eth")
     initial_dest_balance = destination_wallet.balance("eth")
 
-    if initial_source_balance < 0.000000001:
+    if initial_source_balance < 0.0001:
         try:
             imported_wallet.faucet().wait()
         except FaucetLimitReachedError:
@@ -100,7 +100,7 @@ def test_transaction_history(imported_wallet):
     destination_wallet = Wallet.create()
 
     initial_source_balance = imported_wallet.balance("eth")
-    if initial_source_balance < 0.000000001:
+    if initial_source_balance < 0.0001:
         try:
             imported_wallet.faucet().wait()
         except FaucetLimitReachedError:
