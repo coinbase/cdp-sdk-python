@@ -1,5 +1,11 @@
 # CDP Python SDK Changelog
 
+## Unreleased
+
+### Fixed
+
+- Fixed a bug where non-checksummed asset IDs were throwing an error.
+
 ## [0.15.0] - 2025-01-17
 
 ### Added

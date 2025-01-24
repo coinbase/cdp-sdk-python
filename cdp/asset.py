@@ -41,14 +41,18 @@ class Asset:
         """
         decimals = model.decimals
 
-        if asset_id and asset_id != model.asset_id:
-            match asset_id:
-                case "gwei":
-                    decimals = GWEI_DECIMALS
-                case "wei":
-                    decimals = 0
-                case _:
-                    raise ValueError(f"Unsupported asset ID: {asset_id}")
+        if asset_id and model.asset_id:
+            normalized_asset_id = asset_id.lower()
+            normalized_model_asset_id = model.asset_id.lower()
+
+            if normalized_asset_id != normalized_model_asset_id:
+                match normalized_asset_id:
+                    case "gwei":
+                        decimals = GWEI_DECIMALS
+                    case "wei":
+                        decimals = 0
+                    case _:
+                        raise ValueError(f"Unsupported asset ID: {asset_id}")
 
         return cls(
             network_id=model.network_id,
