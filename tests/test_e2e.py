@@ -20,8 +20,6 @@ def configure_cdp():
     Cdp.configure(
         api_key_name=os.environ["CDP_API_KEY_NAME"],
         private_key=os.environ["CDP_API_KEY_PRIVATE_KEY"].replace("\\n", "\n"),
-        debugging=True,
-        base_path="https://cloud-api-dev.cbhq.net/platform/"
     )
 
 
