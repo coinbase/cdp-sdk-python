@@ -20,6 +20,8 @@ def configure_cdp():
     Cdp.configure(
         api_key_name=os.environ["CDP_API_KEY_NAME"],
         private_key=os.environ["CDP_API_KEY_PRIVATE_KEY"].replace("\\n", "\n"),
+        debugging=True,
+        base_path="https://cloud-api-dev.cbhq.net/platform/"
     )
 
 
@@ -170,3 +172,27 @@ def test_historical_balances(imported_wallet):
     balances = list(imported_wallet.default_address.historical_balances("eth"))
     assert balances
     assert all(balance.amount > 0 for balance in balances)
+
+
+@pytest.mark.e2e
+def test_gasless_transfer(imported_wallet):
+    """Test gasless transfer."""
+    destination_wallet = Wallet.create()
+
+    initial_source_balance = imported_wallet.balance("usdc")
+    initial_dest_balance = destination_wallet.balance("usdc")
+
+    transfer = imported_wallet.transfer(
+        amount=Decimal("0.000001"), asset_id="usdc", gasless=True, destination=destination_wallet
+    ).wait()
+
+    time.sleep(20)
+
+    assert transfer.status.value == "complete"
+
+    final_source_balance = imported_wallet.balance("usdc")
+    final_dest_balance = destination_wallet.balance("usdc")
+
+    assert final_source_balance < initial_source_balance
+    assert final_dest_balance > initial_dest_balance
+    assert final_dest_balance == Decimal("0.000001")
