@@ -1,6 +1,6 @@
 # CDP Python SDK Changelog
 
-## Unreleased
+## [0.16.0] - 2025-01-28
 
 ### Added
 
