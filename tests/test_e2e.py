@@ -172,7 +172,7 @@ def test_historical_balances(imported_wallet):
     assert all(balance.amount > 0 for balance in balances)
 
 
-@pytest.mark.e2e
+@pytest.mark.skip(reason="Gasless transfers have unpredictable latency")
 def test_gasless_transfer(imported_wallet):
     """Test gasless transfer."""
     destination_wallet = Wallet.create()
