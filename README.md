@@ -79,7 +79,7 @@ print("CDP SDK has been successfully configured from JSON file.")
 
 This will allow you to authenticate with the Platform APIs.
 
-If you are using a CDP [Server-Signer](https://docs.cdp.coinbase.com/mpc-wallet/docs/serversigners) to manage your private keys, enable it with
+If you are using a CDP [Server-Signer](https://docs.cdp.coinbase.com/wallet-api/docs/serversigners) to manage your private keys, enable it with
 
 ```python
 Cdp.use_server_signer = True
@@ -193,7 +193,7 @@ list(address.trades())
 
 ### Re-Instantiating Wallets
 
-The SDK creates wallets with [Developer-Managed (1-1)](https://docs.cdp.coinbase.com/mpc-wallet/docs/wallets#developer-managed-wallets) keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.
+The SDK creates wallets with [Developer-Managed (1-1)](https://docs.cdp.coinbase.com/wallet-api/docs/wallets#developer-managed-wallets) keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.
 
 ```python
 # Export the data required to re-instantiate the wallet. The data contains the seed, the ID of the wallet, and the network ID.
