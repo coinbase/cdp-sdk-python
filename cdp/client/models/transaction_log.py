@@ -17,21 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
-from cdp.client.models.balance import Balance
 from typing import Optional, Set
 from typing_extensions import Self
 
-class StakingContextContext(BaseModel):
+class TransactionLog(BaseModel):
     """
-    StakingContextContext
+    A log emitted from an onchain transaction.
     """ # noqa: E501
-    stakeable_balance: Balance
-    unstakeable_balance: Balance
-    pending_claimable_balance: Balance
-    claimable_balance: Balance
-    __properties: ClassVar[List[str]] = ["stakeable_balance", "unstakeable_balance", "pending_claimable_balance", "claimable_balance"]
+    address: StrictStr = Field(description="An onchain address of a contract.")
+    topics: List[StrictStr]
+    data: StrictStr = Field(description="The data included in this log.")
+    __properties: ClassVar[List[str]] = ["address", "topics", "data"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +49,7 @@ class StakingContextContext(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of StakingContextContext from a JSON string"""
+        """Create an instance of TransactionLog from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,23 +70,11 @@ class StakingContextContext(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of stakeable_balance
-        if self.stakeable_balance:
-            _dict['stakeable_balance'] = self.stakeable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of unstakeable_balance
-        if self.unstakeable_balance:
-            _dict['unstakeable_balance'] = self.unstakeable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of pending_claimable_balance
-        if self.pending_claimable_balance:
-            _dict['pending_claimable_balance'] = self.pending_claimable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of claimable_balance
-        if self.claimable_balance:
-            _dict['claimable_balance'] = self.claimable_balance.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of StakingContextContext from a dict"""
+        """Create an instance of TransactionLog from a dict"""
         if obj is None:
             return None
 
@@ -96,10 +82,9 @@ class StakingContextContext(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "stakeable_balance": Balance.from_dict(obj["stakeable_balance"]) if obj.get("stakeable_balance") is not None else None,
-            "unstakeable_balance": Balance.from_dict(obj["unstakeable_balance"]) if obj.get("unstakeable_balance") is not None else None,
-            "pending_claimable_balance": Balance.from_dict(obj["pending_claimable_balance"]) if obj.get("pending_claimable_balance") is not None else None,
-            "claimable_balance": Balance.from_dict(obj["claimable_balance"]) if obj.get("claimable_balance") is not None else None
+            "address": obj.get("address"),
+            "topics": obj.get("topics"),
+            "data": obj.get("data")
         })
         return _obj
 

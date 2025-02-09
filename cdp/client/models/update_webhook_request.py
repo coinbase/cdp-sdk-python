@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.webhook_event_filter import WebhookEventFilter
 from cdp.client.models.webhook_event_type_filter import WebhookEventTypeFilter
+from cdp.client.models.webhook_status import WebhookStatus
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +32,8 @@ class UpdateWebhookRequest(BaseModel):
     event_type_filter: Optional[WebhookEventTypeFilter] = None
     event_filters: Optional[List[WebhookEventFilter]] = Field(default=None, description="Webhook will monitor all events that matches any one of the event filters.")
     notification_uri: Optional[StrictStr] = Field(default=None, description="The Webhook uri that updates to")
-    __properties: ClassVar[List[str]] = ["event_type_filter", "event_filters", "notification_uri"]
+    status: Optional[WebhookStatus] = None
+    __properties: ClassVar[List[str]] = ["event_type_filter", "event_filters", "notification_uri", "status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,7 +98,8 @@ class UpdateWebhookRequest(BaseModel):
         _obj = cls.model_validate({
             "event_type_filter": WebhookEventTypeFilter.from_dict(obj["event_type_filter"]) if obj.get("event_type_filter") is not None else None,
             "event_filters": [WebhookEventFilter.from_dict(_item) for _item in obj["event_filters"]] if obj.get("event_filters") is not None else None,
-            "notification_uri": obj.get("notification_uri")
+            "notification_uri": obj.get("notification_uri"),
+            "status": obj.get("status")
         })
         return _obj
 

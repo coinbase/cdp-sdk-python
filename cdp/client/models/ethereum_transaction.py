@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.ethereum_token_transfer import EthereumTokenTransfer
 from cdp.client.models.ethereum_transaction_access_list import EthereumTransactionAccessList
 from cdp.client.models.ethereum_transaction_flattened_trace import EthereumTransactionFlattenedTrace
+from cdp.client.models.transaction_receipt import TransactionReceipt
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -49,7 +50,8 @@ class EthereumTransaction(BaseModel):
     block_timestamp: Optional[datetime] = Field(default=None, description="The timestamp of the block in which the event was emitted")
     mint: Optional[StrictStr] = Field(default=None, description="This is for handling optimism rollup specific EIP-2718 transaction type field.")
     rlp_encoded_tx: Optional[StrictStr] = Field(default=None, description="RLP encoded transaction as a hex string (prefixed with 0x) for native compatibility with popular eth clients such as etherjs, viem etc.")
-    __properties: ClassVar[List[str]] = ["from", "gas", "gas_price", "hash", "input", "nonce", "to", "index", "value", "type", "max_fee_per_gas", "max_priority_fee_per_gas", "priority_fee_per_gas", "transaction_access_list", "token_transfers", "flattened_traces", "block_timestamp", "mint", "rlp_encoded_tx"]
+    receipt: Optional[TransactionReceipt] = None
+    __properties: ClassVar[List[str]] = ["from", "gas", "gas_price", "hash", "input", "nonce", "to", "index", "value", "type", "max_fee_per_gas", "max_priority_fee_per_gas", "priority_fee_per_gas", "transaction_access_list", "token_transfers", "flattened_traces", "block_timestamp", "mint", "rlp_encoded_tx", "receipt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,6 +109,9 @@ class EthereumTransaction(BaseModel):
                 if _item_flattened_traces:
                     _items.append(_item_flattened_traces.to_dict())
             _dict['flattened_traces'] = _items
+        # override the default output from pydantic by calling `to_dict()` of receipt
+        if self.receipt:
+            _dict['receipt'] = self.receipt.to_dict()
         return _dict
 
     @classmethod
@@ -137,7 +142,8 @@ class EthereumTransaction(BaseModel):
             "flattened_traces": [EthereumTransactionFlattenedTrace.from_dict(_item) for _item in obj["flattened_traces"]] if obj.get("flattened_traces") is not None else None,
             "block_timestamp": obj.get("block_timestamp"),
             "mint": obj.get("mint"),
-            "rlp_encoded_tx": obj.get("rlp_encoded_tx")
+            "rlp_encoded_tx": obj.get("rlp_encoded_tx"),
+            "receipt": TransactionReceipt.from_dict(obj["receipt"]) if obj.get("receipt") is not None else None
         })
         return _obj
 

@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.webhook_event_filter import WebhookEventFilter
 from cdp.client.models.webhook_event_type import WebhookEventType
 from cdp.client.models.webhook_event_type_filter import WebhookEventTypeFilter
+from cdp.client.models.webhook_status import WebhookStatus
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -39,7 +40,8 @@ class Webhook(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="The date and time the webhook was created.")
     updated_at: Optional[datetime] = Field(default=None, description="The date and time the webhook was last updated.")
     signature_header: Optional[StrictStr] = Field(default=None, description="The header that will contain the signature of the webhook payload.")
-    __properties: ClassVar[List[str]] = ["id", "network_id", "event_type", "event_type_filter", "event_filters", "notification_uri", "created_at", "updated_at", "signature_header"]
+    status: WebhookStatus
+    __properties: ClassVar[List[str]] = ["id", "network_id", "event_type", "event_type_filter", "event_filters", "notification_uri", "created_at", "updated_at", "signature_header", "status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -110,7 +112,8 @@ class Webhook(BaseModel):
             "notification_uri": obj.get("notification_uri"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
-            "signature_header": obj.get("signature_header")
+            "signature_header": obj.get("signature_header"),
+            "status": obj.get("status")
         })
         return _obj
 
