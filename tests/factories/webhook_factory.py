@@ -15,6 +15,7 @@ def webhook_factory():
         event_type=WebhookEventType.WALLET_ACTIVITY,
         event_type_filter=None,
         event_filters=None,
+        status="active",
     ):
         # Ensure the event_type_filter is properly initialized
         if event_type_filter is None and event_type == WebhookEventType.WALLET_ACTIVITY:
@@ -32,6 +33,7 @@ def webhook_factory():
             event_type=event_type,
             event_type_filter=event_type_filter,
             event_filters=event_filters or [],
+            status=status,
         )
         return Webhook(model)
 
