@@ -72,6 +72,7 @@ def test_webhook_update(mock_api_clients, webhook_factory):
         event_type=webhook.event_type,
         event_type_filter=webhook.event_type_filter,
         event_filters=webhook.event_filters,
+        status="active",
     )
 
     expected_request = UpdateWebhookRequest(
