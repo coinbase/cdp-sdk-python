@@ -1,0 +1,8 @@
+{
+    "wallet_id": "61f0b964-c61e-4db3-b418-ce25549edf50",
+    "seed": "6b878b03efa627be03f5564c03d4b2f040a3d4ecc983af89771d3fe0ef4feff7",
+    "encrypted": false,
+    "auth_tag": "",
+    "iv": "",
+    "network_id": "base-sepolia"
+}
