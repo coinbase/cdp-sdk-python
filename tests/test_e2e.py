@@ -172,8 +172,8 @@ def test_historical_balances(imported_wallet):
     assert all(balance.amount > 0 for balance in balances)
 
 @pytest.mark.e2e
-def test_invoke_contract(imported_wallet):
-    """Test invoke contract."""
+def test_invoke_contract_with_transaction_receipt(imported_wallet):
+    """Test invoke contract with transaction receipt."""
     destination_wallet = Wallet.create()
 
     faucet_transaction = imported_wallet.faucet("usdc")
@@ -187,8 +187,6 @@ def test_invoke_contract(imported_wallet):
     )
 
     invocation.wait()
-
-    print(invocation)
 
     transaction_content = invocation.transaction.content.actual_instance
     transaction_receipt = transaction_content.receipt
