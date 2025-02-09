@@ -201,7 +201,6 @@ def test_invoke_contract_with_transaction_receipt(imported_wallet):
     assert transaction_log.topics[0] == "Transfer"
     assert transaction_log.topics[1] == f"from: {imported_wallet.default_address.address_id}"
     assert transaction_log.topics[2] == f"to: {destination_wallet.default_address.address_id}"
-    
 
 @pytest.mark.skip(reason="Gasless transfers have unpredictable latency")
 def test_gasless_transfer(imported_wallet):
