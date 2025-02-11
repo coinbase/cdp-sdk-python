@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class TransactionLog(BaseModel):
     """
     A log emitted from an onchain transaction.
     """ # noqa: E501
-    address: StrictStr = Field(description="An onchain address of a contract.")
-    topics: List[StrictStr]
-    data: StrictStr = Field(description="The data included in this log.")
+    address: Optional[StrictStr] = Field(default=None, description="An onchain address of a contract.")
+    topics: Optional[List[StrictStr]] = None
+    data: Optional[StrictStr] = Field(default=None, description="The data included in this log.")
     __properties: ClassVar[List[str]] = ["address", "topics", "data"]
 
     model_config = ConfigDict(
