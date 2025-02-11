@@ -260,7 +260,9 @@ class Wallet:
             page = response.next_page
 
     @classmethod
-    def import_wallet(cls, data: WalletData | MnemonicSeedPhrase, network_id: str = "base-sepolia") -> "Wallet":
+    def import_wallet(
+        cls, data: WalletData | MnemonicSeedPhrase, network_id: str = "base-sepolia"
+    ) -> "Wallet":
         """Import a wallet from previously exported wallet data or a mnemonic seed phrase.
 
         Args:

@@ -29,6 +29,7 @@ class NetworkIdentifier(str, Enum):
     BASE_MINUS_SEPOLIA = 'base-sepolia'
     BASE_MINUS_MAINNET = 'base-mainnet'
     ETHEREUM_MINUS_HOLESKY = 'ethereum-holesky'
+    ETHEREUM_MINUS_SEPOLIA = 'ethereum-sepolia'
     ETHEREUM_MINUS_MAINNET = 'ethereum-mainnet'
     POLYGON_MINUS_MAINNET = 'polygon-mainnet'
     SOLANA_MINUS_DEVNET = 'solana-devnet'
@@ -36,6 +37,8 @@ class NetworkIdentifier(str, Enum):
     ARBITRUM_MINUS_MAINNET = 'arbitrum-mainnet'
     ARBITRUM_MINUS_SEPOLIA = 'arbitrum-sepolia'
     BITCOIN_MINUS_MAINNET = 'bitcoin-mainnet'
+    NEAR_MINUS_TESTNET = 'near-testnet'
+    NEAR_MINUS_MAINNET = 'near-mainnet'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

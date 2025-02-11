@@ -30,6 +30,7 @@ from cdp.client.api.onchain_identity_api import OnchainIdentityApi
 from cdp.client.api.reputation_api import ReputationApi
 from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
+from cdp.client.api.smart_wallets_api import SmartWalletsApi
 from cdp.client.api.stake_api import StakeApi
 from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transaction_history_api import TransactionHistoryApi
@@ -60,11 +61,15 @@ from cdp.client.models.address_transaction_list import AddressTransactionList
 from cdp.client.models.asset import Asset
 from cdp.client.models.balance import Balance
 from cdp.client.models.broadcast_contract_invocation_request import BroadcastContractInvocationRequest
+from cdp.client.models.broadcast_external_transaction200_response import BroadcastExternalTransaction200Response
+from cdp.client.models.broadcast_external_transaction_request import BroadcastExternalTransactionRequest
 from cdp.client.models.broadcast_external_transfer_request import BroadcastExternalTransferRequest
 from cdp.client.models.broadcast_staking_operation_request import BroadcastStakingOperationRequest
 from cdp.client.models.broadcast_trade_request import BroadcastTradeRequest
 from cdp.client.models.broadcast_transfer_request import BroadcastTransferRequest
+from cdp.client.models.broadcast_user_operation_request import BroadcastUserOperationRequest
 from cdp.client.models.build_staking_operation_request import BuildStakingOperationRequest
+from cdp.client.models.call import Call
 from cdp.client.models.compile_smart_contract_request import CompileSmartContractRequest
 from cdp.client.models.compiled_smart_contract import CompiledSmartContract
 from cdp.client.models.contract_event import ContractEvent
@@ -79,9 +84,11 @@ from cdp.client.models.create_fund_quote_request import CreateFundQuoteRequest
 from cdp.client.models.create_payload_signature_request import CreatePayloadSignatureRequest
 from cdp.client.models.create_server_signer_request import CreateServerSignerRequest
 from cdp.client.models.create_smart_contract_request import CreateSmartContractRequest
+from cdp.client.models.create_smart_wallet_request import CreateSmartWalletRequest
 from cdp.client.models.create_staking_operation_request import CreateStakingOperationRequest
 from cdp.client.models.create_trade_request import CreateTradeRequest
 from cdp.client.models.create_transfer_request import CreateTransferRequest
+from cdp.client.models.create_user_operation_request import CreateUserOperationRequest
 from cdp.client.models.create_wallet_request import CreateWalletRequest
 from cdp.client.models.create_wallet_request_wallet import CreateWalletRequestWallet
 from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
@@ -134,6 +141,8 @@ from cdp.client.models.smart_contract_activity_event import SmartContractActivit
 from cdp.client.models.smart_contract_list import SmartContractList
 from cdp.client.models.smart_contract_options import SmartContractOptions
 from cdp.client.models.smart_contract_type import SmartContractType
+from cdp.client.models.smart_wallet import SmartWallet
+from cdp.client.models.smart_wallet_list import SmartWalletList
 from cdp.client.models.solidity_value import SolidityValue
 from cdp.client.models.sponsored_send import SponsoredSend
 from cdp.client.models.staking_balance import StakingBalance
@@ -156,6 +165,7 @@ from cdp.client.models.transfer_list import TransferList
 from cdp.client.models.update_smart_contract_request import UpdateSmartContractRequest
 from cdp.client.models.update_webhook_request import UpdateWebhookRequest
 from cdp.client.models.user import User
+from cdp.client.models.user_operation import UserOperation
 from cdp.client.models.validator import Validator
 from cdp.client.models.validator_details import ValidatorDetails
 from cdp.client.models.validator_list import ValidatorList
@@ -168,4 +178,5 @@ from cdp.client.models.webhook_event_type import WebhookEventType
 from cdp.client.models.webhook_event_type_filter import WebhookEventTypeFilter
 from cdp.client.models.webhook_list import WebhookList
 from cdp.client.models.webhook_smart_contract_event_filter import WebhookSmartContractEventFilter
+from cdp.client.models.webhook_status import WebhookStatus
 from cdp.client.models.webhook_wallet_activity_filter import WebhookWalletActivityFilter
