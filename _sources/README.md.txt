@@ -1,11 +1,15 @@
 # CDP Python SDK
 
+[![PyPI version](https://img.shields.io/pypi/v/cdp-sdk?style=flat-square&logo=python)](https://pypi.org/project/cdp-sdk/)
+[![PyPI - Weekly Downloads](https://img.shields.io/pypi/dw/cdp-sdk?style=flat-square)](https://pypistats.org/packages/cdp-sdk)
+
 The CDP Python SDK enables the simple integration of crypto into your app.
 By calling Coinbase's CDP APIs, the SDK allows you to provision crypto wallets,
 send crypto into/out of those wallets, track wallet balances, and trade crypto from
 one asset into another.
 
-**CDP SDK v0 is a pre-alpha release, which means that the APIs and SDK methods are subject to change. We will continuously release updates to support new capabilities and improve the developer experience.**
+
+*Note: As the SDK provides new capabilities and improves the developer experience, updates may occasionally include breaking changes. These will be documented in the [CHANGELOG.md](CHANGELOG.md) file.*
 
 ## Documentation
 
@@ -79,7 +83,7 @@ print("CDP SDK has been successfully configured from JSON file.")
 
 This will allow you to authenticate with the Platform APIs.
 
-If you are using a CDP [Server-Signer](https://docs.cdp.coinbase.com/mpc-wallet/docs/serversigners) to manage your private keys, enable it with
+If you are using a CDP [Server-Signer](https://docs.cdp.coinbase.com/wallet-api/docs/serversigners) to manage your private keys, enable it with
 
 ```python
 Cdp.use_server_signer = True
@@ -193,7 +197,7 @@ list(address.trades())
 
 ### Re-Instantiating Wallets
 
-The SDK creates wallets with [Developer-Managed (1-1)](https://docs.cdp.coinbase.com/mpc-wallet/docs/wallets#developer-managed-wallets) keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.
+The SDK creates wallets with [Developer-Managed (1-1)](https://docs.cdp.coinbase.com/wallet-api/docs/wallets#developer-managed-wallets) keys by default, which means you are responsible for securely storing the keys required to re-instantiate wallets. The below code walks you through how to export a wallet and store it in a secure location.
 
 ```python
 # Export the data required to re-instantiate the wallet. The data contains the seed, the ID of the wallet, and the network ID.
