@@ -17,21 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
-from cdp.client.models.balance import Balance
+from cdp.client.models.call import Call
 from typing import Optional, Set
 from typing_extensions import Self
 
-class StakingContextContext(BaseModel):
+class CreateUserOperationRequest(BaseModel):
     """
-    StakingContextContext
+    CreateUserOperationRequest
     """ # noqa: E501
-    stakeable_balance: Balance
-    unstakeable_balance: Balance
-    pending_claimable_balance: Balance
-    claimable_balance: Balance
-    __properties: ClassVar[List[str]] = ["stakeable_balance", "unstakeable_balance", "pending_claimable_balance", "claimable_balance"]
+    calls: List[Call] = Field(description="The list of calls to make from the smart wallet.")
+    __properties: ClassVar[List[str]] = ["calls"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +48,7 @@ class StakingContextContext(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of StakingContextContext from a JSON string"""
+        """Create an instance of CreateUserOperationRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,23 +69,18 @@ class StakingContextContext(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of stakeable_balance
-        if self.stakeable_balance:
-            _dict['stakeable_balance'] = self.stakeable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of unstakeable_balance
-        if self.unstakeable_balance:
-            _dict['unstakeable_balance'] = self.unstakeable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of pending_claimable_balance
-        if self.pending_claimable_balance:
-            _dict['pending_claimable_balance'] = self.pending_claimable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of claimable_balance
-        if self.claimable_balance:
-            _dict['claimable_balance'] = self.claimable_balance.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in calls (list)
+        _items = []
+        if self.calls:
+            for _item_calls in self.calls:
+                if _item_calls:
+                    _items.append(_item_calls.to_dict())
+            _dict['calls'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of StakingContextContext from a dict"""
+        """Create an instance of CreateUserOperationRequest from a dict"""
         if obj is None:
             return None
 
@@ -96,10 +88,7 @@ class StakingContextContext(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "stakeable_balance": Balance.from_dict(obj["stakeable_balance"]) if obj.get("stakeable_balance") is not None else None,
-            "unstakeable_balance": Balance.from_dict(obj["unstakeable_balance"]) if obj.get("unstakeable_balance") is not None else None,
-            "pending_claimable_balance": Balance.from_dict(obj["pending_claimable_balance"]) if obj.get("pending_claimable_balance") is not None else None,
-            "claimable_balance": Balance.from_dict(obj["claimable_balance"]) if obj.get("claimable_balance") is not None else None
+            "calls": [Call.from_dict(_item) for _item in obj["calls"]] if obj.get("calls") is not None else None
         })
         return _obj
 

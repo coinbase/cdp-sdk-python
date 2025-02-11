@@ -14,6 +14,7 @@ from cdp.client.api.onchain_identity_api import OnchainIdentityApi
 from cdp.client.api.reputation_api import ReputationApi
 from cdp.client.api.server_signers_api import ServerSignersApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
+from cdp.client.api.smart_wallets_api import SmartWalletsApi
 from cdp.client.api.stake_api import StakeApi
 from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transaction_history_api import TransactionHistoryApi
