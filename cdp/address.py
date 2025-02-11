@@ -6,6 +6,12 @@ from cdp.asset import Asset
 from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
+from cdp.client.models.broadcast_external_transaction200_response import (
+    BroadcastExternalTransaction200Response,
+)
+from cdp.client.models.broadcast_external_transaction_request import (
+    BroadcastExternalTransactionRequest,
+)
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.historical_balance import HistoricalBalance
 from cdp.transaction import Transaction
@@ -150,6 +156,31 @@ class Address:
         )
         self._reputation = AddressReputation(response)
         return self._reputation
+
+    def broadcast_external_transaction(
+        self, signed_payload: str
+    ) -> BroadcastExternalTransaction200Response:
+        """Broadcast an external transaction given a signed payload.
+
+        Args:
+            signed_payload (str): The signed payload of the transaction to be broadcasted.
+
+        Returns:
+            BroadcastExternalTransaction200Response: The response from the broadcasted transaction.
+
+        Raises:
+            Exception: If there's an error broadcasting the transaction.
+
+        """
+        broadcast_external_transaction_request = BroadcastExternalTransactionRequest(
+            signed_payload=signed_payload
+        )
+
+        return Cdp.api_clients.external_addresses.broadcast_external_transaction(
+            network_id=self.network_id,
+            address_id=self.address_id,
+            broadcast_external_transaction_request=broadcast_external_transaction_request,
+        )
 
     def __str__(self) -> str:
         """Return a string representation of the Address."""

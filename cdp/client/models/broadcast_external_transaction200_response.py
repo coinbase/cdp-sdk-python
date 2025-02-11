@@ -17,21 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
-from cdp.client.models.balance import Balance
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class StakingContextContext(BaseModel):
+class BroadcastExternalTransaction200Response(BaseModel):
     """
-    StakingContextContext
+    External Transaction Broadcast Response
     """ # noqa: E501
-    stakeable_balance: Balance
-    unstakeable_balance: Balance
-    pending_claimable_balance: Balance
-    claimable_balance: Balance
-    __properties: ClassVar[List[str]] = ["stakeable_balance", "unstakeable_balance", "pending_claimable_balance", "claimable_balance"]
+    transaction_hash: StrictStr = Field(description="The transaction hash")
+    transaction_link: Optional[StrictStr] = Field(default=None, description="The link to view the transaction on a block explorer. This is optional and may not be present for all transactions.")
+    __properties: ClassVar[List[str]] = ["transaction_hash", "transaction_link"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +48,7 @@ class StakingContextContext(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of StakingContextContext from a JSON string"""
+        """Create an instance of BroadcastExternalTransaction200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,23 +69,11 @@ class StakingContextContext(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of stakeable_balance
-        if self.stakeable_balance:
-            _dict['stakeable_balance'] = self.stakeable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of unstakeable_balance
-        if self.unstakeable_balance:
-            _dict['unstakeable_balance'] = self.unstakeable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of pending_claimable_balance
-        if self.pending_claimable_balance:
-            _dict['pending_claimable_balance'] = self.pending_claimable_balance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of claimable_balance
-        if self.claimable_balance:
-            _dict['claimable_balance'] = self.claimable_balance.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of StakingContextContext from a dict"""
+        """Create an instance of BroadcastExternalTransaction200Response from a dict"""
         if obj is None:
             return None
 
@@ -96,10 +81,8 @@ class StakingContextContext(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "stakeable_balance": Balance.from_dict(obj["stakeable_balance"]) if obj.get("stakeable_balance") is not None else None,
-            "unstakeable_balance": Balance.from_dict(obj["unstakeable_balance"]) if obj.get("unstakeable_balance") is not None else None,
-            "pending_claimable_balance": Balance.from_dict(obj["pending_claimable_balance"]) if obj.get("pending_claimable_balance") is not None else None,
-            "claimable_balance": Balance.from_dict(obj["claimable_balance"]) if obj.get("claimable_balance") is not None else None
+            "transaction_hash": obj.get("transaction_hash"),
+            "transaction_link": obj.get("transaction_link")
         })
         return _obj
 
