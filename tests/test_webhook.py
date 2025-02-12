@@ -1,7 +1,6 @@
 from unittest.mock import patch
 
-from cdp.client.models.create_webhook_request import CreateWebhookRequest
-from cdp.client.models.update_webhook_request import UpdateWebhookRequest
+from cdp.client import CreateWebhookRequest, UpdateWebhookRequest, WebhookStatus
 from cdp.client.models.webhook import WebhookEventFilter, WebhookEventType, WebhookEventTypeFilter
 from cdp.webhook import Webhook, WebhookModel
 
@@ -72,7 +71,7 @@ def test_webhook_update(mock_api_clients, webhook_factory):
         event_type=webhook.event_type,
         event_type_filter=webhook.event_type_filter,
         event_filters=webhook.event_filters,
-        status="active",
+        status=WebhookStatus.ACTIVE,
     )
 
     expected_request = UpdateWebhookRequest(

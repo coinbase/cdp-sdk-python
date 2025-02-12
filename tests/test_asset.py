@@ -52,17 +52,23 @@ def test_asset_from_model_with_invalid_asset_id(asset_model_factory):
     with pytest.raises(ValueError, match="Unsupported asset ID: invalid"):
         Asset.from_model(asset_model, asset_id="invalid")
 
+
 def test_asset_from_model_with_non_checksummed_address(asset_model_factory):
     """Test asset from model with non-checksummed address."""
-    asset_model = asset_model_factory(asset_id="0x8309fbdF021eDF768DC13195741940ba544dEa98", decimals=18)
+    asset_model = asset_model_factory(
+        asset_id="0x8309fbdF021eDF768DC13195741940ba544dEa98", decimals=18
+    )
 
     asset = Asset.from_model(asset_model, asset_id="0x8309fbdf021edf768dc13195741940ba544dea98")
     assert asset.asset_id == "0x8309fbdf021edf768dc13195741940ba544dea98"
     assert asset.decimals == 18
 
+
 def test_asset_from_model_with_checksummed_address(asset_model_factory):
     """Test asset from model with checksummed address."""
-    asset_model = asset_model_factory(asset_id="0x8309fbdF021eDF768DC13195741940ba544dEa98", decimals=18)
+    asset_model = asset_model_factory(
+        asset_id="0x8309fbdF021eDF768DC13195741940ba544dEa98", decimals=18
+    )
 
     asset = Asset.from_model(asset_model, asset_id="0x8309fbdF021eDF768DC13195741940ba544dEa98")
     assert asset.asset_id == "0x8309fbdF021eDF768DC13195741940ba544dEa98"

@@ -1,6 +1,6 @@
 import pytest
 
-from cdp.client import WebhookEventTypeFilter, WebhookWalletActivityFilter
+from cdp.client import WebhookEventTypeFilter, WebhookStatus, WebhookWalletActivityFilter
 from cdp.webhook import Webhook, WebhookEventType, WebhookModel
 
 
@@ -33,7 +33,7 @@ def webhook_factory():
             event_type=event_type,
             event_type_filter=event_type_filter,
             event_filters=event_filters or [],
-            status=status,
+            status=WebhookStatus.ACTIVE,
         )
         return Webhook(model)
 

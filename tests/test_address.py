@@ -6,6 +6,7 @@ import pytest
 from cdp.address import Address
 from cdp.address_reputation import AddressReputation
 from cdp.balance_map import BalanceMap
+from cdp.client import BroadcastExternalTransaction200Response, BroadcastExternalTransactionRequest
 from cdp.client.exceptions import ApiException
 from cdp.errors import ApiError
 from cdp.faucet_transaction import FaucetTransaction
@@ -261,6 +262,58 @@ def test_address_reputation(mock_api_clients, address_factory, address_reputatio
     mock_address_reputation.assert_called_once_with(
         network_id=address.network_id, address_id=address.address_id
     )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_address_broadcast_external_transaction(mock_api_clients, address_factory):
+    """Test the broadcast_external_transaction method of an Address."""
+    address = address_factory()
+    signed_payload = "0x1234567890123456789012345678901234567890"
+
+    mock_broadcast_external_transaction = Mock()
+    mock_broadcast_external_transaction.return_value = BroadcastExternalTransaction200Response(
+        transaction_hash="0x1234567890123456789012345678901234567890",
+        transaction_link="https://etherscan.io/tx/0x1234567890123456789012345678901234567890",
+    )
+    mock_api_clients.external_addresses.broadcast_external_transaction = (
+        mock_broadcast_external_transaction
+    )
+
+    broadcast_external_transaction = address.broadcast_external_transaction(signed_payload)
+
+    assert isinstance(broadcast_external_transaction, BroadcastExternalTransaction200Response)
+    assert (
+        broadcast_external_transaction.transaction_hash
+        == "0x1234567890123456789012345678901234567890"
+    )
+    assert (
+        broadcast_external_transaction.transaction_link
+        == "https://etherscan.io/tx/0x1234567890123456789012345678901234567890"
+    )
+
+    mock_broadcast_external_transaction.assert_called_once_with(
+        network_id=address.network_id,
+        address_id=address.address_id,
+        broadcast_external_transaction_request=BroadcastExternalTransactionRequest(
+            signed_payload=signed_payload
+        ),
+    )
+
+
+@patch("cdp.Cdp.api_clients")
+def test_address_broadcast_external_transaction_error(mock_api_clients, address_factory):
+    """Test the broadcast_external_transaction method of an Address raises an error when the API call fails."""
+    address = address_factory()
+
+    mock_broadcast_external_transaction = Mock()
+    err = ApiException(500, "boom")
+    mock_broadcast_external_transaction.side_effect = ApiError(err, code="boom", message="boom")
+    mock_api_clients.external_addresses.broadcast_external_transaction = (
+        mock_broadcast_external_transaction
+    )
+
+    with pytest.raises(ApiError):
+        address.broadcast_external_transaction("0x1234567890123456789012345678901234567890")
 
 
 def test_address_str_representation(address_factory):

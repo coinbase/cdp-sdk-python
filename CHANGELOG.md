@@ -1,5 +1,12 @@
 # CDP Python SDK Changelog
 
+## [0.17.0] - 2025-02-11
+
+### Added
+
+- Add `broadcast_external_transaction` to `Address` class.
+
+
 ## [0.16.0] - 2025-01-28
 
 ### Added
