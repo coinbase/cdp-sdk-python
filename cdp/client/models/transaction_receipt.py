@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List
 from cdp.client.models.transaction_log import TransactionLog
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,24 +27,11 @@ class TransactionReceipt(BaseModel):
     """
     The receipt of an onchain transaction's execution.
     """ # noqa: E501
-    to: Optional[StrictStr] = Field(default=None, description="The address this transaction is to. This is null if the transaction was an init transaction, used to deploy a contract.")
-    var_from: Optional[StrictStr] = Field(default=None, description="The address this transaction is from.", alias="from")
-    contract_address: Optional[StrictStr] = Field(default=None, description="The EVM address of the smart contract. If this transaction has a null to address, it is an init transaction used to deploy a contract, in which case this is the address created by that contract.")
-    transaction_index: Optional[StrictInt] = Field(default=None, description="The index of this transaction in the list of transactions included in the block this transaction was mined in.")
-    type: Optional[StrictInt] = Field(default=None, description="The EIP-2718 transaction type. See https://eips.ethereum.org/EIPS/eip-2718 for more details.")
-    logs_bloom: Optional[StrictStr] = Field(default=None, description="A bloom-filter, which includes all the addresses and topics included in any log in this transaction.")
-    block_hash: Optional[StrictStr] = Field(default=None, description="The hash of the block at which the transaction was recorded.")
-    transaction_hash: Optional[StrictStr] = Field(default=None, description="The hash of the onchain sponsored send transaction.")
-    block_number: Optional[StrictInt] = Field(default=None, description="The block height (number) of the block that this transaction was included in.")
-    confirmations: Optional[StrictInt] = Field(default=None, description="The number of blocks that have been mined since this transaction, including the actual block it was mined in.")
-    root: Optional[StrictStr] = Field(default=None, description="The intermediate state root of a receipt.")
-    cumulative_gas_used: Optional[StrictInt] = Field(default=None, description="For the block this transaction was included in, this is the sum of the gas used by each transaction in the ordered list of transactions up to (and including) this transaction.")
-    byzantium: Optional[StrictBool] = Field(default=None, description="This is true if the block is in a post-Byzantium Hard Fork block.")
     status: StrictInt = Field(description="The status of a transaction is 1 if successful or 0 if it was reverted.")
     logs: List[TransactionLog]
-    gas_used: Optional[StrictStr] = Field(default=None, description="The amount of gas actually used by this transaction.")
-    effective_gas_price: Optional[StrictStr] = Field(default=None, description="The effective gas price the transaction was charged at.")
-    __properties: ClassVar[List[str]] = ["to", "from", "contract_address", "transaction_index", "type", "logs_bloom", "block_hash", "transaction_hash", "block_number", "confirmations", "root", "cumulative_gas_used", "byzantium", "status", "logs", "gas_used", "effective_gas_price"]
+    gas_used: StrictStr = Field(description="The amount of gas actually used by this transaction.")
+    effective_gas_price: StrictStr = Field(description="The effective gas price the transaction was charged at.")
+    __properties: ClassVar[List[str]] = ["status", "logs", "gas_used", "effective_gas_price"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -104,19 +91,6 @@ class TransactionReceipt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "to": obj.get("to"),
-            "from": obj.get("from"),
-            "contract_address": obj.get("contract_address"),
-            "transaction_index": obj.get("transaction_index"),
-            "type": obj.get("type"),
-            "logs_bloom": obj.get("logs_bloom"),
-            "block_hash": obj.get("block_hash"),
-            "transaction_hash": obj.get("transaction_hash"),
-            "block_number": obj.get("block_number"),
-            "confirmations": obj.get("confirmations"),
-            "root": obj.get("root"),
-            "cumulative_gas_used": obj.get("cumulative_gas_used"),
-            "byzantium": obj.get("byzantium"),
             "status": obj.get("status"),
             "logs": [TransactionLog.from_dict(_item) for _item in obj["logs"]] if obj.get("logs") is not None else None,
             "gas_used": obj.get("gas_used"),
