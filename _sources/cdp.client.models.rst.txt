@@ -900,6 +900,22 @@ cdp.client.models.transaction\_content module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.transaction\_log module
+-----------------------------------------
+
+.. automodule:: cdp.client.models.transaction_log
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.transaction\_receipt module
+---------------------------------------------
+
+.. automodule:: cdp.client.models.transaction_receipt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.transaction\_type module
 ------------------------------------------
 
