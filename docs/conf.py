@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 project = 'CDP SDK'
 author = 'Coinbase Developer Platform'
-release = '0.17.0'
+release = '0.18.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

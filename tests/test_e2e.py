@@ -171,6 +171,36 @@ def test_historical_balances(imported_wallet):
     assert balances
     assert all(balance.amount > 0 for balance in balances)
 
+@pytest.mark.e2e
+def test_invoke_contract_with_transaction_receipt(imported_wallet):
+    """Test invoke contract with transaction receipt."""
+    destination_wallet = Wallet.create()
+
+    faucet_transaction = imported_wallet.faucet("usdc")
+    faucet_transaction.wait()
+
+    # Transfer 0.000001 USDC to the destination address.
+    invocation = imported_wallet.invoke_contract(
+        contract_address="0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+        method="transfer",
+        args={"to": destination_wallet.default_address.address_id, "value": "1"}
+    )
+
+    invocation.wait()
+
+    transaction_content = invocation.transaction.content.actual_instance
+    transaction_receipt = transaction_content.receipt
+
+    assert transaction_receipt.status == 1
+
+    transaction_logs = transaction_receipt.logs
+    assert len(transaction_logs) == 1
+
+    transaction_log = transaction_logs[0]
+    assert transaction_log.address == "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+    assert transaction_log.topics[0] == "Transfer"
+    assert transaction_log.topics[1] == f"from: {imported_wallet.default_address.address_id}"
+    assert transaction_log.topics[2] == f"to: {destination_wallet.default_address.address_id}"
 
 @pytest.mark.skip(reason="Gasless transfers have unpredictable latency")
 def test_gasless_transfer(imported_wallet):

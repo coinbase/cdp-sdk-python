@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.balance import Balance
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,7 +36,9 @@ class EthereumValidatorMetadata(BaseModel):
     withdrawable_epoch: StrictStr = Field(description="The epoch at which the validator can withdraw.", alias="withdrawableEpoch")
     balance: Balance
     effective_balance: Balance
-    __properties: ClassVar[List[str]] = ["index", "public_key", "withdrawal_address", "slashed", "activationEpoch", "exitEpoch", "withdrawableEpoch", "balance", "effective_balance"]
+    fee_recipient_address: StrictStr = Field(description="The address for execution layer rewards (MEV & tx fees). If using a reward splitter plan, this is a smart contract address that splits rewards based on defined commissions and send a portion to the forwarded_fee_recipient_address. ")
+    forwarded_fee_recipient_address: Optional[StrictStr] = Field(default=None, description="If using a reward splitter plan, this address receives a defined percentage of the total execution layer rewards. ")
+    __properties: ClassVar[List[str]] = ["index", "public_key", "withdrawal_address", "slashed", "activationEpoch", "exitEpoch", "withdrawableEpoch", "balance", "effective_balance", "fee_recipient_address", "forwarded_fee_recipient_address"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,7 +105,9 @@ class EthereumValidatorMetadata(BaseModel):
             "exitEpoch": obj.get("exitEpoch"),
             "withdrawableEpoch": obj.get("withdrawableEpoch"),
             "balance": Balance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
-            "effective_balance": Balance.from_dict(obj["effective_balance"]) if obj.get("effective_balance") is not None else None
+            "effective_balance": Balance.from_dict(obj["effective_balance"]) if obj.get("effective_balance") is not None else None,
+            "fee_recipient_address": obj.get("fee_recipient_address"),
+            "forwarded_fee_recipient_address": obj.get("forwarded_fee_recipient_address")
         })
         return _obj
 
