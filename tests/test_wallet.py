@@ -4,6 +4,7 @@ from unittest.mock import ANY, Mock, PropertyMock, call, patch
 import pytest
 from eth_account import Account
 
+from cdp import WalletData
 from cdp.client.models.create_address_request import CreateAddressRequest
 from cdp.client.models.create_wallet_request import CreateWalletRequest, CreateWalletRequestWallet
 from cdp.client.models.create_wallet_webhook_request import CreateWalletWebhookRequest
@@ -889,3 +890,85 @@ def test_wallet_import_from_mnemonic_invalid_phrase():
 
     with pytest.raises(ValueError, match="Invalid BIP-39 mnemonic seed phrase"):
         Wallet.import_wallet(MnemonicSeedPhrase("invalid mnemonic phrase"))
+
+@patch("cdp.Cdp.use_server_signer", False)
+@patch("cdp.Cdp.api_clients")
+@patch("cdp.wallet.Account")
+def test_wallet_import_wallet_data(
+    mock_account,
+    mock_api_clients,
+    wallet_factory,
+    address_model_factory,
+):
+    """Test importing a wallet from wallet data."""
+    wallet_data = WalletData(
+        wallet_id="087ed3e6-3d60-4273-ae06-9310ce6c5391",
+        seed="e0c727430053b8e4a299c8752175a48c27a6670fa204b5bdcbab08b2fd3d2278f182023dae524cb1b758dd96dac43f78850c71b988aceda27da7c12a06eb7dc5",
+    )
+    first_address = "0x974EaE7AEA7D3A0226855E75762438cc8bF2bfb4"
+    second_address = "0x4B474e2f0b3b6195FD98A7c0ad592F6dF7eD8475"
+    first_public_key = "0x032845fca05f20c848dc2db1acc8e74965846cf78bb84e62e16da20fb1ebf9b41d"
+    second_public_key = "0x02f1c8765ff02ac19f95bd938631219d72fc2f732d3f6b481c1ea36ae70a46d579"
+
+    # Create mock address model
+    mock_first_address = address_model_factory(
+        address_id=first_address,
+        public_key=first_public_key,
+        wallet_id="new-wallet-id",
+        network_id="base-mainnet",
+        index=0,
+    )
+
+    mock_second_address = address_model_factory(
+        address_id=second_address,
+        public_key=second_public_key,
+        wallet_id="new-wallet-id",
+        network_id="base-mainnet",
+        index=1,
+    )
+
+    # Create mock wallet model with the address model
+    mock_wallet = wallet_factory(
+        id="new-wallet-id", network_id="base-mainnet", default_address=mock_first_address
+    )._model
+
+    # Add debug assertions
+    assert mock_wallet.default_address is not None
+    assert mock_wallet.default_address.address_id == first_address
+    assert mock_wallet.default_address.index == 0
+
+    # Mock Account.from_key to return different addresses for different calls
+    mock_first_account = Mock(spec=Account)
+    mock_first_account.address = second_address
+    mock_second_account = Mock(spec=Account)
+    mock_second_account.address = first_address
+    mock_account.from_key = Mock(side_effect=[mock_first_account, mock_second_account])
+
+    # Mock both API calls to return the same wallet model
+    mock_api_clients.wallets.create_wallet = Mock(return_value=mock_wallet)
+    mock_api_clients.wallets.get_wallet = Mock(return_value=mock_wallet)
+    mock_api_clients.addresses.create_address = Mock(return_value=mock_first_address)
+
+    # Mock list_addresses call
+    mock_address_list = Mock()
+    # Make the API response to be out of order.
+    mock_address_list.data = [mock_second_address, mock_first_address]
+    mock_api_clients.addresses.list_addresses = Mock(return_value=mock_address_list)
+
+    # Import wallet using data
+    wallet = Wallet.import_wallet(wallet_data, network_id="base-mainnet")
+
+    # Verify the wallet was created successfully
+    assert isinstance(wallet, Wallet)
+
+    # Verify the default address matches expected address
+    assert wallet.default_address is not None
+    assert wallet.default_address.address_id == first_address
+    assert wallet.default_address._model.public_key == first_public_key
+    addresses = wallet.addresses
+
+    assert len(addresses) == 2
+    assert addresses[0].address_id == second_address
+    assert addresses[0]._model.public_key == second_public_key
+    assert addresses[1].address_id == first_address
+    assert addresses[1]._model.public_key == first_public_key
