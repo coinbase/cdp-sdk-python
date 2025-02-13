@@ -1,5 +1,12 @@
 # CDP Python SDK Changelog
 
+## [0.18.0] - 2025-02-12
+
+### Added
+
+- Add `TransactionReceipt` and `TransactionLog` to contract invocation response.
+
+
 ## [0.17.0] - 2025-02-11
 
 ### Added
