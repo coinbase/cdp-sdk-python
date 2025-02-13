@@ -1,5 +1,11 @@
 # CDP Python SDK Changelog
 
+## [0.18.1] - 2025-02-13
+
+## Fixed
+
+- Bug fix for Wallet.import_wallet() when addresses are not returned in order of their address_index.
+
 ## [0.18.0] - 2025-02-12
 
 ### Added
