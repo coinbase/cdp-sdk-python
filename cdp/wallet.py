@@ -728,7 +728,7 @@ class Wallet:
         addresses = Cdp.api_clients.addresses.list_addresses(self.id, limit=self.MAX_ADDRESSES)
 
         self._addresses = [
-            self._build_wallet_address(model, model.index) for index, model in enumerate(addresses.data)
+            self._build_wallet_address(model, model.index) for _, model in enumerate(addresses.data)
         ]
 
     def _build_wallet_address(self, model: AddressModel, index: int | None = None) -> WalletAddress:
