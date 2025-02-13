@@ -32,15 +32,13 @@ class UserOperation(BaseModel):
     calls: List[Call] = Field(description="The list of calls to make from the smart wallet.")
     unsigned_payload: StrictStr = Field(description="The hex-encoded hash that must be signed by the user.")
     signature: Optional[StrictStr] = Field(default=None, description="The hex-encoded signature of the user operation.")
-    status: Optional[StrictStr] = Field(default=None, description="The status of the user operation.")
-    __properties: ClassVar[List[str]] = ["id", "network_id", "calls", "unsigned_payload", "signature", "status"]
+    transaction_hash: Optional[StrictStr] = Field(default=None, description="The hash of the transaction that was broadcast.")
+    status: StrictStr = Field(description="The status of the user operation.")
+    __properties: ClassVar[List[str]] = ["id", "network_id", "calls", "unsigned_payload", "signature", "transaction_hash", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['pending', 'signed', 'broadcast', 'complete', 'failed']):
             raise ValueError("must be one of enum values ('pending', 'signed', 'broadcast', 'complete', 'failed')")
         return value
@@ -108,6 +106,7 @@ class UserOperation(BaseModel):
             "calls": [Call.from_dict(_item) for _item in obj["calls"]] if obj.get("calls") is not None else None,
             "unsigned_payload": obj.get("unsigned_payload"),
             "signature": obj.get("signature"),
+            "transaction_hash": obj.get("transaction_hash"),
             "status": obj.get("status")
         })
         return _obj

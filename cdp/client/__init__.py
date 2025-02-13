@@ -159,6 +159,8 @@ from cdp.client.models.trade import Trade
 from cdp.client.models.trade_list import TradeList
 from cdp.client.models.transaction import Transaction
 from cdp.client.models.transaction_content import TransactionContent
+from cdp.client.models.transaction_log import TransactionLog
+from cdp.client.models.transaction_receipt import TransactionReceipt
 from cdp.client.models.transaction_type import TransactionType
 from cdp.client.models.transfer import Transfer
 from cdp.client.models.transfer_list import TransferList
