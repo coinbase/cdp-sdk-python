@@ -1,23 +1,26 @@
-from typing import Any, Dict, List, NotRequired, TypedDict, Union
+from typing import Any, Dict, List, NotRequired, Optional, TypedDict, Union
 
 from eth_account import Account
 
 from cdp.call_types import Call
 from cdp.client.models.smart_wallet import SmartWallet as SmartWalletModel
+from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
 from cdp.user_operation import UserOperation
 
 
 class SmartWallet:
     """A class representing a smart wallet."""
 
-    def __init__(self, model: SmartWalletModel) -> None:
+    def __init__(self, model: SmartWalletModel, account: Account) -> None:
         """Initialize the SmartWallet class.
 
         Args:
             model (SmartWalletModel): The SmartWalletModel object representing the smart wallet.
-
+            account (Account): The owner of the smart wallet.
         """
         self._model = model
+        self.owners = [account]
+      
       
     @property
     def address(self) -> str:
@@ -28,6 +31,16 @@ class SmartWallet:
 
         """
         return self._model.address
+      
+    @property
+    def owners(self) -> List[Account]:
+        """Get the wallet owners.
+
+        Returns:
+            List[Account]: List of owner accounts
+        """
+        return self.owners
+
 
     @classmethod
     def create(
@@ -64,6 +77,24 @@ class SmartWallet:
         # TODO implement - return object
 
 
+    def use_network(
+        self,
+        chain_id: int,
+        paymaster_url: Optional[str] = None
+    ) -> NetworkScopedSmartWallet:
+        """Configure the wallet for a specific network.
+        
+        Args:
+            chain_id (int): The chain ID of the network to connect to
+            paymaster_url (Optional[str]): Optional URL for the paymaster service
+            
+        Returns:
+            NetworkScopedSmartWallet: A network-scoped version of the wallet
+        """
+        
+        return NetworkScopedSmartWallet(self._model, self.owners[0], chain_id, paymaster_url)
+  
+  
     def send_user_operation(
         self,
         calls: List[Call],
