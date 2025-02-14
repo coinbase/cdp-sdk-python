@@ -1,9 +1,6 @@
-from decimal import Decimal
-import time
 
 from cdp.call_types import Call
 from cdp.client.models.user_operation import UserOperation as UserOperationModel
-from cdp.smart_wallet import SmartWallet
 
 
 class UserOperation:
@@ -47,7 +44,7 @@ class UserOperation:
 
         """
         return self.transaction.status if self.transaction else None
-    
+
     @classmethod
     def create(
         cls,
@@ -70,10 +67,7 @@ class UserOperation:
         """
         # TODO: Implement
 
-
-    def wait(
-        self, interval_seconds: float = 0.2, timeout_seconds: float = 20
-    ) -> "UserOperation":
+    def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 20) -> "UserOperation":
         """Wait until the user operation is processed or fails by polling the server.
 
         Args:
@@ -89,12 +83,9 @@ class UserOperation:
         """
         # TODO: implement. Note: Will not have a reload function - will simply have the logic here.
 
-
     def __str__(self) -> str:
         """Return a string representation of the user operation."""
-        return (
-            f"UserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
-        )
+        return f"UserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
 
     def __repr__(self) -> str:
         """Return a string representation of the user operation."""
