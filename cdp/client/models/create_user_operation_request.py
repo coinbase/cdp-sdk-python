@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from cdp.client.models.call import Call
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,8 @@ class CreateUserOperationRequest(BaseModel):
     CreateUserOperationRequest
     """ # noqa: E501
     calls: List[Call] = Field(description="The list of calls to make from the smart wallet.")
-    __properties: ClassVar[List[str]] = ["calls"]
+    paymaster_url: Optional[StrictStr] = Field(default=None, description="The URL of the paymaster to use for the user operation.")
+    __properties: ClassVar[List[str]] = ["calls", "paymaster_url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +89,8 @@ class CreateUserOperationRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "calls": [Call.from_dict(_item) for _item in obj["calls"]] if obj.get("calls") is not None else None
+            "calls": [Call.from_dict(_item) for _item in obj["calls"]] if obj.get("calls") is not None else None,
+            "paymaster_url": obj.get("paymaster_url")
         })
         return _obj
 
