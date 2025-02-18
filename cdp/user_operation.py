@@ -46,6 +46,7 @@ class UserOperation:
 
         Args:
             model (UserOperationModel): The model representing the user operation.
+            smart_wallet_address (str): The smart wallet address that created the user operation.
 
         """
         self._model = model

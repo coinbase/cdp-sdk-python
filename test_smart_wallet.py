@@ -42,7 +42,7 @@ def test_smart_wallet_operations():
     # Send first user operation
     value_in_wei = Web3.to_wei(Decimal("0.0000005"), "ether")
 
-    print(f"Sending user operation")
+    print("Sending user operation")
     user_operation = smart_wallet.send_user_operation(
         calls=[
             EVMCallDict(

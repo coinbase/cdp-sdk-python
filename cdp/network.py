@@ -30,5 +30,5 @@ class Network:
 
     @classmethod
     def from_chain_id(cls, chain_id: SupportedChainId) -> "Network":
-        """Creates a Network instance from a supported chain ID."""
+        """Create a Network instance from a supported chain ID."""
         return cls(chain_id, _CHAIN_ID_TO_NETWORK_ID[chain_id])
