@@ -14,7 +14,7 @@ class EVMCallDict(BaseModel):
 
 
 class EVMAbiCallDict(BaseModel):
-    """Represents a call to a smart contract using ABI encoding."""
+    """Represents a call to a smart contract that needs to be encoded using the ABI."""
 
     to: HexAddress = Field(..., description="Target contract address")
     value: Wei | None = Field(None, description="Amount of native currency to send")

@@ -3,6 +3,7 @@ from typing import Literal
 
 from cdp.client.models.network_identifier import NetworkIdentifier
 
+# Only SmartWallet related chains are listed here right now
 SupportedChainId = Literal[8453, 84532]
 
 _CHAIN_ID_TO_NETWORK_ID: dict[SupportedChainId, NetworkIdentifier] = {

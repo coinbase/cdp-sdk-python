@@ -6,7 +6,7 @@ from web3 import Web3
 from cdp.cdp import Cdp
 from cdp.evm_call_types import EVMCallDict
 from cdp.external_address import ExternalAddress
-from cdp.smart_wallet import SmartWallet
+from cdp.smart_wallet import SmartWallet, to_smart_wallet
 from cdp.wallet import Wallet
 
 Cdp.configure_from_json(
@@ -95,6 +95,10 @@ def test_smart_wallet_operations():
     # Get final balance
     final_balance = wallet.balance("eth")
     print(f"Final balance: {final_balance}")
+    
+    # Reconstructing the smart wallet using to_smart_wallet
+    smart_wallet_2 = to_smart_wallet(smart_wallet.address, owner)
+    print(f"Smart wallet: {smart_wallet_2}")
 
 
 if __name__ == "__main__":
