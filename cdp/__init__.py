@@ -11,6 +11,7 @@ from cdp.hash_utils import hash_message, hash_typed_data_message
 from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
+from cdp.smart_wallet import SmartWallet, to_smart_wallet
 from cdp.sponsored_send import SponsoredSend
 from cdp.trade import Trade
 from cdp.transaction import Transaction
@@ -40,6 +41,8 @@ __all__ = [
     "WalletAddress",
     "WalletData",
     "Webhook",
+    "SmartWallet",
+    "to_smart_wallet",
     "__version__",
     "hash_message",
     "hash_typed_data_message",

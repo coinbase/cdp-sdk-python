@@ -1,8 +1,7 @@
-
 from eth_account import Account
 
-from cdp.call_types import Call
 from cdp.client.models.smart_wallet import SmartWallet as SmartWalletModel
+from cdp.evm_call_types import Call
 from cdp.smart_wallet import SmartWallet
 from cdp.user_operation import UserOperation
 

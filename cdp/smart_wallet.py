@@ -1,8 +1,7 @@
+from eth_account.account import BaseAccount
 
-from eth_account import Account
-
-from cdp.call_types import Call
 from cdp.client.models.smart_wallet import SmartWallet as SmartWalletModel
+from cdp.evm_call_types import Call
 from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
 from cdp.user_operation import UserOperation
 
@@ -10,7 +9,7 @@ from cdp.user_operation import UserOperation
 class SmartWallet:
     """A class representing a smart wallet."""
 
-    def __init__(self, model: SmartWalletModel, account: Account) -> None:
+    def __init__(self, model: SmartWalletModel, account: BaseAccount) -> None:
         """Initialize the SmartWallet class.
 
         Args:
@@ -32,11 +31,11 @@ class SmartWallet:
         return self._model.address
 
     @property
-    def owners(self) -> list[Account]:
+    def owners(self) -> list[BaseAccount]:
         """Get the wallet owners.
 
         Returns:
-            List[Account]: List of owner accounts
+            List[BaseAccount]: List of owner accounts
 
         """
         return self.owners
@@ -44,7 +43,7 @@ class SmartWallet:
     @classmethod
     def create(
         cls,
-        account: Account,
+        account: BaseAccount,
     ) -> "SmartWallet":
         """Create a new smart wallet.
 
@@ -56,23 +55,6 @@ class SmartWallet:
 
         """
         # TODO: Implement
-
-    @classmethod
-    def to_smart_wallet(cls, smart_wallet_address: str, signer: Account) -> "SmartWallet":
-        """Fetch a smart wallet by its ID.
-
-        Args:
-            smart_wallet_address (str): The address of the smart wallet to retrieve.
-            signer (Account): The signer to use for the smart wallet.
-
-        Returns:
-            SmartWallet: The retrieved smart wallet object.
-
-        Raises:
-            Exception: If there's an error retrieving the smart wallet.
-
-        """
-        # TODO implement - return object
 
     def use_network(
         self, chain_id: int, paymaster_url: str | None = None
@@ -128,3 +110,20 @@ class SmartWallet:
 
         """
         return str(self)
+
+
+def to_smart_wallet(smart_wallet_address: str, signer: BaseAccount) -> "SmartWallet":
+    """Fetch a smart wallet by its address.
+
+    Args:
+        smart_wallet_address (str): The address of the smart wallet to retrieve.
+        signer (Account): The signer to use for the smart wallet.
+
+    Returns:
+        SmartWallet: The retrieved smart wallet object.
+
+    Raises:
+        Exception: If there's an error retrieving the smart wallet.
+
+    """
+    # TODO implement - return object

@@ -1,6 +1,5 @@
-
-from cdp.call_types import Call
 from cdp.client.models.user_operation import UserOperation as UserOperationModel
+from cdp.evm_call_types import Call
 
 
 class UserOperation:
