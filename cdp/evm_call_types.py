@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from web3.types import HexStr, Wei
 
 
-class CallDict(BaseModel):
+class EVMCallDict(BaseModel):
     """Represents a basic call to a smart contract."""
 
     to: HexAddress
@@ -13,7 +13,7 @@ class CallDict(BaseModel):
     data: HexStr | None = None
 
 
-class AbiCallDict(BaseModel):
+class EVMAbiCallDict(BaseModel):
     """Represents a call to a smart contract using ABI encoding."""
 
     to: HexAddress
@@ -23,4 +23,4 @@ class AbiCallDict(BaseModel):
     args: list[Any]
 
 
-Call = CallDict | AbiCallDict
+EVMCall = EVMCallDict | EVMAbiCallDict

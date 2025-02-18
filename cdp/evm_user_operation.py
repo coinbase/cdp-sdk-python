@@ -1,12 +1,12 @@
 from cdp.client.models.user_operation import UserOperation as UserOperationModel
-from cdp.evm_call_types import Call
+from cdp.evm_call_types import EVMCall
 
 
-class UserOperation:
-    """A class representing a user operation."""
+class EVMUserOperation:
+    """A class representing an EVM user operation."""
 
     def __init__(self, model: UserOperationModel) -> None:
-        """Initialize the UserOperation class.
+        """Initialize the EVMUserOperation class.
 
         Args:
             model (UserOperationModel): The model representing the user operation.
@@ -49,24 +49,26 @@ class UserOperation:
         cls,
         smart_wallet_address: str,
         network_id: str,
-        calls: list[Call],
+        calls: list[EVMCall],
         paymaster_url: str | None = None,
-    ) -> "UserOperation":
-        """Create a new UserOperation object.
+    ) -> "EVMUserOperation":
+        """Create a new EVMUserOperation object.
 
         Args:
             smart_wallet_address (str): The smart wallet address.
             network_id (str): The Network ID.
-            calls (list[Call]): The calls to send.
+            calls (list[EVMCall]): The calls to send.
             paymaster_url (Optional[str]): The paymaster URL.
 
         Returns:
-            UserOperation: The new UserOperation object.
+            EVMUserOperation: The new EVMUserOperation object.
 
         """
         # TODO: Implement
 
-    def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 20) -> "UserOperation":
+    def wait(
+        self, interval_seconds: float = 0.2, timeout_seconds: float = 20
+    ) -> "EVMUserOperation":
         """Wait until the user operation is processed or fails by polling the server.
 
         Args:
@@ -74,18 +76,18 @@ class UserOperation:
             timeout_seconds: The maximum time to wait before timing out.
 
         Returns:
-            UserOperation: The completed user operation.
+            EVMUserOperation: The completed EVM user operation.
 
         Raises:
-            TimeoutError: If the user operation takes longer than the given timeout.
+            TimeoutError: If the EVM user operation takes longer than the given timeout.
 
         """
         # TODO: implement. Note: Will not have a reload function - will simply have the logic here.
 
     def __str__(self) -> str:
-        """Return a string representation of the user operation."""
-        return f"UserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
+        """Return a string representation of the EVM user operation."""
+        return f"EVMUserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
 
     def __repr__(self) -> str:
-        """Return a string representation of the user operation."""
+        """Return a string representation of the EVM user operation."""
         return str(self)

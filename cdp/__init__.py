@@ -5,13 +5,13 @@ from cdp.balance import Balance
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.contract_invocation import ContractInvocation
+from cdp.evm_smart_wallet import SmartWallet, to_smart_wallet
 from cdp.external_address import ExternalAddress
 from cdp.faucet_transaction import FaucetTransaction
 from cdp.hash_utils import hash_message, hash_typed_data_message
 from cdp.mnemonic_seed_phrase import MnemonicSeedPhrase
 from cdp.payload_signature import PayloadSignature
 from cdp.smart_contract import SmartContract
-from cdp.smart_wallet import SmartWallet, to_smart_wallet
 from cdp.sponsored_send import SponsoredSend
 from cdp.trade import Trade
 from cdp.transaction import Transaction
@@ -43,6 +43,8 @@ __all__ = [
     "Webhook",
     "SmartWallet",
     "to_smart_wallet",
+    "EVMSmartWallet",
+    "to_evm_smart_wallet",
     "__version__",
     "hash_message",
     "hash_typed_data_message",
