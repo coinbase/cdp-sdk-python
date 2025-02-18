@@ -1,23 +1,26 @@
-from eth_account.account import BaseAccount
+from eth_account.signers.base import BaseAccount
+from web3 import Web3
 
-from cdp.client.models.smart_wallet import SmartWallet as SmartWalletModel
-from cdp.evm_call_types import EVMCall
+from cdp.cdp import Cdp
+from cdp.client.models.create_smart_wallet_request import CreateSmartWalletRequest
+from cdp.evm_call_types import EVMAbiCallDict, EVMCall, EVMCallDict
 from cdp.evm_network_scoped_smart_wallet import EVMNetworkScopedSmartWallet
 from cdp.evm_user_operation import EVMUserOperation
+from cdp.network import Network
 
 
 class EVMSmartWallet:
     """A class representing an EVM smart wallet."""
 
-    def __init__(self, model: SmartWalletModel, account: BaseAccount) -> None:
+    def __init__(self, smart_wallet_address: str, account: BaseAccount) -> None:
         """Initialize the EVMSmartWallet class.
 
         Args:
-            model (SmartWalletModel): The SmartWalletModel object representing the smart wallet.
+            smart_wallet_address (str): The smart wallet address.
             account (BaseAccount): The owner of the smart wallet.
 
         """
-        self._model = model
+        self._smart_wallet_address = smart_wallet_address
         self.owners = [account]
 
     @property
@@ -28,7 +31,7 @@ class EVMSmartWallet:
             str: The EVM Smart Wallet Address.
 
         """
-        return self._model.address
+        return self._smart_wallet_address
 
     @property
     def owners(self) -> list[BaseAccount]:
@@ -54,7 +57,11 @@ class EVMSmartWallet:
             Exception: If there's an error creating the EVM smart wallet.
 
         """
-        # TODO: Implement
+        create_smart_wallet_request = CreateSmartWalletRequest(
+            smart_wallet=CreateSmartWalletRequest(owner=account.address)
+        )
+        model = Cdp.api_clients.smart_wallets.create_smart_wallet(create_smart_wallet_request)
+        return EVMSmartWallet(model.address, [account])
 
     def use_network(
         self, chain_id: int, paymaster_url: str | None = None
@@ -69,7 +76,9 @@ class EVMSmartWallet:
             NetworkScopedSmartWallet: A network-scoped version of the wallet
 
         """
-        return EVMNetworkScopedSmartWallet(self._model, self.owners[0], chain_id, paymaster_url)
+        return EVMNetworkScopedSmartWallet(
+            self._smart_wallet_address, self.owners[0], chain_id, paymaster_url
+        )
 
     def send_user_operation(
         self,
@@ -91,7 +100,32 @@ class EVMSmartWallet:
             ValueError: If the default address does not exist.
 
         """
-        # TODO implement
+        network = Network.from_chain_id(chain_id)
+
+        encoded_calls = []
+        for call in calls:
+            if isinstance(call, EVMAbiCallDict):
+                contract = Web3().eth.contract(address=call.to, abi=call.abi)
+
+                encoded_data = contract.encode_abi(call.function_name, args=call.args)
+
+                encoded_call = EVMCallDict(data=encoded_data, to=call.to, value=call.value)
+            else:
+                encoded_call = EVMCallDict(data=call.data, to=call.to, value=call.value)
+            encoded_calls.append(encoded_call)
+
+        user_operation = EVMUserOperation.create(
+            smart_wallet_address=self._smart_wallet_address,
+            network_id=network.id,
+            calls=encoded_calls,
+            paymaster_url=paymaster_url,
+        )
+
+        # sign time
+        owner = self.owners[0]
+        user_operation.sign(owner)
+        user_operation.broadcast()
+        return user_operation
 
     def __str__(self) -> str:
         """Return a string representation of the SmartWallet object.
@@ -126,4 +160,4 @@ def to_smart_wallet(smart_wallet_address: str, signer: BaseAccount) -> "EVMSmart
         Exception: If there's an error retrieving the EVM smart wallet.
 
     """
-    # TODO implement - return object
+    return EVMSmartWallet(smart_wallet_address, [signer])

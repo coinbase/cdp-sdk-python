@@ -48,4 +48,7 @@ __all__ = [
     "__version__",
     "hash_message",
     "hash_typed_data_message",
+    "Network",
+    "from_chain_id",
+    "SupportedChainId",
 ]

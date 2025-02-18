@@ -1,6 +1,5 @@
-from eth_account.account import BaseAccount
+from eth_account.signers.base import BaseAccount
 
-from cdp.client.models.smart_wallet import SmartWallet as SmartWalletModel
 from cdp.evm_call_types import EVMCall
 from cdp.evm_smart_wallet import EVMSmartWallet
 from cdp.evm_user_operation import EVMUserOperation
@@ -11,7 +10,7 @@ class EVMNetworkScopedSmartWallet(EVMSmartWallet):
 
     def __init__(
         self,
-        model: SmartWalletModel,
+        smart_wallet_address: str,
         account: BaseAccount,
         chain_id: int,
         paymaster_url: str | None = None,
@@ -19,13 +18,13 @@ class EVMNetworkScopedSmartWallet(EVMSmartWallet):
         """Initialize the EVM NetworkScopedSmartWallet.
 
         Args:
-            model (SmartWalletModel): The smart wallet model
+            smart_wallet_address (str): The smart wallet address
             account (BaseAccount): The account that owns the smart wallet
             chain_id (int): The chain ID
             paymaster_url (Optional[str]): The paymaster URL
 
         """
-        super().__init__(model, account)
+        super().__init__(smart_wallet_address, account)
         self.chain_id = chain_id
         self.paymaster_url = paymaster_url
 
@@ -46,7 +45,7 @@ class EVMNetworkScopedSmartWallet(EVMSmartWallet):
 
         """
         return super().send_user_operation(
-            calls=calls, chain_id=self.network.chain_id, paymaster_url=self.network.paymaster_url
+            calls=calls, chain_id=self.chain_id, paymaster_url=self.paymaster_url
         )
 
     def __str__(self) -> str:

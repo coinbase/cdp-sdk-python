@@ -1,26 +1,26 @@
 from typing import Any
 
 from eth_typing import HexAddress
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from web3.types import HexStr, Wei
 
 
 class EVMCallDict(BaseModel):
-    """Represents a basic call to a smart contract."""
+    """Represents an encoded call to a smart contract."""
 
-    to: HexAddress
-    value: Wei | None = None
-    data: HexStr | None = None
+    to: HexAddress = Field(..., description="Target contract address")
+    value: Wei | None = Field(None, description="Amount of native currency to send")
+    data: HexStr | None = Field(None, description="Encoded call data")
 
 
 class EVMAbiCallDict(BaseModel):
     """Represents a call to a smart contract using ABI encoding."""
 
-    to: HexAddress
-    value: Wei | None = None
-    abi: list[dict[str, Any]]
-    function_name: str
-    args: list[Any]
+    to: HexAddress = Field(..., description="Target contract address")
+    value: Wei | None = Field(None, description="Amount of native currency to send")
+    abi: list[dict[str, Any]] = Field(..., description="Contract ABI specification")
+    function_name: str = Field(..., description="Name of the function to call")
+    args: list[Any] = Field(..., description="Arguments to pass to the function")
 
 
 EVMCall = EVMCallDict | EVMAbiCallDict
