@@ -1,11 +1,11 @@
 from eth_account.signers.base import BaseAccount
 
 from cdp.evm_call_types import EVMCall
-from cdp.evm_smart_wallet import EVMSmartWallet
-from cdp.evm_user_operation import EVMUserOperation
+from cdp.smart_wallet import SmartWallet
+from cdp.user_operation import UserOperation
 
 
-class EVMNetworkScopedSmartWallet(EVMSmartWallet):
+class NetworkScopedSmartWallet(SmartWallet):
     """A smart wallet that's configured for a specific network."""
 
     def __init__(
@@ -15,7 +15,7 @@ class EVMNetworkScopedSmartWallet(EVMSmartWallet):
         chain_id: int,
         paymaster_url: str | None = None,
     ) -> None:
-        """Initialize the EVM NetworkScopedSmartWallet.
+        """Initialize the NetworkScopedSmartWallet.
 
         Args:
             smart_wallet_address (str): The smart wallet address
@@ -31,14 +31,14 @@ class EVMNetworkScopedSmartWallet(EVMSmartWallet):
     def send_user_operation(
         self,
         calls: list[EVMCall],
-    ) -> EVMUserOperation:
+    ) -> UserOperation:
         """Send a user operation on the configured network.
 
         Args:
             calls (List[EVMCall]): The calls to send.
 
         Returns:
-            EVMUserOperation: The EVM user operation object.
+            UserOperation: The user operation object.
 
         Raises:
             ValueError: If there's an error sending the operation.
@@ -49,21 +49,19 @@ class EVMNetworkScopedSmartWallet(EVMSmartWallet):
         )
 
     def __str__(self) -> str:
-        """Return a string representation of the EVM NetworkScopedSmartWallet.
+        """Return a string representation of the NetworkScopedSmartWallet.
 
         Returns:
-            str: A string representation of the EVM smart wallet.
+            str: A string representation of the smart wallet.
 
         """
-        return (
-            f"EVM Network Scoped Smart Wallet: {self.address} (Chain ID: {self.network.chain_id})"
-        )
+        return f"Network Scoped Smart Wallet: {self.address} (Chain ID: {self.chain_id})"
 
     def __repr__(self) -> str:
-        """Return a detailed string representation of the EVM NetworkScopedSmartWallet.
+        """Return a detailed string representation of the NetworkScopedSmartWallet.
 
         Returns:
-            str: A detailed string representation of the EVM smart wallet.
+            str: A detailed string representation of the smart wallet.
 
         """
-        return f"EVM Network Scoped Smart Wallet: (model=SmartWalletModel(address='{self.address}'), network=Network(chain_id={self.network.chain_id}, paymaster_url={self.network.paymaster_url!r}))"
+        return f"Network Scoped Smart Wallet: (model=SmartWalletModel(address='{self.address}'), network=Network(chain_id={self.chain_id}, paymaster_url={self.paymaster_url!r}))"

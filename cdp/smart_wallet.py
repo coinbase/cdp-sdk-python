@@ -4,16 +4,16 @@ from web3 import Web3
 from cdp.cdp import Cdp
 from cdp.client.models.create_smart_wallet_request import CreateSmartWalletRequest
 from cdp.evm_call_types import EVMAbiCallDict, EVMCall, EVMCallDict
-from cdp.evm_network_scoped_smart_wallet import EVMNetworkScopedSmartWallet
-from cdp.evm_user_operation import EVMUserOperation
 from cdp.network import Network
+from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
+from cdp.user_operation import UserOperation
 
 
-class EVMSmartWallet:
-    """A class representing an EVM smart wallet."""
+class SmartWallet:
+    """A class representing a smart wallet."""
 
     def __init__(self, smart_wallet_address: str, account: BaseAccount) -> None:
-        """Initialize the EVMSmartWallet class.
+        """Initialize the SmartWallet class.
 
         Args:
             smart_wallet_address (str): The smart wallet address.
@@ -25,10 +25,10 @@ class EVMSmartWallet:
 
     @property
     def address(self) -> str:
-        """Get the EVM Smart Wallet Address.
+        """Get the Smart Wallet Address.
 
         Returns:
-            str: The EVM Smart Wallet Address.
+            str: The Smart Wallet Address.
 
         """
         return self._smart_wallet_address
@@ -47,11 +47,11 @@ class EVMSmartWallet:
     def create(
         cls,
         account: BaseAccount,
-    ) -> "EVMSmartWallet":
-        """Create a new EVM smart wallet.
+    ) -> "SmartWallet":
+        """Create a new smart wallet.
 
         Returns:
-            EVMSmartWallet: The created EVM smart wallet object.
+            SmartWallet: The created smart wallet object.
 
         Raises:
             Exception: If there's an error creating the EVM smart wallet.
@@ -61,11 +61,11 @@ class EVMSmartWallet:
             smart_wallet=CreateSmartWalletRequest(owner=account.address)
         )
         model = Cdp.api_clients.smart_wallets.create_smart_wallet(create_smart_wallet_request)
-        return EVMSmartWallet(model.address, [account])
+        return SmartWallet(model.address, [account])
 
     def use_network(
         self, chain_id: int, paymaster_url: str | None = None
-    ) -> EVMNetworkScopedSmartWallet:
+    ) -> NetworkScopedSmartWallet:
         """Configure the wallet for a specific network.
 
         Args:
@@ -76,7 +76,7 @@ class EVMSmartWallet:
             NetworkScopedSmartWallet: A network-scoped version of the wallet
 
         """
-        return EVMNetworkScopedSmartWallet(
+        return NetworkScopedSmartWallet(
             self._smart_wallet_address, self.owners[0], chain_id, paymaster_url
         )
 
@@ -85,7 +85,7 @@ class EVMSmartWallet:
         calls: list[EVMCall],
         chain_id: int,
         paymaster_url: str,
-    ) -> EVMUserOperation:
+    ) -> UserOperation:
         """Send a user operation.
 
         Args:
@@ -114,14 +114,13 @@ class EVMSmartWallet:
                 encoded_call = EVMCallDict(data=call.data, to=call.to, value=call.value)
             encoded_calls.append(encoded_call)
 
-        user_operation = EVMUserOperation.create(
+        user_operation = UserOperation.create(
             smart_wallet_address=self._smart_wallet_address,
             network_id=network.id,
             calls=encoded_calls,
             paymaster_url=paymaster_url,
         )
 
-        # sign time
         owner = self.owners[0]
         user_operation.sign(owner)
         user_operation.broadcast()
@@ -146,18 +145,18 @@ class EVMSmartWallet:
         return str(self)
 
 
-def to_smart_wallet(smart_wallet_address: str, signer: BaseAccount) -> "EVMSmartWallet":
-    """Construct an existing EVM smart wallet by its address and the signer.
+def to_smart_wallet(smart_wallet_address: str, signer: BaseAccount) -> "SmartWallet":
+    """Construct an existing smart wallet by its address and the signer.
 
     Args:
         smart_wallet_address (str): The address of the smart wallet to retrieve.
         signer (BaseAccount): The signer to use for the smart wallet.
 
     Returns:
-        EVMSmartWallet: The retrieved EVM smart wallet object.
+        SmartWallet: The retrieved smart wallet object.
 
     Raises:
-        Exception: If there's an error retrieving the EVM smart wallet.
+        Exception: If there's an error retrieving the smart wallet.
 
     """
-    return EVMSmartWallet(smart_wallet_address, [signer])
+    return SmartWallet(smart_wallet_address, [signer])

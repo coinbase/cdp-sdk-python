@@ -9,11 +9,11 @@ from cdp.client.models.user_operation import UserOperation as UserOperationModel
 from cdp.evm_call_types import EVMCall
 
 
-class EVMUserOperation:
-    """A class representing an EVM user operation."""
+class UserOperation:
+    """A class representing a user operation."""
 
     def __init__(self, model: UserOperationModel) -> None:
-        """Initialize the EVMUserOperation class.
+        """Initialize the UserOperation class.
 
         Args:
             model (UserOperationModel): The model representing the user operation.
@@ -69,8 +69,8 @@ class EVMUserOperation:
         network_id: str,
         calls: list[EVMCall],
         paymaster_url: str | None = None,
-    ) -> "EVMUserOperation":
-        """Create a new EVMUserOperation object.
+    ) -> "UserOperation":
+        """Create a new UserOperation object.
 
         Args:
             smart_wallet_address (str): The smart wallet address.
@@ -79,7 +79,7 @@ class EVMUserOperation:
             paymaster_url (Optional[str]): The paymaster URL.
 
         Returns:
-            EVMUserOperation: The new EVMUserOperation object.
+            UserOperation: The new UserOperation object.
 
         """
         create_user_operation_request = CreateUserOperationRequest(
@@ -91,23 +91,23 @@ class EVMUserOperation:
             )
         )
         model = Cdp.api_clients.smart_wallets.create_user_operation(create_user_operation_request)
-        return EVMUserOperation(model)
+        return UserOperation(model)
 
-    def sign(self, account: BaseAccount) -> "EVMUserOperation":
+    def sign(self, account: BaseAccount) -> "UserOperation":
         """Sign the user operation.
 
         Returns:
-            EVMUserOperation: The signed EVM user operation.
+            UserOperation: The signed UserOperation.
 
         """
         self._signature = account.unsafe_sign_hash(self.unsigned_payload)
         return self
 
-    def broadcast(self) -> "EVMUserOperation":
+    def broadcast(self) -> "UserOperation":
         """Broadcast the user operation.
 
         Returns:
-            EVMUserOperation: The broadcasted EVM user operation.
+            UserOperation: The broadcasted UserOperation.
 
         """
         broadcast_user_operation_request = BroadcastUserOperationRequest(
@@ -117,11 +117,9 @@ class EVMUserOperation:
         model = Cdp.api_clients.smart_wallets.broadcast_user_operation(
             broadcast_user_operation_request
         )
-        return EVMUserOperation(model)
+        return UserOperation(model)
 
-    def wait(
-        self, interval_seconds: float = 0.2, timeout_seconds: float = 20
-    ) -> "EVMUserOperation":
+    def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 20) -> "UserOperation":
         """Wait until the user operation is processed or fails by polling the server.
 
         Args:
@@ -129,10 +127,10 @@ class EVMUserOperation:
             timeout_seconds: The maximum time to wait before timing out.
 
         Returns:
-            EVMUserOperation: The completed EVM user operation.
+            UserOperation: The completed UserOperation.
 
         Raises:
-            TimeoutError: If the EVM user operation takes longer than the given timeout.
+            TimeoutError: If the user operation takes longer than the given timeout.
 
         """
         start_time = time.time()
@@ -146,11 +144,11 @@ class EVMUserOperation:
 
         return self
 
-    def reload(self) -> "EVMUserOperation":
-        """Reload the EVMUserOperation model with the latest version from the server.
+    def reload(self) -> "UserOperation":
+        """Reload the UserOperation model with the latest version from the server.
 
         Returns:
-            EVMUserOperation: The updated EVMUserOperation object.
+            UserOperation: The updated UserOperation object.
 
         """
         model = Cdp.api_clients.smart_wallets.get_user_operation(
@@ -162,9 +160,9 @@ class EVMUserOperation:
         return self
 
     def __str__(self) -> str:
-        """Return a string representation of the EVM user operation."""
-        return f"EVMUserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
+        """Return a string representation of the UserOperation."""
+        return f"UserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
 
     def __repr__(self) -> str:
-        """Return a string representation of the EVM user operation."""
+        """Return a string representation of the UserOperation."""
         return str(self)

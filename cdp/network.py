@@ -13,8 +13,7 @@ _CHAIN_ID_TO_NETWORK_ID: dict[SupportedChainId, NetworkIdentifier] = {
 
 @dataclass(frozen=True)
 class Network:
-    """Represents a network with its chain ID and network identifier.
-    """
+    """Represents a network with its chain ID and network identifier."""
 
     _chain_id: SupportedChainId
     _network_id: NetworkIdentifier
