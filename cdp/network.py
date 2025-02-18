@@ -6,8 +6,8 @@ from cdp.client.models.network_identifier import NetworkIdentifier
 SupportedChainId = Literal[8453, 84532]
 
 _CHAIN_ID_TO_NETWORK_ID: dict[SupportedChainId, NetworkIdentifier] = {
-    8453: NetworkIdentifier.BASE_MAINNET,
-    84532: NetworkIdentifier.BASE_SEPOLIA,
+    8453: "base-mainnet",
+    84532: "base-sepolia",
 }
 
 

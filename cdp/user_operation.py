@@ -1,4 +1,5 @@
 import time
+from enum import Enum
 
 from eth_account.signers.base import BaseAccount
 
@@ -12,7 +13,35 @@ from cdp.evm_call_types import EVMCall
 class UserOperation:
     """A class representing a user operation."""
 
-    def __init__(self, model: UserOperationModel) -> None:
+    class Status(Enum):
+        """Enumeration of User Operation statuses."""
+
+        PENDING = "pending"
+        SIGNED = "signed"
+        BROADCAST = "broadcast"
+        COMPLETE = "complete"
+        FAILED = "failed"
+        UNSPECIFIED = "unspecified"
+
+        @classmethod
+        def terminal_states(cls):
+            """Get the terminal states.
+
+            Returns:
+                List[str]: The terminal states.
+
+            """
+            return [cls.COMPLETE, cls.FAILED]
+
+        def __str__(self) -> str:
+            """Return a string representation of the Status."""
+            return self.value
+
+        def __repr__(self) -> str:
+            """Return a string representation of the Status."""
+            return str(self)
+
+    def __init__(self, model: UserOperationModel, smart_wallet_address: str) -> None:
         """Initialize the UserOperation class.
 
         Args:
@@ -20,7 +49,18 @@ class UserOperation:
 
         """
         self._model = model
+        self._smart_wallet_address = smart_wallet_address
         self._signature = None
+
+    @property
+    def smart_wallet_address(self) -> str:
+        """Get the smart wallet address of the user operation.
+
+        Returns:
+            str: The smart wallet address.
+
+        """
+        return self._smart_wallet_address
 
     @property
     def user_operation_id(self) -> str:
@@ -30,7 +70,7 @@ class UserOperation:
             str: The user operation ID.
 
         """
-        return self._model.user_operation_id
+        return self._model.id
 
     @property
     def unsigned_payload(self) -> str:
@@ -43,24 +83,39 @@ class UserOperation:
         return self._model.unsigned_payload
 
     @property
-    def smart_wallet_address(self) -> str:
-        """Get the smart wallet address of the user operation.
+    def signature(self) -> str:
+        """Get the signature of the user operation.
 
         Returns:
-            str: The smart wallet address.
+            str: The signature of the user operation.
 
         """
-        return self._model.smart_wallet_address
+        return self._signature
 
     @property
-    def status(self) -> str:
-        """Get the status of the contract invocation.
+    def status(self) -> Status:
+        """Get the status of the user operation.
 
         Returns:
             str: The status.
 
         """
-        return self.transaction.status if self.transaction else None
+        return self.Status(self._model.status)
+
+    @property
+    def terminal_state(self) -> bool:
+        """Check if the User Operation is in a terminal state."""
+        return self.status in self.Status.terminal_states()
+
+    @property
+    def transaction_hash(self) -> str:
+        """Get the transaction hash of the user operation.
+
+        Returns:
+            str: The transaction hash.
+
+        """
+        return self._model.transaction_hash
 
     @classmethod
     def create(
@@ -83,15 +138,13 @@ class UserOperation:
 
         """
         create_user_operation_request = CreateUserOperationRequest(
-            user_operation=CreateUserOperationRequest(
-                smart_wallet_address=smart_wallet_address,
-                network_id=network_id,
-                calls=calls,
-                paymaster_url=paymaster_url,
-            )
+            calls=calls,
+            paymaster_url=paymaster_url,
         )
-        model = Cdp.api_clients.smart_wallets.create_user_operation(create_user_operation_request)
-        return UserOperation(model)
+        model = Cdp.api_clients.smart_wallets.create_user_operation(
+            smart_wallet_address, network_id, create_user_operation_request
+        )
+        return UserOperation(model, smart_wallet_address)
 
     def sign(self, account: BaseAccount) -> "UserOperation":
         """Sign the user operation.
@@ -100,7 +153,8 @@ class UserOperation:
             UserOperation: The signed UserOperation.
 
         """
-        self._signature = account.unsafe_sign_hash(self.unsigned_payload)
+        signed_message = account.unsafe_sign_hash(self.unsigned_payload)
+        self._signature = "0x" + signed_message.signature.hex()
         return self
 
     def broadcast(self) -> "UserOperation":
@@ -111,13 +165,14 @@ class UserOperation:
 
         """
         broadcast_user_operation_request = BroadcastUserOperationRequest(
-            user_operation_id=self.user_operation_id,
-            signature=self._signature,
+            signature=self.signature,
         )
         model = Cdp.api_clients.smart_wallets.broadcast_user_operation(
-            broadcast_user_operation_request
+            smart_wallet_address=self.smart_wallet_address,
+            user_operation_id=self.user_operation_id,
+            broadcast_user_operation_request=broadcast_user_operation_request,
         )
-        return UserOperation(model)
+        return UserOperation(model, self.smart_wallet_address)
 
     def wait(self, interval_seconds: float = 0.2, timeout_seconds: float = 20) -> "UserOperation":
         """Wait until the user operation is processed or fails by polling the server.
@@ -134,11 +189,11 @@ class UserOperation:
 
         """
         start_time = time.time()
-        while not self.status:
+        while not self.terminal_state:
             self.reload()
 
             if time.time() - start_time > timeout_seconds:
-                raise TimeoutError("Contract Invocation timed out")
+                raise TimeoutError("User Operation timed out")
 
             time.sleep(interval_seconds)
 
@@ -152,6 +207,7 @@ class UserOperation:
 
         """
         model = Cdp.api_clients.smart_wallets.get_user_operation(
+            smart_wallet_address=self.smart_wallet_address,
             user_operation_id=self.user_operation_id,
         )
 
@@ -161,7 +217,9 @@ class UserOperation:
 
     def __str__(self) -> str:
         """Return a string representation of the UserOperation."""
-        return f"UserOperation: (user_operation_id: {self.user_operation_id}, smart_wallet_address: {self.smart_wallet_address}, status: {self.status})"
+        return (
+            f"UserOperation: (user_operation_id: {self.user_operation_id}, status: {self.status})"
+        )
 
     def __repr__(self) -> str:
         """Return a string representation of the UserOperation."""

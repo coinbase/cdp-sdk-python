@@ -1,12 +1,17 @@
+from typing import TYPE_CHECKING
+
 from eth_account.signers.base import BaseAccount
 from web3 import Web3
 
 from cdp.cdp import Cdp
+from cdp.client.models.call import Call
 from cdp.client.models.create_smart_wallet_request import CreateSmartWalletRequest
-from cdp.evm_call_types import EVMAbiCallDict, EVMCall, EVMCallDict
+from cdp.evm_call_types import EVMAbiCallDict, EVMCall
 from cdp.network import Network
-from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
 from cdp.user_operation import UserOperation
+
+if TYPE_CHECKING:
+    from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
 
 
 class SmartWallet:
@@ -21,7 +26,7 @@ class SmartWallet:
 
         """
         self._smart_wallet_address = smart_wallet_address
-        self.owners = [account]
+        self._owners = [account]
 
     @property
     def address(self) -> str:
@@ -41,7 +46,7 @@ class SmartWallet:
             List[BaseAccount]: List of owner accounts
 
         """
-        return self.owners
+        return self._owners
 
     @classmethod
     def create(
@@ -57,15 +62,13 @@ class SmartWallet:
             Exception: If there's an error creating the EVM smart wallet.
 
         """
-        create_smart_wallet_request = CreateSmartWalletRequest(
-            smart_wallet=CreateSmartWalletRequest(owner=account.address)
-        )
+        create_smart_wallet_request = CreateSmartWalletRequest(owner=account.address)
         model = Cdp.api_clients.smart_wallets.create_smart_wallet(create_smart_wallet_request)
-        return SmartWallet(model.address, [account])
+        return SmartWallet(model.address, account)
 
     def use_network(
         self, chain_id: int, paymaster_url: str | None = None
-    ) -> NetworkScopedSmartWallet:
+    ) -> "NetworkScopedSmartWallet":
         """Configure the wallet for a specific network.
 
         Args:
@@ -76,15 +79,14 @@ class SmartWallet:
             NetworkScopedSmartWallet: A network-scoped version of the wallet
 
         """
+        from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
+
         return NetworkScopedSmartWallet(
             self._smart_wallet_address, self.owners[0], chain_id, paymaster_url
         )
 
     def send_user_operation(
-        self,
-        calls: list[EVMCall],
-        chain_id: int,
-        paymaster_url: str,
+        self, calls: list[EVMCall], chain_id: int, paymaster_url: str | None = None
     ) -> UserOperation:
         """Send a user operation.
 
@@ -106,17 +108,17 @@ class SmartWallet:
         for call in calls:
             if isinstance(call, EVMAbiCallDict):
                 contract = Web3().eth.contract(address=call.to, abi=call.abi)
-
-                encoded_data = contract.encode_abi(call.function_name, args=call.args)
-
-                encoded_call = EVMCallDict(data=encoded_data, to=call.to, value=call.value)
+                data = contract.encode_abi(call.function_name, args=call.args)
+                value = "0" if call.value is None else str(call.value)
+                encoded_calls.append(Call(to=str(call.to), data=data, value=value))
             else:
-                encoded_call = EVMCallDict(data=call.data, to=call.to, value=call.value)
-            encoded_calls.append(encoded_call)
+                value = "0" if call.value is None else str(call.value)
+                data = "0x" if call.data is None else call.data
+                encoded_calls.append(Call(to=str(call.to), data=data, value=value))
 
         user_operation = UserOperation.create(
             smart_wallet_address=self._smart_wallet_address,
-            network_id=network.id,
+            network_id=network.network_id,
             calls=encoded_calls,
             paymaster_url=paymaster_url,
         )
