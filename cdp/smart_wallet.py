@@ -1,5 +1,3 @@
-from typing import TYPE_CHECKING
-
 from eth_account.signers.base import BaseAccount
 from web3 import Web3
 
@@ -9,9 +7,6 @@ from cdp.client.models.create_smart_wallet_request import CreateSmartWalletReque
 from cdp.evm_call_types import EVMAbiCallDict, EVMCall
 from cdp.network import Network
 from cdp.user_operation import UserOperation
-
-if TYPE_CHECKING:
-    from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
 
 
 class SmartWallet:
@@ -25,8 +20,8 @@ class SmartWallet:
             account (BaseAccount): The owner of the smart wallet.
 
         """
-        self._smart_wallet_address = smart_wallet_address
-        self._owners = [account]
+        self.__smart_wallet_address = smart_wallet_address
+        self.__owners = [account]
 
     @property
     def address(self) -> str:
@@ -36,7 +31,7 @@ class SmartWallet:
             str: The Smart Wallet Address.
 
         """
-        return self._smart_wallet_address
+        return self.__smart_wallet_address
 
     @property
     def owners(self) -> list[BaseAccount]:
@@ -46,7 +41,7 @@ class SmartWallet:
             List[BaseAccount]: List of owner accounts
 
         """
-        return self._owners
+        return self.__owners
 
     @classmethod
     def create(
@@ -79,10 +74,8 @@ class SmartWallet:
             NetworkScopedSmartWallet: A network-scoped version of the wallet
 
         """
-        from cdp.network_scoped_smart_wallet import NetworkScopedSmartWallet
-
         return NetworkScopedSmartWallet(
-            self._smart_wallet_address, self.owners[0], chain_id, paymaster_url
+            self.__smart_wallet_address, self.owners[0], chain_id, paymaster_url
         )
 
     def send_user_operation(
@@ -117,7 +110,7 @@ class SmartWallet:
                 encoded_calls.append(Call(to=str(call.to), data=data, value=value))
 
         user_operation = UserOperation.create(
-            smart_wallet_address=self._smart_wallet_address,
+            smart_wallet_address=self.__smart_wallet_address,
             network_id=network.network_id,
             calls=encoded_calls,
             paymaster_url=paymaster_url,
@@ -135,7 +128,7 @@ class SmartWallet:
             str: A string representation of the SmartWallet.
 
         """
-        return f"Smart Wallet Address: (id: {self.id})"
+        return f"Smart Wallet Address: {self.address}"
 
     def __repr__(self) -> str:
         """Return a string representation of the Wallet object.
@@ -145,6 +138,88 @@ class SmartWallet:
 
         """
         return str(self)
+
+
+class NetworkScopedSmartWallet(SmartWallet):
+    """A smart wallet that's configured for a specific network."""
+
+    def __init__(
+        self,
+        smart_wallet_address: str,
+        account: BaseAccount,
+        chain_id: int,
+        paymaster_url: str | None = None,
+    ) -> None:
+        """Initialize the NetworkScopedSmartWallet.
+
+        Args:
+            smart_wallet_address (str): The smart wallet address
+            account (BaseAccount): The account that owns the smart wallet
+            chain_id (int): The chain ID
+            paymaster_url (Optional[str]): The paymaster URL
+
+        """
+        super().__init__(smart_wallet_address, account)
+        self.__chain_id = chain_id
+        self.__paymaster_url = paymaster_url
+
+    @property
+    def chain_id(self) -> int:
+        """Get the chain ID.
+
+        Returns:
+            int: The chain ID.
+
+        """
+        return self.__chain_id
+
+    @property
+    def paymaster_url(self) -> str | None:
+        """Get the paymaster URL.
+
+        Returns:
+            str | None: The paymaster URL.
+
+        """
+        return self.__paymaster_url
+
+    def send_user_operation(
+        self,
+        calls: list[EVMCall],
+    ) -> UserOperation:
+        """Send a user operation on the configured network.
+
+        Args:
+            calls (List[EVMCall]): The calls to send.
+
+        Returns:
+            UserOperation: The user operation object.
+
+        Raises:
+            ValueError: If there's an error sending the operation.
+
+        """
+        return super().send_user_operation(
+            calls=calls, chain_id=self.chain_id, paymaster_url=self.paymaster_url
+        )
+
+    def __str__(self) -> str:
+        """Return a string representation of the NetworkScopedSmartWallet.
+
+        Returns:
+            str: A string representation of the smart wallet.
+
+        """
+        return f"Network Scoped Smart Wallet: {self.address} (Chain ID: {self.chain_id})"
+
+    def __repr__(self) -> str:
+        """Return a detailed string representation of the NetworkScopedSmartWallet.
+
+        Returns:
+            str: A detailed string representation of the smart wallet.
+
+        """
+        return f"Network Scoped Smart Wallet: (model=SmartWalletModel(address='{self.address}'), network=Network(chain_id={self.chain_id}, paymaster_url={self.paymaster_url!r}))"
 
 
 def to_smart_wallet(smart_wallet_address: str, signer: BaseAccount) -> "SmartWallet":
@@ -161,4 +236,4 @@ def to_smart_wallet(smart_wallet_address: str, signer: BaseAccount) -> "SmartWal
         Exception: If there's an error retrieving the smart wallet.
 
     """
-    return SmartWallet(smart_wallet_address, [signer])
+    return SmartWallet(smart_wallet_address, signer)
