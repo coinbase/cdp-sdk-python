@@ -108,6 +108,14 @@ cdp.client.api.smart\_contracts\_api module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.api.smart\_wallets\_api module
+-----------------------------------------
+
+.. automodule:: cdp.client.api.smart_wallets_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.api.stake\_api module
 --------------------------------
 

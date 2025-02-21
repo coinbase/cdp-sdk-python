@@ -100,6 +100,22 @@ cdp.client.models.broadcast\_contract\_invocation\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.broadcast\_external\_transaction200\_response module
+----------------------------------------------------------------------
+
+.. automodule:: cdp.client.models.broadcast_external_transaction200_response
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.broadcast\_external\_transaction\_request module
+------------------------------------------------------------------
+
+.. automodule:: cdp.client.models.broadcast_external_transaction_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.broadcast\_external\_transfer\_request module
 ---------------------------------------------------------------
 
@@ -132,10 +148,26 @@ cdp.client.models.broadcast\_transfer\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.broadcast\_user\_operation\_request module
+------------------------------------------------------------
+
+.. automodule:: cdp.client.models.broadcast_user_operation_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.build\_staking\_operation\_request module
 -----------------------------------------------------------
 
 .. automodule:: cdp.client.models.build_staking_operation_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.call module
+-----------------------------
+
+.. automodule:: cdp.client.models.call
    :members:
    :undoc-members:
    :show-inheritance:
@@ -252,6 +284,14 @@ cdp.client.models.create\_smart\_contract\_request module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.create\_smart\_wallet\_request module
+-------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_smart_wallet_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.create\_staking\_operation\_request module
 ------------------------------------------------------------
 
@@ -272,6 +312,14 @@ cdp.client.models.create\_transfer\_request module
 --------------------------------------------------
 
 .. automodule:: cdp.client.models.create_transfer_request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.create\_user\_operation\_request module
+---------------------------------------------------------
+
+.. automodule:: cdp.client.models.create_user_operation_request
    :members:
    :undoc-members:
    :show-inheritance:
@@ -708,6 +756,22 @@ cdp.client.models.smart\_contract\_type module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.smart\_wallet module
+--------------------------------------
+
+.. automodule:: cdp.client.models.smart_wallet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.smart\_wallet\_list module
+--------------------------------------------
+
+.. automodule:: cdp.client.models.smart_wallet_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.solidity\_value module
 ----------------------------------------
 
@@ -836,6 +900,22 @@ cdp.client.models.transaction\_content module
    :undoc-members:
    :show-inheritance:
 
+cdp.client.models.transaction\_log module
+-----------------------------------------
+
+.. automodule:: cdp.client.models.transaction_log
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.transaction\_receipt module
+---------------------------------------------
+
+.. automodule:: cdp.client.models.transaction_receipt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.client.models.transaction\_type module
 ------------------------------------------
 
@@ -880,6 +960,14 @@ cdp.client.models.user module
 -----------------------------
 
 .. automodule:: cdp.client.models.user
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.user\_operation module
+----------------------------------------
+
+.. automodule:: cdp.client.models.user_operation
    :members:
    :undoc-members:
    :show-inheritance:
@@ -976,6 +1064,14 @@ cdp.client.models.webhook\_smart\_contract\_event\_filter module
 ----------------------------------------------------------------
 
 .. automodule:: cdp.client.models.webhook_smart_contract_event_filter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.client.models.webhook\_status module
+----------------------------------------
+
+.. automodule:: cdp.client.models.webhook_status
    :members:
    :undoc-members:
    :show-inheritance:
