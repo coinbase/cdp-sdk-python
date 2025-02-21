@@ -84,7 +84,7 @@ class SmartWallet:
         """Send a user operation.
 
         Args:
-            calls (List[Call]): The calls to send.
+            calls (List[EVMCall]): The calls to send.
             chain_id (int): The chain ID.
             paymaster_url (str): The paymaster URL.
 

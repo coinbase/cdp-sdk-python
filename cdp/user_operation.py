@@ -5,9 +5,9 @@ from eth_account.signers.base import BaseAccount
 
 from cdp.cdp import Cdp
 from cdp.client.models.broadcast_user_operation_request import BroadcastUserOperationRequest
+from cdp.client.models.call import Call
 from cdp.client.models.create_user_operation_request import CreateUserOperationRequest
 from cdp.client.models.user_operation import UserOperation as UserOperationModel
-from cdp.evm_call_types import EVMCall
 
 
 class UserOperation:
@@ -123,7 +123,7 @@ class UserOperation:
         cls,
         smart_wallet_address: str,
         network_id: str,
-        calls: list[EVMCall],
+        calls: list[Call],
         paymaster_url: str | None = None,
     ) -> "UserOperation":
         """Create a new UserOperation object.
@@ -131,7 +131,7 @@ class UserOperation:
         Args:
             smart_wallet_address (str): The smart wallet address.
             network_id (str): The Network ID.
-            calls (list[EVMCall]): The calls to send.
+            calls (list[Call]): The calls to send.
             paymaster_url (Optional[str]): The paymaster URL.
 
         Returns:
