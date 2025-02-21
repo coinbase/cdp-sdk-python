@@ -172,6 +172,7 @@ def test_historical_balances(imported_wallet):
     assert balances
     assert all(balance.amount > 0 for balance in balances)
 
+
 # CDPSDK-265: Flaky test
 # @pytest.mark.e2e
 # def test_invoke_contract_with_transaction_receipt(imported_wallet):
