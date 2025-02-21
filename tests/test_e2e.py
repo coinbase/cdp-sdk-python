@@ -95,34 +95,34 @@ def test_wallet_transfer(imported_wallet):
 
 
 # CDPSDK-265: Flaky test
-# @pytest.mark.e2e
-# def test_transaction_history(imported_wallet):
-#     """Test transaction history retrieval."""
-#     destination_wallet = Wallet.create()
+@pytest.mark.skip(reason="Flaky test")
+def test_transaction_history(imported_wallet):
+    """Test transaction history retrieval."""
+    destination_wallet = Wallet.create()
 
-#     initial_source_balance = imported_wallet.balance("eth")
-#     if initial_source_balance < 0.0001:
-#         try:
-#             imported_wallet.faucet().wait()
-#         except FaucetLimitReachedError:
-#             print("Faucet limit reached, continuing...")
+    initial_source_balance = imported_wallet.balance("eth")
+    if initial_source_balance < 0.0001:
+        try:
+            imported_wallet.faucet().wait()
+        except FaucetLimitReachedError:
+            print("Faucet limit reached, continuing...")
 
-#     transfer = imported_wallet.transfer(
-#         amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
-#     ).wait()
+    transfer = imported_wallet.transfer(
+        amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
+    ).wait()
 
-#     time.sleep(10)
+    time.sleep(10)
 
-#     transactions = imported_wallet.default_address.transactions()
-#     matching_tx = None
+    transactions = imported_wallet.default_address.transactions()
+    matching_tx = None
 
-#     for tx in transactions:
-#         if tx.transaction_hash == transfer.transaction_hash:
-#             matching_tx = tx
-#             break
+    for tx in transactions:
+        if tx.transaction_hash == transfer.transaction_hash:
+            matching_tx = tx
+            break
 
-#     assert matching_tx is not None
-#     assert matching_tx.status.value == "complete"
+    assert matching_tx is not None
+    assert matching_tx.status.value == "complete"
 
 
 @pytest.mark.e2e
@@ -174,36 +174,36 @@ def test_historical_balances(imported_wallet):
 
 
 # CDPSDK-265: Flaky test
-# @pytest.mark.e2e
-# def test_invoke_contract_with_transaction_receipt(imported_wallet):
-#     """Test invoke contract with transaction receipt."""
-#     destination_wallet = Wallet.create()
+@pytest.mark.skip(reason="Faucet can be unstable")
+def test_invoke_contract_with_transaction_receipt(imported_wallet):
+    """Test invoke contract with transaction receipt."""
+    destination_wallet = Wallet.create()
 
-#     faucet_transaction = imported_wallet.faucet("usdc")
-#     faucet_transaction.wait()
+    faucet_transaction = imported_wallet.faucet("usdc")
+    faucet_transaction.wait()
 
-#     # Transfer 0.000001 USDC to the destination address.
-#     invocation = imported_wallet.invoke_contract(
-#         contract_address="0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-#         method="transfer",
-#         args={"to": destination_wallet.default_address.address_id, "value": "1"},
-#     )
+    # Transfer 0.000001 USDC to the destination address.
+    invocation = imported_wallet.invoke_contract(
+        contract_address="0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+        method="transfer",
+        args={"to": destination_wallet.default_address.address_id, "value": "1"},
+    )
 
-#     invocation.wait()
+    invocation.wait()
 
-#     transaction_content = invocation.transaction.content.actual_instance
-#     transaction_receipt = transaction_content.receipt
+    transaction_content = invocation.transaction.content.actual_instance
+    transaction_receipt = transaction_content.receipt
 
-#     assert transaction_receipt.status == 1
+    assert transaction_receipt.status == 1
 
-#     transaction_logs = transaction_receipt.logs
-#     assert len(transaction_logs) == 1
+    transaction_logs = transaction_receipt.logs
+    assert len(transaction_logs) == 1
 
-#     transaction_log = transaction_logs[0]
-#     assert transaction_log.address == "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
-#     assert transaction_log.topics[0] == "Transfer"
-#     assert transaction_log.topics[1] == f"from: {imported_wallet.default_address.address_id}"
-#     assert transaction_log.topics[2] == f"to: {destination_wallet.default_address.address_id}"
+    transaction_log = transaction_logs[0]
+    assert transaction_log.address == "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+    assert transaction_log.topics[0] == "Transfer"
+    assert transaction_log.topics[1] == f"from: {imported_wallet.default_address.address_id}"
+    assert transaction_log.topics[2] == f"to: {destination_wallet.default_address.address_id}"
 
 
 @pytest.mark.skip(reason="Gasless transfers have unpredictable latency")

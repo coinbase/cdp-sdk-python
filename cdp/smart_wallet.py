@@ -12,15 +12,15 @@ from cdp.user_operation import UserOperation
 class SmartWallet:
     """A class representing a smart wallet."""
 
-    def __init__(self, smart_wallet_address: str, account: BaseAccount) -> None:
+    def __init__(self, address: str, account: BaseAccount) -> None:
         """Initialize the SmartWallet class.
 
         Args:
-            smart_wallet_address (str): The smart wallet address.
+            address (str): The smart wallet address.
             account (BaseAccount): The owner of the smart wallet.
 
         """
-        self.__smart_wallet_address = smart_wallet_address
+        self.__address = address
         self.__owners = [account]
 
     @property
@@ -31,7 +31,7 @@ class SmartWallet:
             str: The Smart Wallet Address.
 
         """
-        return self.__smart_wallet_address
+        return self.__address
 
     @property
     def owners(self) -> list[BaseAccount]:
@@ -74,9 +74,7 @@ class SmartWallet:
             NetworkScopedSmartWallet: A network-scoped version of the wallet
 
         """
-        return NetworkScopedSmartWallet(
-            self.__smart_wallet_address, self.owners[0], chain_id, paymaster_url
-        )
+        return NetworkScopedSmartWallet(self.__address, self.owners[0], chain_id, paymaster_url)
 
     def send_user_operation(
         self, calls: list[ContractCall], chain_id: int, paymaster_url: str | None = None
@@ -113,10 +111,10 @@ class SmartWallet:
                 encoded_calls.append(Call(to=str(call.to), data=data, value=value))
 
         user_operation = UserOperation.create(
-            smart_wallet_address=self.__smart_wallet_address,
-            network_id=network.network_id,
-            calls=encoded_calls,
-            paymaster_url=paymaster_url,
+            self.__address,
+            network.network_id,
+            encoded_calls,
+            paymaster_url,
         )
 
         owner = self.owners[0]
