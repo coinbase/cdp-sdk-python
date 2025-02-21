@@ -20,6 +20,9 @@ from cdp.wallet import Wallet
 from cdp.wallet_address import WalletAddress
 from cdp.wallet_data import WalletData
 from cdp.webhook import Webhook
+from cdp.network import Network, SupportedChainId
+from cdp.evm_call_types import EncodedCall, FunctionCall
+from cdp.user_operation import UserOperation
 
 __all__ = [
     "Address",
@@ -47,7 +50,6 @@ __all__ = [
     "hash_message",
     "hash_typed_data_message",
     "Network",
-    "from_chain_id",
     "SupportedChainId",
     "EncodedCall",
     "FunctionCall",
