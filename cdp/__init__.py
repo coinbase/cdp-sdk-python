@@ -49,4 +49,7 @@ __all__ = [
     "Network",
     "from_chain_id",
     "SupportedChainId",
+    "EncodedCall",
+    "FunctionCall",
+    "UserOperation",
 ]
