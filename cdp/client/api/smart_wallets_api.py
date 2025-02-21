@@ -48,7 +48,7 @@ class SmartWalletsApi:
     def broadcast_user_operation(
         self,
         smart_wallet_address: Annotated[StrictStr, Field(description="The address of the smart wallet to broadcast the user operation from.")],
-        user_operation_id: Annotated[StrictStr, Field(description="The ID of the user operation to broadcast.")],
+        user_op_hash: Annotated[StrictStr, Field(description="The hash of the user operation to broadcast")],
         broadcast_user_operation_request: Optional[BroadcastUserOperationRequest] = None,
         _request_timeout: Union[
             None,
@@ -69,8 +69,8 @@ class SmartWalletsApi:
 
         :param smart_wallet_address: The address of the smart wallet to broadcast the user operation from. (required)
         :type smart_wallet_address: str
-        :param user_operation_id: The ID of the user operation to broadcast. (required)
-        :type user_operation_id: str
+        :param user_op_hash: The hash of the user operation to broadcast (required)
+        :type user_op_hash: str
         :param broadcast_user_operation_request:
         :type broadcast_user_operation_request: BroadcastUserOperationRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -97,7 +97,7 @@ class SmartWalletsApi:
 
         _param = self._broadcast_user_operation_serialize(
             smart_wallet_address=smart_wallet_address,
-            user_operation_id=user_operation_id,
+            user_op_hash=user_op_hash,
             broadcast_user_operation_request=broadcast_user_operation_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -123,7 +123,7 @@ class SmartWalletsApi:
     def broadcast_user_operation_with_http_info(
         self,
         smart_wallet_address: Annotated[StrictStr, Field(description="The address of the smart wallet to broadcast the user operation from.")],
-        user_operation_id: Annotated[StrictStr, Field(description="The ID of the user operation to broadcast.")],
+        user_op_hash: Annotated[StrictStr, Field(description="The hash of the user operation to broadcast")],
         broadcast_user_operation_request: Optional[BroadcastUserOperationRequest] = None,
         _request_timeout: Union[
             None,
@@ -144,8 +144,8 @@ class SmartWalletsApi:
 
         :param smart_wallet_address: The address of the smart wallet to broadcast the user operation from. (required)
         :type smart_wallet_address: str
-        :param user_operation_id: The ID of the user operation to broadcast. (required)
-        :type user_operation_id: str
+        :param user_op_hash: The hash of the user operation to broadcast (required)
+        :type user_op_hash: str
         :param broadcast_user_operation_request:
         :type broadcast_user_operation_request: BroadcastUserOperationRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -172,7 +172,7 @@ class SmartWalletsApi:
 
         _param = self._broadcast_user_operation_serialize(
             smart_wallet_address=smart_wallet_address,
-            user_operation_id=user_operation_id,
+            user_op_hash=user_op_hash,
             broadcast_user_operation_request=broadcast_user_operation_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -198,7 +198,7 @@ class SmartWalletsApi:
     def broadcast_user_operation_without_preload_content(
         self,
         smart_wallet_address: Annotated[StrictStr, Field(description="The address of the smart wallet to broadcast the user operation from.")],
-        user_operation_id: Annotated[StrictStr, Field(description="The ID of the user operation to broadcast.")],
+        user_op_hash: Annotated[StrictStr, Field(description="The hash of the user operation to broadcast")],
         broadcast_user_operation_request: Optional[BroadcastUserOperationRequest] = None,
         _request_timeout: Union[
             None,
@@ -219,8 +219,8 @@ class SmartWalletsApi:
 
         :param smart_wallet_address: The address of the smart wallet to broadcast the user operation from. (required)
         :type smart_wallet_address: str
-        :param user_operation_id: The ID of the user operation to broadcast. (required)
-        :type user_operation_id: str
+        :param user_op_hash: The hash of the user operation to broadcast (required)
+        :type user_op_hash: str
         :param broadcast_user_operation_request:
         :type broadcast_user_operation_request: BroadcastUserOperationRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -247,7 +247,7 @@ class SmartWalletsApi:
 
         _param = self._broadcast_user_operation_serialize(
             smart_wallet_address=smart_wallet_address,
-            user_operation_id=user_operation_id,
+            user_op_hash=user_op_hash,
             broadcast_user_operation_request=broadcast_user_operation_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -268,7 +268,7 @@ class SmartWalletsApi:
     def _broadcast_user_operation_serialize(
         self,
         smart_wallet_address,
-        user_operation_id,
+        user_op_hash,
         broadcast_user_operation_request,
         _request_auth,
         _content_type,
@@ -293,8 +293,8 @@ class SmartWalletsApi:
         # process the path parameters
         if smart_wallet_address is not None:
             _path_params['smart_wallet_address'] = smart_wallet_address
-        if user_operation_id is not None:
-            _path_params['user_operation_id'] = user_operation_id
+        if user_op_hash is not None:
+            _path_params['user_op_hash'] = user_op_hash
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -332,7 +332,7 @@ class SmartWalletsApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v1/smart_wallets/{smart_wallet_address}/user_operations/{user_operation_id}/broadcast',
+            resource_path='/v1/smart_wallets/{smart_wallet_address}/user_operations/{user_op_hash}/broadcast',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1192,7 +1192,7 @@ class SmartWalletsApi:
     def get_user_operation(
         self,
         smart_wallet_address: Annotated[StrictStr, Field(description="The address of the smart wallet the user operation belongs to.")],
-        user_operation_id: Annotated[StrictStr, Field(description="The ID of the user operation to fetch.")],
+        user_op_hash: Annotated[StrictStr, Field(description="The hash of the user operation to fetch")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1212,8 +1212,8 @@ class SmartWalletsApi:
 
         :param smart_wallet_address: The address of the smart wallet the user operation belongs to. (required)
         :type smart_wallet_address: str
-        :param user_operation_id: The ID of the user operation to fetch. (required)
-        :type user_operation_id: str
+        :param user_op_hash: The hash of the user operation to fetch (required)
+        :type user_op_hash: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1238,7 +1238,7 @@ class SmartWalletsApi:
 
         _param = self._get_user_operation_serialize(
             smart_wallet_address=smart_wallet_address,
-            user_operation_id=user_operation_id,
+            user_op_hash=user_op_hash,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1263,7 +1263,7 @@ class SmartWalletsApi:
     def get_user_operation_with_http_info(
         self,
         smart_wallet_address: Annotated[StrictStr, Field(description="The address of the smart wallet the user operation belongs to.")],
-        user_operation_id: Annotated[StrictStr, Field(description="The ID of the user operation to fetch.")],
+        user_op_hash: Annotated[StrictStr, Field(description="The hash of the user operation to fetch")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1283,8 +1283,8 @@ class SmartWalletsApi:
 
         :param smart_wallet_address: The address of the smart wallet the user operation belongs to. (required)
         :type smart_wallet_address: str
-        :param user_operation_id: The ID of the user operation to fetch. (required)
-        :type user_operation_id: str
+        :param user_op_hash: The hash of the user operation to fetch (required)
+        :type user_op_hash: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1309,7 +1309,7 @@ class SmartWalletsApi:
 
         _param = self._get_user_operation_serialize(
             smart_wallet_address=smart_wallet_address,
-            user_operation_id=user_operation_id,
+            user_op_hash=user_op_hash,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1334,7 +1334,7 @@ class SmartWalletsApi:
     def get_user_operation_without_preload_content(
         self,
         smart_wallet_address: Annotated[StrictStr, Field(description="The address of the smart wallet the user operation belongs to.")],
-        user_operation_id: Annotated[StrictStr, Field(description="The ID of the user operation to fetch.")],
+        user_op_hash: Annotated[StrictStr, Field(description="The hash of the user operation to fetch")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1354,8 +1354,8 @@ class SmartWalletsApi:
 
         :param smart_wallet_address: The address of the smart wallet the user operation belongs to. (required)
         :type smart_wallet_address: str
-        :param user_operation_id: The ID of the user operation to fetch. (required)
-        :type user_operation_id: str
+        :param user_op_hash: The hash of the user operation to fetch (required)
+        :type user_op_hash: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1380,7 +1380,7 @@ class SmartWalletsApi:
 
         _param = self._get_user_operation_serialize(
             smart_wallet_address=smart_wallet_address,
-            user_operation_id=user_operation_id,
+            user_op_hash=user_op_hash,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1400,7 +1400,7 @@ class SmartWalletsApi:
     def _get_user_operation_serialize(
         self,
         smart_wallet_address,
-        user_operation_id,
+        user_op_hash,
         _request_auth,
         _content_type,
         _headers,
@@ -1424,8 +1424,8 @@ class SmartWalletsApi:
         # process the path parameters
         if smart_wallet_address is not None:
             _path_params['smart_wallet_address'] = smart_wallet_address
-        if user_operation_id is not None:
-            _path_params['user_operation_id'] = user_operation_id
+        if user_op_hash is not None:
+            _path_params['user_op_hash'] = user_op_hash
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1449,7 +1449,7 @@ class SmartWalletsApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/v1/smart_wallets/{smart_wallet_address}/user_operations/{user_operation_id}',
+            resource_path='/v1/smart_wallets/{smart_wallet_address}/user_operations/{user_op_hash}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

@@ -64,24 +64,14 @@ class UserOperation:
         return self._smart_wallet_address
 
     @property
-    def user_operation_id(self) -> str:
-        """Get the user operation ID.
+    def user_op_hash(self) -> str:
+        """Get the user operation hash.
 
         Returns:
-            str: The user operation ID.
+            str: The user operation hash.
 
         """
-        return self._model.id
-
-    @property
-    def unsigned_payload(self) -> str:
-        """Get the unsigned payload of the user operation.
-
-        Returns:
-            str: The unsigned payload.
-
-        """
-        return self._model.unsigned_payload
+        return self._model.user_op_hash
 
     @property
     def signature(self) -> str:
@@ -154,7 +144,7 @@ class UserOperation:
             UserOperation: The signed UserOperation.
 
         """
-        signed_message = account.unsafe_sign_hash(self.unsigned_payload)
+        signed_message = account.unsafe_sign_hash(self.user_op_hash)
         self._signature = "0x" + signed_message.signature.hex()
         return self
 
@@ -170,7 +160,7 @@ class UserOperation:
         )
         model = Cdp.api_clients.smart_wallets.broadcast_user_operation(
             smart_wallet_address=self.smart_wallet_address,
-            user_operation_id=self.user_operation_id,
+            user_op_hash=self.user_op_hash,
             broadcast_user_operation_request=broadcast_user_operation_request,
         )
         return UserOperation(model, self.smart_wallet_address)
@@ -209,7 +199,7 @@ class UserOperation:
         """
         model = Cdp.api_clients.smart_wallets.get_user_operation(
             smart_wallet_address=self.smart_wallet_address,
-            user_operation_id=self.user_operation_id,
+            user_op_hash=self.user_op_hash,
         )
 
         self._model = model
@@ -218,9 +208,7 @@ class UserOperation:
 
     def __str__(self) -> str:
         """Return a string representation of the UserOperation."""
-        return (
-            f"UserOperation: (user_operation_id: {self.user_operation_id}, status: {self.status})"
-        )
+        return f"UserOperation: (user_op_hash: {self.user_op_hash}, status: {self.status})"
 
     def __repr__(self) -> str:
         """Return a string representation of the UserOperation."""

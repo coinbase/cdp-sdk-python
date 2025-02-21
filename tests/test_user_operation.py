@@ -23,8 +23,7 @@ def test_user_operation_properties(user_operation_model_factory):
     )
     user_operation = UserOperation(model, "0x1234567890123456789012345678901234567890")
     assert user_operation.smart_wallet_address == "0x1234567890123456789012345678901234567890"
-    assert user_operation.user_operation_id == model.id
-    assert user_operation.unsigned_payload == model.unsigned_payload
+    assert user_operation.user_op_hash == model.user_op_hash
     assert user_operation.status == UserOperation.Status.PENDING
     assert user_operation.signature is None
     assert user_operation.transaction_hash == model.transaction_hash
@@ -96,7 +95,7 @@ def test_broadcast_user_operation(mock_api_clients, user_operation_model_factory
     assert result.status == UserOperation.Status.BROADCAST
     mock_broadcast.assert_called_once_with(
         smart_wallet_address=initial_operation.smart_wallet_address,
-        user_operation_id=initial_operation.user_operation_id,
+        user_op_hash=initial_operation.user_op_hash,
         broadcast_user_operation_request=BroadcastUserOperationRequest(signature="0xsignature"),
     )
 
@@ -115,7 +114,7 @@ def test_reload_user_operation(mock_api_clients, user_operation_model_factory):
 
     mock_get_operation.assert_called_once_with(
         smart_wallet_address=pending_operation.smart_wallet_address,
-        user_operation_id=pending_operation.user_operation_id,
+        user_op_hash=pending_operation.user_op_hash,
     )
     assert pending_operation.status == UserOperation.Status.COMPLETE
 
@@ -142,7 +141,7 @@ def test_wait_for_user_operation(
     assert result.status == UserOperation.Status.COMPLETE
     mock_get_operation.assert_called_with(
         smart_wallet_address=pending_operation.smart_wallet_address,
-        user_operation_id=pending_operation.user_operation_id,
+        user_op_hash=pending_operation.user_op_hash,
     )
     assert mock_get_operation.call_count == 2
     mock_sleep.assert_has_calls([call(0.2)] * 2)
@@ -191,7 +190,7 @@ def test_user_operation_str_representation(user_operation_model_factory):
     model = user_operation_model_factory()
     user_operation = UserOperation(model, "0xsmartwallet")
     expected_str = (
-        f"UserOperation: (user_operation_id: {user_operation.user_operation_id}, "
+        f"UserOperation: (user_op_hash: {user_operation.user_op_hash}, "
         f"status: {user_operation.status})"
     )
     assert str(user_operation) == expected_str
