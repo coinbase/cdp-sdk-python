@@ -4,7 +4,7 @@ from web3 import Web3
 from cdp.cdp import Cdp
 from cdp.client.models.call import Call
 from cdp.client.models.create_smart_wallet_request import CreateSmartWalletRequest
-from cdp.evm_call_types import EVMAbiCallDict, EVMCall
+from cdp.evm_call_types import ContractCall, FunctionCall
 from cdp.network import Network
 from cdp.user_operation import UserOperation
 
@@ -79,7 +79,7 @@ class SmartWallet:
         )
 
     def send_user_operation(
-        self, calls: list[EVMCall], chain_id: int, paymaster_url: str | None = None
+        self, calls: list[ContractCall], chain_id: int, paymaster_url: str | None = None
     ) -> UserOperation:
         """Send a user operation.
 
@@ -102,7 +102,7 @@ class SmartWallet:
 
         encoded_calls = []
         for call in calls:
-            if isinstance(call, EVMAbiCallDict):
+            if isinstance(call, FunctionCall):
                 contract = Web3().eth.contract(address=call.to, abi=call.abi)
                 data = contract.encode_abi(call.function_name, args=call.args)
                 value = "0" if call.value is None else str(call.value)
@@ -188,7 +188,7 @@ class NetworkScopedSmartWallet(SmartWallet):
 
     def send_user_operation(
         self,
-        calls: list[EVMCall],
+        calls: list[ContractCall],
     ) -> UserOperation:
         """Send a user operation on the configured network.
 

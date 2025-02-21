@@ -5,7 +5,7 @@ from eth_account import Account
 
 from cdp.client.models.call import Call
 from cdp.client.models.create_smart_wallet_request import CreateSmartWalletRequest
-from cdp.evm_call_types import EVMAbiCallDict, EVMCallDict
+from cdp.evm_call_types import EncodedCall, FunctionCall
 from cdp.smart_wallet import SmartWallet, to_smart_wallet
 from cdp.user_operation import UserOperation
 
@@ -73,7 +73,7 @@ def test_smart_wallet_send_user_operation_with_encoded_call(
     mock_create_user_operation = Mock(return_value=mock_user_operation)
     mock_api_clients.smart_wallets.create_user_operation = mock_create_user_operation
 
-    calls = [EVMCallDict(to=account.address, value=1000000000000000000, data="0x")]
+    calls = [EncodedCall(to=account.address, value=1000000000000000000, data="0x")]
 
     user_operation = smart_wallet.send_user_operation(
         calls=calls, chain_id=84532, paymaster_url="https://paymaster.com"
@@ -111,7 +111,7 @@ def test_send_user_operation_with_abi_call(
     mock_create_user_operation = Mock(return_value=mock_user_operation)
     mock_api_clients.smart_wallets.create_user_operation = mock_create_user_operation
 
-    abi_call = EVMAbiCallDict(
+    abi_call = FunctionCall(
         to=account.address,
         abi=[{"inputs": [], "name": "transfer", "type": "function"}],
         function_name="transfer",
@@ -140,9 +140,9 @@ def test_smart_wallet_multiple_calls(
     smart_wallet = smart_wallet_factory(smart_wallet_address, account)
 
     calls = [
-        EVMCallDict(to=account.address, value=1000000000000000000, data="0x"),
-        EVMCallDict(to=account.address, value=0, data="0x123"),
-        EVMCallDict(to=account.address, value=None, data=None),
+        EncodedCall(to=account.address, value=1000000000000000000, data="0x"),
+        EncodedCall(to=account.address, value=0, data="0x123"),
+        EncodedCall(to=account.address, value=None, data=None),
     ]
 
     model_calls = [Call(to=c.to, value=str(c.value or 0), data=c.data or "0x") for c in calls]
@@ -207,7 +207,7 @@ def test_network_scoped_wallet_send_operation(
     mock_create_user_operation = Mock(return_value=mock_user_operation)
     mock_api_clients.smart_wallets.create_user_operation = mock_create_user_operation
 
-    calls = [EVMCallDict(to=account.address, value=1000000000000000000, data="0x")]
+    calls = [EncodedCall(to=account.address, value=1000000000000000000, data="0x")]
     user_operation = network_wallet.send_user_operation(calls=calls)
 
     assert user_operation.smart_wallet_address == smart_wallet_address

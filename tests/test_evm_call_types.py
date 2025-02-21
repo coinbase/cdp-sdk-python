@@ -1,17 +1,17 @@
 import pytest
 from web3.types import Wei
 
-from cdp.evm_call_types import EVMAbiCallDict, EVMCall, EVMCallDict
+from cdp.evm_call_types import ContractCall, EncodedCall, FunctionCall
 
 
 def test_evm_call_dict_valid():
     """Test that the EVMCallDict is valid."""
-    call = EVMCallDict(to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e")
+    call = EncodedCall(to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e")
     assert isinstance(call.to, str)
     assert call.value is None
     assert call.data is None
 
-    call = EVMCallDict(
+    call = EncodedCall(
         to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
         value=Wei(1000000000000000000),
         data="0x095ea7b30000000000000000000000742d35cc6634c0532925a3b844bc454e4438f44e",
@@ -23,7 +23,7 @@ def test_evm_call_dict_valid():
 
 def test_evm_abi_call_dict_valid():
     """Test that the EVMAbiCallDict is valid."""
-    call = EVMAbiCallDict(
+    call = FunctionCall(
         to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
         abi=[
             {
@@ -43,7 +43,7 @@ def test_evm_abi_call_dict_valid():
     assert call.function_name == "totalSupply"
     assert call.args == []
 
-    call = EVMAbiCallDict(
+    call = FunctionCall(
         to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
         value=Wei(1000000000000000000),
         abi=[
@@ -71,20 +71,18 @@ def test_evm_abi_call_dict_valid():
 def test_evm_abi_call_dict_invalid():
     """Test that the EVMAbiCallDict is invalid."""
     with pytest.raises(ValueError):
-        EVMAbiCallDict(
-            to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e", function_name="test", args=[]
-        )
+        FunctionCall(to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e", function_name="test", args=[])
 
 
 def test_evm_call_union():
     """Test that the EVMCall union is valid."""
-    call_dict = EVMCallDict(to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e")
-    abi_call_dict = EVMAbiCallDict(
+    call_dict = EncodedCall(to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e")
+    abi_call_dict = FunctionCall(
         to="0x742d35Cc6634C0532925a3b844Bc454e4438f44e", abi=[], function_name="test", args=[]
     )
 
-    call: EVMCall = call_dict
-    assert isinstance(call, EVMCallDict)
+    call: ContractCall = call_dict
+    assert isinstance(call, EncodedCall)
 
     call = abi_call_dict
-    assert isinstance(call, EVMAbiCallDict)
+    assert isinstance(call, FunctionCall)
