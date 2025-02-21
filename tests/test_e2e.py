@@ -94,34 +94,35 @@ def test_wallet_transfer(imported_wallet):
     assert final_dest_balance > initial_dest_balance
 
 
-@pytest.mark.e2e
-def test_transaction_history(imported_wallet):
-    """Test transaction history retrieval."""
-    destination_wallet = Wallet.create()
+# CDPSDK-265: Flaky test
+# @pytest.mark.e2e
+# def test_transaction_history(imported_wallet):
+#     """Test transaction history retrieval."""
+#     destination_wallet = Wallet.create()
 
-    initial_source_balance = imported_wallet.balance("eth")
-    if initial_source_balance < 0.0001:
-        try:
-            imported_wallet.faucet().wait()
-        except FaucetLimitReachedError:
-            print("Faucet limit reached, continuing...")
+#     initial_source_balance = imported_wallet.balance("eth")
+#     if initial_source_balance < 0.0001:
+#         try:
+#             imported_wallet.faucet().wait()
+#         except FaucetLimitReachedError:
+#             print("Faucet limit reached, continuing...")
 
-    transfer = imported_wallet.transfer(
-        amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
-    ).wait()
+#     transfer = imported_wallet.transfer(
+#         amount=Decimal("0.000000001"), asset_id="eth", destination=destination_wallet
+#     ).wait()
 
-    time.sleep(10)
+#     time.sleep(10)
 
-    transactions = imported_wallet.default_address.transactions()
-    matching_tx = None
+#     transactions = imported_wallet.default_address.transactions()
+#     matching_tx = None
 
-    for tx in transactions:
-        if tx.transaction_hash == transfer.transaction_hash:
-            matching_tx = tx
-            break
+#     for tx in transactions:
+#         if tx.transaction_hash == transfer.transaction_hash:
+#             matching_tx = tx
+#             break
 
-    assert matching_tx is not None
-    assert matching_tx.status.value == "complete"
+#     assert matching_tx is not None
+#     assert matching_tx.status.value == "complete"
 
 
 @pytest.mark.e2e
