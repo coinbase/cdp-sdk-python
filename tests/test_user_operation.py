@@ -180,9 +180,22 @@ def test_terminal_states():
 
 
 def test_status_string_representation():
-    """Test the string representation of UserOperation Status."""
-    assert str(UserOperation.Status.PENDING) == "pending"
-    assert repr(UserOperation.Status.PENDING) == "pending"
+    """Test the string representation of all UserOperation Status values."""
+    expected_statuses = {
+        UserOperation.Status.PENDING: "pending",
+        UserOperation.Status.SIGNED: "signed",
+        UserOperation.Status.BROADCAST: "broadcast",
+        UserOperation.Status.COMPLETE: "complete",
+        UserOperation.Status.FAILED: "failed",
+        UserOperation.Status.UNSPECIFIED: "unspecified",
+    }
+
+    for status, expected_str in expected_statuses.items():
+        # Test str() representation
+        assert str(status) == expected_str, f"str({status}) should be '{expected_str}'"
+
+        # Test repr() representation
+        assert repr(status) == expected_str, f"repr({status}) should be '{expected_str}'"
 
 
 def test_user_operation_str_representation(user_operation_model_factory):
