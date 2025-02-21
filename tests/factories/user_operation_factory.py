@@ -2,7 +2,6 @@ import pytest
 
 from cdp.client.models.call import Call
 from cdp.client.models.user_operation import UserOperation as UserOperationModel
-from cdp.user_operation import UserOperation
 
 
 @pytest.fixture
@@ -38,32 +37,3 @@ def user_operation_model_factory():
         )
 
     return _create_user_operation_model
-
-
-@pytest.fixture
-def user_operation_factory(user_operation_model_factory):
-    """Create and return a factory for UserOperation fixtures."""
-
-    def _create_user_operation(
-        user_operation_id, network_id, calls, unsigned_payload, signature, transaction_hash, status
-    ):
-        user_operation_model = user_operation_model_factory(
-            id=user_operation_id,
-            network_id=network_id,
-            calls=calls,
-            unsigned_payload=unsigned_payload,
-            signature=signature,
-            transaction_hash=transaction_hash,
-            status=status,
-        )
-        return UserOperation(
-            user_operation_model.id,
-            user_operation_model.network_id,
-            user_operation_model.calls,
-            user_operation_model.unsigned_payload,
-            user_operation_model.signature,
-            user_operation_model.transaction_hash,
-            user_operation_model.status,
-        )
-
-    return _create_user_operation
