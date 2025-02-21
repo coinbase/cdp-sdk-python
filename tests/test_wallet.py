@@ -891,6 +891,7 @@ def test_wallet_import_from_mnemonic_invalid_phrase():
     with pytest.raises(ValueError, match="Invalid BIP-39 mnemonic seed phrase"):
         Wallet.import_wallet(MnemonicSeedPhrase("invalid mnemonic phrase"))
 
+
 @patch("cdp.Cdp.use_server_signer", False)
 @patch("cdp.Cdp.api_clients")
 @patch("cdp.wallet.Account")
