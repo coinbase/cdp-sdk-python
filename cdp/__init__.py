@@ -52,4 +52,5 @@ __all__ = [
     "EncodedCall",
     "FunctionCall",
     "UserOperation",
+    "Network",
 ]
