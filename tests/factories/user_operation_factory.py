@@ -19,10 +19,11 @@ def user_operation_model_factory():
         status="pending",
     ):
         if calls is None:
-            calls = [Call(
-                to="0x1234567890123456789012345678901234567890",
-                value="1000000000000000000",
-                data="0x",
+            calls = [
+                Call(
+                    to="0x1234567890123456789012345678901234567890",
+                    value="1000000000000000000",
+                    data="0x",
                 )
             ]
         return UserOperationModel(

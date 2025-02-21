@@ -97,6 +97,9 @@ class SmartWallet:
         """
         network = Network.from_chain_id(chain_id)
 
+        if not calls:
+            raise ValueError("Calls list cannot be empty")
+
         encoded_calls = []
         for call in calls:
             if isinstance(call, EVMAbiCallDict):
