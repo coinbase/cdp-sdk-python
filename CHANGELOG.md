@@ -1,5 +1,11 @@
 # CDP Python SDK Changelog
 
+## Unreleased
+
+### Added
+- Ability to create a SmartWallet and send a user operation.
+
+
 ## [0.18.1] - 2025-02-13
 
 ## Fixed
