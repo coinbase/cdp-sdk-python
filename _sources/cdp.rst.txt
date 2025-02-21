@@ -108,6 +108,14 @@ cdp.errors module
    :undoc-members:
    :show-inheritance:
 
+cdp.evm\_call\_types module
+---------------------------
+
+.. automodule:: cdp.evm_call_types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.external\_address module
 ----------------------------
 
@@ -172,6 +180,14 @@ cdp.mnemonic\_seed\_phrase module
    :undoc-members:
    :show-inheritance:
 
+cdp.network module
+------------------
+
+.. automodule:: cdp.network
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.payload\_signature module
 -----------------------------
 
@@ -184,6 +200,14 @@ cdp.smart\_contract module
 --------------------------
 
 .. automodule:: cdp.smart_contract
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.smart\_wallet module
+------------------------
+
+.. automodule:: cdp.smart_wallet
    :members:
    :undoc-members:
    :show-inheritance:
@@ -216,6 +240,14 @@ cdp.transfer module
 -------------------
 
 .. automodule:: cdp.transfer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cdp.user\_operation module
+--------------------------
+
+.. automodule:: cdp.user_operation
    :members:
    :undoc-members:
    :show-inheritance:

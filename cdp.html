@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>cdp package &#8212; CDP SDK 0.18.1 documentation</title>
+    <title>cdp package &#8212; CDP SDK 0.19.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    <script src="_static/documentation_options.js?v=1e56ff10"></script>
+    <script src="_static/documentation_options.js?v=cbfb3150"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -631,6 +631,17 @@ that each client is only instantiated when it’s first accessed.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.api_clients.ApiClients._smart_wallets">
+<span class="sig-name descname"><span class="pre">_smart_wallets</span></span><a class="headerlink" href="#cdp.api_clients.ApiClients._smart_wallets" title="Link to this definition">¶</a></dt>
+<dd><p>The SmartWalletsApi client instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_wallets_api.SmartWalletsApi" title="cdp.client.api.smart_wallets_api.SmartWalletsApi">SmartWalletsApi</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cdp.api_clients.ApiClients._webhooks">
 <span class="sig-name descname"><span class="pre">_webhooks</span></span><a class="headerlink" href="#cdp.api_clients.ApiClients._webhooks" title="Link to this definition">¶</a></dt>
 <dd><p>The WebhooksApi client instance.</p>
@@ -877,6 +888,24 @@ that each client is only instantiated when it’s first accessed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This property lazily initializes the SmartContractsApi client on first access.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.api_clients.ApiClients.smart_wallets">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">smart_wallets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_wallets_api.SmartWalletsApi" title="cdp.client.api.smart_wallets_api.SmartWalletsApi"><span class="pre">SmartWalletsApi</span></a></em><a class="headerlink" href="#cdp.api_clients.ApiClients.smart_wallets" title="Link to this definition">¶</a></dt>
+<dd><p>Get the SmartWalletsApi client instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The SmartWalletsApi client instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="cdp.client.api.html#cdp.client.api.smart_wallets_api.SmartWalletsApi" title="cdp.client.api.smart_wallets_api.SmartWalletsApi">SmartWalletsApi</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property lazily initializes the SmartWalletsApi client on first access.</p>
 </div>
 </dd></dl>
 
@@ -1349,7 +1378,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.cdp.Cdp.configure">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.18.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.19.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1372,7 +1401,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.cdp.Cdp.configure_from_json">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.18.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.19.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK from a JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1422,7 +1451,7 @@ and values are balance amounts (Decimal).</p>
 <span id="cdp-cdp-api-client-module"></span><h2>cdp.cdp_api_client module<a class="headerlink" href="#module-cdp.cdp_api_client" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cdp.cdp_api_client.CdpApiClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.cdp_api_client.</span></span><span class="sig-name descname"><span class="pre">CdpApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.18.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp_api_client.CdpApiClient" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.cdp_api_client.</span></span><span class="sig-name descname"><span class="pre">CdpApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.19.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.cdp_api_client.CdpApiClient" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cdp.client.html#cdp.client.api_client.ApiClient" title="cdp.client.api_client.ApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiClient</span></code></a></p>
 <p>CDP API Client that handles authentication and API calls for Coinbase.</p>
 <dl class="py property">
@@ -2241,6 +2270,75 @@ to be converted to.</p>
 </dd></dl>
 
 </section>
+<section id="module-cdp.evm_call_types">
+<span id="cdp-evm-call-types-module"></span><h2>cdp.evm_call_types module<a class="headerlink" href="#module-cdp.evm_call_types" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.evm_call_types.EncodedCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.evm_call_types.</span></span><span class="sig-name descname"><span class="pre">EncodedCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.evm_call_types.EncodedCall" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents an encoded call to a smart contract.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.EncodedCall.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexStr</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">)]</span></em><a class="headerlink" href="#cdp.evm_call_types.EncodedCall.data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.EncodedCall.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#cdp.evm_call_types.EncodedCall.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.EncodedCall.to">
+<span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexAddress</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexStr</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">))</span></em><a class="headerlink" href="#cdp.evm_call_types.EncodedCall.to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.EncodedCall.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">Wei</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">)]</span></em><a class="headerlink" href="#cdp.evm_call_types.EncodedCall.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.evm_call_types.</span></span><span class="sig-name descname"><span class="pre">FunctionCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.evm_call_types.FunctionCall" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents a call to a smart contract that needs to be encoded using the ABI.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall.abi">
+<span class="sig-name descname"><span class="pre">abi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code><span class="pre">]]</span></em><a class="headerlink" href="#cdp.evm_call_types.FunctionCall.abi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall.args">
+<span class="sig-name descname"><span class="pre">args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code><span class="pre">]</span></em><a class="headerlink" href="#cdp.evm_call_types.FunctionCall.args" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall.function_name">
+<span class="sig-name descname"><span class="pre">function_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#cdp.evm_call_types.FunctionCall.function_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#cdp.evm_call_types.FunctionCall.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall.to">
+<span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexAddress</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexStr</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">))</span></em><a class="headerlink" href="#cdp.evm_call_types.FunctionCall.to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.evm_call_types.FunctionCall.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">Wei</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">)]</span></em><a class="headerlink" href="#cdp.evm_call_types.FunctionCall.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cdp.external_address">
 <span id="cdp-external-address-module"></span><h2>cdp.external_address module<a class="headerlink" href="#module-cdp.external_address" title="Link to this heading">¶</a></h2>
 <dl class="py class">
@@ -3003,6 +3101,37 @@ to be converted to.</p>
 </dd></dl>
 
 </section>
+<section id="module-cdp.network">
+<span id="cdp-network-module"></span><h2>cdp.network module<a class="headerlink" href="#module-cdp.network" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.network.Network">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.network.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.network.Network" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a network with its chain ID and network identifier.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.network.Network.chain_id">
+<span class="sig-name descname"><span class="pre">chain_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code><span class="pre">[</span><code class="docutils literal notranslate"><span class="pre">8453</span></code><span class="pre">,</span> <code class="docutils literal notranslate"><span class="pre">84532</span></code><span class="pre">]</span></em><a class="headerlink" href="#cdp.network.Network.chain_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.network.Network.from_chain_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_chain_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.network.Network.from_chain_id" title="Link to this definition">¶</a></dt>
+<dd><p>Create a Network instance from a supported chain ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.network.Network" title="cdp.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.network.Network.network_id">
+<span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cdp.client.models.html#cdp.client.models.network_identifier.NetworkIdentifier" title="cdp.client.models.network_identifier.NetworkIdentifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkIdentifier</span></code></a></em><a class="headerlink" href="#cdp.network.Network.network_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cdp.payload_signature">
 <span id="cdp-payload-signature-module"></span><h2>cdp.payload_signature module<a class="headerlink" href="#module-cdp.payload_signature" title="Link to this heading">¶</a></h2>
 <dl class="py class">
@@ -3590,6 +3719,183 @@ to be converted to.</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="module-cdp.smart_wallet">
+<span id="cdp-smart-wallet-module"></span><h2>cdp.smart_wallet module<a class="headerlink" href="#module-cdp.smart_wallet" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.smart_wallet.NetworkScopedSmartWallet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.smart_wallet.</span></span><span class="sig-name descname"><span class="pre">NetworkScopedSmartWallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.NetworkScopedSmartWallet" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cdp.smart_wallet.SmartWallet" title="cdp.smart_wallet.SmartWallet"><code class="xref py py-class docutils literal notranslate"><span class="pre">SmartWallet</span></code></a></p>
+<p>A smart wallet that’s configured for a specific network.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.smart_wallet.NetworkScopedSmartWallet.chain_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chain_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cdp.smart_wallet.NetworkScopedSmartWallet.chain_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the chain ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The chain ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.smart_wallet.NetworkScopedSmartWallet.paymaster_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">paymaster_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cdp.smart_wallet.NetworkScopedSmartWallet.paymaster_url" title="Link to this definition">¶</a></dt>
+<dd><p>Get the paymaster URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The paymaster URL.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_wallet.NetworkScopedSmartWallet.send_user_operation">
+<span class="sig-name descname"><span class="pre">send_user_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calls</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.NetworkScopedSmartWallet.send_user_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Send a user operation on the configured network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>calls</strong> (<em>List</em><em>[</em><em>EVMCall</em><em>]</em>) – The calls to send.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If there’s an error sending the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.smart_wallet.SmartWallet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.smart_wallet.</span></span><span class="sig-name descname"><span class="pre">SmartWallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.SmartWallet" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a smart wallet.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.smart_wallet.SmartWallet.address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.smart_wallet.SmartWallet.address" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Smart Wallet Address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Smart Wallet Address.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_wallet.SmartWallet.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.SmartWallet.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new smart wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The created smart wallet object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.smart_wallet.SmartWallet" title="cdp.smart_wallet.SmartWallet">SmartWallet</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If there’s an error creating the EVM smart wallet.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.smart_wallet.SmartWallet.owners">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owners</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseAccount</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cdp.smart_wallet.SmartWallet.owners" title="Link to this definition">¶</a></dt>
+<dd><p>Get the wallet owners.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of owner accounts</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[BaseAccount]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_wallet.SmartWallet.send_user_operation">
+<span class="sig-name descname"><span class="pre">send_user_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.SmartWallet.send_user_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Send a user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>calls</strong> (<em>List</em><em>[</em><em>EVMCall</em><em>]</em>) – The calls to send.</p></li>
+<li><p><strong>chain_id</strong> (<em>int</em>) – The chain ID.</p></li>
+<li><p><strong>paymaster_url</strong> (<em>str</em>) – The paymaster URL.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.smart_wallet.SmartWallet.use_network">
+<span class="sig-name descname"><span class="pre">use_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.SmartWallet.use_network" title="Link to this definition">¶</a></dt>
+<dd><p>Configure the wallet for a specific network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chain_id</strong> (<em>int</em>) – The chain ID of the network to connect to</p></li>
+<li><p><strong>paymaster_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional URL for the paymaster service</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A network-scoped version of the wallet</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.smart_wallet.NetworkScopedSmartWallet" title="cdp.smart_wallet.NetworkScopedSmartWallet">NetworkScopedSmartWallet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cdp.smart_wallet.to_smart_wallet">
+<span class="sig-prename descclassname"><span class="pre">cdp.smart_wallet.</span></span><span class="sig-name descname"><span class="pre">to_smart_wallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.smart_wallet.to_smart_wallet" title="Link to this definition">¶</a></dt>
+<dd><p>Construct an existing smart wallet by its address and the signer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>smart_wallet_address</strong> (<em>str</em>) – The address of the smart wallet to retrieve.</p></li>
+<li><p><strong>signer</strong> (<em>BaseAccount</em>) – The signer to use for the smart wallet.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The retrieved smart wallet object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.smart_wallet.SmartWallet" title="cdp.smart_wallet.SmartWallet">SmartWallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an error retrieving the smart wallet.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -4446,6 +4752,230 @@ to be converted to.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cdp.user_operation">
+<span id="cdp-user-operation-module"></span><h2>cdp.user_operation module<a class="headerlink" href="#module-cdp.user_operation" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.user_operation.</span></span><span class="sig-name descname"><span class="pre">UserOperation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a user operation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.Status" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Enumeration of User Operation statuses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.BROADCAST">
+<span class="sig-name descname"><span class="pre">BROADCAST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'broadcast'</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.BROADCAST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.COMPLETE">
+<span class="sig-name descname"><span class="pre">COMPLETE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'complete'</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.COMPLETE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'failed'</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.FAILED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.PENDING">
+<span class="sig-name descname"><span class="pre">PENDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pending'</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.PENDING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.SIGNED">
+<span class="sig-name descname"><span class="pre">SIGNED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'signed'</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.SIGNED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.UNSPECIFIED">
+<span class="sig-name descname"><span class="pre">UNSPECIFIED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unspecified'</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.UNSPECIFIED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.Status.terminal_states">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.Status.terminal_states" title="Link to this definition">¶</a></dt>
+<dd><p>Get the terminal states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The terminal states.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.broadcast">
+<span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.broadcast" title="Link to this definition">¶</a></dt>
+<dd><p>Broadcast the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The broadcasted UserOperation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new UserOperation object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>smart_wallet_address</strong> (<em>str</em>) – The smart wallet address.</p></li>
+<li><p><strong>network_id</strong> (<em>str</em>) – The Network ID.</p></li>
+<li><p><strong>calls</strong> (<em>list</em><em>[</em><a class="reference internal" href="cdp.client.models.html#cdp.client.models.call.Call" title="cdp.client.models.call.Call"><em>Call</em></a><em>]</em>) – The calls to send.</p></li>
+<li><p><strong>paymaster_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The paymaster URL.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new UserOperation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.reload">
+<span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.reload" title="Link to this definition">¶</a></dt>
+<dd><p>Reload the UserOperation model with the latest version from the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated UserOperation object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.sign">
+<span class="sig-name descname"><span class="pre">sign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.sign" title="Link to this definition">¶</a></dt>
+<dd><p>Sign the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The signed UserOperation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.signature">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.signature" title="Link to this definition">¶</a></dt>
+<dd><p>Get the signature of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The signature of the user operation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.smart_wallet_address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">smart_wallet_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.smart_wallet_address" title="Link to this definition">¶</a></dt>
+<dd><p>Get the smart wallet address of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The smart wallet address.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.user_operation.UserOperation.Status" title="cdp.user_operation.UserOperation.Status"><span class="pre">Status</span></a></em><a class="headerlink" href="#cdp.user_operation.UserOperation.status" title="Link to this definition">¶</a></dt>
+<dd><p>Get the status of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The status.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.terminal_state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.terminal_state" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the User Operation is in a terminal state.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.transaction_hash">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transaction_hash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.transaction_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Get the transaction hash of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The transaction hash.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.user_op_hash">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_op_hash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.user_operation.UserOperation.user_op_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Get the user operation hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The user operation hash.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.user_operation.UserOperation.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.user_operation.UserOperation.wait" title="Link to this definition">¶</a></dt>
+<dd><p>Wait until the user operation is processed or fails by polling the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval_seconds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – The interval at which to poll the server.</p></li>
+<li><p><strong>timeout_seconds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time to wait before timing out.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The completed UserOperation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.user_operation.UserOperation" title="cdp.user_operation.UserOperation">UserOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TimeoutError</strong> – If the user operation takes longer than the given timeout.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6255,7 +6785,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Cdp.configure">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.18.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.19.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6278,7 +6808,7 @@ and values are balance amounts (Decimal).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cdp.Cdp.configure_from_json">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.18.1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configure_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/Downloads/cdp_api_key.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_server_signer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.cdp.coinbase.com/platform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_network_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sdk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.19.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Cdp.configure_from_json" title="Link to this definition">¶</a></dt>
 <dd><p>Configure the CDP SDK from a JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6634,6 +7164,34 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="cdp.EncodedCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">EncodedCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.EncodedCall" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents an encoded call to a smart contract.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.EncodedCall.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexStr</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">)]</span></em><a class="headerlink" href="#cdp.EncodedCall.data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.EncodedCall.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#cdp.EncodedCall.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.EncodedCall.to">
+<span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexAddress</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexStr</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">))</span></em><a class="headerlink" href="#cdp.EncodedCall.to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.EncodedCall.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">Wei</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">)]</span></em><a class="headerlink" href="#cdp.EncodedCall.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="cdp.ExternalAddress">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">ExternalAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.ExternalAddress" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cdp.address.Address" title="cdp.address.Address"><code class="xref py py-class docutils literal notranslate"><span class="pre">Address</span></code></a></p>
@@ -6758,6 +7316,44 @@ and values are balance amounts (Decimal).</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="cdp.FunctionCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">FunctionCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.FunctionCall" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents a call to a smart contract that needs to be encoded using the ABI.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.FunctionCall.abi">
+<span class="sig-name descname"><span class="pre">abi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code><span class="pre">]]</span></em><a class="headerlink" href="#cdp.FunctionCall.abi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.FunctionCall.args">
+<span class="sig-name descname"><span class="pre">args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code><span class="pre">]</span></em><a class="headerlink" href="#cdp.FunctionCall.args" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.FunctionCall.function_name">
+<span class="sig-name descname"><span class="pre">function_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#cdp.FunctionCall.function_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.FunctionCall.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#cdp.FunctionCall.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.FunctionCall.to">
+<span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexAddress</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">HexStr</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">))</span></em><a class="headerlink" href="#cdp.FunctionCall.to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.FunctionCall.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">NewType</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">Wei</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">)]</span></em><a class="headerlink" href="#cdp.FunctionCall.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="cdp.MnemonicSeedPhrase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">MnemonicSeedPhrase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mnemonic_phrase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.MnemonicSeedPhrase" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -6771,6 +7367,34 @@ and values are balance amounts (Decimal).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cdp.MnemonicSeedPhrase.mnemonic_phrase">
 <span class="sig-name descname"><span class="pre">mnemonic_phrase</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#cdp.MnemonicSeedPhrase.mnemonic_phrase" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.Network">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Network" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a network with its chain ID and network identifier.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.Network.chain_id">
+<span class="sig-name descname"><span class="pre">chain_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code><span class="pre">[</span><code class="docutils literal notranslate"><span class="pre">8453</span></code><span class="pre">,</span> <code class="docutils literal notranslate"><span class="pre">84532</span></code><span class="pre">]</span></em><a class="headerlink" href="#cdp.Network.chain_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.Network.from_chain_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_chain_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.Network.from_chain_id" title="Link to this definition">¶</a></dt>
+<dd><p>Create a Network instance from a supported chain ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cdp.network.Network" title="cdp.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.Network.network_id">
+<span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cdp.client.models.html#cdp.client.models.network_identifier.NetworkIdentifier" title="cdp.client.models.network_identifier.NetworkIdentifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkIdentifier</span></code></a></em><a class="headerlink" href="#cdp.Network.network_id" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -7353,6 +7977,102 @@ and values are balance amounts (Decimal).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The wallet ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.SmartWallet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">SmartWallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartWallet" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a smart wallet.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.SmartWallet.address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.SmartWallet.address" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Smart Wallet Address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Smart Wallet Address.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.SmartWallet.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartWallet.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new smart wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The created smart wallet object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.SmartWallet" title="cdp.SmartWallet">SmartWallet</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If there’s an error creating the EVM smart wallet.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.SmartWallet.owners">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owners</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseAccount</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cdp.SmartWallet.owners" title="Link to this definition">¶</a></dt>
+<dd><p>Get the wallet owners.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of owner accounts</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[BaseAccount]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.SmartWallet.send_user_operation">
+<span class="sig-name descname"><span class="pre">send_user_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartWallet.send_user_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Send a user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>calls</strong> (<em>List</em><em>[</em><em>EVMCall</em><em>]</em>) – The calls to send.</p></li>
+<li><p><strong>chain_id</strong> (<em>int</em>) – The chain ID.</p></li>
+<li><p><strong>paymaster_url</strong> (<em>str</em>) – The paymaster URL.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user operation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.UserOperation" title="cdp.UserOperation">UserOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the default address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.SmartWallet.use_network">
+<span class="sig-name descname"><span class="pre">use_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.SmartWallet.use_network" title="Link to this definition">¶</a></dt>
+<dd><p>Configure the wallet for a specific network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chain_id</strong> (<em>int</em>) – The chain ID of the network to connect to</p></li>
+<li><p><strong>paymaster_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional URL for the paymaster service</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A network-scoped version of the wallet</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.smart_wallet.NetworkScopedSmartWallet" title="cdp.smart_wallet.NetworkScopedSmartWallet">NetworkScopedSmartWallet</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8201,6 +8921,227 @@ and values are balance amounts (Decimal).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.UserOperation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">UserOperation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a user operation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.Status" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Enumeration of User Operation statuses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.BROADCAST">
+<span class="sig-name descname"><span class="pre">BROADCAST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'broadcast'</span></em><a class="headerlink" href="#cdp.UserOperation.Status.BROADCAST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.COMPLETE">
+<span class="sig-name descname"><span class="pre">COMPLETE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'complete'</span></em><a class="headerlink" href="#cdp.UserOperation.Status.COMPLETE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'failed'</span></em><a class="headerlink" href="#cdp.UserOperation.Status.FAILED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.PENDING">
+<span class="sig-name descname"><span class="pre">PENDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pending'</span></em><a class="headerlink" href="#cdp.UserOperation.Status.PENDING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.SIGNED">
+<span class="sig-name descname"><span class="pre">SIGNED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'signed'</span></em><a class="headerlink" href="#cdp.UserOperation.Status.SIGNED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.UNSPECIFIED">
+<span class="sig-name descname"><span class="pre">UNSPECIFIED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unspecified'</span></em><a class="headerlink" href="#cdp.UserOperation.Status.UNSPECIFIED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.UserOperation.Status.terminal_states">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.Status.terminal_states" title="Link to this definition">¶</a></dt>
+<dd><p>Get the terminal states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The terminal states.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.UserOperation.broadcast">
+<span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.broadcast" title="Link to this definition">¶</a></dt>
+<dd><p>Broadcast the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The broadcasted UserOperation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.UserOperation" title="cdp.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.UserOperation.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paymaster_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new UserOperation object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>smart_wallet_address</strong> (<em>str</em>) – The smart wallet address.</p></li>
+<li><p><strong>network_id</strong> (<em>str</em>) – The Network ID.</p></li>
+<li><p><strong>calls</strong> (<em>list</em><em>[</em><a class="reference internal" href="cdp.client.models.html#cdp.client.models.call.Call" title="cdp.client.models.call.Call"><em>Call</em></a><em>]</em>) – The calls to send.</p></li>
+<li><p><strong>paymaster_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The paymaster URL.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new UserOperation object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.UserOperation" title="cdp.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.UserOperation.reload">
+<span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.reload" title="Link to this definition">¶</a></dt>
+<dd><p>Reload the UserOperation model with the latest version from the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated UserOperation object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.UserOperation" title="cdp.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.UserOperation.sign">
+<span class="sig-name descname"><span class="pre">sign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.sign" title="Link to this definition">¶</a></dt>
+<dd><p>Sign the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The signed UserOperation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cdp.UserOperation" title="cdp.UserOperation">UserOperation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.UserOperation.signature">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.UserOperation.signature" title="Link to this definition">¶</a></dt>
+<dd><p>Get the signature of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The signature of the user operation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.UserOperation.smart_wallet_address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">smart_wallet_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.UserOperation.smart_wallet_address" title="Link to this definition">¶</a></dt>
+<dd><p>Get the smart wallet address of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The smart wallet address.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.UserOperation.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cdp.user_operation.UserOperation.Status" title="cdp.user_operation.UserOperation.Status"><span class="pre">Status</span></a></em><a class="headerlink" href="#cdp.UserOperation.status" title="Link to this definition">¶</a></dt>
+<dd><p>Get the status of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The status.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.UserOperation.terminal_state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cdp.UserOperation.terminal_state" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the User Operation is in a terminal state.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.UserOperation.transaction_hash">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transaction_hash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.UserOperation.transaction_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Get the transaction hash of the user operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The transaction hash.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cdp.UserOperation.user_op_hash">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_op_hash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cdp.UserOperation.user_op_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Get the user operation hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The user operation hash.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cdp.UserOperation.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.UserOperation.wait" title="Link to this definition">¶</a></dt>
+<dd><p>Wait until the user operation is processed or fails by polling the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval_seconds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – The interval at which to poll the server.</p></li>
+<li><p><strong>timeout_seconds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time to wait before timing out.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The completed UserOperation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.UserOperation" title="cdp.UserOperation">UserOperation</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TimeoutError</strong> – If the user operation takes longer than the given timeout.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -9494,6 +10435,29 @@ webhook_instance.delete_webhook()</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cdp.to_smart_wallet">
+<span class="sig-prename descclassname"><span class="pre">cdp.</span></span><span class="sig-name descname"><span class="pre">to_smart_wallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smart_wallet_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cdp.to_smart_wallet" title="Link to this definition">¶</a></dt>
+<dd><p>Construct an existing smart wallet by its address and the signer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>smart_wallet_address</strong> (<em>str</em>) – The address of the smart wallet to retrieve.</p></li>
+<li><p><strong>signer</strong> (<em>BaseAccount</em>) – The signer to use for the smart wallet.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The retrieved smart wallet object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cdp.SmartWallet" title="cdp.SmartWallet">SmartWallet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an error retrieving the smart wallet.</p>
 </dd>
 </dl>
 </dd></dl>
