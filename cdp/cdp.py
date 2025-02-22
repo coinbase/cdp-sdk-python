@@ -19,7 +19,6 @@ class Cdp:
         base_path (str): The base URL for the Platform API.
         max_network_retries (int): The maximum number of network retries.
         api_clients (Optional[ApiClients]): The Platform API clients instance.
-
     """
 
     _instance = None
@@ -37,7 +36,6 @@ class Cdp:
 
         Returns:
             Cdp: The singleton instance of the Cdp class.
-
         """
         if cls._instance is None:
             cls._instance = super().__new__(cls)
@@ -64,9 +62,8 @@ class Cdp:
             debugging (bool): Whether debugging is enabled. Defaults to False.
             base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
-            source (Optional[str]): Specifies whether the SDK is being used directly or if it's an Agentkit extension.
+            source (Optional[str]): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
             source_version (Optional[str]): The version of the source package.
-
         """
         cls.api_key_name = api_key_name
         cls.private_key = private_key
@@ -99,18 +96,19 @@ class Cdp:
     ) -> None:
         """Configure the CDP SDK from a JSON file.
 
+        This updated method now accepts either "name" or "id" as the API key identifier.
+        
         Args:
             file_path (str): The path to the JSON file. Defaults to "~/Downloads/cdp_api_key.json".
             use_server_signer (bool): Whether to use the server signer. Defaults to False.
             debugging (bool): Whether debugging is enabled. Defaults to False.
             base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
-            source (Optional[str]): Specifies whether the SDK is being used directly or if it's an Agentkit extension.
+            source (Optional[str]): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
             source_version (Optional[str]): The version of the source package.
 
         Raises:
             InvalidConfigurationError: If the JSON file is missing the API key identifier or the private key.
-
         """
         with open(os.path.expanduser(file_path)) as file:
             data = json.load(file)

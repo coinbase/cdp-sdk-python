@@ -41,14 +41,11 @@ class CdpApiClient(ApiClient):
                 For Ed25519 keys, this should be a base64-encoded string representing
                 either the raw 32-byte seed or a 64-byte key (private+public), in which
                 case only the first 32 bytes are used.
-            host (str, optional): The base URL for the API.
-                Defaults to "https://api.cdp.coinbase.com/platform".
+            host (str, optional): The base URL for the API. Defaults to "https://api.cdp.coinbase.com/platform".
             debugging (bool): Whether debugging is enabled.
-            max_network_retries (int): The maximum number of network retries.
-                Defaults to 3.
+            max_network_retries (int): The maximum number of network retries. Defaults to 3.
             source (str): Specifies whether the SDK is being used directly or if it's an Agentkit extension.
             source_version (str): The version of the source package.
-
         """
         retry_strategy = self._get_retry_strategy(max_network_retries)
         configuration = Configuration(host=host, retries=retry_strategy)
@@ -65,7 +62,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             str: The API key.
-
         """
         return self._api_key
 
@@ -75,7 +71,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             str: The private key.
-
         """
         return self._private_key
 
@@ -85,7 +80,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             bool: Whether debugging is enabled.
-
         """
         return self._debugging
 
@@ -110,7 +104,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             RESTResponse
-
         """
         if self.debugging:
             print(f"CDP API REQUEST: {method} {url}")
@@ -135,7 +128,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             ApiResponse[ApiResponseT]
-
         """
         if self.debugging:
             print(f"CDP API RESPONSE: Status: {response_data.status}, Data: {response_data.data}")
@@ -152,7 +144,6 @@ class CdpApiClient(ApiClient):
             url (str): The URL to authenticate.
             method (str): The HTTP method to use.
             header_params (dict[str, str]): The header parameters.
-
         """
         token = self._build_jwt(url, method)
         header_params["Authorization"] = f"Bearer {token}"
@@ -167,20 +158,18 @@ class CdpApiClient(ApiClient):
             method (str): The HTTP method to use.
 
         Returns:
-            str: The JWT.
-
+            str: The JWT for the given API endpoint URL.
         """
         private_key_obj = None
         key_data = self.private_key.encode()
-        # First, try to load as a PEM-encoded key (typically for ECDSA keys).
+        # Business change: Support both ECDSA and Ed25519 keys.
         try:
+            # Try loading as a PEM-encoded key (typically for ECDSA keys).
             private_key_obj = serialization.load_pem_private_key(key_data, password=None)
         except Exception:
-            # If PEM loading fails, assume the key is provided as base64-encoded raw bytes.
+            # If PEM loading fails, assume the key is provided as base64-encoded raw bytes (Ed25519).
             try:
                 decoded_key = base64.b64decode(self.private_key)
-                # For Ed25519 keys, the raw private key should be 32 bytes.
-                # Sometimes a 64-byte key is provided (concatenated private and public parts).
                 if len(decoded_key) == 32:
                     private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key)
                 elif len(decoded_key) == 64:
@@ -229,7 +218,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             str: The nonce.
-
         """
         return "".join(random.choices("0123456789", k=16))
 
@@ -238,7 +226,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             str: The correlation data.
-
         """
         data = {
             "sdk_version": __version__,
@@ -256,7 +243,6 @@ class CdpApiClient(ApiClient):
 
         Returns:
             Retry: The retry strategy.
-
         """
         return Retry(
             total=max_network_retries,

@@ -12,7 +12,8 @@ import coincurve
 from bip_utils import Bip32Slip10Secp256k1, Bip39MnemonicValidator, Bip39SeedGenerator
 from Crypto.Cipher import AES
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.asymmetric import ec  # unchanged: ed25519 import added below
+from cryptography.hazmat.primitives.asymmetric import ed25519
 from eth_account import Account
 
 from cdp.address import Address
@@ -53,7 +54,6 @@ class Wallet:
         Args:
             model (WalletModel): The WalletModel object representing the wallet.
             seed (Optional[str]): The seed for the wallet. Defaults to None.
-
         """
         self._model = model
         self._addresses: list[WalletAddress] | None = None
@@ -66,7 +66,6 @@ class Wallet:
 
         Returns:
             str: The ID of the wallet.
-
         """
         return self._model.id
 
@@ -76,7 +75,6 @@ class Wallet:
 
         Returns:
             str: The network ID of the wallet.
-
         """
         return self._model.network_id
 
@@ -86,7 +84,6 @@ class Wallet:
 
         Returns:
             str: The server signer status of the wallet.
-
         """
         return self._model.server_signer_status
 
@@ -96,7 +93,6 @@ class Wallet:
 
         Returns:
             List[WalletAddress]: The addresses of the wallet.
-
         """
         if self._addresses is None:
             self._set_addresses()
@@ -109,7 +105,6 @@ class Wallet:
 
         Returns:
             bool: True if the wallet can sign, False otherwise.
-
         """
         return self._master is not None
 
@@ -129,10 +124,6 @@ class Wallet:
 
         Returns:
             Wallet: The created wallet object.
-
-        Raises:
-            Exception: If there's an error creating the wallet.
-
         """
         return cls.create_with_seed(
             seed=None,
@@ -159,10 +150,6 @@ class Wallet:
 
         Returns:
             Wallet: The created wallet object.
-
-        Raises:
-            Exception: If there's an error creating the wallet.
-
         """
         create_wallet_request = CreateWalletRequest(
             wallet=CreateWalletRequestWallet(
@@ -189,10 +176,6 @@ class Wallet:
 
         Returns:
             Wallet: The current wallet instance.
-
-        Raises:
-            TimeoutError: If the wallet creation times out.
-
         """
         start_time = time.time()
 
@@ -207,12 +190,7 @@ class Wallet:
         return self
 
     def reload(self) -> None:
-        """Reload the wallet model from the API.
-
-        Returns:
-            None
-
-        """
+        """Reload the wallet model from the API."""
         model = Cdp.api_clients.wallets.get_wallet(self.id)
         self._model = model
         return
@@ -226,10 +204,6 @@ class Wallet:
 
         Returns:
             Wallet: The retrieved wallet object.
-
-        Raises:
-            Exception: If there's an error retrieving the wallet.
-
         """
         model = Cdp.api_clients.wallets.get_wallet(wallet_id)
 
@@ -241,10 +215,6 @@ class Wallet:
 
         Returns:
             Iterator[Wallet]: An iterator of wallet objects.
-
-        Raises:
-            Exception: If there's an error listing the wallets.
-
         """
         while True:
             page = None
@@ -263,23 +233,7 @@ class Wallet:
     def import_wallet(
         cls, data: WalletData | MnemonicSeedPhrase, network_id: str = "base-sepolia"
     ) -> "Wallet":
-        """Import a wallet from previously exported wallet data or a mnemonic seed phrase.
-
-        Args:
-            data (Union[WalletData, MnemonicSeedPhrase]): Either:
-                - WalletData: The wallet data to import, containing wallet_id and seed
-                - MnemonicSeedPhrase: A valid BIP-39 mnemonic phrase object for importing external wallets
-            network_id (str): The network ID of the wallet. Defaults to "base-sepolia".
-
-        Returns:
-            Wallet: The imported wallet.
-
-        Raises:
-            ValueError: If data is not a WalletData or MnemonicSeedPhrase instance.
-            ValueError: If the mnemonic phrase is invalid.
-            Exception: If there's an error getting the wallet.
-
-        """
+        """Import a wallet from previously exported wallet data or a mnemonic seed phrase."""
         if isinstance(data, MnemonicSeedPhrase):
             # Validate mnemonic phrase
             if not data.mnemonic_phrase:
@@ -308,31 +262,11 @@ class Wallet:
 
     @classmethod
     def import_data(cls, data: WalletData) -> "Wallet":
-        """Import a wallet from previously exported wallet data.
-
-        Args:
-            data (WalletData): The wallet data to import.
-
-        Returns:
-            Wallet: The imported wallet.
-
-        Raises:
-            ValueError: If data is not a WalletData instance.
-            Exception: If there's an error getting the wallet.
-
-        """
+        """Import a wallet from previously exported wallet data."""
         return cls.import_wallet(data)
 
     def create_address(self) -> "WalletAddress":
-        """Create a new address for the wallet.
-
-        Returns:
-            WalletAddress: The created address object.
-
-        Raises:
-            Exception: If there's an error creating the address.
-
-        """
+        """Create a new address for the wallet."""
         if self._addresses is None:
             self._set_addresses()
 
@@ -362,18 +296,7 @@ class Wallet:
         return wallet_address
 
     def create_webhook(self, notification_uri: str) -> "Webhook":
-        """Create a new webhook for the wallet.
-
-        Args:
-            notification_uri (str): The notification URI of the webhook.
-
-        Returns:
-            Webhook: The created webhook object. It can be used to monitor activities happening in the wallet. When they occur, webhook will make a request to the specified URI.
-
-        Raises:
-            Exception: If there's an error creating the webhook.
-
-        """
+        """Create a new webhook for the wallet."""
         create_wallet_webhook_request = CreateWalletWebhookRequest(
             notification_uri=notification_uri
         )
@@ -384,51 +307,21 @@ class Wallet:
         return Webhook(model)
 
     def faucet(self, asset_id: str | None = None) -> FaucetTransaction:
-        """Request faucet funds.
-
-        Args:
-            asset_id (Optional[str]): The asset ID. Defaults to None.
-
-        Returns:
-            FaucetTransaction: The faucet transaction object.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
+        """Request faucet funds."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
         return self.default_address.faucet(asset_id)
 
     def balance(self, asset_id: str) -> Decimal:
-        """Get the balance of a specific asset for the default address.
-
-        Args:
-            asset_id (str): The ID of the asset to check the balance for.
-
-        Returns:
-            Any: The balance of the specified asset.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
+        """Get the balance of a specific asset for the default address."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
         return self.default_address.balance(asset_id)
 
     def balances(self) -> BalanceMap:
-        """List balances of the address.
-
-        Returns:
-           BalanceMap: The balances of the address, keyed by asset ID. Ether balances are denominated in ETH.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
+        """List balances of the address."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
@@ -442,22 +335,7 @@ class Wallet:
         gasless: bool = False,
         skip_batching: bool = False,
     ) -> Transfer:
-        """Transfer funds from the wallet.
-
-        Args:
-            amount (Union[Number, Decimal, str]): The amount of funds to transfer.
-            asset_id (str): The ID of the asset to transfer.
-            destination (Union[Address, 'Wallet', str]): The destination for the transfer.
-            gasless (bool): Whether the transfer should be gasless. Defaults to False.
-            skip_batching (bool): When True, the Transfer will be submitted immediately. Otherwise, the Transfer will be batched. Defaults to False. Note: requires gasless option to be set to True.
-
-        Returns:
-            Any: The result of the transfer operation.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
+        """Transfer funds from the wallet."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
@@ -468,20 +346,7 @@ class Wallet:
         return self.default_address.transfer(amount, asset_id, destination, gasless, skip_batching)
 
     def trade(self, amount: Number | Decimal | str, from_asset_id: str, to_asset_id: str) -> Trade:
-        """Trade funds from the wallet address.
-
-        Args:
-            amount (Union[Number, Decimal, str]): The amount to trade.
-            from_asset_id (str): The asset ID to trade from.
-            to_asset_id (str): The asset ID to trade to.
-
-        Returns:
-            Trade: The trade object.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
+        """Trade funds from the wallet address."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
@@ -496,23 +361,7 @@ class Wallet:
         amount: Number | Decimal | str | None = None,
         asset_id: str | None = None,
     ) -> ContractInvocation:
-        """Invoke a method on the specified contract address, with the given ABI and arguments.
-
-        Args:
-            contract_address (str): The address of the contract to invoke.
-            method (str): The name of the method to call on the contract.
-            abi (Optional[list[dict]]): The ABI of the contract, if provided.
-            args (Optional[dict]): The arguments to pass to the method.
-            amount (Optional[Union[Number, Decimal, str]]): The amount to send with the invocation, if applicable.
-            asset_id (Optional[str]): The asset ID associated with the amount, if applicable.
-
-        Returns:
-            ContractInvocation: The contract invocation object.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
+        """Invoke a method on the specified contract address."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
@@ -523,16 +372,7 @@ class Wallet:
         return invocation
 
     def sign_payload(self, unsigned_payload: str) -> PayloadSignature:
-        """Sign the given unsigned payload.
-
-        Args:
-            unsigned_payload (str): The unsigned payload.
-
-        Returns:
-            PayloadSignature: The payload signature object.
-
-
-        """
+        """Sign the given unsigned payload."""
         if self.default_address is None:
             raise ValueError("Default address does not exist")
 
@@ -540,12 +380,7 @@ class Wallet:
 
     @property
     def default_address(self) -> WalletAddress | None:
-        """Get the default address of the wallet.
-
-        Returns:
-            Optional[WalletAddress]: The default address object, or None if not set.
-
-        """
+        """Get the default address of the wallet."""
         return (
             self._address(self._model.default_address.address_id)
             if self._model.default_address is not None
@@ -553,33 +388,14 @@ class Wallet:
         )
 
     def export_data(self) -> WalletData:
-        """Export the wallet's data.
-
-        Returns:
-            WalletData: The wallet's data.
-
-        Raises:
-            ValueError: If the wallet does not have a seed loaded.
-
-        """
+        """Export the wallet's data."""
         if self._master is None or self._seed is None:
             raise ValueError("Wallet does not have seed loaded")
 
         return WalletData(self.id, self._seed, self.network_id)
 
     def save_seed(self, file_path: str, encrypt: bool | None = False) -> None:
-        """[Save the wallet seed to a file (deprecated).
-
-        This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.
-
-        Args:
-            file_path (str): The path to the file where the seed will be saved.
-            encrypt (Optional[bool]): Whether to encrypt the seed before saving. Defaults to False.
-
-        Raises:
-            ValueError: If the wallet does not have a seed loaded.
-
-        """
+        """(Deprecated) Save the wallet seed to a file."""
         import warnings
 
         warnings.warn(
@@ -590,16 +406,7 @@ class Wallet:
         self.save_seed_to_file(file_path, encrypt)
 
     def save_seed_to_file(self, file_path: str, encrypt: bool | None = False) -> None:
-        """Save the wallet seed to a file.
-
-        Args:
-            file_path (str): The path to the file where the seed will be saved.
-            encrypt (Optional[bool]): Whether to encrypt the seed before saving. Defaults to False.
-
-        Raises:
-            ValueError: If the wallet does not have a seed loaded.
-
-        """
+        """Save the wallet seed to a file."""
         if self._master is None or self._seed is None:
             raise ValueError("Wallet does not have seed loaded")
 
@@ -632,17 +439,7 @@ class Wallet:
             json.dump(existing_seeds, f, indent=4)
 
     def load_seed(self, file_path: str) -> None:
-        """Load the wallet seed from a file (deprecated).
-
-        This method is deprecated, and will be removed in a future version. Use load_seed_from_file() instead.
-
-        Args:
-            file_path (str): The path to the file containing the seed data.
-
-        Raises:
-            ValueError: If the file does not contain seed data for this wallet or if decryption fails.
-
-        """
+        """(Deprecated) Load the wallet seed from a file."""
         import warnings
 
         warnings.warn(
@@ -653,15 +450,7 @@ class Wallet:
         self.load_seed_from_file(file_path)
 
     def load_seed_from_file(self, file_path: str) -> None:
-        """Load the wallet seed from a file.
-
-        Args:
-            file_path (str): The path to the file containing the seed data.
-
-        Raises:
-            ValueError: If the file does not contain seed data for this wallet or if decryption fails.
-
-        """
+        """Load the wallet seed from a file."""
         existing_seeds = self._existing_seeds(file_path)
 
         if self.id not in existing_seeds:
@@ -685,19 +474,18 @@ class Wallet:
         self._seed = seed
         self._master = self._set_master_node()
 
+    # --- Business Change: Updated _encryption_key to support Ed25519 keys ---
     def _encryption_key(self) -> bytes:
         """Generate an encryption key based on the private key.
-
+        
         For ECDSA keys (PEM encoded), an ECDH exchange is performed.
         For Ed25519 keys (base64 encoded), the raw private key bytes are hashed.
-
+        
         Returns:
             bytes: The generated encryption key.
-
         """
-        import base64
-
-        from cryptography.hazmat.primitives.asymmetric import ed25519
+        import base64, hashlib
+        from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 
         # Attempt to load as a PEM-encoded key (for ECDSA)
         try:
@@ -730,17 +518,10 @@ class Wallet:
             return hashlib.sha256(raw_bytes).digest()
         else:
             raise ValueError("Unsupported key type for encryption key derivation")
+    # --- End of Business Change ---
 
     def _existing_seeds(self, file_path: str) -> dict[str, Any]:
-        """Load existing seeds from a file.
-
-        Args:
-            file_path (str): The path to the file containing seed data.
-
-        Returns:
-            Dict[str, Any]: A dictionary of existing seeds.
-
-        """
+        """Load existing seeds from a file."""
         seeds_in_file = {}
 
         if os.path.exists(file_path):
@@ -750,12 +531,7 @@ class Wallet:
         return seeds_in_file
 
     def _set_addresses(self) -> None:
-        """Set the addresses of the wallet by fetching them from the API.
-
-        Returns:
-            None
-
-        """
+        """Set the addresses of the wallet by fetching them from the API."""
         addresses = Cdp.api_clients.addresses.list_addresses(self.id, limit=self.MAX_ADDRESSES)
 
         self._addresses = [
@@ -763,19 +539,7 @@ class Wallet:
         ]
 
     def _build_wallet_address(self, model: AddressModel, index: int | None = None) -> WalletAddress:
-        """Build a wallet address object.
-
-        Args:
-            model (AddressModel): The address model.
-            index (Optional[int]): The index of the address. Defaults to None.
-
-        Returns:
-            WalletAddress: The created address object.
-
-        Raises:
-            ValueError: If the derived key does not match the wallet.
-
-        """
+        """Build a wallet address object."""
         if not self.can_sign:
             return WalletAddress(model)
 
@@ -788,27 +552,14 @@ class Wallet:
         return WalletAddress(model, account)
 
     def _address(self, address_id: str) -> WalletAddress | None:
-        """Get an address by its ID.
-
-        Args:
-            address_id (str): The ID of the address to retrieve.
-
-        Returns:
-            Optional[WalletAddress]: The retrieved address object, or None if not found.
-
-        """
+        """Get an address by its ID."""
         return next(
             (address for address in self.addresses if address.address_id == address_id),
             None,
         )
 
     def _set_master_node(self) -> Bip32Slip10Secp256k1 | None:
-        """Set the master node for the wallet.
-
-        Returns:
-            Optional[Bip32Slip10Secp256k1]: The master node, or None if no seed is available.
-
-        """
+        """Set the master node for the wallet."""
         if self._seed is None:
             seed = os.urandom(64)
             self._seed = seed.hex()
@@ -823,133 +574,47 @@ class Wallet:
         return Bip32Slip10Secp256k1.FromSeed(seed)
 
     def _validate_seed(self, seed: bytes) -> None:
-        """Validate the seed.
-
-        Args:
-            seed (bytes): The seed to validate.
-
-        Raises:
-            ValueError: If the seed length is invalid.
-
-        """
+        """Validate the seed."""
         if len(seed) != 32 and len(seed) != 64:
             raise ValueError("Seed must be 32 or 64 bytes")
 
     def _derive_key(self, index: int) -> Bip32Slip10Secp256k1:
-        """Derive a key from the master node.
-
-        Args:
-            index (int): The index to use for key derivation.
-
-        Returns:
-            Bip32Slip10Secp256k1: The derived key.
-
-        """
+        """Derive a key from the master node."""
         return self._master.DerivePath("m/44'/60'/0'/0" + f"/{index}")
 
     def _create_attestation(self, key: Bip32Slip10Secp256k1, public_key_hex: str) -> str:
-        """Create an attestation for the given private key in the format expected.
-
-        Args:
-            key (Bip32Slip10Secp256k1): The private key.
-            public_key_hex (str): The public key in hexadecimal format.
-
-        Returns:
-            str: The hexadecimal representation of the attestation.
-
-        """
-        payload = json.dumps(
-            {"wallet_id": self.id, "public_key": public_key_hex}, separators=(",", ":")
-        )
-
-        signature = coincurve.PrivateKey(key.PrivateKey().Raw().ToBytes()).sign_recoverable(
-            payload.encode()
-        )
-
+        """Create an attestation for the given private key."""
+        payload = json.dumps({"wallet_id": self.id, "public_key": public_key_hex}, separators=(",", ":"))
+        signature = coincurve.PrivateKey(key.PrivateKey().Raw().ToBytes()).sign_recoverable(payload.encode())
         r = signature[:32]
         s = signature[32:64]
         v = signature[64] + 27 + 4
-
         attestation = bytes([v]) + r + s
-
         return attestation.hex()
 
     def __str__(self) -> str:
-        """Return a string representation of the Wallet object.
-
-        Returns:
-            str: A string representation of the Wallet.
-
-        """
+        """Return a string representation of the Wallet object."""
         return f"Wallet: (id: {self.id}, network_id: {self.network_id}, server_signer_status: {self.server_signer_status})"
 
     def __repr__(self) -> str:
-        """Return a string representation of the Wallet object.
-
-        Returns:
-            str: A string representation of the Wallet.
-
-        """
+        """Return a string representation of the Wallet object."""
         return str(self)
 
     def deploy_token(
         self, name: str, symbol: str, total_supply: Number | Decimal | str
     ) -> SmartContract:
-        """Deploy a token smart contract.
-
-        Args:
-            name (str): The name of the token.
-            symbol (str): The symbol of the token.
-            total_supply (Union[Number, Decimal, str]): The total supply of the token.
-
-        Returns:
-            SmartContract: The deployed smart contract.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
         if self.default_address is None:
             raise ValueError("Default address does not exist")
-
         return self.default_address.deploy_token(name, symbol, str(total_supply))
 
     def deploy_nft(self, name: str, symbol: str, base_uri: str) -> SmartContract:
-        """Deploy an NFT smart contract.
-
-        Args:
-            name (str): The name of the NFT.
-            symbol (str): The symbol of the NFT.
-            base_uri (str): The base URI for the NFT.
-
-        Returns:
-            SmartContract: The deployed smart contract.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
         if self.default_address is None:
             raise ValueError("Default address does not exist")
-
         return self.default_address.deploy_nft(name, symbol, base_uri)
 
     def deploy_multi_token(self, uri: str) -> SmartContract:
-        """Deploy a multi-token smart contract.
-
-        Args:
-            uri (str): The URI for the multi-token contract.
-
-        Returns:
-            SmartContract: The deployed smart contract.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
         if self.default_address is None:
             raise ValueError("Default address does not exist")
-
         return self.default_address.deploy_multi_token(uri)
 
     def deploy_contract(
@@ -959,62 +624,16 @@ class Wallet:
         contract_name: str,
         constructor_args: dict,
     ) -> SmartContract:
-        """Deploy a custom contract.
-
-        Args:
-            solidity_version (str): The version of the solidity compiler, must be 0.8.+, such as "0.8.28+commit.7893614a". See https://binaries.soliditylang.org/bin/list.json
-            solidity_input_json (str): The input json for the solidity compiler. See https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description for more details.
-            contract_name (str): The name of the contract class to be deployed.
-            constructor_args (dict): The arguments for the constructor.
-
-        Returns:
-            SmartContract: The deployed smart contract.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
         if self.default_address is None:
             raise ValueError("Default address does not exist")
-
-        return self.default_address.deploy_contract(
-            solidity_version, solidity_input_json, contract_name, constructor_args
-        )
+        return self.default_address.deploy_contract(solidity_version, solidity_input_json, contract_name, constructor_args)
 
     def fund(self, amount: Number | Decimal | str, asset_id: str) -> FundOperation:
-        """Fund the wallet from your account on the Coinbase Platform.
-
-        Args:
-            amount (Union[Number, Decimal, str]): The amount of the Asset to fund the wallet with.
-            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
-
-        Returns:
-            FundOperation: The created fund operation object.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
         if self.default_address is None:
             raise ValueError("Default address does not exist")
-
         return self.default_address.fund(amount, asset_id)
 
     def quote_fund(self, amount: Number | Decimal | str, asset_id: str) -> FundQuote:
-        """Get a quote for funding the wallet from your Coinbase platform account.
-
-        Args:
-            amount (Union[Number, Decimal, str]): The amount to fund.
-            asset_id (str): The ID of the Asset to fund with. For Ether, 'eth', 'gwei', and 'wei' are supported.
-
-        Returns:
-            FundQuote: The fund quote object.
-
-        Raises:
-            ValueError: If the default address does not exist.
-
-        """
         if self.default_address is None:
             raise ValueError("Default address does not exist")
-
         return self.default_address.quote_fund(amount, asset_id)
