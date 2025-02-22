@@ -8,6 +8,7 @@ from cdp.client.api.external_addresses_api import ExternalAddressesApi
 from cdp.client.api.fund_api import FundApi
 from cdp.client.api.networks_api import NetworksApi
 from cdp.client.api.smart_contracts_api import SmartContractsApi
+from cdp.client.api.smart_wallets_api import SmartWalletsApi
 from cdp.client.api.trades_api import TradesApi
 from cdp.client.api.transaction_history_api import TransactionHistoryApi
 from cdp.client.api.transfers_api import TransfersApi
@@ -24,6 +25,7 @@ class ApiClients:
     Attributes:
         _cdp_client (CdpApiClient): The CDP API client used to initialize individual API clients.
         _wallets (Optional[WalletsApi]): The WalletsApi client instance.
+        _smart_wallets (Optional[SmartWalletsApi]): The SmartWalletsApi client instance.
         _webhooks (Optional[WebhooksApi]): The WebhooksApi client instance.
         _addresses (Optional[AddressesApi]): The AddressesApi client instance.
         _external_addresses (Optional[ExternalAddressesApi]): The ExternalAddressesApi client instance.
@@ -44,6 +46,7 @@ class ApiClients:
         """
         self._cdp_client: CdpApiClient = cdp_client
         self._wallets: WalletsApi | None = None
+        self._smart_wallets: SmartWalletsApi | None = None
         self._webhooks: WebhooksApi | None = None
         self._addresses: AddressesApi | None = None
         self._external_addresses: ExternalAddressesApi | None = None
@@ -72,6 +75,21 @@ class ApiClients:
         if self._wallets is None:
             self._wallets = WalletsApi(api_client=self._cdp_client)
         return self._wallets
+
+    @property
+    def smart_wallets(self) -> SmartWalletsApi:
+        """Get the SmartWalletsApi client instance.
+
+        Returns:
+            SmartWalletsApi: The SmartWalletsApi client instance.
+
+        Note:
+            This property lazily initializes the SmartWalletsApi client on first access.
+
+        """
+        if self._smart_wallets is None:
+            self._smart_wallets = SmartWalletsApi(api_client=self._cdp_client)
+        return self._smart_wallets
 
     @property
     def webhooks(self) -> WebhooksApi:
