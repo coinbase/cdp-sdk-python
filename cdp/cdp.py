@@ -35,10 +35,6 @@ class Cdp:
     def __new__(cls):
         """Create or return the singleton instance of the Cdp class.
 
-        This method overrides the default `__new__` behavior to implement the Singleton pattern.
-        It ensures that only one instance of the Cdp class exists throughout the application's lifecycle.
-        If an instance already exists, it returns the existing instance; otherwise, it creates a new one.
-
         Returns:
             Cdp: The singleton instance of the Cdp class.
 
@@ -68,7 +64,7 @@ class Cdp:
             debugging (bool): Whether debugging is enabled. Defaults to False.
             base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
-            source (Optional[str]): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            source (Optional[str]): Specifies whether the SDK is being used directly or if it's an Agentkit extension.
             source_version (Optional[str]): The version of the source package.
 
         """
@@ -109,21 +105,24 @@ class Cdp:
             debugging (bool): Whether debugging is enabled. Defaults to False.
             base_path (str): The base URL for the CDP API. Defaults to "https://api.cdp.coinbase.com/platform".
             max_network_retries (int): The maximum number of network retries. Defaults to 3.
-            source (Optional[str]): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            source (Optional[str]): Specifies whether the SDK is being used directly or if it's an Agentkit extension.
             source_version (Optional[str]): The version of the source package.
 
         Raises:
-            InvalidConfigurationError: If the JSON file is missing the 'api_key_name' or 'private_key'.
+            InvalidConfigurationError: If the JSON file is missing the API key identifier or the private key.
 
         """
         with open(os.path.expanduser(file_path)) as file:
             data = json.load(file)
-            api_key_name = data.get("name")
+            # Accept either "name" or "id" for the API key identifier.
+            api_key_name = data.get("name") or data.get("id")
             private_key = data.get("privateKey")
             if not api_key_name:
-                raise InvalidConfigurationError("Invalid JSON format: Missing 'api_key_name'")
+                raise InvalidConfigurationError(
+                    "Invalid JSON format: Missing API key identifier ('name' or 'id')"
+                )
             if not private_key:
-                raise InvalidConfigurationError("Invalid JSON format: Missing 'private_key'")
+                raise InvalidConfigurationError("Invalid JSON format: Missing 'privateKey'")
             cls.configure(
                 api_key_name,
                 private_key,

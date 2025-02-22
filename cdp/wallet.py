@@ -688,17 +688,48 @@ class Wallet:
     def _encryption_key(self) -> bytes:
         """Generate an encryption key based on the private key.
 
+        For ECDSA keys (PEM encoded), an ECDH exchange is performed.
+        For Ed25519 keys (base64 encoded), the raw private key bytes are hashed.
+
         Returns:
             bytes: The generated encryption key.
 
         """
-        private_key = serialization.load_pem_private_key(Cdp.private_key.encode(), password=None)
+        import base64
 
-        public_key = private_key.public_key()
+        from cryptography.hazmat.primitives.asymmetric import ed25519
 
-        shared_secret = private_key.exchange(ec.ECDH(), public_key)
+        # Attempt to load as a PEM-encoded key (for ECDSA)
+        try:
+            key_obj = serialization.load_pem_private_key(Cdp.private_key.encode(), password=None)
+        except Exception:
+            # If PEM loading fails, assume the key is provided as a base64-encoded Ed25519 key.
+            try:
+                decoded = base64.b64decode(Cdp.private_key)
+                if len(decoded) == 32:
+                    key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded)
+                elif len(decoded) == 64:
+                    key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded[:32])
+                else:
+                    raise ValueError("Invalid Ed25519 key length")
+            except Exception as e2:
+                raise ValueError("Could not parse the private key") from e2
 
-        return hashlib.sha256(shared_secret).digest()
+        # For ECDSA keys, perform an ECDH exchange with its own public key.
+        if isinstance(key_obj, ec.EllipticCurvePrivateKey):
+            public_key = key_obj.public_key()
+            shared_secret = key_obj.exchange(ec.ECDH(), public_key)
+            return hashlib.sha256(shared_secret).digest()
+        # For Ed25519 keys, derive the encryption key by hashing the raw private key bytes.
+        elif isinstance(key_obj, ed25519.Ed25519PrivateKey):
+            raw_bytes = key_obj.private_bytes(
+                encoding=serialization.Encoding.Raw,
+                format=serialization.PrivateFormat.Raw,
+                encryption_algorithm=serialization.NoEncryption(),
+            )
+            return hashlib.sha256(raw_bytes).digest()
+        else:
+            raise ValueError("Unsupported key type for encryption key derivation")
 
     def _existing_seeds(self, file_path: str) -> dict[str, Any]:
         """Load existing seeds from a file.

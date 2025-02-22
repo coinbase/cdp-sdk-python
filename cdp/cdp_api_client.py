@@ -1,10 +1,11 @@
+import base64
 import random
 import time
 from urllib.parse import urlparse
 
 import jwt
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from urllib3.util import Retry
 
 from cdp import __version__
@@ -36,10 +37,16 @@ class CdpApiClient(ApiClient):
         Args:
             api_key (str): The API key for authentication.
             private_key (str): The private key for authentication.
-            host (str, optional): The base URL for the API. Defaults to "https://api.cdp.coinbase.com/platform".
+                For ECDSA keys, this should be a PEM-encoded string.
+                For Ed25519 keys, this should be a base64-encoded string representing
+                either the raw 32-byte seed or a 64-byte key (private+public), in which
+                case only the first 32 bytes are used.
+            host (str, optional): The base URL for the API.
+                Defaults to "https://api.cdp.coinbase.com/platform".
             debugging (bool): Whether debugging is enabled.
-            max_network_retries (int): The maximum number of network retries. Defaults to 3.
-            source (str): Specifies whether the sdk is being used directly or if it's an Agentkit extension.
+            max_network_retries (int): The maximum number of network retries.
+                Defaults to 3.
+            source (str): Specifies whether the SDK is being used directly or if it's an Agentkit extension.
             source_version (str): The version of the source package.
 
         """
@@ -73,7 +80,7 @@ class CdpApiClient(ApiClient):
         return self._private_key
 
     @property
-    def debugging(self) -> str:
+    def debugging(self) -> bool:
         """Whether debugging is enabled.
 
         Returns:
@@ -96,18 +103,16 @@ class CdpApiClient(ApiClient):
         Args:
             method: Method to call.
             url: Path to method endpoint.
-            header_params: Header parameters to be
-            placed in the request header.
+            header_params: Header parameters to be placed in the request header.
             body: Request body.
-            post_params (dict): Request post form parameters,
-                for `application/x-www-form-urlencoded`, `multipart/form-data`.
-            _request_timeout: timeout setting for this request.
+            post_params (dict): Request post form parameters.
+            _request_timeout: Timeout setting for this request.
 
         Returns:
             RESTResponse
 
         """
-        if self.debugging is True:
+        if self.debugging:
             print(f"CDP API REQUEST: {method} {url}")
 
         if header_params is None:
@@ -132,7 +137,7 @@ class CdpApiClient(ApiClient):
             ApiResponse[ApiResponseT]
 
         """
-        if self.debugging is True:
+        if self.debugging:
             print(f"CDP API RESPONSE: Status: {response_data.status}, Data: {response_data.data}")
 
         try:
@@ -141,23 +146,16 @@ class CdpApiClient(ApiClient):
             raise ApiError.from_error(e) from None
 
     def _apply_headers(self, url: str, method: str, header_params: dict[str, str]) -> None:
-        """Apply authentication to the configuration.
+        """Apply authentication headers.
 
         Args:
             url (str): The URL to authenticate.
             method (str): The HTTP method to use.
             header_params (dict[str, str]): The header parameters.
 
-        Returns:
-            None
-
         """
         token = self._build_jwt(url, method)
-
-        # Add the JWT token to the headers
         header_params["Authorization"] = f"Bearer {token}"
-
-        # Add additional custom headers
         header_params["Content-Type"] = "application/json"
         header_params["Correlation-Context"] = self._get_correlation_data()
 
@@ -169,20 +167,41 @@ class CdpApiClient(ApiClient):
             method (str): The HTTP method to use.
 
         Returns:
-            str: The JWT for the given API endpoint URL.
+            str: The JWT.
 
         """
+        private_key_obj = None
+        key_data = self.private_key.encode()
+        # First, try to load as a PEM-encoded key (typically for ECDSA keys).
         try:
-            private_key = serialization.load_pem_private_key(
-                self.private_key.encode(), password=None
-            )
-            if not isinstance(private_key, ec.EllipticCurvePrivateKey):
-                raise InvalidAPIKeyFormatError("Invalid key type")
-        except Exception as e:
-            raise InvalidAPIKeyFormatError("Could not parse the private key") from e
+            private_key_obj = serialization.load_pem_private_key(key_data, password=None)
+        except Exception:
+            # If PEM loading fails, assume the key is provided as base64-encoded raw bytes.
+            try:
+                decoded_key = base64.b64decode(self.private_key)
+                # For Ed25519 keys, the raw private key should be 32 bytes.
+                # Sometimes a 64-byte key is provided (concatenated private and public parts).
+                if len(decoded_key) == 32:
+                    private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key)
+                elif len(decoded_key) == 64:
+                    private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key[:32])
+                else:
+                    raise InvalidAPIKeyFormatError(
+                        "Ed25519 private key must be 32 or 64 bytes after base64 decoding"
+                    )
+            except Exception as e2:
+                raise InvalidAPIKeyFormatError("Could not parse the private key") from e2
+
+        # Determine signing algorithm based on the key type.
+        if isinstance(private_key_obj, ec.EllipticCurvePrivateKey):
+            alg = "ES256"
+        elif isinstance(private_key_obj, ed25519.Ed25519PrivateKey):
+            alg = "EdDSA"
+        else:
+            raise InvalidAPIKeyFormatError("Unsupported key type")
 
         header = {
-            "alg": "ES256",
+            "alg": alg,
             "kid": self.api_key,
             "typ": "JWT",
             "nonce": self._nonce(),
@@ -195,18 +214,18 @@ class CdpApiClient(ApiClient):
             "iss": "cdp",
             "aud": ["cdp_service"],
             "nbf": int(time.time()),
-            "exp": int(time.time()) + 60,  # +1 minute
+            "exp": int(time.time()) + 60,  # Token valid for 1 minute
             "uris": [uri],
         }
 
         try:
-            return jwt.encode(claims, private_key, algorithm="ES256", headers=header)
+            return jwt.encode(claims, private_key_obj, algorithm=alg, headers=header)
         except Exception as e:
             print(f"Error during JWT signing: {e!s}")
             raise InvalidAPIKeyFormatError("Could not sign the JWT") from e
 
     def _nonce(self) -> str:
-        """Generate a random nonce for the JWT.
+        """Generate a random nonce.
 
         Returns:
             str: The nonce.
@@ -215,7 +234,7 @@ class CdpApiClient(ApiClient):
         return "".join(random.choices("0123456789", k=16))
 
     def _get_correlation_data(self) -> str:
-        """Return encoded correlation data including the SDK version, language, and source.
+        """Return correlation data including SDK version, language, and source.
 
         Returns:
             str: The correlation data.
@@ -230,7 +249,7 @@ class CdpApiClient(ApiClient):
         return ",".join(f"{key}={value}" for key, value in data.items())
 
     def _get_retry_strategy(self, max_network_retries: int) -> Retry:
-        """Return the retry strategy for the CDP API Client.
+        """Return the retry strategy.
 
         Args:
             max_network_retries (int): The maximum number of network retries.
@@ -240,8 +259,8 @@ class CdpApiClient(ApiClient):
 
         """
         return Retry(
-            total=max_network_retries,  # Number of total retries
-            status_forcelist=[500, 502, 503, 504],  # Retry on HTTP status code 500
-            allowed_methods=["GET"],  # Retry only on GET requests
-            backoff_factor=1,  # Exponential backoff factor
+            total=max_network_retries,
+            status_forcelist=[500, 502, 503, 504],
+            allowed_methods=["GET"],
+            backoff_factor=1,
         )
