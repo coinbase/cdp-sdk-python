@@ -118,7 +118,7 @@ class Cdp:
         """
         with open(os.path.expanduser(file_path)) as file:
             data = json.load(file)
-            api_key_name = data.get("name")
+            api_key_name = data.get("name") or data.get("id")
             private_key = data.get("privateKey")
             if not api_key_name:
                 raise InvalidConfigurationError("Invalid JSON format: Missing 'api_key_name'")

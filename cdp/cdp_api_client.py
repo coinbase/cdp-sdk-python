@@ -1,10 +1,11 @@
+import base64
 import random
 import time
 from urllib.parse import urlparse
 
 import jwt
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from urllib3.util import Retry
 
 from cdp import __version__
@@ -172,17 +173,37 @@ class CdpApiClient(ApiClient):
             str: The JWT for the given API endpoint URL.
 
         """
+        private_key_obj = None
+        key_data = self.private_key.encode()
+        # Business change: Support both ECDSA and Ed25519 keys.
         try:
-            private_key = serialization.load_pem_private_key(
-                self.private_key.encode(), password=None
-            )
-            if not isinstance(private_key, ec.EllipticCurvePrivateKey):
-                raise InvalidAPIKeyFormatError("Invalid key type")
-        except Exception as e:
-            raise InvalidAPIKeyFormatError("Could not parse the private key") from e
+            # Try loading as a PEM-encoded key (typically for ECDSA keys).
+            private_key_obj = serialization.load_pem_private_key(key_data, password=None)
+        except Exception:
+            # If PEM loading fails, assume the key is provided as base64-encoded raw bytes (Ed25519).
+            try:
+                decoded_key = base64.b64decode(self.private_key)
+                if len(decoded_key) == 32:
+                    private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key)
+                elif len(decoded_key) == 64:
+                    private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key[:32])
+                else:
+                    raise InvalidAPIKeyFormatError(
+                        "Ed25519 private key must be 32 or 64 bytes after base64 decoding"
+                    )
+            except Exception as e2:
+                raise InvalidAPIKeyFormatError("Could not parse the private key") from e2
+
+        # Determine signing algorithm based on the key type.
+        if isinstance(private_key_obj, ec.EllipticCurvePrivateKey):
+            alg = "ES256"
+        elif isinstance(private_key_obj, ed25519.Ed25519PrivateKey):
+            alg = "EdDSA"
+        else:
+            raise InvalidAPIKeyFormatError("Unsupported key type")
 
         header = {
-            "alg": "ES256",
+            "alg": alg,
             "kid": self.api_key,
             "typ": "JWT",
             "nonce": self._nonce(),
@@ -195,12 +216,12 @@ class CdpApiClient(ApiClient):
             "iss": "cdp",
             "aud": ["cdp_service"],
             "nbf": int(time.time()),
-            "exp": int(time.time()) + 60,  # +1 minute
+            "exp": int(time.time()) + 60,  # Token valid for 1 minute
             "uris": [uri],
         }
 
         try:
-            return jwt.encode(claims, private_key, algorithm="ES256", headers=header)
+            return jwt.encode(claims, private_key_obj, algorithm=alg, headers=header)
         except Exception as e:
             print(f"Error during JWT signing: {e!s}")
             raise InvalidAPIKeyFormatError("Could not sign the JWT") from e
