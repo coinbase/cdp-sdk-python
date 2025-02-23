@@ -249,6 +249,14 @@ fetched_wallet = Wallet.fetch(wallet.id)
 fetched_wallet.load_seed(file_path)
 ```
 
+An easier way to import data if you have the exported data as a dictionary object:
+```python
+from cdp import WalletData, Wallet
+fetched_wallet = WalletData.from_dict(wallet_data)
+wallet = Wallet.import_data(fetched_data)
+```
+
+
 ### Creating a Webhook
 
 A webhook is a way to provide other applications with real-time information from the blockchain. When an event occurs on a blockchain address, it can send a POST request to a URL you specify. You can create a webhook to receive notifications about events that occur in your wallet or crypto address, such as when a user makes a transfer.
