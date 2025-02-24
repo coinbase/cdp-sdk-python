@@ -1,14 +1,13 @@
-import base64
 import random
 import time
 from urllib.parse import urlparse
 
 import jwt
-from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from urllib3.util import Retry
 
 from cdp import __version__
+from cdp.api_key_helpers import _parse_private_key
 from cdp.client import rest
 from cdp.client.api_client import ApiClient
 from cdp.client.api_response import ApiResponse
@@ -163,36 +162,9 @@ class CdpApiClient(ApiClient):
         header_params["Correlation-Context"] = self._get_correlation_data()
 
     def _build_jwt(self, url: str, method: str = "GET") -> str:
-        """Build the JWT for the given API endpoint URL.
-
-        Args:
-            url (str): The URL to authenticate.
-            method (str): The HTTP method to use.
-
-        Returns:
-            str: The JWT for the given API endpoint URL.
-
-        """
-        private_key_obj = None
-        key_data = self.private_key.encode()
-        # Business change: Support both ECDSA and Ed25519 keys.
-        try:
-            # Try loading as a PEM-encoded key (typically for ECDSA keys).
-            private_key_obj = serialization.load_pem_private_key(key_data, password=None)
-        except Exception:
-            # If PEM loading fails, assume the key is provided as base64-encoded raw bytes (Ed25519).
-            try:
-                decoded_key = base64.b64decode(self.private_key)
-                if len(decoded_key) == 32:
-                    private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key)
-                elif len(decoded_key) == 64:
-                    private_key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded_key[:32])
-                else:
-                    raise InvalidAPIKeyFormatError(
-                        "Ed25519 private key must be 32 or 64 bytes after base64 decoding"
-                    )
-            except Exception as e2:
-                raise InvalidAPIKeyFormatError("Could not parse the private key") from e2
+        """Build the JWT for the given API endpoint URL."""
+        # Parse the private key using our helper function.
+        private_key_obj = _parse_private_key(self.private_key)
 
         # Determine signing algorithm based on the key type.
         if isinstance(private_key_obj, ec.EllipticCurvePrivateKey):

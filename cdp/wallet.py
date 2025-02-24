@@ -1,4 +1,3 @@
-import base64
 import builtins
 import hashlib
 import json
@@ -17,6 +16,7 @@ from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from eth_account import Account
 
 from cdp.address import Address
+from cdp.api_key_helpers import _parse_private_key
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
@@ -687,33 +687,14 @@ class Wallet:
         self._master = self._set_master_node()
 
     def _encryption_key(self) -> bytes:
-        """Generate an encryption key based on the private key.
+        """Generate an encryption key based on the private key."""
+        # Use Cdp.private_key instead of self.private_key
+        key_obj = _parse_private_key(Cdp.private_key)
 
-        Returns:
-            bytes: The generated encryption key.
-
-        """
-        try:
-            key_obj = serialization.load_pem_private_key(Cdp.private_key.encode(), password=None)
-        except Exception:
-            # If PEM loading fails, assume the key is provided as a base64-encoded Ed25519 key.
-            try:
-                decoded = base64.b64decode(Cdp.private_key)
-                if len(decoded) == 32:
-                    key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded)
-                elif len(decoded) == 64:
-                    key_obj = ed25519.Ed25519PrivateKey.from_private_bytes(decoded[:32])
-                else:
-                    raise ValueError("Invalid Ed25519 key length")
-            except Exception as e2:
-                raise ValueError("Could not parse the private key") from e2
-
-        # For ECDSA keys, perform an ECDH exchange with its own public key.
         if isinstance(key_obj, ec.EllipticCurvePrivateKey):
             public_key = key_obj.public_key()
             shared_secret = key_obj.exchange(ec.ECDH(), public_key)
             return hashlib.sha256(shared_secret).digest()
-        # For Ed25519 keys, derive the encryption key by hashing the raw private key bytes.
         elif isinstance(key_obj, ed25519.Ed25519PrivateKey):
             raw_bytes = key_obj.private_bytes(
                 encoding=serialization.Encoding.Raw,
