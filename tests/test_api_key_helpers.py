@@ -1,9 +1,8 @@
 import base64
+
 from cryptography.hazmat.primitives.asymmetric import ec, ed25519
-from cryptography.hazmat.primitives import serialization
 
 from cdp.api_key_helpers import _parse_private_key
-
 
 DUMMY_ECDSA_PEM = "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIMM75bm9WZCYPkfjXSUWNU5eHx47fWM2IpG8ki90BhRDoAoGCCqGSM49\nAwEHoUQDQgAEicwlaAqy7Z4SS7lvrEYoy6qR9Kf0n0jFzg+XExcXKU1JMr18z47W\n5mrftEqWIqPCLQ16ByoKW2Bsup5V3q9P4g==\n-----END EC PRIVATE KEY-----\n"
 DUMMY_ED25519_BASE64 = "BXyKC+eFINc/6ztE/3neSaPGgeiU9aDRpaDnAbaA/vyTrUNgtuh/1oX6Vp+OEObV3SLWF+OkF2EQNPtpl0pbfA=="
@@ -36,4 +35,4 @@ def test_parse_private_key_invalid():
     except ValueError as e:
         assert "Could not parse the private key" in str(e)
     else:
-        assert False, "Expected ValueError was not raised"
+        raise AssertionError("Expected ValueError was not raised")
