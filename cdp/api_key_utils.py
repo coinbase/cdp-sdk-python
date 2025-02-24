@@ -7,20 +7,16 @@ from cryptography.hazmat.primitives.asymmetric import ed25519
 def _parse_private_key(key_str: str):
     """Parse a private key from a given string representation.
 
-    Parameters
-    ----------
-    key_str : str
-        A string representing the private key. This should be either a PEM-encoded
-        key (for ECDSA keys) or a base64-encoded string (for Ed25519 keys).
+    Args:
+        key_str (str): A string representing the private key. It should be either a PEM-encoded
+            key (for ECDSA keys) or a base64-encoded string (for Ed25519 keys).
 
-    Returns
-    -------
-    An instance of a private key
+    Returns:
+        An instance of a private key. Specifically:
 
-    Raises
-    ------
-    ValueError
-        If the key cannot be parsed as a valid PEM-encoded key or a base64-encoded Ed25519 private key.
+    Raises:
+        ValueError: If the key cannot be parsed as a valid PEM-encoded key or a base64-encoded
+            Ed25519 private key.
 
     """
     key_data = key_str.encode()
