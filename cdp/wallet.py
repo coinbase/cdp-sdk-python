@@ -16,7 +16,7 @@ from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from eth_account import Account
 
 from cdp.address import Address
-from cdp.api_key_helpers import _parse_private_key
+from cdp.api_key_utils import _parse_private_key
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
@@ -687,8 +687,15 @@ class Wallet:
         self._master = self._set_master_node()
 
     def _encryption_key(self) -> bytes:
-        """Generate an encryption key based on the private key."""
-        # Use Cdp.private_key instead of self.private_key
+        """Generate an encryption key derived from the configured private key.
+
+        Returns:
+            bytes: A 32-byte encryption key derived via SHA-256 hashing.
+
+        Raises:
+            ValueError: If the private key type is not supported for encryption key derivation.
+
+        """
         key_obj = _parse_private_key(Cdp.private_key)
 
         if isinstance(key_obj, ec.EllipticCurvePrivateKey):

@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from urllib3.util import Retry
 
 from cdp import __version__
-from cdp.api_key_helpers import _parse_private_key
+from cdp.api_key_utils import _parse_private_key
 from cdp.client import rest
 from cdp.client.api_client import ApiClient
 from cdp.client.api_response import ApiResponse
