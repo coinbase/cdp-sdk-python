@@ -36,6 +36,14 @@ cdp.api\_clients module
    :undoc-members:
    :show-inheritance:
 
+cdp.api\_key\_utils module
+--------------------------
+
+.. automodule:: cdp.api_key_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cdp.asset module
 ----------------
 
