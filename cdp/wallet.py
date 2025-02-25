@@ -12,10 +12,11 @@ import coincurve
 from bip_utils import Bip32Slip10Secp256k1, Bip39MnemonicValidator, Bip39SeedGenerator
 from Crypto.Cipher import AES
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.asymmetric import ec, ed25519
 from eth_account import Account
 
 from cdp.address import Address
+from cdp.api_key_utils import _parse_private_key
 from cdp.balance_map import BalanceMap
 from cdp.cdp import Cdp
 from cdp.client.models.address import Address as AddressModel
@@ -686,19 +687,30 @@ class Wallet:
         self._master = self._set_master_node()
 
     def _encryption_key(self) -> bytes:
-        """Generate an encryption key based on the private key.
+        """Generate an encryption key derived from the configured private key.
 
         Returns:
-            bytes: The generated encryption key.
+            bytes: A 32-byte encryption key derived via SHA-256 hashing.
+
+        Raises:
+            ValueError: If the private key type is not supported for encryption key derivation.
 
         """
-        private_key = serialization.load_pem_private_key(Cdp.private_key.encode(), password=None)
+        key_obj = _parse_private_key(Cdp.private_key)
 
-        public_key = private_key.public_key()
-
-        shared_secret = private_key.exchange(ec.ECDH(), public_key)
-
-        return hashlib.sha256(shared_secret).digest()
+        if isinstance(key_obj, ec.EllipticCurvePrivateKey):
+            public_key = key_obj.public_key()
+            shared_secret = key_obj.exchange(ec.ECDH(), public_key)
+            return hashlib.sha256(shared_secret).digest()
+        elif isinstance(key_obj, ed25519.Ed25519PrivateKey):
+            raw_bytes = key_obj.private_bytes(
+                encoding=serialization.Encoding.Raw,
+                format=serialization.PrivateFormat.Raw,
+                encryption_algorithm=serialization.NoEncryption(),
+            )
+            return hashlib.sha256(raw_bytes).digest()
+        else:
+            raise ValueError("Unsupported key type for encryption key derivation")
 
     def _existing_seeds(self, file_path: str) -> dict[str, Any]:
         """Load existing seeds from a file.
