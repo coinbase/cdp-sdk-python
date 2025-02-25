@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cdp-sdk"
-version = "0.19.0"
+version = "0.20.0"
 description = "CDP Python SDK"
 authors = ["John Peterson <john.peterson@coinbase.com>"]
 license = "LICENSE.md"

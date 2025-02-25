@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [0.20.0] - 2025-02-25
+
+### Added
+- Support for Ed25519 API keys.
+
 ## [0.19.0] - 2025-02-21
 
 ### Added
