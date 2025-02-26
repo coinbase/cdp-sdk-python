@@ -1,4 +1,3 @@
-
 import pytest
 
 from cdp import Cdp

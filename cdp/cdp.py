@@ -95,7 +95,6 @@ class Cdp:
             source,
             source_version,
         )
-        # Replace the wrapper with the real api_clients instance
         cls.api_clients = ApiClients(cdp_client)
 
     @classmethod

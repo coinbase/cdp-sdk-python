@@ -10,8 +10,11 @@ from cdp.api_clients import ApiClients
 @pytest.fixture(autouse=True)
 def initialize_cdp():
     """Initialize the CDP SDK with mock API clients before each test."""
+    original_api_clients = Cdp.api_clients
     mock_api_clients = MagicMock(spec=ApiClients)
     Cdp.api_clients = mock_api_clients
+    yield
+    Cdp.api_clients = original_api_clients
 
 
 factory_modules = [
