@@ -9,7 +9,7 @@ def test_uninitialized_error():
     Cdp.api_clients = Cdp.ApiClientsWrapper()
 
     with pytest.raises(UninitializedSDKError) as excinfo:
-        Cdp.api_clients.wallets
+        _ = Cdp.api_clients.wallets
 
     assert "Coinbase SDK has not been initialized" in str(excinfo.value)
     assert "Cdp.configure(api_key_name=" in str(excinfo.value)
