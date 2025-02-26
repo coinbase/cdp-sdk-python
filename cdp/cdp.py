@@ -35,6 +35,7 @@ class Cdp:
         """Wrapper that raises a helpful error when SDK is not initialized."""
 
         def __getattr__(self, _name):
+            """Raise an error when accessing an attribute of the ApiClientsWrapper."""
             raise UninitializedSDKError()
 
     api_clients = ApiClientsWrapper()
