@@ -30,12 +30,13 @@ class Cdp:
     debugging = False
     base_path = "https://api.cdp.coinbase.com/platform"
     max_network_retries = 3
-    
+
     class ApiClientsWrapper:
         """Wrapper that raises a helpful error when SDK is not initialized."""
+
         def __getattr__(self, _name):
             raise UninitializedSDKError()
-    
+
     api_clients = ApiClientsWrapper()
 
     def __new__(cls):
