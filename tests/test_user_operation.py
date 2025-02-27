@@ -29,6 +29,21 @@ def test_user_operation_properties(user_operation_model_factory):
     assert user_operation.transaction_hash == model.transaction_hash
 
 
+def test_user_operation_status_comparison():
+    """Test the comparison of UserOperation statuses."""
+    expected_statuses = {
+        UserOperation.Status.PENDING: "pending",
+        UserOperation.Status.SIGNED: "signed",
+        UserOperation.Status.BROADCAST: "broadcast",
+        UserOperation.Status.COMPLETE: "complete",
+        UserOperation.Status.FAILED: "failed",
+        UserOperation.Status.UNSPECIFIED: "unspecified",
+    }
+
+    for status, _ in expected_statuses.items():
+        assert status == expected_statuses[status]
+
+
 @patch("cdp.Cdp.api_clients")
 def test_create_user_operation(mock_api_clients, user_operation_model_factory):
     """Test the creation of a UserOperation object."""

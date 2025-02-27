@@ -46,6 +46,10 @@ class UserOperation:
                 return self.value == other
             return super().__eq__(other)
 
+        def __hash__(self):
+            """Preserve hashability for dictionary keys."""
+            return hash(self.name)
+
     def __init__(self, model: UserOperationModel, smart_wallet_address: str) -> None:
         """Initialize the UserOperation class.
 
