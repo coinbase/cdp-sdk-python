@@ -10,6 +10,11 @@ from cdp.api_clients import ApiClients
 @pytest.fixture(autouse=True)
 def initialize_cdp():
     """Initialize the CDP SDK with mock API clients before each test."""
+    # Skip this fixture for e2e tests
+    if request.node.get_closest_marker("e2e"):
+        yield
+        return
+
     original_api_clients = Cdp.api_clients
     mock_api_clients = MagicMock(spec=ApiClients)
     Cdp.api_clients = mock_api_clients
