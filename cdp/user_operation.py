@@ -41,6 +41,11 @@ class UserOperation:
             """Return a string representation of the Status."""
             return str(self)
 
+        def __eq__(self, other):
+            if isinstance(other, str):
+                return self.value == other
+            return super().__eq__(other)
+
     def __init__(self, model: UserOperationModel, smart_wallet_address: str) -> None:
         """Initialize the UserOperation class.
 

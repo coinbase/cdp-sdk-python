@@ -12,6 +12,7 @@ def dummy_key_factory():
       - "ed25519-32": Returns a base64-encoded 32-byte Ed25519 private key.
       - "ed25519-64": Returns a base64-encoded 64-byte dummy Ed25519 key (the first 32 bytes will be used).
     """
+
     def _create_dummy(key_type: str = "ecdsa") -> str:
         if key_type == "ecdsa":
             return (
@@ -25,9 +26,10 @@ def dummy_key_factory():
             return "BXyKC+eFINc/6ztE/3neSaPGgeiU9aDRpaDnAbaA/vyTrUNgtuh/1oX6Vp+OEObV3SLWF+OkF2EQNPtpl0pbfA=="
         elif key_type == "ed25519-64":
             # Create a 64-byte dummy by concatenating a 32-byte sequence with itself.
-            dummy_32 = b'\x01' * 32
+            dummy_32 = b"\x01" * 32
             dummy_64 = dummy_32 + dummy_32
             return base64.b64encode(dummy_64).decode("utf-8")
         else:
             raise ValueError("Unsupported key type for dummy key creation")
+
     return _create_dummy
