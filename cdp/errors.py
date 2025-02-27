@@ -4,6 +4,19 @@ from decimal import Decimal
 from cdp.client.exceptions import ApiException
 
 
+class UninitializedSDKError(Exception):
+    """Exception raised when trying to access CDP API clients before SDK initialization."""
+
+    def __init__(self):
+        message = (
+            "Coinbase SDK has not been initialized. Please initialize by calling either:\n\n"
+            + "- Cdp.configure(api_key_name='...', private_key='...')\n"
+            "- Cdp.configure_from_json(file_path='/path/to/api_keys.json')\n\n"
+            "If needed, register for API keys at https://portal.cdp.coinbase.com/ or view the docs at https://docs.cdp.coinbase.com/wallet-api/docs/welcome"
+        )
+        super().__init__(message)
+
+
 class ApiError(Exception):
     """A wrapper for API exceptions to provide more context."""
 

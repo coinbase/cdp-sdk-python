@@ -5,7 +5,7 @@ from cdp import __version__
 from cdp.api_clients import ApiClients
 from cdp.cdp_api_client import CdpApiClient
 from cdp.constants import SDK_DEFAULT_SOURCE
-from cdp.errors import InvalidConfigurationError
+from cdp.errors import InvalidConfigurationError, UninitializedSDKError
 
 
 class Cdp:
@@ -18,7 +18,7 @@ class Cdp:
         debugging (bool): Whether debugging is enabled.
         base_path (str): The base URL for the Platform API.
         max_network_retries (int): The maximum number of network retries.
-        api_clients (Optional[ApiClients]): The Platform API clients instance.
+        api_clients: The Platform API clients instance.
 
     """
 
@@ -30,7 +30,15 @@ class Cdp:
     debugging = False
     base_path = "https://api.cdp.coinbase.com/platform"
     max_network_retries = 3
-    api_clients: ApiClients | None = None
+
+    class ApiClientsWrapper:
+        """Wrapper that raises a helpful error when SDK is not initialized."""
+
+        def __getattr__(self, _name):
+            """Raise an error when accessing an attribute of the ApiClientsWrapper."""
+            raise UninitializedSDKError()
+
+    api_clients = ApiClientsWrapper()
 
     def __new__(cls):
         """Create or return the singleton instance of the Cdp class.
