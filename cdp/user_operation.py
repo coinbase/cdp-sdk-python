@@ -42,6 +42,7 @@ class UserOperation:
             return str(self)
 
         def __eq__(self, other):
+            """Check if the status is equal to another object. Supports string comparison."""
             if isinstance(other, str):
                 return self.value == other
             return super().__eq__(other)
