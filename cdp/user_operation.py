@@ -48,7 +48,7 @@ class UserOperation:
             return super().__eq__(other)
 
         def __hash__(self):
-            """Preserve hashability for dictionary keys."""
+            """Return a hash value for the enum member to allow use as dictionary keys."""
             return hash(self.name)
 
     def __init__(self, model: UserOperationModel, smart_wallet_address: str) -> None:
