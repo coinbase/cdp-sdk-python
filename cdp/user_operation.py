@@ -41,6 +41,16 @@ class UserOperation:
             """Return a string representation of the Status."""
             return str(self)
 
+        def __eq__(self, other):
+            """Check if the status is equal to another object. Supports string comparison."""
+            if isinstance(other, str):
+                return self.value == other
+            return super().__eq__(other)
+
+        def __hash__(self):
+            """Return a hash value for the enum member to allow use as dictionary keys."""
+            return hash(self.name)
+
     def __init__(self, model: UserOperationModel, smart_wallet_address: str) -> None:
         """Initialize the UserOperation class.
 
