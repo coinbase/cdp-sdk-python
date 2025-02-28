@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [0.21.0] - 2025-02-28
+
+### Added
+- Ability to check UserOperation status using a string comparison.
+
 ## [0.20.0] - 2025-02-25
 
 ### Added
