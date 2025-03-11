@@ -122,7 +122,7 @@ print(f"Faucet transaction successfully completed: {faucet_tx}")
 
 ### Transferring Funds
 
-See [Transfers](https://docs.cdp.coinbase.com/wallets/docs/transfers) for more information.
+See [Transfers](https://docs.cdp.coinbase.com/wallet-api/docs/transfers) for more information.
 
 Now that your faucet transaction has successfully completed, you can send the funds in your wallet to another wallet.
 The code below creates another wallet, and uses the `transfer` function to send testnet ETH from the first wallet to
@@ -175,7 +175,7 @@ list(address.transfers())
 
 ### Trading Funds
 
-See [Trades](https://docs.cdp.coinbase.com/wallets/docs/trades) for more information.
+See [Trades](https://docs.cdp.coinbase.com/wallet-api/docs/trades) for more information.
 
 ```python
 wallet = Wallet.create("base-mainnet")
